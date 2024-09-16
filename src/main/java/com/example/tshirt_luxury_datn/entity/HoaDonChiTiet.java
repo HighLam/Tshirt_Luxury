@@ -49,4 +49,8 @@ public class HoaDonChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
+
+
+    private String string;
+
 }
