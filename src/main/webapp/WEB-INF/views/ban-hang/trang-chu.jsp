@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
             <div class="card" style="width: 18rem; border-style:none">
                 <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông DEVOTUS</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
 
                     <div class="text-center" style="font-size:5px">
@@ -38,9 +38,9 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_boxy/HEAVEN/red.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông HEAVEN</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -54,9 +54,9 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_oversize/BUNNY/gray.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông BUNNY</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -70,10 +70,10 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_boxy/NO-END/black.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông NO-END</h5>
+                    <p class="card-text fw-bold text-center" style="font-size: 14px;">489,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
                             <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
@@ -97,9 +97,9 @@
     <div class="row mt-5" style="padding-left:2rem">
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_unisex/1969/black.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông 1969</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -113,9 +113,9 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_unisex/Airplane/while.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -129,10 +129,10 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_unisex/BACISTEE/green.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông BACISTEE</h5>
+                    <p class="card-text fw-bold text-center" style="font-size: 14px;">499,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
                             <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
@@ -145,9 +145,9 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_unisex/SMILE/black.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Card title</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông SMILE</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
