@@ -54,6 +54,38 @@
                     </a>
 
                 </div>
+                <div class="type-tshirt-popup">
+                    <ul>
+                        <li>
+                            <a href="#" class="name-type-tshirt-popup">Áo phông Boxy</a>
+                        </li>
+                        <li>
+                            <a href="#" class="name-type-tshirt-popup">Áo phông cổ chữ V</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="name-type-tshirt-popup ">Áo phông cổ tròn</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="name-type-tshirt-popup ">Áo phông Oversize</a>
+                        </li>
+                        <li>
+
+                            <a href="#" class="name-type-tshirt-popup ">Áo phông Polo</a>
+                        </li>
+                        <li>
+
+                            <a href="#" class="name-type-tshirt-popup">Áo phông Unisex</a>
+                        </li>
+                    </ul>
+                    <ul class="img-type-tshirt-popup">
+                        <img src="../images/ao_phong_unisex/LABUBU/pink.webp" alt="">
+                        <img src="../images/ao_phong_oversize/DREW/brow.webp" alt="">
+                        <img src="../images/ao_phong_polo/LazyCityCycle/black.webp" alt="">
+
+                    </ul>
+                </div>
             </div>
 
             <div class="danh-muc">
@@ -89,9 +121,9 @@
                     </li>
                     <ul class="login-and-signin">
                         <i class="fa-regular fa-user"></i>
-                        <li class="button-login"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
+                        <li class="button-login"><a href="/t-shirt-luxury/login" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
                         </li>
-                        <li class="button-sign-in"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
+                        <li class="button-sign-in"><a href="/t-shirt-luxury/register" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
                         </li>
                     </ul>
                 </ul>
@@ -121,38 +153,7 @@
 
         </div>
 
-        <div class="type-tshirt-popup">
-            <ul>
-                <li>
-                    <a href="#" class="name-type-tshirt-popup">Áo phông Boxy</a>
-                </li>
-                <li>
-                    <a href="#" class="name-type-tshirt-popup">Áo phông cổ chữ V</a>
-                </li>
 
-                <li>
-                    <a href="#" class="name-type-tshirt-popup ">Áo phông cổ tròn</a>
-                </li>
-
-                <li>
-                    <a href="#" class="name-type-tshirt-popup ">Áo phông Oversize</a>
-                </li>
-                <li>
-
-                    <a href="#" class="name-type-tshirt-popup ">Áo phông Polo</a>
-                </li>
-                <li>
-
-                    <a href="#" class="name-type-tshirt-popup">Áo phông Unisex</a>
-                </li>
-            </ul>
-            <ul class="img-type-tshirt-popup">
-                <img src="../images/ao_phong_unisex/LABUBU/pink.webp" alt="">
-                <img src="../images/ao_phong_oversize/DREW/brow.webp" alt="">
-                <img src="../images/ao_phong_polo/LazyCityCycle/black.webp" alt="">
-
-            </ul>
-        </div>
     </div>
 </header>
 <!-- End Header -->

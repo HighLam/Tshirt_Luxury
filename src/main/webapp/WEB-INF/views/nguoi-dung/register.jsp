@@ -21,7 +21,9 @@
 <div class="wrapper-register">
     <div class="register">
         <div class="logo-register">
-            <img src="../images/logo.png" alt="">
+            <a href="/t-shirt-luxury/trang-chu">
+                <img src="../images/logo.png" alt="">
+            </a>
         </div>
         <div class="text-welcome">
             <p>Welcome back!</p>

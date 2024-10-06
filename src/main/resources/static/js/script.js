@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
     $(".danh-muc").mouseenter(function () {
         $(".danh-muc").addClass("bg-white");
-        $(".hover-change-color").addClass("text-black");
+        $(".hover-change-color").css("color", "#000");
         $(".item-danh-muc").css("border-right", "0.5px solid #000");
         $(".button-login").css("border-right", "0.5px solid #000");
         $(".button-login").css("padding-bottom", "0px");
@@ -28,9 +28,9 @@ $(document).ready(function () {
     });
     $(".danh-muc").mouseleave(function () {
         $(".danh-muc").removeClass("bg-white");
-        $(".hover-change-color").removeClass("text-black");
-        $(".item-danh-muc").css("border-right", "0.5px solid #ffff");
-        $(".button-login").css("border-right", "0.5px solid #ffff");
+        $(".hover-change-color").css("color", "#fff");
+        $(".item-danh-muc").css("border-right", "0.5px solid #fff");
+        $(".button-login").css("border-right", "0.5px solid #fff");
 
         $(".login-and-signin").hide();
     });

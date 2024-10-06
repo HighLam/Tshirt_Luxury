@@ -146,7 +146,7 @@
 
 }
 
-#type-tshirt>li {
+#type-tshirt > li {
     padding-bottom: 20px;
 
 }
@@ -168,10 +168,10 @@ ul .login-and-signin {
     width: 100%;
     display: flex;
     flex-direction: row;
-    position: absolute;
+    position: relative;
     top: 0;
     background-color: #fff;
-
+    z-index: 5;
 }
 
 .header-popup ul li {
@@ -258,7 +258,7 @@ ul .login-and-signin {
     height: 300px;
     display: flex;
     position: absolute;
-    top: 190px;
+    top: 90px;
     left: 120px;
 }
 
@@ -290,7 +290,7 @@ ul .login-and-signin {
 }
 
 
-.type-tshirt-popup>.img-type-tshirt-popup {
+.type-tshirt-popup > .img-type-tshirt-popup {
     display: flex;
     flex-direction: row;
 }
@@ -451,7 +451,6 @@ ul .login-and-signin {
 }
 
 
-
 .button-login-by-facebook img {
     max-width: 40px;
     max-height: 40px;
@@ -568,8 +567,6 @@ ul .login-and-signin {
 }
 
 
-
-
 .register-by-facebook-google {
     display: flex;
     justify-content: center;
@@ -595,7 +592,6 @@ ul .login-and-signin {
     color: #000;
     font-family: Poppins;
 }
-
 
 
 .button-register-by-facebook img {

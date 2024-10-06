@@ -22,7 +22,9 @@
 <div class="wrapper-login">
     <div class="login">
         <div class="logo-login">
-            <img src="../images/logo.png" alt="">
+            <a href="/t-shirt-luxury/trang-chu">
+                <img src="../images/logo.png" alt="">
+            </a>
         </div>
         <div class="text-welcome">
             <p>Welcome back!</p>
