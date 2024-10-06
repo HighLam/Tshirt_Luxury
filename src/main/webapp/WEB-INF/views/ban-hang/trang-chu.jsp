@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 <!-- Start Header -->
 <header>
     <div class="wrapper">
@@ -155,8 +156,8 @@
     </div>
 </header>
 <!-- End Header -->
-<div class="container mt-5">
-    <div class="text-center" style="padding-left:2rem">
+<div class="container">
+    <div class="text-center mt-5" style="padding-left:2rem">
         <H1 class="text-center " style="font-size: 30px;">SẢN PHẨM MỚI</H1>
     </div>
 

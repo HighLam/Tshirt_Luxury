@@ -3,6 +3,9 @@
     box-sizing: border-box;
 }
 
+:root {
+    --main-font: 'Poppins';
+}
 
 .wrapper {
     max-width: 100%;
@@ -168,6 +171,7 @@ ul .login-and-signin {
     position: absolute;
     top: 0;
     background-color: #fff;
+
 }
 
 .header-popup ul li {
@@ -294,3 +298,348 @@ ul .login-and-signin {
 .border-bottom-menu-popup {
     border-bottom: 2px solid black;
 }
+
+.display-none {
+    display: none;
+}
+
+.header-popup,
+.type-tshirt-popup {
+    display: none;
+}
+
+
+/* Start Login */
+.wrapper-login {
+    width: 100%;
+    height: 746px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    /* Để điều chỉnh vị trí */
+    left: -10%;
+    /* Đặt vị trí bên ngoài khung nhìn (bên trái) */
+    opacity: 0;
+    /* Ẩn phần tử lúc đầu */
+}
+
+.login {
+    width: 500px;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.logo-login img {
+    filter: brightness(0);
+    width: 80px;
+    height: 80px;
+    padding-left: 10px;
+}
+
+.text-welcome p {
+    color: #333;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin: 0;
+    display: flex;
+    padding-left: 10px;
+}
+
+.text-welcome p:nth-child(2) {
+    color: #666;
+
+    font-family: var(--main-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.login form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    align-items: center;
+}
+
+.login form input {
+    border-radius: 15px;
+    height: 40px;
+    width: 100%;
+
+}
+
+.login form input:nth-child(1) {
+
+    margin-bottom: 20px;
+}
+
+.login form input::placeholder {
+    color: #000;
+    font-family: Poppins;
+    padding-left: 10px;
+}
+
+.login form .button-dang-nhap {
+    border-radius: 8px;
+    height: 50px;
+    width: 150px;
+    font-weight: 500;
+}
+
+.text-or {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-or .line-left {
+    width: 200px;
+    margin: 0;
+    background-color: #666;
+    height: 1.5px;
+    margin-left: 10px;
+}
+
+.text-or .line-right {
+    width: 200px;
+    margin: 0;
+    background-color: #666;
+    height: 1.5px;
+    margin-right: 10px;
+}
+
+.text-or p {
+    font-family: Poppins;
+    margin: 0;
+    font-size: 16px;
+}
+
+.login-by-facebook-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.button-login-by-facebook {
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.button-login-by-facebook {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-family: Poppins;
+}
+
+
+
+.button-login-by-facebook img {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 5px 0;
+
+}
+
+.button-login-by-google {
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.button-login-by-google {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-family: Poppins;
+}
+
+.button-login-by-google img {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 5px 0;
+
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #666;
+    padding-left: 339px;
+    font-weight: 400;
+}
+
+.change-page-register {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.change-page-register a {
+    text-decoration: none;
+    color: #666;
+}
+
+/* End Login */
+
+/* Start Register */
+.wrapper-register {
+    width: 100%;
+    height: 746px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    /* Để điều chỉnh vị trí */
+    left: -10%;
+    /* Đặt vị trí bên ngoài khung nhìn (bên trái) */
+    opacity: 0;
+    /* Ẩn phần tử lúc đầu */
+}
+
+.register {
+    width: 500px;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.logo-register img {
+    filter: brightness(0);
+    width: 80px;
+    height: 80px;
+    padding-left: 10px;
+}
+
+.register form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    align-items: center;
+}
+
+.register form input {
+    border-radius: 15px;
+    height: 40px;
+    width: 100%;
+
+}
+
+.register form input:nth-child(1) {
+
+    margin-bottom: 20px;
+}
+
+.register form input::placeholder {
+    color: #000;
+    font-family: Poppins;
+    padding-left: 10px;
+}
+
+.register form .button-dang-ky {
+    border-radius: 8px;
+    height: 50px;
+    width: 150px;
+    font-weight: 500;
+}
+
+
+
+
+.register-by-facebook-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.button-register-by-facebook {
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.button-register-by-facebook {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-family: Poppins;
+}
+
+
+
+.button-register-by-facebook img {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 5px 0;
+
+}
+
+.button-register-by-google {
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.button-register-by-google {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-family: Poppins;
+}
+
+.button-register-by-google img {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 5px 0;
+
+}
+
+.change-page-login {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.change-page-login a {
+    text-decoration: none;
+    color: #666;
+}
+
+
+/* End Register */
