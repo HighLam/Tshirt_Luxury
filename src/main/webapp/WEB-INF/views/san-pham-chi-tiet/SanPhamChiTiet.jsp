@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>SPCT</h1>
+    <title>Document</title>
+</head>
+
 </body>
 </html>
