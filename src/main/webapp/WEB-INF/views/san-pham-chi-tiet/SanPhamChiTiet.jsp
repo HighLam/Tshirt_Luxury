@@ -8,6 +8,6 @@
     <title>DASHBOARD</title>
 </head>
 <body>
-
+    <h1>SPCT</h1>
 </body>
 </html>
