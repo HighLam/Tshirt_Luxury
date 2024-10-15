@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASH BOARD</title>
+    <title>T-Shirt Luxury | ADMIN</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -22,11 +22,11 @@
                 <nav class="navbar navbar-light bg-light">
                     <div class="container">
                         <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="../images/logo.png" alt="" width="55" height="55"
+                            <img src="LogoDATN.png" alt="" width="55" height="55"
                                  class="d-inline-block rounded-circle align-text-top">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
-                                LUXURY</a>
+                                LUXURY </a>
                         </a>
                     </div>
                 </nav>
@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="../images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,13 +59,17 @@
                 <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action" aria-current="true">
                     <i class="fa-solid fa-house"></i> Trang Chủ
                 </a>
-                <a href="/t-shirt-luxury/admin/so-lieu-thong-ke" class="list-group-item list-group-item-action"> <i
+                <a href="#" class="list-group-item list-group-item-action"> <i
                         class="fa-solid fa-chart-simple"></i> Số Liệu Thống Kê</a>
                 <a href="/t-shirt-luxury/admin/nguoi-dung" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-users-gear"></i>
                     Quản Lý Người Dùng</a>
                 <a href="/t-shirt-luxury/admin/san-pham" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
+                <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
+                        class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
+                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i
+                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -82,7 +86,7 @@
                             Mục</a></li>
                     </ul>
                 </div>
-                <a href="/t-shirt-luxury/admin/vi" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
 
@@ -118,8 +122,8 @@
                         <td>Active</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Chỉnh Sửa"><i
-                                    class="fa-solid fa-pen-to-square"></i></button>
+                                    data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
+                                    title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
                                     data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -173,6 +177,52 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-success">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="sua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Danh Mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc">
+                    <label for="floatingInput">Mã Danh Mục</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc">
+                    <label for="floatingInput">Tên Danh Mục</label>
+                </div>
+                <div class="mt-3">
+                    <div class="text mt-2">
+                        Trạng Thái
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
+                               value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
+                               value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
+                    </div>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success">Cập Nhật</button>
             </div>
         </div>
     </div>

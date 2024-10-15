@@ -10,4 +10,9 @@ public class sanPhamChiTietController {
             return "san-pham-chi-tiet/SanPhamChiTiet";
         }
 
+    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet")
+    public String SanPhamChiTietAdmin() {
+        return "san-pham-chi-tiet/SanPhamChiTiet";
+    }
+
 }
