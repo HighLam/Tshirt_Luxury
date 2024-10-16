@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class sanPhamChiTietController {
         @GetMapping("t-shirt-luxury/san-pham-chi-tiet")
         public String SanPhamChiTiet() {
-            return "san-pham-chi-tiet/SanPhamChiTiet";
+            return "SanPhamChiTiet/san-pham-chi-tiet";
         }
+
+    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet")
+    public String SanPhamChiTietAdmin() {
+        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
+    }
 
 }

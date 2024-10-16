@@ -8,6 +8,6 @@ public class mauSacController {
 
     @GetMapping("t-shirt-luxury/admin/mau-sac")
     public String mauSac() {
-        return "mau-sac/MauSac";
+        return "MauSac/mau-sac";
     }
 }

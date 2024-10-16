@@ -8,6 +8,6 @@ public class sizeController {
 
     @GetMapping("t-shirt-luxury/admin/size")
     public String size() {
-        return "size/Size";
+        return "size/size";
     }
 }

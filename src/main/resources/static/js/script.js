@@ -66,9 +66,9 @@ $(document).ready(function () {
             $(".search-favourite-cart").show();
         } else if (scrollTop >= 100) {
             $(".header-popup").fadeIn(500);
-            $(".header-popup").removeClass("display-hidden");
             $(".header-popup").css("position", "fixed");
             $(".header-popup").css("display", "flex");
+            $(".header-popup").css("z-index", "5");
             $(".danh-muc").hide();
             $(".logo-header").hide();
             $(".search-favourite-cart").hide();
@@ -101,7 +101,7 @@ $(document).ready(function () {
         $(this).stop(true, true).show(); // Dừng hiệu ứng fadeOut nếu đang diễn ra
     });
 
-    //Start Page Login
+    //Start Page Login//
     $("input")
         .focus(function () {
             $(this).data("placeholder", $(this).attr("placeholder")); // Lưu placeholder ban đầu
@@ -152,8 +152,51 @@ $(document).ready(function () {
     $(".change-page-login").mouseleave(function () {
         $(".link-page-login").css("color", "#666");
     });
-    //End Page Register
+    //End Page Register//
+
+    //Start page SanPhamChiTiet//
+    //Start CTSP//
+    $(".icon-bar").click(function () {
+        $(".danh-muc-page-ctsp").show();
+        $(".danh-muc-page-ctsp").css("color", "#000");
+    });
+
+    $(".danh-muc-page-ctsp").mouseleave(function () {
+        $(this).hide();
+    });
+    // Khi mouseenter vào div, vô hiệu hoá scroll
+    $(".danh-muc-page-ctsp").mouseenter(function () {
+        disableScroll();
+    });
+    // Khi mouseleave khỏi div, kích hoạt lại scroll
+    $(".danh-muc-page-ctsp").mouseleave(function () {
+        enableScroll();
+    });
+
+
+    let count = 1;
+    const numberDisplay = document.getElementById('number');
+    const increaseButton = document.getElementById('increase');
+    const decreaseButton = document.getElementById('decrease');
+
+// Tăng số lượng
+    increaseButton.addEventListener('click', () => {
+        count++;
+        numberDisplay.textContent = count;
+    });
+
+// Giảm số lượng, đảm bảo không giảm dưới 1
+    decreaseButton.addEventListener('click', () => {
+        if (count > 1) {
+            count--;
+        }
+        numberDisplay.textContent = count;
+    });
+//End CTSP//
+// End page SanPhamChiTiet//
+
 });
+
 
 
 

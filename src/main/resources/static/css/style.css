@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -40,17 +41,30 @@
     height: 753px;
 
 }
+.danh-muc-page-ctsp {
+    width: 40%;
+    padding: 40px 0px 40px 10px;
+    display: flex;
+    flex-direction: column;
+    height: 753px;
 
+}
 .danh-muc ul {
     display: flex;
     margin: 0;
     padding: 0;
 }
-
+.danh-muc-page-ctsp ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
 .danh-muc ul li {
     list-style-type: none;
 }
-
+.danh-muc-page-ctsp ul li {
+    list-style-type: none;
+}
 .danh-muc ul li a {
     text-decoration: none;
     color: #fff;
@@ -62,7 +76,17 @@
 
     line-height: 30px;
 }
+.danh-muc-page-ctsp ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    top: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0 18px;
 
+    line-height: 30px;
+}
 
 .border-right {
     border-right: 0.5px solid #ffff;
@@ -639,3 +663,21 @@ ul .login-and-signin {
 
 
 /* End Register */
+.counter {
+    display: flex;
+    align-items: last baseline;
+    justify-content: left;
+    font-size: 15px;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#number {
+    margin: 0 15px;
+    font-size: 15px;
+}

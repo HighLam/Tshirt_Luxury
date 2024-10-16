@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class login {
     @GetMapping("/t-shirt-luxury/login")
     public String login(){
-        return "nguoi-dung/Login";
+        return "NguoiDung/login";
     }
 }

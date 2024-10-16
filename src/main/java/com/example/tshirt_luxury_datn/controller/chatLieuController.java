@@ -8,6 +8,6 @@ public class chatLieuController {
 
     @GetMapping("t-shirt-luxury/admin/chat-lieu")
     public String chatLieu() {
-        return "chat-lieu/ChatLieu";
+        return "ChatLieu/chat-lieu";
     }
 }

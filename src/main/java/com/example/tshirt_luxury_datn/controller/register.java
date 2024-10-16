@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class register {
     @GetMapping("/t-shirt-luxury/register")
     public String register() {
-        return "nguoi-dung/Register";
+        return "NguoiDung/register";
     }
 }

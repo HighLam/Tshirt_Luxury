@@ -9,6 +9,6 @@ public class danhMucController {
 
     @GetMapping("t-shirt-luxury/admin/danh-muc")
     public String danhMuc() {
-        return "danh-muc/DanhMuc";
+        return "DanhMuc/danh-muc";
     }
 }
