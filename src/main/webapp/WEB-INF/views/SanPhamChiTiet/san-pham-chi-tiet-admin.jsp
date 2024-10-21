@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOAR</title>
+    <title>T-Shirt Luxury | ADMIN</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -25,7 +26,7 @@
                                  class="d-inline-block rounded-circle align-text-top">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
-                                LUXURY</a>
+                                LUXURY </a>
                         </a>
                     </div>
                 </nav>
@@ -33,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,7 +42,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Cài đặt</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#" style="color: red;"><i
+                                <li><a class="dropdown-item" href="/t-shirt-luxury/login" style="color: red;"><i
                                         class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
                             </ul>
                         </div>

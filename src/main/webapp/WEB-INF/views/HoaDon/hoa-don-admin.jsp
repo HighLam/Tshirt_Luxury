@@ -94,23 +94,49 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2>Trang chủ</h2>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-success " role="progressbar" style="width: 25%" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                <h2 class="">Quản Lý Hóa Đơn</h2>
+
+                <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#themSanPham">
+                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                    </button>
+                </div> -->
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mã Hóa Đơn</th>
+                        <th scope="col">Tên Khách Hàng</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Tổng Tiền</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">Hành Động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
+                               data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

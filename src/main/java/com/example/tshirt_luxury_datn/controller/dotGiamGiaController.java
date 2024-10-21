@@ -8,6 +8,6 @@ public class dotGiamGiaController {
 
     @GetMapping("/t-shirt-luxury/admin/giam-gia")
     public String dotGiamGia() {
-        return "DotGiamGia/dot-giam-gia";
+        return "DotGiamGia/dot-giam-gia-admin";
     }
 }
