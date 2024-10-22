@@ -115,12 +115,14 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${chatLieu}" var="chatlieu" varStatus="i">
+
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
+                        <th scope="row">${i.index + 1}</th>
+                        <td>${chatlieu.maChatLieu}</td>
+                        <td>${chatlieu.tenChatLieu}</td>
+                        <td>${chatlieu.moTa}</td>
+                        <td>${chatlieu.trangThai}</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
@@ -130,6 +132,7 @@
                         </td>
                     </tr>
 
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

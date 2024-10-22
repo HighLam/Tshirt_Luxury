@@ -111,18 +111,19 @@
                         <th scope="col">#</th>
                         <th scope="col">Mã Danh Mục</th>
                         <th scope="col">Tên Danh Mục</th>
-                        <th scope="col">Mô Tả</th>
+
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${danhMuc}" varStatus="i" var="danhmuc">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
+                        <th scope="row">${i.index + 1}</th>
+                        <td>${danhmuc.maDanhMuc}</td>
+                        <td>${danhmuc.tenDanhMuc}</td>
+
+                        <td>${danhmuc.trangThai}</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
@@ -131,7 +132,7 @@
                                     data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
-
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

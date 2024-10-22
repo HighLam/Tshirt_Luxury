@@ -12,17 +12,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "chat_lieu")
-public class ChatLieu {
+@Table(name = "danh_muc")
+public class DanhMuc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ma_chat_lieu")
-    private String maChatLieu;
+    @Column(name = "ma_danh_muc")
+    private String maDanhMuc;
 
-    @Column(name = "ten_chat_lieu")
-    private String tenChatLieu;
+    @Column(name = "ten_danh_muc")
+    private String tenDanhMuc;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
@@ -33,6 +33,4 @@ public class ChatLieu {
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
-    @Column(name = "mo_ta")
-    private String moTa;
 }
