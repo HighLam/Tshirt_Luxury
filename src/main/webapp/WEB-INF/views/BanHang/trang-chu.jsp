@@ -231,7 +231,7 @@
     </div>
 
     <div class="text-center mt-4" style="padding-left:2rem">
-        <button class="btn btn-outline-dark" type="submit">Xem Thêm</button>
+        <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them" >Xem Thêm</a>
     </div>
 
     <div class="text-center mt-5" style="padding-left:2rem">

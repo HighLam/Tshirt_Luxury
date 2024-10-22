@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {
     // Event Onload Window
     $(window).on("load", function () {
@@ -172,15 +173,4 @@ $(document).ready(function () {
     $(".danh-muc-page-ctsp").mouseleave(function () {
         enableScroll();
     });
-
-
-
-//End CTSP//
-// End page SanPhamChiTiet//
-
 });
-
-
-
-
-

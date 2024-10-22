@@ -28,15 +28,15 @@ public class SanPhamChiTiet {
     @Column(name = "gia")
     private Double gia;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_mau_sac")
     private MauSac mauSac;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_size")
     private Size size;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chatLieu;
 
@@ -44,7 +44,7 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_san_pham")
     private SanPham sanPham;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_anh_san_pham")
     private AnhSanPham anhSanPham;
 
@@ -59,4 +59,6 @@ public class SanPhamChiTiet {
 
     @Column(name = "mo_ta")
     private String moTa;
+    @Column(name = "khoi_luong_san_pham ")
+    private Double khoiLuongSanPham;
 }
