@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class chatLieuController {
@@ -21,5 +22,11 @@ public class chatLieuController {
     public String chatLieuHienThi(Model model) {
         model.addAttribute("chatLieu", chatLieuRepository.findAll());
         return "ChatLieu/chat-lieu";
+    }
+
+    @GetMapping("t-shirt-luxury/admin/chat-lieu/delete")
+    public String chatLieuDelete(@RequestParam("id") Integer id) {
+        chatLieuRepository.deleteById(id);
+        return "redirect:/t-shirt-luxury/admin/chat-lieu";
     }
 }

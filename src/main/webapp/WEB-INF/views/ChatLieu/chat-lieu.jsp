@@ -127,8 +127,8 @@
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
                                     title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                            <a href="/t-shirt-luxury/admin/chat-lieu/delete?id=${chatlieu.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
 
@@ -233,5 +233,11 @@
     </div>
 </div>
 </body>
+
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc muốn xóa ?");
+    }
+</script>
 
 </html>
