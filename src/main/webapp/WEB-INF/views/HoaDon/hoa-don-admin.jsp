@@ -22,8 +22,8 @@
                 <nav class="navbar navbar-light bg-light">
                     <div class="container">
                         <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="LogoDATN.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top">
+                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
+                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
                                 LUXURY </a>
@@ -109,7 +109,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Mã Hóa Đơn</th>
                         <th scope="col">Tên Khách Hàng</th>
-                        <th scope="col">Mô Tả</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col">Tổng Tiền</th>
@@ -118,22 +117,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
-                        <td>
-                            <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
-                               data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${listHoaDon}" var="hd">
+                        <tr>
+                            <th scope="row">${hd.id}</th>
+                            <th scope="row">${hd.maHoaDon}</th>
+                            <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
+                            <th scope="row">${hd.trangThai}</th>
+                            <th scope="row">${hd.ngayTao}</th>
+                            <th scope="row">8386</th>
+                            <th scope="row">${hd.moTa}</th>
+                            <td>
+                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
+                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </c:forEach>
 
                     </tbody>
                 </table>
