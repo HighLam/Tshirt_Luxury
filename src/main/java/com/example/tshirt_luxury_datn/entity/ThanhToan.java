@@ -18,9 +18,10 @@ public class ThanhToan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "ma_thanh_toan")
-    private String ma_thanh_toan;
-    @Column(name = "id_hoa_don")
-    private Integer idHoaDon;
+    private String maThanhToan;
+    @OneToOne
+    @JoinColumn(name = "id_hoa_don")
+    private HoaDon hoaDon;
     @Column(name = "phuong_thuc_thanh_toan")
     private String phuongThucThanhToan;
     @Column(name = "mo_ta")

@@ -33,4 +33,6 @@ public class DanhMuc {
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
+    @Column(name = "mo_ta")
+    private String moTa;
 }

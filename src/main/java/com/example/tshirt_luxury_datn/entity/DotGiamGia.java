@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,8 +40,9 @@ public class DotGiamGia {
     private Date ngayKetThuc;
     @Column(name = "trang_thai")
     private String trangThai;
-    @Column(name = "id_danh_muc")
-    private Integer idDanhMuc;
+    @OneToMany
+    @JoinColumn(name = "id_danh_muc")
+    private List<DanhMuc> danhMuc;
     @Column(name = "ghi_chu")
     private String ghiChu;
 }

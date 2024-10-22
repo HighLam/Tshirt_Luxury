@@ -21,10 +21,6 @@ public class HoaDonChiTiet {
     @Column(name = "ma_hoa_don_chi_tiet")
     private String maHoaDonChiTiet;
 
-    @ManyToOne
-    @JoinColumn(name = "id_hoa_don")
-    private HoaDon hoaDon;
-
     @Column(name = "gia")
     private Double gia;
 
@@ -46,8 +42,9 @@ public class HoaDonChiTiet {
     @Column(name = "mo_ta")
     private String moTa;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_san_pham_chi_tiet")
     private SanPhamChiTiet sanPhamChiTiet;
+
 
 }

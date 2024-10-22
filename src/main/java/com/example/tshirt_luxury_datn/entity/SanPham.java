@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +27,13 @@ public class SanPham {
     @Column(name = "ten_san_pham")
     private String tenSanPham;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "id_anh_san_pham")
-    private AnhSanPham anhSanPham;
+    private List<AnhSanPham> anhSanPham;
+
+    @ManyToOne
+    @JoinColumn(name = "id_danh_muc")
+    private DanhMuc danhMuc;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
