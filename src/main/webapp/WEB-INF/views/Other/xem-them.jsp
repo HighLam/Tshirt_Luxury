@@ -2,21 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/xem-them.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="../js/xem-them.js"></script>
     <title>Document</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
-    <%--    <link rel="stylesheet" href="../css/sanPhamChiTiet.css">--%>
-    <link rel="stylesheet" href="../css/sanPhamChiTiet.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../js/sanPhamChiTiet.js"></script>
 </head>
-
 <body >
 <div class="wrapper">
     <div class="header d-flex"
@@ -195,188 +189,79 @@
 
     </div>
 </div>
+<div>
 
-<div class="modal" tabindex="-1" id="bangsize">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <a href="/t-shirt-luxury/trang-chu" style="font-size: small; color:black; text-decoration: none;"><i class="fa-solid fa-house" ></i>Trang chủ | </a>
+    <a href="" class="fw-lighter" style="font-size: small; color: black; text-decoration: none; ">Sản phẩm</a>
 
-            <img src="/images/bangSize/bangsize.png" alt="">
+</div>
+
+<h4 style="margin-top: 30px;">Sản phẩm</h4>
+<div class="row" style="margin-top: 50px;">
+    <div class="col-3">
+        <div class="row">
+           <div class="col-2"></div>
+            <div class="col-10">
+                <div class="d-flex align-items-center">
+                    <p class="fw-lighter mb-0" style="font-size: medium;">BỘ LỌC</p>
+                    <div class="ms-3" style="width: 200px;">
+                        <form>
+                            <select id="fruits" class="form-select" aria-label="Default select example">
+                                <option selected>Chọn khoảng giá</option>
+                                <option value="1">200.000-500.000</option>
+                                <option value="2">500.000-1.000.000</option>
+                                <option value="3">>1.000.000</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
+
+    <div class="col-6"></div>
+    <div class="col-2">
+        <div class="d-flex align-items-center">
+            <p class="mb-0" style="font-size: small;"><b>sắp xếp theo</b></p>
+            <div class="ms-3" style="width: 150px;">
+                <form>
+                    <select id="price-range" class="form-select" aria-label="Default select example" style="font-size: 12px; padding: 3px; height: auto;">
+                        <option selected>Mặc định</option>
+                        <option value="1">Giá tăng dần</option>
+                        <option value="2">Giá giảm dần</option>
+                        <option value="3">sale</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
-<div class="row" style="margin-top: 100px;">
-    <div class="col-1">
-    </div>
-    <div class="col-7">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/wash.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/white.webp" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="prev" style="margin-top: 350px; ">
-                <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="next" style="margin-top: 350px; ">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <div class="col-4">
-        <h6>DEVOTUS</h6>
-        <p>Còn hàng</p>
-        <hr>
-        <div class="color">
-            <h6>MÀU SẮC</h6>
-            <a class="btn" href="#">Blue</a>
-            <a class="btn" href="#">Gray</a>
-            <a class="btn" href="#">Crem</a>
-        </div>
 
-        <div class="size" style="margin-top: 5px;">
-            <div class="row">
-                <div class="col-4">
-                    <h6>KÍCH THƯỚC</h6>
-                </div>
-                <div class="col-6">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;">hướng dẫn
-                        chọn size</a>
-                </div>
-            </div>
-            <a class="btn" href="#">S</a>
-            <a class="btn" href="#">M</a>
-            <a class="btn" href="#">L</a>
-            <a class="btn" href="#">XL</a>
-        </div>
-        <div class="soLuong" style="margin-top: 10px;">
-            <div class="counter">
-                <button class="btn" id="decrease"><b>-</b></button>
-                <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;">
-                <button class="btn" id="increase"><b>+</b></button>
-            </div>
-        </div>
-        <div class="order" style="margin-top: 20px;">
-            <a href="#" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</a>
-            <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
-        </div>
-        <!-- Thuộc Tính Sản Phẩm  -->
-        <div class="accordion" id="accordionExample" style="margin-top: 20px">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        THUỘC TÍNH SẢN PHẨM
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <P>Chất liệu: 90% Polyester, 9% Rayon, 1% Spandex</p>
-                        <P>►Vải Polyester chống nhăn hiệu quả, giữ nhiệt tốt, độ bền cao</P>
-                        <P>►Vải Rayon thoáng mát, mềm mại</P>
-                        <P>Kiểu dáng:
-                            <br>
-                            ►Form Classic rộng thoáng, dễ mặc tạo sự thoải mái tối đa</P>
-                        <P> Chi tiết:
-                            <br>
-                            ►Chất liệu có sự kết hợp của vải Rayon an toàn cho da, thoáng khí, hút ẩm tốt và đặc
-                            biệt là ít nhăn và có độ bền cao</P>
-                        <p> ►Thiết kế cổ tròn basic hài hòa, dễ chịu</p>
-                        <p>►Áo bo gấu nhẹ nhàng tạo sự gọn gàng, thoải mái</p>
-                        <p> ►Áo với hoạ tiết kẻ sọc năng động, dễ dàng đa dạng phong cách </P>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        CHÍNH SÁCH SẢN PHẨM
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p> ►Đổi hàng trong vòng 15 ngày.</p>
-                        <p> ►Giảm đến 15% trên tổng hóa đơn khi mua hàng ( tại cửa hàng ) vào tháng sinh nhật.</p>
-                        <p> ►Giao hàng nội thành Hà Nội chỉ từ 15.000đ trong vòng 24 giờ.</p>
-                        <p> ►Tích điểm 3-8% giá trị đơn hàng cho mỗi lần mua và trừ tiền vào lần mua tiếp theo.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        HƯỚNG DẪN BẢO QUẢN
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>►Có thể giặt tay hay giặt máy đều được (ưu tiên giặt tay để tăng tuổi thọ của sản phẩm)
-                        </p>
-                        <p>►Lộn trái sản phẩm khi giặt, không giặt chung sản phẩm trắng với quần áo tối màu.</p>
-                        <p>►Sử dụng xà phòng trung tính,không sử dụng xà phòng có chất tẩy mạnh. </p>
-                        <p>►Không sử dụng chất tẩy, không ngâm sản phẩm. </p>
-                        <p>►Hạn chế sấy ở nhiệt độ cao, bảo quản nơi khô ráo, thoáng mát, không phơi trực tiếp dưới
-                            ánh nắng mặt trời.</p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="comment " style="margin-top: 100px; ">
-    <p style="margin-left: 80px;"><b>0 bình luận</b></p>
-    <div class="cmt" style="display: flex; align-items: center; gap: 10px; margin: 20px;">
-        <!-- Hình ảnh đại diện -->
-        <img src="/images/linhtinh/avt.jpg" alt="Avatar" style="width: 50px; height: 50px; margin-top: 0; ">
-
-        <!-- Dòng nhập liệu với chiều rộng lớn hơn (gấp đôi) -->
-        <input type="text" placeholder="Nhập nội dung tại đây" style="flex-grow: 1; width: 400px; padding: 10px;">
-
-    </div>
-    <div>
-        <a class="btn btn-primary" type="button" style="margin-left: 80px;">Gửi</a>
-    </div>
-</div>
-<hr>
-<div class="container">
-    <h5><b>CÓ THỂ BẠN THÍCH</b></h5>
-    <div class="row">
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top"
-                     alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+<div class="row mt-5" style="padding-left:2rem">
+    <div class="col-3">
+        <div class="card" style="width: 18rem; border-style:none">
+            <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông DEVOTUS</h5>
+                <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
+
+                <div class="text-center" style="font-size:5px">
+                    <a href="#" class="btn btn-outline-light">
+                        <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
+                    <a href="/t-shirt-luxury/san-pham-chi-tiet" class="btn btn-outline-light">
+                        <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="card" style="width: 18rem; border-style:none">
+            <img src="../images/ao_phong_boxy/HEAVEN/red.webp" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông HEAVEN</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -386,11 +271,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+    </div>
+
+    <div class="col-3">
+        <div class="card" style="width: 18rem; border-style:none">
+            <img src="../images/ao_phong_oversize/BUNNY/gray.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông BUNNY</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -399,28 +286,27 @@
                         <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
                 </div>
             </div>
-        </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
-                <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                <div class="text-center" style="font-size:5px">
-                    <a href="#" class="btn btn-outline-light">
-                        <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                    <a href="#" class="btn btn-outline-light">
-                        <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-4" style="padding-left:2rem">
-            <button class="btn btn-outline-dark" type="submit" style="width: 110px;">Xem Thêm</button>
         </div>
     </div>
-</div>
 
-<footer class="py-5" style="margin: 20px;">
+    <div class="col-3">
+        <div class="card" style="width: 18rem; border-style:none">
+            <img src="../images/ao_phong_boxy/NO-END/black.webp" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông NO-END</h5>
+                <p class="card-text fw-bold text-center" style="font-size: 14px;">489,000₫</p>
+                <div class="text-center" style="font-size:5px">
+                    <a href="#" class="btn btn-outline-light">
+                        <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
+                    <a href="#" class="btn btn-outline-light">
+                        <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer class="py-5">
     <div class="row">
         <div class="col-6 col-md-2 mb-3">
             <h5 style="font-size: 14px;">VỀ CHÚNG TÔI</h5>
@@ -499,7 +385,7 @@
             <h5 style="font-size: 14px;">HỆ THỐNG CỬA HÀNG</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">
-                    <h6 class="" style="font-size: 14px;"><i class="fa-solid fa-caret-right"></i> CỬA HÀNG SỐ
+                    <h6 class="" style="font-size: 14px;"> <i class="fa-solid fa-caret-right"></i> CỬA HÀNG SỐ
                         99
                     </h6>
                     <p>168 Hoàng Văn Thụ, Phường Hoàng Văn Thụ, TP.Bắc Giang</p>
@@ -507,14 +393,14 @@
                 </li>
 
                 <li class="nav-item mb-2">
-                    <h6 class="" style="font-size: 14px;"><i class="fa-solid fa-caret-right"></i> CỬA HÀNG SỐ
+                    <h6 class="" style="font-size: 14px;"> <i class="fa-solid fa-caret-right"></i> CỬA HÀNG SỐ
                         88
                     </h6>
                     <p>1239 Giải Phóng, Phường Thịnh Liệt, Quận Hai Bà Trưng, TP Hà Nội</p>
                     <p>Tel: 0375.88.1239</p>
                 </li>
                 <li class="nav-item mb-2">
-                    <h6 class="" style="font-size: 14px;"><i class="fa-solid fa-caret-right"></i> XEM THÊM TOÀN
+                    <h6 class="" style="font-size: 14px;"> <i class="fa-solid fa-caret-right"></i> XEM THÊM TOÀN
                         BỘ CỬA HÀNG
                     </h6>
                 </li>
@@ -537,29 +423,20 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
         <p>© 2024 T-Shirt LUXURY, Inc. All rights reserved.</p>
         <ul class="list-unstyled d-flex">
-            <li class="ms-3"><a class="link-body-emphasis" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#twitter"></use>
-                </svg>
-            </a></li>
-            <li class="ms-3"><a class="link-body-emphasis" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#instagram"></use>
-                </svg>
-            </a></li>
-            <li class="ms-3"><a class="link-body-emphasis" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#facebook"></use>
-                </svg>
-            </a></li>
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#twitter"></use>
+            </svg></a></li>
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#instagram"></use>
+            </svg></a></li>
+            <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook"></use>
+            </svg></a></li>
         </ul>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
-
 </html>
