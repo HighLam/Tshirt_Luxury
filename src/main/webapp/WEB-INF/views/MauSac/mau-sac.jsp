@@ -115,22 +115,23 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${mauSac}" var="ms" varStatus="i">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
+                        <th scope="row">${i.index}</th>
+                        <td>${ms.maMauSac}</td>
+                        <td>${ms.tenMauSac}</td>
+                        <td>${ms.moTa}</td>
+                        <td>${ms.trangThai}</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#suaMauSac"
                                     title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                            <a href="/t-shirt-luxury/admin/mau-sac/delete?id=${ms.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
 
                         </td>
                     </tr>
-
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -231,4 +232,9 @@
 </div>
 </body>
 
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc muốn xóa ?");
+    }
+</script>
 </html>

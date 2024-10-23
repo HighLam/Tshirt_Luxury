@@ -20,10 +20,10 @@ public class Size {
     private Integer id;
 
     @Column(name = "ma_size")
-    private String maMauSac;
+    private String maSize;
 
     @Column(name = "ten_size")
-    private String tenMauSac;
+    private String tenSize;
 
     @Column(name = "trang_thai")
     private Integer trangThai;

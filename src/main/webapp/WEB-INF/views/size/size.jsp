@@ -115,21 +115,22 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${size}" var="s" varStatus="i">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
+                        <th scope="row">${i.index + 1}</th>
+                        <td>${s.maSize}</td>
+                        <td>${s.tenSize}</td>
+                        <td>${s.moTa}</td>
+                        <td>${s.trangThai}</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
                                     title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                            <a href="/t-shirt-luxury/admin/size/delete?id=${s.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
-
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -229,5 +230,9 @@
     </div>
 </div>
 </body>
-
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc muốn xóa ?");
+    }
+</script>
 </html>
