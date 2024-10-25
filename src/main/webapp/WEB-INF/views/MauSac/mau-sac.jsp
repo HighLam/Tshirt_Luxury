@@ -140,50 +140,52 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Màu Sắc</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc">
-                    <label for="floatingInput">Mã Màu Sắc</label>
+<form action="/t-shirt-luxury/admin/mau-sac/add" method="post">
+    <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Màu Sắc</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc" name="maMauSac">
+                        <label for="floatingInput">Mã Màu Sắc</label>
+                    </div>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc">
-                    <label for="floatingInput">Tên Màu Sắc</label>
-                </div>
-                <div class="mt-3">
-                    <div class="text mt-2">
-                        Trạng Thái
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc" name="tenMauSac">
+                        <label for="floatingInput">Tên Màu Sắc</label>
                     </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                    <div class="mt-3">
+                        <div class="text mt-2">
+                            Trạng Thái
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio"
+                                   value="1" name="trangThai">
+                            <label class="form-check-label" >Hoạt Động</label>
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio"
+                                   value="0" name="trangThai">
+                            <label class="form-check-label">Không Hoạt Động</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
                     </div>
                 </div>
-                <div class="mb-3 mt-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm Mới</button>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <!-- Modal Update-->
 <div class="modal fade" id="suaMauSac" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
