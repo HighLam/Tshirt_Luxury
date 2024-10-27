@@ -7,23 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiTiet,Integer> {
-    @Query("""
-        SELECT new com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone(
-                    spct.sanPham.tenSanPham,
-                    spct.anhSanPham.tenAnhSanPham,
-                    spct.size.tenSize,
-                    spct.chatLieu.tenChatLieu,
-                    spct.mauSac.tenMauSac,
-                    spct.soLuong,
-                    spct.trangThai,
-                    spct.khoiLuongSanPham,
-                    spct.moTa
-                    
 
-            )
-        FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :id
-    """)
-        sanPhamChiTietAdminRespone getSanPhamChiTietByIdSanPham(@Param("id") Integer id);
+    @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId")
+    List<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
 }

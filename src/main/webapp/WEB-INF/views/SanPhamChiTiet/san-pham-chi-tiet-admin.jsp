@@ -67,7 +67,7 @@
                     <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                 </button>
             </div>
-
+                <p>${tenSanPham}</p>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -86,8 +86,6 @@
                 </thead>
                 <tbody>
                 <c:if test="${not empty spct}">
-
-
                 <c:forEach items="${spct}" var="s" varStatus="i">
                 <tr>
                     <td>${i.index+1}</td>
@@ -126,6 +124,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"
+                               disabled readonly value="${tenSanPham}" name="id_san_pham">
+                        <label for="floatingInput">Tên Sản Phẩm</label>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Chọn Ảnh Sản Phẩm</label>
                         <select class="form-select" aria-label="Default select example" name="id_anh_san_pham_chi_tiet">
