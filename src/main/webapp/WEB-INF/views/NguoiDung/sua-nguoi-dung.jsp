@@ -96,106 +96,26 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Người Dùng</h2>
-
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themNguoiDung">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
-                </div>
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Mã Người Dùng</th>
-                        <th scope="col">Tên Người Dùng</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Chức Vụ</th>
-                        <th scope="col">Trạng Thái</th>
-                        <th scope="col">Mô Tả</th>
-                        <th scope="col">Hành Động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${listNguoiDung}" var="nd" varStatus="i">
-                        <tr>
-                            <th scope="row">${i.index + 1}</th>
-                            <td>${nd.maNguoiDung}</td>
-                            <td>${nd.tenNguoiDung}</td>
-                            <td>${nd.email}</td>
-                            <td>${nd.chucVu.tenChucVu}</td>
-                            <td>
-                                    <c:if test="${nd.trangThai == 1}">
-                                        Hoạt Động
-                                    </c:if>
-                                <c:if test="${nd.trangThai == 0}">
-                                    Không Hoạt Động
-                                </c:if>
-                                    </td>
-                            <td>${nd.moTa}</td>
-                            <td>
-                                <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" data-bs-toggle="modal" data-bs-target="#suaNguoiDung"
-                                        title="Chỉnh Sửa">
-                                    <a href="/t-shirt-luxury/admin/getOne?id=${nd.id}" style="color:#000" class="modalSua">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-
-                                <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" title="Xóa">
-                                    <a href="/t-shirt-luxury/admin/xoaNguoiDung/${nd.id}" style="color:#000">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                                <a href="/t-shirt-luxury/admin/nguoi-dung-chi-tiet" class="btn btn-secondary rounded-pill"
-                                    data-placement="top" title="Xem Chi Tiết">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                <h2 class="">Sửa Người Dùng</h2>
 
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="themNguoiDung" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Người Dùng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/t-shirt-luxury/admin/taoNguoiDung" method="POST">
-
-                <div class="modal-body">
+                <form action="/t-shirt-luxury/admin/updateNguoiDung?id=${nguoiDung.id}" method="POST">
                     <div class="form-floating mb-3">
-                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">
+                        <input readonly name="maNguoiDung" type="text" class="form-control" id="floatingInput"  value="${nguoiDung.maNguoiDung}">
                         <label for="floatingInput">Mã Người Dùng</label>
                     </div>
-
                     <div class="form-floating mb-3">
-                        <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng">
+                        <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng" value="${nguoiDung.tenNguoiDung}">
                         <label for="floatingInput">Tên Người Dùng</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="email" type="text" class="form-control" id="floatingInput" placeholder="Email">
+                        <input name="email" type="text" class="form-control" id="floatingInput" placeholder="Email" value="${nguoiDung.email}">
                         <label for="floatingInput">Email</label>
                     </div>
                     <select class="form-select" aria-label="Default select example" name="chucVu.id">
                         <c:forEach items="${listChucVu}" var="cv">
-                            <option selected hidden="hidden">Chọn chức vụ</option>
-                            <option value="${cv.id}">${cv.tenChucVu}</option>
+                            <option  hidden="hidden">Chọn chức vụ</option>
+                            <option value="${cv.id}" ${nguoiDung.chucVu.tenChucVu.equals(cv.tenChucVu) ? 'selected' : ''}>${cv.tenChucVu}</option>
                         </c:forEach>
 
                     </select>
@@ -205,29 +125,36 @@
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                                   value="1">
+                                   value="1" ${nguoiDung.trangThai == 1 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
-                                   value="0">
+                                   value="0" ${nguoiDung.trangThai == 0 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
                         </div>
                     </div>
-                    <div class="mb-3 mt-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div class="form-floating mb-3 mt-3">
+                        <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${nguoiDung.moTa}">
+                        <label for="floatingInput">Mô tả</label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-success">Thêm Mới</button>
-                </div>
-            </form>
+                    <div class="p-2 bd-highlight d-flex justify-content-end">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="fa-solid fa-pen"></i> Sửa
+                        </button>
+                    </div>
+                </form>
 
+
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
 
 
 </div>

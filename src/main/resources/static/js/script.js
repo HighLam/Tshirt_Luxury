@@ -172,11 +172,16 @@ $(document).ready(function () {
     $(".danh-muc-page-ctsp").mouseleave(function () {
         enableScroll();
     });
-
-
-
 //End CTSP//
-// End page SanPhamChiTiet//
+
+
+        // Mở modal hoặc thực hiện các thao tác bạn muốn
+        $(".modalSua").click(function (){
+            $(".test").show();
+        });
+        $(".btn-close").click(function (){
+            $(".test").hide();
+        })
 
 });
 

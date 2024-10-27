@@ -25,6 +25,7 @@ public class NguoiDung {
 
     @Column(name = "ten_nguoi_dung")
     private String tenNguoiDung;
+    
     @Column(name = "email")
     private String email;
 

@@ -22,8 +22,8 @@
                 <nav class="navbar navbar-light bg-light">
                     <div class="container">
                         <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="LogoDATN.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top">
+                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
+                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
                                 LUXURY </a>
