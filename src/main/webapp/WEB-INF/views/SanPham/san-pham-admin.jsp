@@ -106,7 +106,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Mã Sản Phẩm</th>
                         <th scope="col">Tên Sản Phẩm</th>
                         <th scope="col">Danh Mục</th>
@@ -115,24 +115,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" data-bs-toggle="modal" data-bs-target="#suaSanPham"
-                                    title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
-                            <a href="/t-shirt-luxury/admin/san-pham-chi-tiet" class="btn btn-secondary rounded-pill"
-                               data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${listSanPham}" var="sp" varStatus="i">
+                        <tr>
+                            <td>${i.index+1}</td>
+                            <td>${sp.maSanPham}</td>
+                            <td>${sp.tenSanPham}</td>
+                            <td>${sp.danhMuc.tenDanhMuc}</td>
+                            <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
+                            <td>
+                                <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/detail?id=${sp.id}"  class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                        data-placement="top" data-bs-toggle="modal" data-bs-target="#suaSanPham"
+                                        title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                        data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                                <a href="/t-shirt-luxury/admin/san-pham-chi-tiet?id=${sp.id}" class="btn btn-secondary rounded-pill"
+                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
 
                     </tbody>
                 </table>
@@ -143,116 +146,155 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Sản Phẩm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Sản Phẩm">
-                    <label for="floatingInput">Mã Sản Phẩm</label>
+<form action="/t-shirt-luxury/admin/san-pham/add" method="post">
+    <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Sản Phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Tải Ảnh Lên</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm">
-                    <label for="floatingInput">Tên Sản Phẩm</label>
-                </div>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Danh Mục</option>
-                    <option value="1">Danh Mục 1</option>
-                    <option value="2">Danh Mục 2</option>
-                    <option value="3">Danh Mục 3</option>
-                </select>
+                <div class="modal-body">
+                    <!-- Mã Sản Phẩm -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
+                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
+                    </div>
 
-                <div>
-                    <div class="text mt-2">
-                        Trạng Thái
+                    <!-- Tải Ảnh Lên -->
+                    <div class="mb-3">
+                        <label class="form-label">Chọn Ảnh Sản Phẩm</label>
+                        <select class="form-select" aria-label="Default select example" name="id_anh_san_pham">
+                            <c:forEach var="s" items="${anhSP}">
+                                <option value="${s.id}">${s.tenAnhSanPham}</option>
+                            </c:forEach>
+                        </select>
                     </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Bán</label>
+
+                    <!-- Tên Sản Phẩm -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham">
+                        <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
                     </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+
+                    <!-- Danh Mục Sản Phẩm -->
+                    <select class="form-select" aria-label="Default select example" name="id_danh_muc">
+                        <c:forEach var="s" items="${danhMuc}">
+                            <option value="${s.id}">${s.tenDanhMuc}</option>
+                        </c:forEach>
+                    </select>
+
+                    <!-- Trạng Thái -->
+                    <div>
+                        <div class="text mt-2">Trạng Thái</div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
+                            <label class="form-check-label" for="inlineRadio1">Bán</label>
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0">
+                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                        </div>
+                    </div>
+
+                    <!-- Mô Tả Sản Phẩm -->
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+                <!-- Footer Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm Mới</button>
             </div>
         </div>
     </div>
-</div>
+</form>
+
+<form action="" method="post">
+    <div class="modal fade" id="suaSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa Sản Phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Mã Sản Phẩm -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
+                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
+                    </div>
+
+                    <!-- Tải Ảnh Lên -->
+                    <div class="mb-3">
+                        <label class="form-label">Chọn Ảnh Sản Phẩm</label>
+                        <select class="form-select" aria-label="Default select example" name="id_anh_san_pham">
+                            <c:forEach var="s" items="${anhSP}">
+                                <option value="${s.id}" <c:if test="${sanPham.anhSanPham.id == s.id}">selected</c:if>>
+                                        ${s.tenAnhSanPham}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <!-- Tên Sản Phẩm -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham" value="${sanPham.tenSanPham}">
+                        <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
+                    </div>
+
+                    <!-- Danh Mục Sản Phẩm -->
+                    <div class="mb-3">
+                        <label class="form-label">Danh Mục Sản Phẩm</label>
+                        <select class="form-select" aria-label="Default select example" name="id_danh_muc">
+                            <c:forEach var="s" items="${danhMuc}">
+                                <option value="${s.id}" <c:if test="${sanPham.danhMuc.id == s.id}">selected</c:if>>
+                                        ${s.tenDanhMuc}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
 
-<div class="modal fade" id="suaSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Sản Phẩm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Sản Phẩm">
-                    <label for="floatingInput">Mã Sản Phẩm</label>
-                </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Tải Ảnh Lên</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm">
-                    <label for="floatingInput">Tên Sản Phẩm</label>
-                </div>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Danh Mục</option>
-                    <option value="1">Danh Mục 1</option>
-                    <option value="2">Danh Mục 2</option>
-                    <option value="3">Danh Mục 3</option>
-                </select>
+                    <!-- Trạng Thái -->
+                    <div>
+                        <div class="text mt-2">Trạng Thái</div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" value="1"
+                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 1}">checked</c:if>>
+                            <label class="form-check-label" for="inlineRadio1">Bán</label>
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" value="0"
+                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 0}">checked</c:if>>
+                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                        </div>
+                    </div>
 
-                <div>
-                    <div class="text mt-2">
-                        Trạng Thái
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Bán</label>
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                    <!-- Mô Tả Sản Phẩm -->
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3">${sanPham.moTa}</textarea>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+                <!-- Footer Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Cập Nhật</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập Nhật</button>
             </div>
         </div>
     </div>
-</div>
+</form>
+
 </body>
-
+<script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 </html>

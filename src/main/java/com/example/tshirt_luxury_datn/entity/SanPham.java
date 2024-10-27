@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "san_pham")
+@Table(name ="san_pham")
 public class SanPham {
 
     @Id
@@ -21,15 +21,14 @@ public class SanPham {
     private Integer id;
 
     @Column(name = "ma_san_pham")
-    private String maSanPham
-            ;
+    private String maSanPham;
 
     @Column(name = "ten_san_pham")
     private String tenSanPham;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "id_anh_san_pham")
-    private List<AnhSanPham> anhSanPham;
+    private AnhSanPham anhSanPham;
 
     @ManyToOne
     @JoinColumn(name = "id_danh_muc")

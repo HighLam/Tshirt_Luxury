@@ -10,9 +10,7 @@ public class sanPhamChiTietController {
             return "SanPhamChiTiet/san-pham-chi-tiet";
         }
 
-    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet")
-    public String SanPhamChiTietAdmin() {
-        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
-    }
+
+
 
 }
