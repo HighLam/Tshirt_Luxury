@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.controller;
 
+import com.example.tshirt_luxury_datn.entity.DanhMuc;
 import com.example.tshirt_luxury_datn.entity.MauSac;
 import com.example.tshirt_luxury_datn.repository.mauSacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,28 @@ public class mauSacController {
         mauSac.setNgayTao(new Date());
         mauSac.setNgaySua(new Date());
         mauSacRepository.save(mauSac);
+        return "redirect:/t-shirt-luxury/admin/mau-sac";
+    }
+
+    @GetMapping("t-shirt-luxury/admin/mau-sac/getOne")
+    public String getOneMauSac(@RequestParam(name = "id") Integer id, Model model) {
+
+        MauSac mauSac = mauSacRepository.getOne(id);
+        model.addAttribute("mauSac", mauSac);
+        return "MauSac/sua-mau-sac";
+    }
+
+
+    @PostMapping("t-shirt-luxury/admin/mau-sac/update")
+    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("danhMuc") MauSac mauSac) {
+        MauSac getOne = mauSacRepository.getReferenceById(id);
+        if (getOne.getId() == id) {
+            Date ngaySua = new Date();
+            mauSac.setId(id);
+            mauSac.setNgaySua(ngaySua);
+            mauSac.setNgayTao(getOne.getNgayTao());
+            mauSacRepository.save(mauSac);
+        }
         return "redirect:/t-shirt-luxury/admin/mau-sac";
     }
 }

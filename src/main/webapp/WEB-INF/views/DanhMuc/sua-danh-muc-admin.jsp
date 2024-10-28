@@ -7,12 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Luxury | ADMIN</title>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -35,8 +36,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..."
-                             width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,8 +58,7 @@
     <div class="row mt-3 ">
         <div class="col-3 " style="">
             <div class="list-group ">
-                <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action"
-                   aria-current="true">
+                <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action" aria-current="true">
                     <i class="fa-solid fa-house"></i> Trang Chủ
                 </a>
                 <a href="#" class="list-group-item list-group-item-action"> <i
@@ -83,98 +82,30 @@
                         <i class="fa-solid fa-wand-magic-sparkles"></i> Quản Lý Thuộc Tính
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/mau-sac"><i
-                                class="fa-solid fa-palette"></i> Màu
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/mau-sac"><i class="fa-solid fa-palette"></i> Màu
                             Sắc</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/size"><i class="fa-solid fa-s"></i>
-                            Size</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/chat-lieu"><i
-                                class="fa-solid fa-star"></i> Chất
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/size"><i class="fa-solid fa-s"></i> Size</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/chat-lieu"><i class="fa-solid fa-star"></i> Chất
                             Liệu</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
-                                class="fa-solid fa-table-list"></i> Danh
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
                     </ul>
                 </div>
                 <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
-
-
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Danh Mục</h2>
+                <h2 class="">Cập Nhật Danh Mục</h2>
 
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themSanPham">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
-                </div>
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Mã Danh Mục</th>
-                        <th scope="col">Tên Danh Mục</th>
-                        <th scope="col">Mô Tả</th>
-                        <th scope="col">Trạng Thái</th>
-                        <th scope="col">Hành Động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${danhMuc}" varStatus="i" var="danhmuc">
-                        <tr>
-                            <th scope="row">${i.index + 1}</th>
-                            <td>${danhmuc.maDanhMuc}</td>
-                            <td>${danhmuc.tenDanhMuc}</td>
-                            <td>${danhmuc.moTa}</td>
-                            <td>
-                                <c:if test="${danhmuc.trangThai == 1}">
-                                    Hoạt Động
-                                </c:if>
-                                <c:if test="${danhmuc.trangThai == 0}">
-                                    Không Hoạt Động
-                                </c:if>
-                            </td>
-                            <td>
-                                <a href="/t-shirt-luxury/admin/danh-muc/getOne?id=${danhmuc.id}"
-                                   class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                   data-placement="top" title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="/t-shirt-luxury/admin/danh-muc/delete?id=${danhmuc.id}"
-                                   onclick="return confirmDelete()" class="btn btn-danger rounded-pill"
-                                   data-toggle="tooltip"
-                                   data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<form action="/t-shirt-luxury/admin/danh-muc/add" method="post">
-    <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Danh Mục</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+                <form action="/t-shirt-luxury/admin/danh-muc/update?id=${danhMuc.id}" method="POST">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Mã Danh Mục"
-                               name="maDanhMuc">
+                        <input readonly name="maDanhMuc" type="text" class="form-control" id="floatingInput"  value="${danhMuc.maDanhMuc}">
                         <label for="floatingInput">Mã Danh Mục</label>
                     </div>
-
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Danh Mục"
-                               name="tenDanhMuc">
+                        <input name="tenDanhMuc" type="text" class="form-control" id="floatingInput" placeholder="Tên Danh Mục" value="${danhMuc.tenDanhMuc}">
                         <label for="floatingInput">Tên Danh Mục</label>
                     </div>
                     <div class="mt-3">
@@ -183,38 +114,39 @@
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                                   value="1">
+                                   value="1" ${danhMuc.trangThai == 1 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
-                                   value="0">
+                                   value="0" ${danhMuc.trangThai == 0 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
                         </div>
                     </div>
-                    <div class="mb-3 mt-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
+                    <div class="form-floating mb-3 mt-3">
+                        <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${danhMuc.moTa}">
+                        <label for="floatingInput">Mô tả</label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-success">Thêm Mới</button>
-                </div>
+                    <div class="p-2 bd-highlight d-flex justify-content-end">
+                        <button type="submit" class="btn btn-outline-warning">
+                            <i class="fa-solid fa-pen"></i> Cập Nhật
+                        </button>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>
+</div>
 
-</form>
 
 
+
+
+
+
+</div>
 </body>
-
-
-<script>
-    confirmDelete = () => {
-        return confirm("Bạn có chắc muốn xóa ?");
-    }
-</script>
 
 </html>

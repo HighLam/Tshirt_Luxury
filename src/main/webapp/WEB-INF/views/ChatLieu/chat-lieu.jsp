@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,11 +122,18 @@
                         <td>${chatlieu.maChatLieu}</td>
                         <td>${chatlieu.tenChatLieu}</td>
                         <td>${chatlieu.moTa}</td>
-                        <td>${chatlieu.trangThai}</td>
                         <td>
-                            <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
-                                    title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <c:if test="${chatlieu.trangThai == 1}">
+                                Hoạt Động
+                            </c:if>
+                            <c:if test="${chatlieu.trangThai == 0}">
+                                Không Hoạt Động
+                            </c:if>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                    data-placement="top" href="/t-shirt-luxury/admin/chat-lieu/getOne?id=${chatlieu.id}"
+                                    title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="/t-shirt-luxury/admin/chat-lieu/delete?id=${chatlieu.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
                                     data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                         </td>
