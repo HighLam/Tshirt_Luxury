@@ -14,6 +14,8 @@ import lombok.Setter;
 public class sanPhamChiTietAdminRespone {
     private String sanPham;
 
+    private String maSanPhamChiTiet;
+
     private String anhSanPham;
 
     private String size;
@@ -29,6 +31,8 @@ public class sanPhamChiTietAdminRespone {
     private Double khoiLuongSanPham;
 
     private String moTa;
+
+    private Double gia;
 
 
 

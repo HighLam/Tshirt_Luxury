@@ -20,7 +20,7 @@ public class SanPhamChiTiet {
     private Integer id;
 
     @Column(name = "ma_spct")
-    private String maMauSac;
+    private String maSanPhamChiTiet;
 
     @Column(name = "so_luong")
     private Integer soLuong;
