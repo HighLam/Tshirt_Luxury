@@ -34,15 +34,18 @@ public class DotGiamGia {
     private String moTa;
     @Column(name = "gia_tri_giam")
     private Integer giaTriGiam;
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_bat_dau")
     private Date ngayBatDau;
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
     @Column(name = "trang_thai")
     private String trangThai;
     @OneToMany
     @JoinColumn(name = "id_danh_muc")
-    private List<DanhMuc> danhMuc;
+    private DanhMuc danhMuc;
     @Column(name = "ghi_chu")
     private String ghiChu;
+
 }

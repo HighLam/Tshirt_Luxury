@@ -98,7 +98,7 @@
 
                 <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themDotGiamGia">
+                            data-bs-target="#themVoucher">
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
                 </div>
@@ -106,7 +106,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Mã Voucher</th>
                         <th scope="col">Tên Voucher</th>
                         <th scope="col">Giá Trị Giảm (%)</th>
@@ -121,28 +121,29 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${listVoucher}" var="voucher" varStatus="i">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>ssss</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Active</td>
+                        <td>${i.index+1}</td>
+                        <td>${voucher.maVoucher}</td>
+                        <td>${voucher.tenVoucher}</td>
+                        <td>${voucher.giaTriGiam}</td>
+                        <td>${voucher.ngayBatDau}</td>
+                        <td>${voucher.ngayKetThuc}</td>
+                        <td>${voucher.soLuong}</td>
+                        <td>${voucher.dieuKienApDung}</td>
+                        <td>${voucher.mucChiToiThieu}</td>
+                        <td>${voucher.moTa}</td>
+                        <td>${voucher.trangThai}</td>
                         <td>
                             <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
                                     data-placement="top" data-bs-toggle="modal" data-bs-target="#sua"
                                     title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                            <a class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top"
+                                    title="Xóa" href="/t-shirt-luxury/admin/voucher/delete?id=${voucher.id}"><i class="fa-solid fa-trash"></i></a>
 
                         </td>
                     </tr>
-
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -150,70 +151,81 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="themDotGiamGia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal add-->
+<div class="modal fade" id="themVoucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Voucher</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="/t-shirt-luxury/admin/voucher/add" method="post">
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher">
                     <label for="floatingInput">Mã Voucher</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher">
                     <label for="floatingInput">Tên Voucher</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm" name="giaTriGiam">
                     <label for="floatingInput">Giá Trị Giảm</label>
                 </div>
 
+<%--                <div class="form-floating mb-3">--%>
+<%--                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Bắt Đầu" name="ngayBatDau">--%>
+<%--                    <label for="floatingInput">Ngày Bắt Đầu</label>--%>
+<%--                </div>--%>
+
+<%--                <div class="form-floating mb-3">--%>
+<%--                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Kết Thúc" name="ngayKetThuc">--%>
+<%--                    <label for="floatingInput">Ngày Kết Thúc</label>--%>
+<%--                </div>--%>
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Bắt Đầu">
-                    <label for="floatingInput">Ngày Bắt Đầu</label>
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong">
+                    <label for="floatingInput">Số lượng</label>
                 </div>
 
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Kết Thúc">
-                    <label for="floatingInput">Ngày Kết Thúc</label>
-                </div>
-
-
-                <div class="mt-3">
+                <div class="mt-3 mb-3">
                     <div class="text mt-2">
                         Trạng Thái
                     </div>
                     <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                        <input class="form-check-input" type="radio" name="trangThai"
+                               value="Hoạt Động">
+                        <label class="form-check-label">Hoạt Động</label>
                     </div>
                     <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Chưa Hoạt Động</label>
+                        <input class="form-check-input" type="radio" name="trangThai"
+                               value="Chưa Hoạt Động">
+                        <label class="form-check-label">Chưa Hoạt Động</label>
                     </div>
                 </div>
-
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Điều Kiện Áp Dụng" name="dieuKienApDung">
+                    <label for="floatingInput">Điều kiện áp dụng</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu">
+                    <label for="floatingInput">Mục chi tiêu tối thiểu</label>
+                </div>
                 <div class="mb-3 mt-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm Mới</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="sua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
