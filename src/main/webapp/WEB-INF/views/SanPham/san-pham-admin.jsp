@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Luxury | ADMIN</title>
-
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -129,7 +129,7 @@
                                 <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
                                         data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham-chi-tiet?id=${sp.id}" class="btn btn-secondary rounded-pill"
-                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                                   data-toggl e="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                             </td>

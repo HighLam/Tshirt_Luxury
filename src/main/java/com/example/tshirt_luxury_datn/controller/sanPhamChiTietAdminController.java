@@ -6,6 +6,7 @@ import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.entity.Size;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,12 +34,11 @@ public class sanPhamChiTietAdminController {
     @Autowired
     sanPhamRepository sanPhamRepo;
 
-    @ModelAttribute("sanPham")
-    public String getSanPham(Model model) {
-        SanPham sanPham = sanPhamRepo.findAll().get(0);
-        model.addAttribute("tenSanPham", sanPham.getId());
-        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
-    }
+//    @ModelAttribute("sanPham")
+//    public String getSanPham(Model model, @RequestParam(name = "id") Integer id) {
+//        model.addAttribute("idSanPham", id);
+//        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
+//    }
 
     @ModelAttribute("size")
     public String getSize(Model model) {
@@ -67,23 +67,27 @@ public class sanPhamChiTietAdminController {
     }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet")
-    public String sanPhamChiTietAdmin(@RequestParam("id") Integer id, Model model) {
+    public String sanPhamChiTietAdmin(@RequestParam("id") Integer id, Model model, HttpSession session) {
         model.addAttribute("spct", sanPhamChiTietAdminRepo.findBySanPhamId(id));
+        session.setAttribute("idSanPham", id);
+        model.addAttribute("idSanPham",id);
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
 
-
-
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
-            @RequestParam("id_san_pham") Integer idSanPham,
+            HttpSession session,
+//            @RequestParam("idSanPham") Integer idSanPham,
             @RequestParam("id_anh_san_pham_chi_tiet") Integer idAnhSanPham,
             @RequestParam("id_size") Integer idSize,
             @RequestParam("id_chat_lieu") Integer idChatLieu,
             @RequestParam("id_mau_sac") Integer idMauSac,
             @ModelAttribute("sanPhamChiTiet") SanPhamChiTiet sanPhamChiTiet) {
-        sanPhamChiTiet.setSanPham(sanPhamRepo.findById(idSanPham).get());
+
+
+        SanPham sanPhamAdd = sanPhamRepo.getReferenceById((Integer) session.getAttribute("idSanPham"));
+        sanPhamChiTiet.setSanPham(sanPhamAdd);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
         sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.findById(idAnhSanPham).get());
@@ -91,7 +95,7 @@ public class sanPhamChiTietAdminController {
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet";
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" +(Integer) session.getAttribute("idSanPham");
     }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
