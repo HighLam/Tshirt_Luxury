@@ -7,11 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Luxury | ADMIN</title>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -51,8 +53,6 @@
             </div>
         </nav>
     </div>
-
-
     <div class="row mt-3 ">
         <div class="col-3 " style="">
             <div class="list-group ">
@@ -94,53 +94,73 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Hóa Đơn</h2>
+                <h2 class="">Sửa voucher</h2>
 
-                <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                        data-bs-target="#themSanPham">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
-                </div> -->
+                <form action="/t-shirt-luxury/admin/voucher/update?id=${voucher.id}" method="post">
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher" value="${voucher.maVoucher}">
+                            <label for="floatingInput">Mã Voucher</label>
+                        </div>
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Mã Hóa Đơn</th>
-                        <th scope="col">Tên Khách Hàng</th>
-                        <th scope="col">Trạng Thái</th>
-                        <th scope="col">Ngày Tạo</th>
-                        <th scope="col">Tổng Tiền</th>
-                        <th scope="col">Mô Tả</th>
-                        <th scope="col">Hành Động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${listHoaDon}" var="hd">
-                        <tr>
-                            <th scope="row">${hd.id}</th>
-                            <th scope="row">${hd.maHoaDon}</th>
-                            <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
-                            <th scope="row">${hd.trangThai}</th>
-                            <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">8386</th>
-                            <th scope="row">${hd.moTa}</th>
-                            <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
-                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher" value="${voucher.tenVoucher}">
+                            <label for="floatingInput">Tên Voucher</label>
+                        </div>
 
-                    </c:forEach>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm" name="giaTriGiam" value="${voucher.giaTriGiam}">
+                            <label for="floatingInput">Giá Trị Giảm</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${voucher.soLuong}">
+                            <label for="floatingInput">Số lượng</label>
+                        </div>
 
-                    </tbody>
-                </table>
+                        <div class="mt-3 mb-3">
+                            <div class="text mt-2">
+                                Trạng Thái
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="trangThai"
+                                       value="1" ${voucher.trangThai == 1 ? 'checked' : ''}>
+                                <label class="form-check-label">Hoạt Động</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="trangThai"
+                                       value="0" ${voucher.trangThai == 0 ? 'checked' : ''}>
+                                <label class="form-check-label">Chưa Hoạt Động</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Điều Kiện Áp Dụng" name="dieuKienApDung" value="${voucher.dieuKienApDung}">
+                            <label for="floatingInput">Điều kiện áp dụng</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu" value="${voucher.mucChiToiThieu}">
+                            <label for="floatingInput">Mục chi tiêu tối thiểu</label>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa" value="${voucher.moTa}"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
 </div>
 </body>
 

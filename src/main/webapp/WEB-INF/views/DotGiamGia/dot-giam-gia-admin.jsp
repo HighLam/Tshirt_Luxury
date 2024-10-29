@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,7 +106,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Mã Đợt Giảm Giá</th>
                         <th scope="col">Tên Đợt Giảm Giá</th>
                         <th scope="col">Giá Trị Giảm (%)</th>
@@ -118,26 +118,33 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${listGiamGia}" varStatus="i" var="gg">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>Active</td>
+                        <th scope="row">${i.index+1}</th>
+                        <td>${gg.maDotGiamGia}</td>
+                        <td>${gg.tenDotGiamGia}</td>
+                        <td>${gg.giaTriGiam}</td>
+                        <td>${gg.ngayBatDau}</td>
+                        <td>${gg.ngayKetThuc}</td>
+                        <td>${gg.moTa}</td>
                         <td>
-                            <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" data-bs-toggle="modal" data-bs-target="#suaGiamGia"
-                                    title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <c:if test="${gg.trangThai == 1}">
+                            Hoạt Động
+                        </c:if>
+                        <c:if test="${gg.trangThai == 0}">
+                            Không Hoạt Động
+                        </c:if>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning rounded-pill" data-toggle="tooltip" data-placement="top"
+                                    title="Chỉnh Sửa" href="/t-shirt-luxury/admin/giam-gia/getOne?id=${gg.id}">
+                                    <i class="fa-solid fa-pen-to-square"></i></a>
 
-                            <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
-
+                            <a class="btn btn-danger rounded-pill" data-toggle="tooltip" href="/t-shirt-luxury/admin/giam-gia/delete?id=${gg.id}"
+                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
-
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -145,7 +152,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal add-->
 <div class="modal fade" id="themDotGiamGia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -153,125 +160,53 @@
                 <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Đợt Giảm Giá</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="/t-shirt-luxyry/admin/giam-gia/add" method="post">
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Đợt Giảm Giá" name="maDotGiamGia">
                     <label for="floatingInput">Mã Đợt Giảm Giá</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Đợt Giảm Giá" name="tenDotGiamGia">
                     <label for="floatingInput">Tên Đợt Giảm Giá</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm" name="giaTriGiam">
                     <label for="floatingInput">Giá Trị Giảm</label>
                 </div>
-
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Bắt Đầu">
-                    <label for="floatingInput">Ngày Bắt Đầu</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Kết Thúc">
-                    <label for="floatingInput">Ngày Kết Thúc</label>
-                </div>
-
-
                 <div class="mt-3">
                     <div class="text mt-2">
                         Trạng Thái
                     </div>
                     <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                        <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
+                               value="1">
+                        <label class="form-check-label">Hoạt Động</label>
                     </div>
                     <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Chưa Hoạt Động</label>
+                        <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
+                               value="0">
+                        <label class="form-check-label">Chưa Hoạt Động</label>
                     </div>
                 </div>
 
                 <div class="mb-3 mt-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm Mới</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Update-->
-<div class="modal fade" id="suaGiamGia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Đợt Giảm Giá</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Màu Sắc">
-                    <label for="floatingInput">Mã Đợt Giảm Giá</label>
-                </div>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc">
-                    <label for="floatingInput">Tên Đợt Giảm Giá</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm">
-                    <label for="floatingInput">Giá Trị Giảm</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Bắt Đầu">
-                    <label for="floatingInput">Ngày Bắt Đầu</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Ngày Kết Thúc">
-                    <label for="floatingInput">Ngày Kết Thúc</label>
-                </div>
-
-
-                <div class="mt-3">
-                    <div class="text mt-2">
-                        Trạng Thái
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Chưa Hoạt Động</label>
-                    </div>
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập Nhật</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

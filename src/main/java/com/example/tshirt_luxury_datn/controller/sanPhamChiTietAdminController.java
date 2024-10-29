@@ -30,18 +30,19 @@ public class sanPhamChiTietAdminController {
     @Autowired
     sanPhamRepository sanPhamRepo;
 
+    @ModelAttribute("sanPham")
+    public Integer getSanPham(Model model, @RequestParam(name ="id")Integer id) {
+        SanPham sanPham = sanPhamRepo.getReferenceById(id);
+        Integer sanPhamId = sanPham.getId();
+        model.addAttribute("SanPham", sanPhamId);
+        return sanPhamId;
+    }
 //    @ModelAttribute("sanPham")
-//    public String getSanPham(Model model, @RequestParam(name ="id")Integer id) {
-//        SanPham sanPham = sanPhamRepo.getReferenceById(id);
+//    public String getSanPham(Model model) {
+//        SanPham sanPham = sanPhamRepo.findAll().get(0);
 //        model.addAttribute("SanPham", sanPham.getId());
 //        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
 //    }
-    @ModelAttribute("sanPham")
-    public String getSanPham(Model model) {
-        SanPham sanPham = sanPhamRepo.findAll().get(1);
-        model.addAttribute("SanPham", sanPham.getId());
-        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
-    }
 
     @ModelAttribute("size")
     public String getSize(Model model) {

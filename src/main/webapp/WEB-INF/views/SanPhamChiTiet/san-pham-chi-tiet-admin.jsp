@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,10 +131,9 @@
                     <div class="modal-body">
                         <div class="form-floating mb-3">
                             <input type="number" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"
-                                   disabled readonly value="${SanPham}" name="id_san_pham">
+                                    readonly value="${SanPham}" name="id_san_pham">
                             <label for="floatingInput">Tên Sản Phẩm</label>
                         </div>
-                        <input type="hidden" name="id_san_pham" value="${SanPham}">
                         <div class="form-floating mb-3 mt-3">
                             <input type="text" class="form-control" id="floatingInput" placeholder="Mã Sản Phẩm Chi Tiết" name="maSanPhamChiTiet">
                             <label for="floatingInput">Mã Sản Phẩm Chi Tiết</label>

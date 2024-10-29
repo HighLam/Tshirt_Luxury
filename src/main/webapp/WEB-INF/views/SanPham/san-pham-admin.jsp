@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -159,16 +159,6 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
                         <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
-
-                    <!-- Tải Ảnh Lên -->
-                    <div class="mb-3">
-                        <label class="form-label">Chọn Ảnh Sản Phẩm</label>
-                        <select class="form-select" aria-label="Default select example" name="id_anh_san_pham">
-                            <c:forEach var="s" items="${anhSP}">
-                                <option value="${s.id}">${s.tenAnhSanPham}</option>
-                            </c:forEach>
-                        </select>
                     </div>
 
                     <!-- Tên Sản Phẩm -->

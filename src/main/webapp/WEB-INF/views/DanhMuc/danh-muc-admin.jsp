@@ -22,8 +22,8 @@
                 <nav class="navbar navbar-light bg-light">
                     <div class="container">
                         <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="LogoDATN.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top">
+                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
+                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
                                 LUXURY </a>
@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

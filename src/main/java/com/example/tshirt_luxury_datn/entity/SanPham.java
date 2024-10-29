@@ -26,9 +26,7 @@ public class SanPham {
     @Column(name = "ten_san_pham")
     private String tenSanPham;
 
-    @OneToOne
-    @JoinColumn(name = "id_anh_san_pham")
-    private AnhSanPham anhSanPham;
+
 
     @ManyToOne
     @JoinColumn(name = "id_danh_muc")
