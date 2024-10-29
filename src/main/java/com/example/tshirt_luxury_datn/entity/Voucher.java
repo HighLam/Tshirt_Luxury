@@ -26,8 +26,10 @@ public class Voucher {
     private String moTa;
     @Column(name = "gia_tri_giam")
     private Integer giaTriGiam;
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_bat_dau")
     private Date ngayBatDau;
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
     @Column(name = "so_luong")
