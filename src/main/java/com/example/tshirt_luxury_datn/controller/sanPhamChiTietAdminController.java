@@ -9,10 +9,7 @@ import com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,10 +30,16 @@ public class sanPhamChiTietAdminController {
     @Autowired
     sanPhamRepository sanPhamRepo;
 
+//    @ModelAttribute("sanPham")
+//    public String getSanPham(Model model, @RequestParam(name ="id")Integer id) {
+//        SanPham sanPham = sanPhamRepo.getReferenceById(id);
+//        model.addAttribute("SanPham", sanPham.getId());
+//        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
+//    }
     @ModelAttribute("sanPham")
     public String getSanPham(Model model) {
-        SanPham sanPham = sanPhamRepo.findAll().get(0);
-        model.addAttribute("tenSanPham", sanPham.getId());
+        SanPham sanPham = sanPhamRepo.findAll().get(1);
+        model.addAttribute("SanPham", sanPham.getId());
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
@@ -83,6 +86,7 @@ public class sanPhamChiTietAdminController {
             @RequestParam("id_chat_lieu") Integer idChatLieu,
             @RequestParam("id_mau_sac") Integer idMauSac,
             @ModelAttribute("sanPhamChiTiet") SanPhamChiTiet sanPhamChiTiet) {
+
         sanPhamChiTiet.setSanPham(sanPhamRepo.findById(idSanPham).get());
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
@@ -91,12 +95,15 @@ public class sanPhamChiTietAdminController {
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet";
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+idSanPham;
     }
 
-    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
-    public String sanPhamChiTietDelete(@RequestParam("id") Integer id) {
+    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete/{id}")
+    public String sanPhamChiTietDelete(@PathVariable(value = "id") Integer id
+        ) {
+        SanPham sanPham = sanPhamRepo.findAll().get(0);
+        int idSp= sanPham.getId();
         sanPhamChiTietAdminRepo.deleteById(id);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet";
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+idSp;
     }
 }

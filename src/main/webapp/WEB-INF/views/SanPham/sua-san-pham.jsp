@@ -96,7 +96,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Sửa Người Dùng</h2>
+                <h2 class="">Sửa Sản Phẩm</h2>
 
 
                 <form action="/t-shirt-luxury/admin/updateNguoiDung?id=${nguoiDung.id}" method="POST">
