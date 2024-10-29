@@ -32,7 +32,7 @@ public class DotGiamGia {
     private Date ngayKetThuc;
     @Column(name = "trang_thai")
     private String trangThai;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
     @Column(name = "ghi_chu")
