@@ -13,16 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "dot_giam_gia")
 public class DotGiamGia {
-//    id INT PRIMARY KEY IDENTITY(1,1),
-//    ma_dot_giam_gia NVARCHAR(255) NULL,
-//    ten_dot_giam_gia NVARCHAR(100)  NULL,
-//    mo_ta NVARCHAR(255),
-//    gia_tri_giam INT NULL,
-//    ngay_bat_dau DATE NOT NULL,
-//    ngay_ket_thuc DATE NOT NULL,
-//    trang_thai NVARCHAR(50),
-//    id_danh_muc INT NULL,
-//    ghi_chu NVARCHAR(255),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -42,7 +32,7 @@ public class DotGiamGia {
     private Date ngayKetThuc;
     @Column(name = "trang_thai")
     private String trangThai;
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "id_danh_muc")
     private DanhMuc danhMuc;
     @Column(name = "ghi_chu")

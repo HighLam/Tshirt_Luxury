@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.controller;
 
+import com.example.tshirt_luxury_datn.entity.DotGiamGia;
 import com.example.tshirt_luxury_datn.entity.Voucher;
 import com.example.tshirt_luxury_datn.repository.voucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,25 @@ public class voucherController {
     @GetMapping("/t-shirt-luxury/admin/voucher/delete")
     public String voucherDelete(@RequestParam("id")Integer id){
         voucherRepo.deleteById(id);
+        return "redirect:/t-shirt-luxury/admin/voucher";
+    }
+    @GetMapping("/t-shirt-luxury/admin/voucher/getOne")
+    public String getOneVoucher(@RequestParam("id") Integer id, Model model){
+        Voucher voucher  = voucherRepo.getOne(id);
+        model.addAttribute("voucher", voucher);
+        return "voucher/update-voucher";
+    }
+    @PostMapping("/t-shirt-luxury/admin/voucher/update")
+    public String updateVoucher(@RequestParam("id") Integer id,
+                                @ModelAttribute("voucher") Voucher voucher){
+        Voucher getOne = voucherRepo.getReferenceById(id);
+        if(getOne.getId() == id){
+            Date ngayBatDau = new Date();
+            voucher.setId(id);
+            voucher.setNgayBatDau(ngayBatDau);
+            voucher.setNgayKetThuc(getOne.getNgayBatDau());
+            voucherRepo.save(voucher);
+        }
         return "redirect:/t-shirt-luxury/admin/voucher";
     }
 }
