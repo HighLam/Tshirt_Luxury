@@ -30,12 +30,13 @@ public class sanPhamChiTietAdminController {
     @Autowired
     sanPhamRepository sanPhamRepo;
 
-    @ModelAttribute("sanPham")
-    public Integer getSanPham(Model model, @RequestParam(name ="id")Integer id) {
+    @ModelAttribute("id_san_pham")
+    public String getSanPham(Model model, @RequestParam("id")Integer id) {
         SanPham sanPham = sanPhamRepo.getReferenceById(id);
         Integer sanPhamId = sanPham.getId();
-        model.addAttribute("SanPham", sanPhamId);
-        return sanPhamId;
+        model.addAttribute("id_san_pham", sanPhamId);
+        System.out.println("12345ssas"+sanPhamId);
+        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 //    @ModelAttribute("sanPham")
 //    public String getSanPham(Model model) {
