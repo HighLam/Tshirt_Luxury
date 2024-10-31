@@ -25,11 +25,6 @@ public class dotGiamGiaController {
         model.addAttribute("listGiamGia", dotGiamGiaRepo.findAll());
         return "DotGiamGia/dot-giam-gia-admin";
     }
-//    @ModelAttribute("danhMuc")
-//    public String danhMuc(Model model){
-//        model.addAttribute("listDanhMuc", danhMucRepo.findAll());
-//        return "DotGiamGia/dot-giam-gia-admin";
-//    }
     @PostMapping("/t-shirt-luxyry/admin/giam-gia/add")
     public String addGiamGia(DotGiamGia dotGiamGia){
         dotGiamGia.setNgayBatDau(new Date());

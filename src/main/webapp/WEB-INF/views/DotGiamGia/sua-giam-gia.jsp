@@ -129,10 +129,9 @@
                                 <label class="form-check-label">Chưa Hoạt Động</label>
                             </div>
                         </div>
-
-                        <div class="mb-3 mt-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa" value="${dotGiamGia.moTa}"></textarea>
+                        <div class="form-floating mb-3 mt-3">
+                            <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${dotGiamGia.moTa}">
+                            <label for="floatingInput">Mô tả</label>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -140,19 +139,10 @@
                         </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 </div>
 </body>
 

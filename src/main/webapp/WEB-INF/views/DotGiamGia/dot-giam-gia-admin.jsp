@@ -34,7 +34,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,7 +141,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i></a>
 
                             <a class="btn btn-danger rounded-pill" data-toggle="tooltip" href="/t-shirt-luxury/admin/giam-gia/delete?id=${gg.id}"
-                                    data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                                   onclick="return confirmDelete()" data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                     </c:forEach>
@@ -205,8 +205,10 @@
         </div>
     </div>
 </div>
-
-
 </body>
-
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Giảm Giá này không ?");
+    }
+</script>
 </html>
