@@ -31,17 +31,18 @@ public class sanPhamChiTietAdminController {
     sanPhamRepository sanPhamRepo;
 
 //    @ModelAttribute("sanPham")
-//    public String getSanPham(Model model, @RequestParam(name ="id")Integer id) {
+//    public Integer getSanPham(Model model, @RequestParam(name ="id")Integer id) {
 //        SanPham sanPham = sanPhamRepo.getReferenceById(id);
+//        Integer sanPhamId = sanPham.getId();
+//        model.addAttribute("SanPham", sanPhamId);
+//        return sanPhamId;
+//    }
+//    @ModelAttribute("sanPham")
+//    public String getSanPham(Model model) {
+//        SanPham sanPham = sanPhamRepo.findAll().get(0);
 //        model.addAttribute("SanPham", sanPham.getId());
 //        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
 //    }
-    @ModelAttribute("sanPham")
-    public String getSanPham(Model model) {
-        SanPham sanPham = sanPhamRepo.findAll().get(1);
-        model.addAttribute("SanPham", sanPham.getId());
-        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
-    }
 
     @ModelAttribute("size")
     public String getSize(Model model) {
@@ -75,19 +76,23 @@ public class sanPhamChiTietAdminController {
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
+    @ModelAttribute("sanPham")
+    public SanPham getSanPham(@RequestParam("id_san_pham") Integer idSanPham) {
+        return sanPhamRepo.findById(idSanPham).orElse(null);
+    }
 
 
 
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
-            @RequestParam("id_san_pham") Integer idSanPham,
+            @ModelAttribute("sanPham") SanPham sanPham,
             @RequestParam("id_anh_san_pham_chi_tiet") Integer idAnhSanPham,
             @RequestParam("id_size") Integer idSize,
             @RequestParam("id_chat_lieu") Integer idChatLieu,
             @RequestParam("id_mau_sac") Integer idMauSac,
             @ModelAttribute("sanPhamChiTiet") SanPhamChiTiet sanPhamChiTiet) {
 
-        sanPhamChiTiet.setSanPham(sanPhamRepo.findById(idSanPham).get());
+        sanPhamChiTiet.setSanPham(sanPham);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
         sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.findById(idAnhSanPham).get());
@@ -95,15 +100,15 @@ public class sanPhamChiTietAdminController {
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+idSanPham;
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+sanPham.getId();
     }
 
-    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete/{id}")
-    public String sanPhamChiTietDelete(@PathVariable(value = "id") Integer id
-        ) {
-        SanPham sanPham = sanPhamRepo.findAll().get(0);
-        int idSp= sanPham.getId();
-        sanPhamChiTietAdminRepo.deleteById(id);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+idSp;
-    }
+//    @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete/{id}")
+//    public String sanPhamChiTietDelete(@PathVariable(value = "id") Integer id
+//        ) {
+//        SanPham sanPham = sanPhamRepo.findAll().get(0);
+//        int idSp= sanPham.getId();
+//        sanPhamChiTietAdminRepo.deleteById(id);
+//        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+idSp;
+//    }
 }
