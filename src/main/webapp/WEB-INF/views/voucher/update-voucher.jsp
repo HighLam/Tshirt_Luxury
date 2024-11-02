@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<div class="container">
+<div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">

@@ -307,7 +307,7 @@
     </div>
 
     <div class="text-center mt-4" style="padding-left:2rem">
-        <button class="btn btn-outline-dark" type="submit">Xem Thêm</button>
+        <a class="btn btn-outline-dark" type="submit">Xem Thêm</a>
     </div>
 
     <div class="text-center mt-5" style="padding-left:2rem">
@@ -567,7 +567,7 @@
                     <div class="d-flex flex-column flex-sm-row w-100 gap-2">
                         <label for="newsletter1" class="visually-hidden">Email address</label>
                         <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                        <button class="btn btn-primary" type="button">Subscribe</button>
+                        <a class="btn btn-primary" type="button">Subscribe</a>
                     </div>
                 </form>
             </div>

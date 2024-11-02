@@ -14,7 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1460px;">
+
 <div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -89,7 +90,6 @@
                             Mục</a></li>
                     </ul>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
         <div class="col-9" style="">
@@ -110,26 +110,45 @@
         </nav>
         <div class="row">
             <div class="col-8">
-                <div class="HDCT" style="height:500px ; width: 800px;">
-                    <table class="table" >
+                <div class="HDCT" style="height:250px ; width: 730px;">
+                    <p>Sản phẩm</p>
+                    <table class="table scrollspy-example" >
                         <tbody>
+                        <c:forEach items="${SP}" var="sp" varStatus="i">
+
+
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>${i.index+1}</td>
+                            <td>${sp.maSanPham}</td>
+                            <td>${sp.tenSanPham}</td>
+                            <td>${sp.danhMuc.tenDanhMuc}</td>
+                            <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
+                            <td><a type="button" class="btn" data-bs-toggle="modal" data-bs-target="#themSanPham" href="/t-shirt-luxury/admin?id=${sp.id}" ><i class="fa-solid fa-check"></i></a></td>
+
+
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
+                <hr>
+        <div class="SPCT">
 
+            <table class="table" >
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
 
+                </tbody>
+            </table>
+        </div>
             </div>
 
 
@@ -177,5 +196,22 @@
     </div>
 </div>
 </body>
+<div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">${modal.id}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

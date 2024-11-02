@@ -14,8 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
-<div class="container">
+<body style="max-width: 1460px;">
+<div>
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
