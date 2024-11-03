@@ -123,7 +123,13 @@
                             <td>${sp.tenSanPham}</td>
                             <td>${sp.danhMuc.tenDanhMuc}</td>
                             <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
-                            <td><a type="button" class="btn" data-bs-toggle="modal" data-bs-target="#themSanPham" href="/t-shirt-luxury/admin?id=${sp.id}" ><i class="fa-solid fa-check"></i></a></td>
+                            <td>
+                                <button type="button"
+                                   class="btn"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#themSanPham"
+                                    onclick="a('${sp.id}')">
+                                    <i class="fa-solid fa-check"></i></button></td>
 
 
                         </tr>
@@ -213,5 +219,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    const a = (id)=>{
+        console.log(id)
+    }
+</script>
 </html>

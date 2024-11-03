@@ -2,6 +2,7 @@ package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone;
+import com.oracle.wls.shaded.org.apache.bcel.generic.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiT
 
     @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId")
     List<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
+
+
 }
