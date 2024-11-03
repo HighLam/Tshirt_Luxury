@@ -1,9 +1,6 @@
 package com.example.tshirt_luxury_datn.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "mau_sac")
+@ToString
 public class MauSac {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
