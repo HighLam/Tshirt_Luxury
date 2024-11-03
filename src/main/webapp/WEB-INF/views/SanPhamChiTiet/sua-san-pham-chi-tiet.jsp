@@ -97,56 +97,37 @@
         <div class="col-9" style="">
             <div class="row">
                 <h2 class="">Sửa Sản Phẩm</h2>
-                <form action="/t-shirt-luxury/admin/updateSanPham?id=${sanPham.id}" method="POST">
+                <form action="/t-shirt-luxury/admin/updateSanPhamChiTiet?id=${SPCT.id}" method="POST">
                     <div>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Mã Sản Phẩm -->
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
-                    <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                </div>
-
-                <!-- Tên Sản Phẩm -->
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham" value="${sanPham.tenSanPham}">
-                    <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
-                </div>
-
-                <!-- Danh Mục Sản Phẩm -->
-                    <label for="floatingInputTenSanPham">Tên Danh Mục</label>
-                    <select class="form-select" aria-label="Default select example" name="danhMuc.id">
-                        <c:forEach items="${danhMuc}" var="s">
-                            <option  hidden="hidden">Chọn danh mục</option>
-                            <option value="${s.id}" ${sanPham.danhMuc.id.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
-                        </c:forEach>
-
-                    </select>
-
-
-                <!-- Trạng Thái -->
-                <div>
-                    <div class="text mt-2">Trạng Thái</div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1"
-                        ${sanPham.trangThai == 1 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio1">Bán</label>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0"
-                        ${sanPham.trangThai == 0 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                    <div class="modal-body">
+                        <!-- Mã Sản Phẩm -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control"  placeholder="Tên Sản Phẩm"
+                                   disabled readonly value="${SPCT.sanPham.tenSanPham}" >
+                            <label for="floatingInput">Tên Sản Phẩm</label>
+                        </div>
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${SPCT.soLuong}">
+                            <label for="floatingInput">Số Lượng</label>
+                        </div>
+                        <!-- Trạng Thái -->
+                        <div>
+                            <div class="text mt-2">Trạng Thái</div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1"
+                                ${SPCT.trangThai == 1 ? 'checked' :''}>
+                                <label class="form-check-label" for="inlineRadio1">Bán</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0"
+                                ${SPCT.trangThai == 0 ? 'checked' :''}>
+                                <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Mô Tả Sản Phẩm -->
-                <div class="mb-3">
-                    <label  class="form-label">Mô tả sản phẩm</label>
-                    <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${sanPham.moTa}">
-                </div>
-            </div>
                     <div class="p-2 bd-highlight d-flex justify-content-end">
                         <button type="submit" class="btn btn-outline-warning">
                             <i class="fa-solid fa-pen"></i> Cập nhật
