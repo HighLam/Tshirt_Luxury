@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Luxury | ADMIN</title>
-
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div class="container">
+<div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -93,25 +93,86 @@
             </div>
         </div>
         <div class="col-9" style="">
-            <div class="row">
-                <h2>Trang chủ</h2>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-success " role="progressbar" style="width: 25%" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100"></div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid" >
+
+                    <form class="d-flex">
+                        <input style="width: 600px;" class="form-control me-2" type="search" placeholder="Tìm sản phẩm" aria-label="Search">
+
+                        <ul style="list-style-type: none;">
+                            <li class="nav-item mt-3" >
+                                <a href="" ><i class="fa-solid fa-barcode" style="font-size: 30px; "></i></a>
+                            </li>
+                        </ul>
+                    </form>
+
                 </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                         aria-valuemin="0" aria-valuemax="100"></div>
+        </nav>
+        <div class="row">
+            <div class="col-8">
+                <div class="HDCT" style="height:500px ; width: 800px;">
+                    <table class="table" >
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress mt-5">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100"
-                         aria-valuemin="0" aria-valuemax="100"></div>
+
+
+            </div>
+
+
+            <div class="col-4" style="border-left: 1px solid black;">
+                <div class="TTDH" style="height:500px ;">
+
+                    <h5>Thông tin đơn hàng</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Số lượng sản phẩm</p>
+                            <p>Tổng tiền</p>
+                            <p>Chiết khấu</p>
+                            <hr>
+                            <h6>Khách phải trả</h6>
+                            <p>Tiền khách đưa</p>
+                            <p>Tiền thừa</p>
+                        </div>
+                        <div class="col-6">
+                            <p>1</p>
+                            <p>100000Đ</p>
+                            <p>10000</p>
+                            <hr>
+                            <H6>90000</H6>
+                            <p>100000</p>
+                            <p>10000</p>
+                        </div>
+                    </div>
+                    <div class="voucher ">
+                        <label for="floatingInput">Voucher</label>
+                        <div class="d-flex justify-content mt-2">
+                            <input style="width: 284px;" type="text" class="form-control" id="floatingInput">
+                            <button class="btn btn-secondary "  type="submit" style="margin-left: 10px;">Áp Dụng</button>
+                        </div>
+
+                    </div >
+                    <div class="btnHoaDon mt-5 d-flex justify-content-end me-5" >
+                        <button class="btn btn-secondary">Hủy</button>
+                        <button class="btn btn-dark ms-3" >Thanh toán</button>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

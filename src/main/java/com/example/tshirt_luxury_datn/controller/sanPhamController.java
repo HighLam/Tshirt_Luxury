@@ -44,13 +44,11 @@ public class sanPhamController {
     @PostMapping("t-shirt-luxury/admin/san-pham/add")
     public String sanPhamSave(
             @RequestParam("id_danh_muc") Integer idDanhMuc,
-            @RequestParam("id_anh_san_pham") Integer idAnhSanPham,
             @ModelAttribute("sanPham") SanPham sanPham){
 
         sanPham.setNgayTao(new Date());
         sanPham.setNgaySua(new Date());
         sanPham.setDanhMuc(danhMucRepository.findById(idDanhMuc).get());
-        sanPham.setAnhSanPham(anhSanPhamRepository.findById(idAnhSanPham).get());
         sanPhamRepository.save(sanPham);
         return "redirect:/t-shirt-luxury/admin/san-pham";
     }
