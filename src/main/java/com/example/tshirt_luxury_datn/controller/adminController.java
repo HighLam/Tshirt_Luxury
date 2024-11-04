@@ -2,6 +2,7 @@ package com.example.tshirt_luxury_datn.controller;
 
 import com.example.tshirt_luxury_datn.entity.MauSac;
 import com.example.tshirt_luxury_datn.entity.SanPham;
+import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.entity.Size;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.MauSacReponse;
@@ -9,10 +10,7 @@ import com.example.tshirt_luxury_datn.response.SizeReponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +66,7 @@ public class adminController {
 
         response.put("listMauSac", listMauSacReponse);
 
-         //Lấy size của từng sản phẩm
+        //Lấy size của từng sản phẩm
         List<Integer> listIdSize = sanPhamChiTietAdminRepo.getIdSize(idSanPham);
         List<SizeReponse> listSizeReponse = listIdSize.stream()
                 .map(idSize -> {
@@ -80,4 +78,17 @@ public class adminController {
 
         return response;
     }
+
+    @PostMapping("/t-shirt-luxury/admin/getIdMau")
+    public String getidMau(
+            @RequestParam(name = "idMau") Integer idMau,
+            @RequestParam(name = "idSize") Integer idSize
+
+    ) {
+        SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
+        System.out.println(sanPhamChiTiet1);
+
+        return "redirect:/t-shirt-luxury/admin";
+    }
+
 }

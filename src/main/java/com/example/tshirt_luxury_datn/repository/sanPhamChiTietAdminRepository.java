@@ -21,10 +21,17 @@ public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiT
             "where id_san_pham = :idSanPham group by id_mau_sac", nativeQuery = true)
     List<Integer> getIdMauSac(@Param("idSanPham") Integer idSanPham);
 
-    @Query(value = "\n" +
+    @Query(value =
             "select id_size from dbo.san_pham_chi_tiet spct\n" +
             "where id_san_pham = :idSanPham group by id_size", nativeQuery = true)
     List<Integer> getIdSize(@Param("idSanPham") Integer idSanPham);
+
+    @Query(value = "select * from dbo.san_pham_chi_tiet\n" +
+            "where id_mau_sac = :idMauSac  and id_size = :idSize",nativeQuery = true)
+     SanPhamChiTiet getSanPhamChiTiet(
+            @Param("idMauSac") Integer idMauSac,
+              @Param("idSize") Integer idSize
+    );
 
 
 
