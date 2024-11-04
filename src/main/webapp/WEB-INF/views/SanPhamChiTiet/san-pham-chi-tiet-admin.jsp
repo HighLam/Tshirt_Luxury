@@ -99,9 +99,9 @@
                     <td>${s.khoiLuongSanPham}</td>
                     <td>${s.moTa}</td>
                     <td>
-                        <button class="btn btn-warning rounded-pill" data-toggle="tooltip" data-placement="top"
-                                data-bs-toggle="modal" data-bs-target="#suaNguoiDung" title="Chỉnh Sửa"><i
-                                class="fa-solid fa-pen-to-square"></i></button>
+                        <a href="/t-shirt-luxury/admin/sua-san-pham-chi-tiet/getOne?id=${s.id}"  class="btn btn-warning rounded-pill"
+
+                           title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                         <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top"
                                 title="Xóa"><i class="fa-solid fa-trash"></i></a>
                     </td>

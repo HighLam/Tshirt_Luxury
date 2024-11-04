@@ -122,8 +122,8 @@
                             <td>${sp.danhMuc.tenDanhMuc}</td>
                             <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
                             <td>
-                                <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/detail?id=${sp.id}"  class="btn btn-warning rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" data-bs-toggle="modal" data-bs-target="#suaSanPham"
+                                <a href="/t-shirt-luxury/admin/sua-san-pham/getOne?id=${sp.id}"  class="btn btn-warning rounded-pill"
+
                                         title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
                                         data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>

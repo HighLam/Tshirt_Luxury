@@ -41,7 +41,7 @@ public class adminController {
     @GetMapping("t-shirt-luxury/admin")
     public String getSanPhamChiTiet(Model model) {
         model.addAttribute("SP", sanPhamRepo.findAll());
-        return "Admin/admin";
+        return "admin/admin";
     }
 
     @GetMapping("/t-shirt-luxury/admin/getTest")

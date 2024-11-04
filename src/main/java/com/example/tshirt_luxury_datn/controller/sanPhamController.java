@@ -1,9 +1,6 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.AnhSanPham;
-import com.example.tshirt_luxury_datn.entity.ChatLieu;
-import com.example.tshirt_luxury_datn.entity.DanhMuc;
-import com.example.tshirt_luxury_datn.entity.SanPham;
+import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.anhSanPhamRepository;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
@@ -59,11 +56,26 @@ public class sanPhamController {
         return "redirect:/t-shirt-luxury/admin/san-pham";
     }
 
-    @GetMapping("t-shirt-luxury/admin/san-pham/detail")
-    public String sanPhamDetail(@RequestParam("id") Integer id, Model model) {
-        SanPham sanPham = sanPhamRepository.findById(id).orElse(null);
-        model.addAttribute("sanPham",sanPham);
-        return "SanPham/san-pham-admin";
-    }
 
+    @GetMapping("t-shirt-luxury/admin/sua-san-pham/getOne")
+    public String getSanPham(@RequestParam(name = "id") Integer id, Model model) {
+
+        // Lấy đối tượng san pham theo ID
+        SanPham sanPham = sanPhamRepository.getOne(id);
+        model.addAttribute("sanPham", sanPham);
+        return "SanPham/sua-san-pham";
+    }
+    @PostMapping("t-shirt-luxury/admin/updateSanPham")
+    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("sanPham") SanPham sanPham) {
+        SanPham getOne = sanPhamRepository.getReferenceById(id);
+        if (getOne.getId() == id) {
+            Date ngaySua = new Date();
+            sanPham.setId(id);
+            sanPham.setNgaySua(ngaySua);
+            sanPham.setNgayTao(getOne.getNgayTao());
+            sanPhamRepository.save(sanPham);
+        }
+        return "redirect:/t-shirt-luxury/admin/san-pham";
+
+    }
 }
