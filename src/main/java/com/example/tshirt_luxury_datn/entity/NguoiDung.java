@@ -33,9 +33,6 @@ public class NguoiDung {
     @JoinColumn(name = "id_chuc_vu")
     private ChucVu chucVu;
 
-    @OneToOne
-    @JoinColumn(name = "id_nguoi_dung_chi_tiet")
-    private NguoiDungChiTiet nguoiDungChiTiet;
 
     @Column(name = "trang_thai")
     private Integer trangThai;

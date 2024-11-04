@@ -22,9 +22,7 @@ public class HoaDon {
 
     @Column(name = "ma_hoa_don")
     private String maHoaDon;
-    @OneToMany
-    @JoinColumn(name = "id_hoa_don_chi_tiet")
-    private List<HoaDonChiTiet> hoaDonChiTiet;
+
     @ManyToOne
     @JoinColumn(name = "id_nguoi_dung")
     private NguoiDung nguoiDung;
