@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="../DanhMuc/gioHang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +46,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -92,7 +93,7 @@
             </a>
         </div>
         <ul class="menu-popup">
-            <li class="item-danh-muc"><a href="#" class="name-danh-muc-popup ">Áo Nam
+            <li class="item-danh-muc"><a href="/t-shirt-luxury/ao-nam" class="name-danh-muc-popup ">Áo Nam
             </a>
             </li>
             <li class="item-danh-muc"><a href="#" class="name-danh-muc-popup">Quần Nam</a></li>
@@ -111,7 +112,7 @@
             <a href="#">
                 <i class="fa-regular fa-heart ps-5"></i>
             </a>
-            <a href="#">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
                 <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
             </a>
 
@@ -153,7 +154,7 @@
          style="display: none;position: absolute;background-color: #ffff;top:0;z-index: 6;">
         <ul>
             <li class="item-danh-muc-ctsp" style="border-right: 1px solid #000; padding:0 10px;">
-                <a href="#" class="ten-danh-muc hover-change-color">Áo Nam
+                <a href="/t-shirt-luxury/ao-nam" class="ten-danh-muc hover-change-color">Áo Nam
                 </a>
             </li>
             <li class="item-danh-muc-ctsp"><a href="#" class="ten-danh-muc hover-change-color"

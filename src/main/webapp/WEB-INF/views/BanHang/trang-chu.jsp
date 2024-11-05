@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="../DanhMuc/gioHang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +17,7 @@
     <script src="../js/script.js"></script>
 </head>
 
-<body>
+<body >
 
 <!-- Start Header -->
 <header>
@@ -30,7 +31,7 @@
                     </a>
                 </div>
                 <ul class="menu-popup">
-                    <li class="item-danh-muc"><a href="#" class="name-danh-muc-popup ">Áo Nam
+                    <li class="item-danh-muc"><a href="/t-shirt-luxury/ao-nam" class="name-danh-muc-popup ">Áo Nam
                     </a>
                     </li>
                     <li class="item-danh-muc"><a href="#" class="name-danh-muc-popup">Quần Nam</a></li>
@@ -49,7 +50,7 @@
                     <a href="#">
                         <i class="fa-regular fa-heart ps-5"></i>
                     </a>
-                    <a href="#">
+                    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
                         <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                     </a>
 
@@ -90,7 +91,7 @@
 
             <div class="danh-muc">
                 <ul>
-                    <li class="item-danh-muc"><a href="#" class="ten-danh-muc hover-change-color">Áo Nam
+                    <li class="item-danh-muc"><a href="/t-shirt-luxury/ao-nam" class="ten-danh-muc hover-change-color">Áo Nam
                     </a>
                     </li>
                     <li class="item-danh-muc"><a href="#" class="ten-danh-muc hover-change-color">Quần Nam</a></li>
@@ -145,7 +146,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#">
+                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -257,7 +258,7 @@
 
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_unisex/Airplane/while.webp" class="card-img-top" alt="...">
+                <img src="../images/ao_phong_unisex/BACISTEE/pink.webp" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>

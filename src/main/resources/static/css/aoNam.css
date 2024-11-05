@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -40,17 +41,30 @@
     height: 753px;
 
 }
+.danh-muc-page-ctsp {
+    width: 40%;
+    padding: 40px 0px 40px 10px;
+    display: flex;
+    flex-direction: column;
+    height: 753px;
 
+}
 .danh-muc ul {
     display: flex;
     margin: 0;
     padding: 0;
 }
-
+.danh-muc-page-ctsp ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
 .danh-muc ul li {
     list-style-type: none;
 }
-
+.danh-muc-page-ctsp ul li {
+    list-style-type: none;
+}
 .danh-muc ul li a {
     text-decoration: none;
     color: #fff;
@@ -62,7 +76,17 @@
 
     line-height: 30px;
 }
+.danh-muc-page-ctsp ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    top: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0 18px;
 
+    line-height: 30px;
+}
 
 .border-right {
     border-right: 0.5px solid #ffff;
@@ -639,48 +663,139 @@ ul .login-and-signin {
 
 
 /* End Register */
+
+
+/*aoNam*/
 body {
     font-family: Arial, sans-serif;
 }
-
-.navbar {
-    border-bottom: 1px solid #ddd;
-}
-
-.navbar-nav .nav-link {
-    color: #000;
-}
-
-.cart-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.cart-summary {
-    background-color: #f8f8f8;
-    padding: 20px;
-    border: 1px solid #ddd;
-}
-
-.cart-summary .btn {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.cart-item {
-    border-bottom: 1px solid #ddd;
-    padding: 20px 0;
-}
-
-.cart-item img {
-    width: 100px;
-    height: auto;
-}
-
-.cart-item .btn {
-    border: 1px solid #ddd;
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
 }
 .home{
-    color: black;
     text-decoration: none;
+    color: black;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '|';
+}
+.product-card {
+    border: none;
+}
+.product-card img {
+    width: 100%;
+    /*height: auto;*/
+
+}
+.product-info {
+    text-align: center;
+    padding: 10px 0;
+}
+.product-info .price {
+    font-weight: bold;
+}
+.product-info .colors img {
+    width: 25px;
+    height: 25px;
+    margin: 0 2px;
+    border: 1px solid #cec5c8;
+    border-radius: 100px;
+}
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+.product-actions button {
+    width: 48%;
+}
+.color-box {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    position: relative;
+}
+/* Ẩn checkbox */
+.color-checkbox {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+/* Khi checkbox được chọn, thêm border cho color box */
+.color-checkbox:checked + .color-box {
+    border: 3px solid #000;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Giảm khoảng cách khi hover */
+}
+.filters {
+    margin-top: 20px;
+}
+.filters .dropdown {
+    margin-right: 20px;
+}
+.sort-by {
+    text-align: right;
+}
+.sort-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    margin-left: auto;
+}
+.sort-label {
+    font-size: 16px;
+    font-weight: bold;
+
+}
+.dropdown-menu {
+    min-width: 150px;
+}
+.dropdown-item.active {
+    background-color: #007bff;
+    color: white;
+}
+.btn{
+    margin-right: 15px;
+}
+.mt-text{
+    width: 100px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+}
+.form-select{
+    border: none;
+    padding: 0;
+    width: 120px;
+}
+
+.col-md-3 .product-actions {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.col-md-3:hover .product-actions {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-actions .btn {
+    margin-top: 10px;
+    width: 100%;
+    display: block;
+}
+.pagination {
+    justify-content: center;
+}
+.page-link {
+    color: #000000;
+
 }
