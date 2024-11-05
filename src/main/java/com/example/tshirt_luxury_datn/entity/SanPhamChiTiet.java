@@ -1,9 +1,6 @@
 package com.example.tshirt_luxury_datn.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "san_pham_chi_tiet")
+@ToString
 public class SanPhamChiTiet {
 
     @Id
@@ -39,6 +37,11 @@ public class SanPhamChiTiet {
     @OneToOne
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chatLieu;
+
+    @ManyToOne
+    @JoinColumn(name = "id_gio_hang")
+    private GioHang gioHang;
+
 
     @ManyToOne
     @JoinColumn(name = "id_san_pham")

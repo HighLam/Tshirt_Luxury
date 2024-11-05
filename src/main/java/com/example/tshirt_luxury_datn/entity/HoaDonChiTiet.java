@@ -27,6 +27,10 @@ public class HoaDonChiTiet {
     @Column(name = "so_luong")
     private Integer soLuong;
 
+    @ManyToOne
+    @JoinColumn(name = "id_hoa_don")
+    private HoaDon hoaDon;
+
     @Column(name = "tong_tien")
     private Double tongTien;
 

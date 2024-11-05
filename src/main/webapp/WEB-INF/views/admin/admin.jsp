@@ -119,48 +119,59 @@
             <div class="row">
                 <div class="col-8">
                     <p>Sản phẩm</p>
-                    <div class="HDCT" style="height:250px ; width: 730px; overflow-y: auto">
-
-                        <table class="table">
+                    <div class="HDCT" style="height: 250px; width: 730px; overflow-y: auto;">
+                        <table class="table" style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Mã</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Danh Mục</th>
-                                <th scope="col">Trạng Thái</th>
+                                <th scope="col" style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">ID</th>
+                                <th scope="col" style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">Mã</th>
+                                <th scope="col" style="width: 35%; position: sticky; top: 0; background: #fff; z-index: 1;">Tên</th>
+                                <th scope="col" style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Danh Mục</th>
+                                <th scope="col" style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Trạng Thái</th>
+                                <th scope="col" style="width: 8%; position: sticky; top: 0; background: #fff; z-index: 1;">Thêm</th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${SP}" var="sp" varStatus="i">
-
-
                                 <tr>
                                     <td>${i.index+1}</td>
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                    <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
+                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
                                            data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
-
-
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
                     </div>
+
+
                     <hr>
                     <div class="SPCT">
 
                         <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Màu Sắc</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Đơn Giá</th>
+                                <th scope="col">Thành Tiền</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                            </thead>
                             <tbody>
                             <tr>
                                 <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
+                                <td>Tên</td>
+                                <td>Size</td>
+                                <td>Màu sắc</td>
+                                <td>Số lượng</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
                             </tr>
@@ -226,21 +237,26 @@
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body d-flex flex-column">
-                <h6>Màu sắc:</h6>
-                <div class="box-mau-sac d-flex">
+            <form action="/t-shirt-luxury/admin/getIdMau" method="POST">
+                <div class="modal-body d-flex flex-column">
+
+                    <h6>Màu sắc:</h6>
+                    <div class="box-mau-sac d-flex">
+
+                    </div>
+                    <hr>
+                    <h6>Size:</h6>
+                    <div class="box-size d-flex">
+
+                    </div>
+
 
                 </div>
-                <hr>
-                <h6>Size:</h6>
-                <div class="box-size d-flex">
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -272,14 +288,19 @@
                         .attr("class", "btn btn-outline-secondary")
                         .css({"margin": "5px", "display": "block", "width": "auto"})
                         .attr("for", "option" + mauSac.id)
-                        .attr("id", "label-"+mauSac.id);
+                        .attr("id", "label-" + mauSac.id)
+
+
 
                     // Tạo checkbox nếu cần thiết
                     const colorCheckbox = $("<input/>")
+
                         .attr("type", "checkbox")
                         .attr("autocomplete", "off")
                         .attr("value", mauSac.id)
                         .attr("class", "btn-check")
+                        .attr("id", "checked-" + mauSac.id)
+                        .attr("name", "idMau");
 
 
                     // Thêm checkbox vào label
@@ -289,10 +310,25 @@
                     $(".box-mau-sac").append(colorLabel);
 
                     // Sự kiện nhấp vào label màu sắc
-                    $(document).on("click", "#label-" + mauSac.id, function () {
-                        $(".box-mau-sac [id^='label-']").removeClass("bg-secondary").css("color", ""); // Xóa CSS từ tất cả label màu
-                        $(this).addClass("bg-secondary").css("color", "#ffff"); // Thêm CSS cho label được nhấp
+                    $(document).on("click", "[id^='label-']", function () {
+                        // Lấy ID của label được nhấp
+                        const id = $(this).attr("id").split('-')[1]; // Lấy phần ID sau 'label-'
+
+                        // Xóa CSS từ tất cả label màu
+                        $(".box-mau-sac [id^='label-']").removeClass("bg-secondary").css("color", "");
+
+                        // Thêm CSS cho label được nhấp
+                        $(this).addClass("bg-secondary").css("color", "#ffff");
+
+                        // Bỏ checked cho tất cả checkbox trong box-mau-sac
+                        $(".box-mau-sac .btn-check").prop("checked", false); // Bỏ checked
+
+                        // Đánh dấu checkbox tương ứng với label được nhấp
+                        $("#checked-" + id).prop("checked", true); // Đánh dấu checkbox là checked
+
+                        console.log(id); // In ID ra console để kiểm tra
                     });
+
 
                 });
 
@@ -308,14 +344,15 @@
                         .text(Size.tenSize)
                         .addClass("btn btn-outline-secondary ")
                         .css({"margin": "5px", "display": "block", "width": "auto"})
-                        .attr("id", "label-size-"+Size.id);
+                        .attr("id", "size-" + Size.id);
                     // Tạo checkbox nếu cần thiết
                     const sizeCheckbox = $("<input>")
                         .attr("type", "checkbox")
-                        .attr("name", "options")
+                        .attr("name", "idSize")
+                        .attr("value", Size.id)
                         .attr("autocomplete", "off")
                         .addClass("btn-check")
-                        .attr("id", `option-${Size.id}`);
+                        .attr("id", "checked-size" + Size.id)
 
                     // Thêm checkbox vào label
                     sizeLabel.prepend(sizeCheckbox);
@@ -323,10 +360,25 @@
                     // Thêm label vào .modal-body
                     $(".box-size").append(sizeLabel);
                     // Sự kiện nhấp vào label kích thước
-                    $(document).on("click", "#label-size-" + Size.id, function () {
-                        $(".box-size [id^='label-size-']").removeClass("bg-secondary").css("color", ""); // Xóa CSS từ tất cả label size
-                        $(this).addClass("bg-secondary").css("color", "#ffff"); // Thêm CSS cho label được nhấp
+                    $(document).on("click", "[id^='size-']", function () {
+                        // Lấy ID thực sự của label size được nhấp
+                        const id = $(this).attr("id").split('-')[1]; // Lấy phần ID sau 'label-'
+
+                        // Xóa CSS từ tất cả các label size khác
+                        $(".box-size [id^='size-']").removeClass("bg-secondary").css("color", "");
+
+                        // Thêm CSS cho label được nhấp
+                        $(this).addClass("bg-secondary").css("color", "#ffff");
+
+                        // Bỏ checked cho tất cả các checkbox trong box-size
+                        $(".box-size .btn-check").prop("checked", false);
+
+                        // Đánh dấu checkbox tương ứng với label size được nhấp
+                        $("#checked-size" + id).prop("checked", true);
+
+                        console.log(id); // In ID ra console để kiểm tra
                     });
+
                 });
 
                 // Mở modal

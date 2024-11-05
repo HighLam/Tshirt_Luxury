@@ -23,9 +23,7 @@ public class GioHang {
     @OneToOne
     @JoinColumn(name ="id_nguoi_dung")
     private NguoiDung nguoiDung;
-    @OneToMany
-    @JoinColumn(name ="id_san_pham_chi_tiet")
-    private List<SanPhamChiTiet> sanPhamChiTiet;
+
 
     @Column(name ="so_luong_spct")
     private Integer soLuongSpct;

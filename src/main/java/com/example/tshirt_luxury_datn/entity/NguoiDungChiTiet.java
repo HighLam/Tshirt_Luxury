@@ -57,6 +57,10 @@ public class NguoiDungChiTiet {
     @Column(name = "ngay_sua")
     private Date ngaySua;
 
+    @OneToOne
+    @JoinColumn(name = "id_nguoi_dung")
+    private NguoiDung nguoiDung;
+
     @Column(name = "mo_ta")
     private String moTa;
 }

@@ -79,7 +79,7 @@ public class sanPhamChiTietAdminController {
     public String sanPhamChiTietAdmin(@RequestParam("id") Integer id, Model model, HttpSession session) {
         model.addAttribute("spct", sanPhamChiTietAdminRepo.findBySanPhamId(id));
         session.setAttribute("idSanPham", id);
-        model.addAttribute("idSanPham",id);
+        model.addAttribute("idSanPham", id);
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
@@ -104,13 +104,45 @@ public class sanPhamChiTietAdminController {
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" +(Integer) session.getAttribute("idSanPham");
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
     }
 
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
-    public String sanPhamChiTietDelete(@RequestParam("id") Integer id,HttpSession session) {
+    public String sanPhamChiTietDelete(@RequestParam("id") Integer id, HttpSession session) {
         sanPhamChiTietAdminRepo.deleteById(id);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+(Integer) session.getAttribute("idSanPham");
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
+    }
+
+    @GetMapping("t-shirt-luxury/admin/sua-san-pham-chi-tiet/getOne")
+    public String getSanPham(@RequestParam(name = "id") Integer id, Model model) {
+
+        // Lấy đối tượng san pham theo ID
+        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getOne(id);
+        model.addAttribute("SPCT", sanPhamChiTiet);
+        return "SanPhamChiTiet/sua-san-pham-chi-tiet";
+    }
+
+    @PostMapping("t-shirt-luxury/admin/updateSanPhamChiTiet")
+    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("SPCT") SanPhamChiTiet sanPhamChiTiet) {
+        SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.getReferenceById(id);
+        if (getOne.getId() == id) {
+            Date ngaySua = new Date();
+            sanPhamChiTiet.setId(id);
+            sanPhamChiTiet.setNgaySua(ngaySua);
+            sanPhamChiTiet.setNgayTao(getOne.getNgayTao());
+            sanPhamChiTiet.setMaSanPhamChiTiet(getOne.getMaSanPhamChiTiet());
+            sanPhamChiTiet.setGia(getOne.getGia());
+            sanPhamChiTiet.setMauSac(getOne.getMauSac());
+            sanPhamChiTiet.setSize(getOne.getSize());
+            sanPhamChiTiet.setChatLieu(getOne.getChatLieu());
+            sanPhamChiTiet.setSanPham(getOne.getSanPham());
+            sanPhamChiTiet.setMoTa(getOne.getMoTa());
+            sanPhamChiTiet.setKhoiLuongSanPham(getOne.getKhoiLuongSanPham());
+            sanPhamChiTiet.setAnhSanPham(getOne.getAnhSanPham());
+            sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+        }
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + getOne.getSanPham().getId();
+
     }
 }
