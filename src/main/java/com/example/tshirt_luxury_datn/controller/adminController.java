@@ -1,12 +1,10 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.MauSac;
-import com.example.tshirt_luxury_datn.entity.SanPham;
-import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
-import com.example.tshirt_luxury_datn.entity.Size;
+import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.MauSacReponse;
 import com.example.tshirt_luxury_datn.response.SizeReponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +35,15 @@ public class adminController {
 
     @Autowired
     sizeRepository sizeRepository;
+    HoaDon hoaDon = new HoaDon();
+
+    public HoaDon createHoaDon(HttpSession session) {
+        hoaDonRepo.save(hoaDon);
+        session.setAttribute("idHoaDon", hoaDon.getId());
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + hoaDon);
+
+        return hoaDon;
+    }
 
     @GetMapping("t-shirt-luxury/admin")
     public String getSanPhamChiTiet(Model model) {
@@ -44,7 +51,7 @@ public class adminController {
         return "admin/admin";
     }
 
-    @GetMapping("/t-shirt-luxury/admin/getTest")
+    @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
     @ResponseBody
     public Map<String, Object> getProductById(@RequestParam(name = "idRequest") Integer idSanPham) {
         Map<String, Object> response = new HashMap<>();
@@ -82,13 +89,20 @@ public class adminController {
     @PostMapping("/t-shirt-luxury/admin/getIdMau")
     public String getidMau(
             @RequestParam(name = "idMau") Integer idMau,
-            @RequestParam(name = "idSize") Integer idSize
+            @RequestParam(name = "idSize") Integer idSize,
+            HttpSession session
 
     ) {
+        HoaDon hoaDon1 = createHoaDon(session);
+        if (!(hoaDon1.getId() == session.getAttribute("idHoaDon"))) {
+            createHoaDon(session);
+        }
+
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
         System.out.println(sanPhamChiTiet1);
 
         return "redirect:/t-shirt-luxury/admin";
     }
+
 
 }

@@ -269,7 +269,7 @@
 
         // Gửi AJAX đến server
         $.ajax({
-            url: "/t-shirt-luxury/admin/getTest",
+            url: "/t-shirt-luxury/admin/getMauAndSize",
             type: "GET",
             data: {idRequest: idReponse},
             success: function (response) {
