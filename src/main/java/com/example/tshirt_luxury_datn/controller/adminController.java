@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -38,6 +35,9 @@ public class adminController {
     HoaDon hoaDon = new HoaDon();
 
     public HoaDon createHoaDon(HttpSession session) {
+        hoaDon.setNgaySua(new Date());
+        hoaDon.setNgayTao(new Date());
+        hoaDon.setTrangThai(0);
         hoaDonRepo.save(hoaDon);
         session.setAttribute("idHoaDon", hoaDon.getId());
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + hoaDon);
@@ -46,8 +46,12 @@ public class adminController {
     }
 
     @GetMapping("t-shirt-luxury/admin")
-    public String getSanPhamChiTiet(Model model) {
+    public String getSanPhamChiTiet(Model model, HttpSession session) {
+
         model.addAttribute("SP", sanPhamRepo.findAll());
+        model.addAttribute("HDCT",hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")));
+        model.addAttribute("soLuongSanPhamMua",hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
+        model.addAttribute("tongTien",hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
         return "admin/admin";
     }
 
@@ -90,6 +94,7 @@ public class adminController {
     public String getidMau(
             @RequestParam(name = "idMau") Integer idMau,
             @RequestParam(name = "idSize") Integer idSize,
+            @RequestParam(name = "soLuong") Integer soLuong,
             HttpSession session
 
     ) {
@@ -97,10 +102,32 @@ public class adminController {
         if (!(hoaDon1.getId() == session.getAttribute("idHoaDon"))) {
             createHoaDon(session);
         }
-
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
+        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+        hoaDonChiTiet.setHoaDon(hoaDon1);
+        hoaDonChiTiet.setSoLuong(soLuong);
+        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+        hoaDonChiTietRepo.save(hoaDonChiTiet);
         System.out.println(sanPhamChiTiet1);
 
+        return "redirect:/t-shirt-luxury/admin";
+    }
+
+    @GetMapping("/t-shirt-luxury/admin/delete-hdct")
+    public String deleteHoaDon(@RequestParam("id") Integer id) {
+        hoaDonChiTietRepo.deleteById(id);
+        return "redirect:/t-shirt-luxury/admin";
+    }
+
+    @GetMapping("/t-shirt-luxury/admin/thanh-toan")
+    public String thanhToanHoaDon( HttpSession session){
+        int idHoaDon = (Integer) session.getAttribute("idHoaDon");
+
+        if(hoaDon.getId() == idHoaDon){
+            hoaDon.setId(idHoaDon);
+            hoaDon.setTrangThai(1);
+            hoaDonRepo.save(hoaDon);
+        }
         return "redirect:/t-shirt-luxury/admin";
     }
 

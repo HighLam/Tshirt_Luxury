@@ -147,7 +147,7 @@
 
                                 <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
                                         data-placement="top" title="Xóa">
-                                    <a href="/t-shirt-luxury/admin/xoaNguoiDung/${nd.id}" style="color:#000">
+                                    <a href="/t-shirt-luxury/admin/xoaNguoiDung/${nd.id}" onclick="return confirmDelete()"  style="color:#000">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </button>
@@ -231,6 +231,11 @@
 
 
 </div>
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc muốn xóa ?");
+    }
+</script>
 </body>
 
 </html>

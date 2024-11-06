@@ -30,9 +30,9 @@ public class HoaDonChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_hoa_don")
     private HoaDon hoaDon;
-
-    @Column(name = "tong_tien")
-    private Double tongTien;
+//
+//    @Column(name = "tong_tien")
+//    private Double tongTien;
 
     @Column(name = "trang_thai")
     private Integer trangThai;

@@ -119,7 +119,7 @@
             <div class="row">
                 <div class="col-8">
                     <p>Sản phẩm</p>
-                    <div class="HDCT" style="height: 250px; width: 730px; overflow-y: auto;">
+                    <div class="SPCT" style="height: 250px; width: 730px; overflow-y: auto;">
                         <table class="table" style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
@@ -150,7 +150,7 @@
 
 
                     <hr>
-                    <div class="SPCT">
+                    <div class="HDCT">
 
                         <table class="table">
                             <thead>
@@ -166,15 +166,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Tên</td>
-                                <td>Size</td>
-                                <td>Màu sắc</td>
-                                <td>Số lượng</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            <c:forEach var="s" items="${HDCT}" varStatus="i">
+                                <tr>
+                                    <th scope="row">${i.index+1}</th>
+                                    <td>${s.sanPhamChiTiet.sanPham.tenSanPham}</td>
+                                    <td>${s.sanPhamChiTiet.size.tenSize}</td>
+                                    <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
+                                    <td>${s.soLuong}</td>
+                                    <td>${s.sanPhamChiTiet.gia}</td>
+                                    <td>${s.soLuong * s.sanPhamChiTiet.gia}</td>
+                                    <td class="text-center">
+                                        <a class="btn"  href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+
 
                             </tbody>
                         </table>
@@ -198,8 +204,9 @@
                                 <p>Tiền thừa</p>
                             </div>
                             <div class="col-6">
-                                <p>1</p>
-                                <p>100000Đ</p>
+
+                                <p>${soLuongSanPhamMua}</p>
+                                <p>${tongTien}đ</p>
                                 <p>10000</p>
                                 <hr>
                                 <H6>90000</H6>
@@ -218,7 +225,7 @@
                         </div>
                         <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
                             <button class="btn btn-secondary">Hủy</button>
-                            <button class="btn btn-dark ms-3">Thanh toán</button>
+                            <a href="/t-shirt-luxury/admin/thanh-toan" class="btn btn-dark ms-3">Thanh toán</a>
                         </div>
                     </div>
                 </div>
@@ -248,6 +255,10 @@
                     <h6>Size:</h6>
                     <div class="box-size d-flex">
 
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control"  placeholder="Số Lượng" name="soLuong">
+                        <label >Số Lượng</label>
                     </div>
 
 
@@ -289,7 +300,6 @@
                         .css({"margin": "5px", "display": "block", "width": "auto"})
                         .attr("for", "option" + mauSac.id)
                         .attr("id", "label-" + mauSac.id)
-
 
 
                     // Tạo checkbox nếu cần thiết
@@ -389,5 +399,10 @@
             }
         });
     });
+
+
+        confirmDelete = () => {
+        return confirm("Bạn có chắc muốn xóa ?");
+    }
 </script>
 </html>
