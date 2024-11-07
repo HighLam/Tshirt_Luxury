@@ -32,6 +32,9 @@ public class adminController {
 
     @Autowired
     sizeRepository sizeRepository;
+
+    @Autowired
+    voucherRepository voucherRepo;
     HoaDon hoaDon = new HoaDon();
 
     public HoaDon createHoaDon(HttpSession session) {
@@ -45,9 +48,12 @@ public class adminController {
         return hoaDon;
     }
 
-    @GetMapping("t-shirt-luxury/admin")
-    public String getSanPhamChiTiet(Model model, HttpSession session) {
 
+    @GetMapping("t-shirt-luxury/admin")
+    public String getSanPhamChiTiet( Model model, HttpSession session) {
+
+        Float tongTien = hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon"));
+        model.addAttribute("voucher",voucherRepo.listVoucher(tongTien));
         model.addAttribute("SP", sanPhamRepo.findAll());
         model.addAttribute("HDCT",hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("soLuongSanPhamMua",hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
@@ -99,7 +105,7 @@ public class adminController {
 
     ) {
         HoaDon hoaDon1 = createHoaDon(session);
-        if (!(hoaDon1.getId() == session.getAttribute("idHoaDon"))) {
+        if (!(hoaDon1.getId() == session.getAttribute("idHoaDon")) ) {
             createHoaDon(session);
         }
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
@@ -118,16 +124,27 @@ public class adminController {
         hoaDonChiTietRepo.deleteById(id);
         return "redirect:/t-shirt-luxury/admin";
     }
-
-    @GetMapping("/t-shirt-luxury/admin/thanh-toan")
-    public String thanhToanHoaDon( HttpSession session){
+    @PostMapping("/t-shirt-luxury/admin/ap-dung-voucher")
+    public String apDungVoucher(@RequestParam("idVc") Integer idVc,HttpSession session,Model model){
+            model.addAttribute("giamHoaDon",hoaDonRepo.giamHoaDon((Integer) session.getAttribute("idHoaDon")));
+            HoaDon hoaDon12 = hoaDonRepo.getReferenceById((Integer) session.getAttribute("idHoaDon"));
+            Voucher voucher = voucherRepo.getReferenceById(idVc);
+            hoaDon12.setId((Integer) session.getAttribute("idHoaDon"));
+            hoaDon12.setVoucher(voucher);
+            hoaDonRepo.save(hoaDon12);
+            session.setAttribute("hoaDon12",hoaDon12);
+        return "redirect:/t-shirt-luxury/admin";
+    }
+    @PostMapping("/t-shirt-luxury/admin/thanh-toan")
+    public String thanhToanHoaDon(
+            @RequestParam(name = "tongTienHoaDon") Float tongTien, HttpSession session){
         int idHoaDon = (Integer) session.getAttribute("idHoaDon");
-
-        if(hoaDon.getId() == idHoaDon){
+            HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
+            hoaDon.setVoucher(hoaDon1.getVoucher());
             hoaDon.setId(idHoaDon);
+            hoaDon.setTongTien(tongTien);
             hoaDon.setTrangThai(1);
             hoaDonRepo.save(hoaDon);
-        }
         return "redirect:/t-shirt-luxury/admin";
     }
 

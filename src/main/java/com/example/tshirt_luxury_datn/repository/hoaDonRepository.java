@@ -24,4 +24,21 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "where id_hoa_don = :idHoaDon", nativeQuery = true)
     Float tongTien(@Param("idHoaDon") Integer idHoaDon);
 
+    @Query(value = "\n" +
+            "select * from dbo.hoa_don hd \n" +
+            " order by hd.ngay_tao desc",nativeQuery = true)
+    List<HoaDon> selectHoaDon();
+
+
+
+    @Query(value = "select " +
+
+            "(hd.tong_tien - (hd.tong_tien * vc.gia_tri_giam / 100)) \n" +
+            "    FROM\n" +
+            "    dbo.hoa_don hd\n" +
+            "    JOIN\n" +
+            "    dbo.voucher vc ON hd.id_voucher = vc.id\n" +
+            "            WHERE\n" +
+            "    hd.id = :idHD",nativeQuery = true)
+    Float giamHoaDon( @Param("idHD")Integer idHD);
 }

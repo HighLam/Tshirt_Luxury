@@ -123,12 +123,25 @@
                         <table class="table" style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
-                                <th scope="col" style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">ID</th>
-                                <th scope="col" style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">Mã</th>
-                                <th scope="col" style="width: 35%; position: sticky; top: 0; background: #fff; z-index: 1;">Tên</th>
-                                <th scope="col" style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Danh Mục</th>
-                                <th scope="col" style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Trạng Thái</th>
-                                <th scope="col" style="width: 8%; position: sticky; top: 0; background: #fff; z-index: 1;">Thêm</th>
+                                <th scope="col"
+                                    style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">ID
+                                </th>
+                                <th scope="col"
+                                    style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">Mã
+                                </th>
+                                <th scope="col"
+                                    style="width: 35%; position: sticky; top: 0; background: #fff; z-index: 1;">Tên
+                                </th>
+                                <th scope="col"
+                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Danh Mục
+                                </th>
+                                <th scope="col"
+                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Trạng
+                                    Thái
+                                </th>
+                                <th scope="col"
+                                    style="width: 8%; position: sticky; top: 0; background: #fff; z-index: 1;">Thêm
+                                </th>
 
                             </tr>
                             </thead>
@@ -176,7 +189,8 @@
                                     <td>${s.sanPhamChiTiet.gia}</td>
                                     <td>${s.soLuong * s.sanPhamChiTiet.gia}</td>
                                     <td class="text-center">
-                                        <a class="btn"  href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
+                                        <a class="btn" href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
+                                           onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -193,40 +207,58 @@
 
                         <h5>Thông tin đơn hàng</h5>
                         <hr>
-                        <div class="row">
-                            <div class="col-6">
-                                <p>Số lượng sản phẩm</p>
-                                <p>Tổng tiền</p>
-                                <p>Chiết khấu</p>
-                                <hr>
-                                <h6>Khách phải trả</h6>
-                                <p>Tiền khách đưa</p>
-                                <p>Tiền thừa</p>
-                            </div>
-                            <div class="col-6">
-
-                                <p>${soLuongSanPhamMua}</p>
-                                <p>${tongTien}đ</p>
-                                <p>10000</p>
-                                <hr>
-                                <H6>90000</H6>
-                                <p>100000</p>
-                                <p>10000</p>
-                            </div>
-                        </div>
                         <div class="voucher ">
                             <label for="floatingInput">Voucher</label>
                             <div class="d-flex justify-content mt-2">
-                                <input style="width: 284px;" type="text" class="form-control" id="floatingInput">
-                                <button class="btn btn-secondary " type="submit" style="margin-left: 10px;">Áp Dụng
-                                </button>
+                                <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
+                                    <select class="form-select" aria-label="Default select example" name="idVc" >
+                                        <c:forEach var="vc" items="${voucher}" >
+                                            <option  value="${vc.id}">${vc.tenVoucher}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <button   class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng
+                                    </button>
+                                </form>
                             </div>
 
                         </div>
+                        <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
+
+                            <div >
+                                <div class="d-flex justify-content-between">
+                                    <p>Số lượng sản phẩm: </p>
+                                    <p>${soLuongSanPhamMua}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Tổng tiền</p>
+                                    <p>${tongTien}đ</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Chiết khấu</p>
+                                    <p>10000</p>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <h6>Khách phải trả</h6>
+                                    <input type="number" readonly name="tongTienHoaDon" value ="${giamHoaDon}">
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Tiền khách đưa</p>
+                                    <input type="number" id="tienKhachDua" oninput="saveTemporary()">
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Tiền thừa</p>
+                                    <p>${tongTien}đ</p>
+                                </div>
+                            </div>
+
+
                         <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
                             <button class="btn btn-secondary">Hủy</button>
-                            <a href="/t-shirt-luxury/admin/thanh-toan" class="btn btn-dark ms-3">Thanh toán</a>
+                            <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
                         </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -257,8 +289,8 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control"  placeholder="Số Lượng" name="soLuong">
-                        <label >Số Lượng</label>
+                        <input type="number" class="form-control" placeholder="Số Lượng" name="soLuong">
+                        <label>Số Lượng</label>
                     </div>
 
 
@@ -401,8 +433,22 @@
     });
 
 
-        confirmDelete = () => {
+    confirmDelete = () => {
         return confirm("Bạn có chắc muốn xóa ?");
+    }
+    function saveTemporary() {
+        // Lấy giá trị từ ô input
+        const value = document.getElementById("tienKhachDua").value;
+        // Lưu vào sessionStorage với key là 'tienKhachDua'
+        sessionStorage.setItem("tienKhachDua", value);
+    }
+
+    // Khi trang tải lại, kiểm tra nếu đã có giá trị trong sessionStorage thì hiển thị lại
+    window.onload = function() {
+        const savedValue = sessionStorage.getItem("tienKhachDua");
+        if (savedValue) {
+            document.getElementById("tienKhachDua").value = savedValue;
+        }
     }
 </script>
 </html>

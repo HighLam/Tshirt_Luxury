@@ -2,6 +2,12 @@ package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.Voucher;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface voucherRepository extends JpaRepository<Voucher, Integer> {
+    @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien", nativeQuery = true)
+    List<Voucher> listVoucher(@Param("tongTien") Float tongTien);
 }

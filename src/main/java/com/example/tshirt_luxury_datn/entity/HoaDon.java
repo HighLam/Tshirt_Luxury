@@ -38,7 +38,7 @@ public class HoaDon {
     private String moTa;
 
     @Column(name = "tong_tien")
-    private Double tongTien;
+    private Float tongTien;
     @ManyToOne
     @JoinColumn(name = "id_thong_tin_nhan_hang")
     private ThongTinNhanHang thongTinNhanHang;

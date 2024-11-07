@@ -105,7 +105,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Mã Hóa Đơn</th>
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
@@ -116,14 +116,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listHoaDon}" var="hd">
+                    <c:forEach items="${listHoaDon}" var="hd" varStatus="i">
                         <tr>
-                            <th scope="row">${hd.id}</th>
+                            <th scope="row">${i.index +1}</th>
                             <th scope="row">${hd.maHoaDon}</th>
                             <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
                             <th scope="row">${hd.trangThai}</th>
                             <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">8386</th>
+                            <th scope="row">${hd.tongTien}</th>
                             <th scope="row">${hd.moTa}</th>
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
