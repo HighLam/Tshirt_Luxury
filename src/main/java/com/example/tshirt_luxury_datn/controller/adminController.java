@@ -152,13 +152,14 @@ public class adminController {
     //    @RequestParam(name = "tongTienHoaDon") Float tongTien,
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
     public String thanhToanHoaDon(
-            HttpSession session) {
+            HttpSession session,
+            @RequestParam(name = "tongTienHoaDon") Float tongTienHoaDon) {
         int idHoaDon = (Integer) session.getAttribute("idHoaDon");
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
         hoaDon.setVoucher(hoaDon1.getVoucher());
         hoaDon.setId(idHoaDon);
-        hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
+        hoaDon.setTongTien(tongTienHoaDon);
         hoaDon.setTrangThai(1);
         hoaDonRepo.save(hoaDon);
         return "redirect:/t-shirt-luxury/admin";
