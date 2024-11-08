@@ -44,9 +44,9 @@ public class adminController {
             hoaDon.setNgaySua(new Date());
             hoaDon.setNgayTao(new Date());
             hoaDon.setTrangThai(0);
+            Voucher voucher = voucherRepo.getReferenceById(1);
+            hoaDon.setVoucher(voucher);
             hoaDonRepo.save(hoaDon);
-        }else {
-
         }
         session.setAttribute("hoaDon", hoaDon);
         session.setAttribute("idHoaDon", hoaDon.getId());
@@ -62,6 +62,9 @@ public class adminController {
         model.addAttribute("HDCT", hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("soLuongSanPhamMua", hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
+        model.addAttribute("chietKhau", session.getAttribute("giaTriGiamVoucher"));
+
+
         return "admin/admin";
     }
 
@@ -128,8 +131,13 @@ public class adminController {
     }
 
     @GetMapping("/t-shirt-luxury/admin/delete-hdct")
-    public String deleteHoaDon(@RequestParam("id") Integer id) {
+    public String deleteHoaDon(@RequestParam("id") Integer id, HttpSession session) {
         hoaDonChiTietRepo.deleteById(id);
+        HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
+        Voucher voucher = voucherRepo.getReferenceById(4);
+        hoaDon.setVoucher(voucher);
+        hoaDon.setId(hoaDon.getId());
+        hoaDonRepo.save(hoaDon);
         return "redirect:/t-shirt-luxury/admin";
     }
 
@@ -142,21 +150,29 @@ public class adminController {
         hoaDon12.setVoucher(voucher);
         hoaDonRepo.save(hoaDon12);
         session.setAttribute("hoaDon12", hoaDon12);
+        Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVc);
+        session.setAttribute("giaTriGiamVoucher", giaTriGiam);
         return "redirect:/t-shirt-luxury/admin";
     }
 
     //    @RequestParam(name = "tongTienHoaDon") Float tongTien,
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
     public String thanhToanHoaDon(
-            HttpSession session) {
+            HttpSession session, Model model) {
         int idHoaDon = (Integer) session.getAttribute("idHoaDon");
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
-        hoaDon.setVoucher(hoaDon1.getVoucher());
+        Voucher voucherKhongGiam = voucherRepo.getReferenceById(1);
+        if (hoaDon1 == null) {
+            hoaDon.setVoucher(voucherKhongGiam);
+        } else {
+            hoaDon.setVoucher(hoaDon1.getVoucher());
+        }
         hoaDon.setId(idHoaDon);
         hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
         hoaDon.setTrangThai(1);
         hoaDonRepo.save(hoaDon);
+
         return "redirect:/t-shirt-luxury/admin";
     }
 
