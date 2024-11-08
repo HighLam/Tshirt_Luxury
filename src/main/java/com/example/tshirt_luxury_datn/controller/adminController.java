@@ -35,18 +35,23 @@ public class adminController {
 
     @Autowired
     voucherRepository voucherRepo;
-//    HoaDon hoaDon = new HoaDon();
-//
-//    public HoaDon createHoaDon(HttpSession session) {
-//        hoaDon.setNgaySua(new Date());
-//        hoaDon.setNgayTao(new Date());
-//        hoaDon.setTrangThai(0);
-//        hoaDonRepo.save(hoaDon);
-//        session.setAttribute("idHoaDon", hoaDon.getId());
-//        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + hoaDon);
-//
-//        return hoaDon;
-//    }
+
+
+    public HoaDon createHoaDon(HttpSession session) {
+        HoaDon hoaDon = new HoaDon();
+
+        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
+            hoaDon.setNgaySua(new Date());
+            hoaDon.setNgayTao(new Date());
+            hoaDon.setTrangThai(0);
+            hoaDonRepo.save(hoaDon);
+        }else {
+
+        }
+        session.setAttribute("hoaDon", hoaDon);
+        session.setAttribute("idHoaDon", hoaDon.getId());
+        return hoaDon;
+    }
 
 
     @GetMapping("t-shirt-luxury/admin")
@@ -103,21 +108,17 @@ public class adminController {
             HttpSession session
 
     ) {
-
-        HoaDon hoaDon = new HoaDon();
-
         if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
-            hoaDon.setNgaySua(new Date());
-            hoaDon.setNgayTao(new Date());
-            hoaDon.setTrangThai(0);
-            hoaDonRepo.save(hoaDon);
+            createHoaDon(session);
         }
-        session.setAttribute("hoaDon" ,hoaDon);
-        session.setAttribute("idHoaDon" ,hoaDon.getId());
+
 
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        hoaDonChiTiet.setHoaDon(hoaDon);
+        HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
+        if (hoaDon1.getTrangThai() == 0) {
+            hoaDonChiTiet.setHoaDon(hoaDon1);
+        }
         hoaDonChiTiet.setSoLuong(soLuong);
         hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
         hoaDonChiTietRepo.save(hoaDonChiTiet);
