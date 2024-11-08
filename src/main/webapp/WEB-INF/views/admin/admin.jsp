@@ -238,10 +238,10 @@
                                     <p>10000</p>
                                 </div>
                                 <hr>
-                                <div class="d-flex justify-content-between">
-                                    <h6>Khách phải trả</h6>
-                                    <input type="number" readonly name="tongTienHoaDon" value ="${giamHoaDon}">
-                                </div>
+<%--                                <div class="d-flex justify-content-between">--%>
+<%--                                    <h6>Khách phải trả</h6>--%>
+<%--                                    <input type="number" readonly name="tongTienHoaDon" value ="${giamHoaDon}">--%>
+<%--                                </div>--%>
                                 <div class="d-flex justify-content-between">
                                     <p>Tiền khách đưa</p>
                                     <input type="number" id="tienKhachDua" oninput="saveTemporary()">

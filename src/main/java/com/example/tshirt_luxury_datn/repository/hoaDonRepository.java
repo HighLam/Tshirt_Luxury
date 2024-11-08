@@ -41,4 +41,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "            WHERE\n" +
             "    hd.id = :idHD",nativeQuery = true)
     Float giamHoaDon( @Param("idHD")Integer idHD);
+    @Query(value = "select trang_thai from hoa_don\n" +
+            "group by trang_thai", nativeQuery = true)
+    Integer getTrangThaiDaThanhToan();
 }
