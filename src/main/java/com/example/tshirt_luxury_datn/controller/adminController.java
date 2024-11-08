@@ -57,6 +57,7 @@ public class adminController {
         model.addAttribute("HDCT", hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("soLuongSanPhamMua", hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
+        model.addAttribute("giamHoaDon", hoaDonRepo.giamHoaDon((Integer) session.getAttribute("idHoaDon")));
         return "admin/admin";
     }
 
@@ -134,10 +135,13 @@ public class adminController {
 
     @PostMapping("/t-shirt-luxury/admin/ap-dung-voucher")
     public String apDungVoucher(@RequestParam("idVc") Integer idVc, HttpSession session, Model model) {
+        //model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
+        int idHoaDon = (Integer) session.getAttribute("idHoaDon");
         model.addAttribute("giamHoaDon", hoaDonRepo.giamHoaDon((Integer) session.getAttribute("idHoaDon")));
         HoaDon hoaDon12 = hoaDonRepo.getReferenceById((Integer) session.getAttribute("idHoaDon"));
         Voucher voucher = voucherRepo.getReferenceById(idVc);
         hoaDon12.setId((Integer) session.getAttribute("idHoaDon"));
+        hoaDon12.setTongTien(hoaDonRepo.tongTien(idHoaDon));
         hoaDon12.setVoucher(voucher);
         hoaDonRepo.save(hoaDon12);
         session.setAttribute("hoaDon12", hoaDon12);
