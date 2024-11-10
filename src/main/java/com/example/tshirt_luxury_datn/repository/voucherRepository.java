@@ -10,4 +10,7 @@ import java.util.List;
 public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien", nativeQuery = true)
     List<Voucher> listVoucher(@Param("tongTien") Float tongTien);
+
+    @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)
+    Integer getGiaTriGiam(@Param("idVoucher")Integer idVoucher);
 }

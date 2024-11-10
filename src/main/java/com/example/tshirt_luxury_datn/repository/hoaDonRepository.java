@@ -13,15 +13,18 @@ import java.util.List;
 public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
 
     @Query(value = "\n" +
-            "select SUM(so_luong) from dbo.hoa_don_chi_tiet hdct\n" +
-            "where id_hoa_don = :idHoaDon", nativeQuery = true)
+            "\n" +
+            "select SUM(so_luong) from dbo.hoa_don_chi_tiet hdct \n" +
+            "join hoa_don hd on hd.id = hdct.id_hoa_don\n" +
+            "            where hd.id = :idHoaDon AND hd.trang_thai = 0", nativeQuery = true)
     Integer soLuongSanPhamMua(@Param("idHoaDon") Integer idHoaDon);
 
 
     @Query(value = "\n" +
             "select SUM(spct.gia * hdct.so_luong) from dbo.hoa_don_chi_tiet hdct\n" +
             "join dbo.san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet\n"+
-            "where id_hoa_don = :idHoaDon", nativeQuery = true)
+            "join  hoa_don hd on hd.id = hdct.id_hoa_don\n"+
+            "where id_hoa_don = :idHoaDon AND hd.trang_thai = 0", nativeQuery = true)
     Float tongTien(@Param("idHoaDon") Integer idHoaDon);
 
     @Query(value = "\n" +

@@ -227,20 +227,20 @@
                             <div >
                                 <div class="d-flex justify-content-between">
                                     <p>Số lượng sản phẩm: </p>
-                                    <p>${soLuongSanPhamMua}</p>
+                                    <p>${soLuongSanPhamMua == null ? 0 : soLuongSanPhamMua}</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tổng tiền</p>
-                                    <p>${tongTien}đ</p>
+                                    <p>${tongTien == null ? 0 : tongTien}đ</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p>${tongTien-giamHoaDon}</p>
+                                    <p>${tongTien * chietKhau/100}</p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
                                     <h6>Khách phải trả</h6>
-                                    <input type="number" readonly name="tongTienHoaDon" value ="${giamHoaDon}">
+                                    <input type="number" readonly name="tongTienHoaDon" value ="${tongTien - (tongTien * chietKhau/100)}">
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tiền khách đưa</p>
