@@ -13,37 +13,41 @@ import java.util.List;
 public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
 
     @Query(value = "\n" +
-            "select SUM(so_luong) from dbo.hoa_don_chi_tiet hdct\n" +
-            "where id_hoa_don = :idHoaDon", nativeQuery = true)
+            "\n" +
+            "select SUM(so_luong) from dbo.hoa_don_chi_tiet hdct \n" +
+            "join hoa_don hd on hd.id = hdct.id_hoa_don\n" +
+            "            where hd.id = :idHoaDon AND hd.trang_thai = 0", nativeQuery = true)
     Integer soLuongSanPhamMua(@Param("idHoaDon") Integer idHoaDon);
 
+
+    @Query(value = "\n" +
+            "select SUM(spct.gia * hdct.so_luong) from dbo.hoa_don_chi_tiet hdct\n" +
+            "join dbo.san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet\n"+
+            "join  hoa_don hd on hd.id = hdct.id_hoa_don\n"+
+            "where id_hoa_don = :idHoaDon AND hd.trang_thai = 0", nativeQuery = true)
+    Float tongTien(@Param("idHoaDon") Integer idHoaDon);
 
     @Query(value = "\n" +
             "select * from dbo.hoa_don hd \n" +
             " order by hd.ngay_tao desc",nativeQuery = true)
     List<HoaDon> selectHoaDon();
 
-    @Query(value = "\n" +
-            "select SUM(spct.gia * hdct.so_luong) from dbo.hoa_don_chi_tiet hdct\n" +
-            "join dbo.san_pham_chi_tiet spct on spct.id = hdct.id_san_pham_chi_tiet\n"+
-            "where id_hoa_don = :idHoaDon", nativeQuery = true)
-    Float tongTien(@Param("idHoaDon") Integer idHoaDon);
-
 
 
     @Query(value = "select " +
 
-            "(hd.tongTien - (hd.tongTien * hd.voucher.giaTriGiam / 100)) \n" +
+            "(hd.tong_tien - (hd.tong_tien * vc.gia_tri_giam / 100)) \n" +
             "    FROM\n" +
-            "    HoaDon hd \n" +
+            "    dbo.hoa_don hd\n" +
             "    JOIN\n" +
-            "    hd.voucher \n" +
-            "  WHERE hd.id = :id")
-    Float giamHoaDon( @Param("id")Integer id);
+            "    dbo.voucher vc ON hd.id_voucher = vc.id\n" +
+            "            WHERE\n" +
+            "    hd.id = :idHD",nativeQuery = true)
+    Float giamHoaDon( @Param("idHD")Integer idHD);
 
-
-
-    @Query(value = "select trang_thai from hoa_don\n" +
-            "group by trang_thai", nativeQuery = true)
+    @Query(value = "\n" +
+            "SELECT TOP 1 trang_thai\n" +
+            "FROM dbo.hoa_don \n" +
+            "ORDER BY ngay_tao DESC;\n\n", nativeQuery = true)
     Integer getTrangThaiDaThanhToan();
 }
