@@ -57,6 +57,7 @@ public class adminController {
         model.addAttribute("HDCT", hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("soLuongSanPhamMua", hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
+        model.addAttribute("giamHoaDon", hoaDonRepo.giamHoaDon((Integer) session.getAttribute("idHoaDon")));
         return "admin/admin";
     }
 
@@ -147,13 +148,16 @@ public class adminController {
     //    @RequestParam(name = "tongTienHoaDon") Float tongTien,
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
     public String thanhToanHoaDon(
-            HttpSession session) {
+            HttpSession session,
+            @RequestParam(name = "tongTienHoaDon") Float tongTien)
+             {
         int idHoaDon = (Integer) session.getAttribute("idHoaDon");
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
+
         hoaDon.setVoucher(hoaDon1.getVoucher());
         hoaDon.setId(idHoaDon);
-        hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
+        hoaDon.setTongTien(tongTien);
         hoaDon.setTrangThai(1);
         hoaDonRepo.save(hoaDon);
         return "redirect:/t-shirt-luxury/admin";
