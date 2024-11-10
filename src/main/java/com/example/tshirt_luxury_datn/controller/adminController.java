@@ -63,8 +63,13 @@ public class adminController {
         model.addAttribute("soLuongSanPhamMua", hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("chietKhau", session.getAttribute("giaTriGiamVoucher"));
+        model.addAttribute("idVoucher",session.getAttribute("idVoucher"));
 
-
+        return "admin/admin";
+    }
+    @GetMapping("t-shirt-luxury/admin/timSanPham")
+    public String timSanPham(Model model ,@RequestParam("timKiemSanPham") String timKiemSanPham) {
+        model.addAttribute("SP",sanPhamRepo.timKiem(timKiemSanPham));
         return "admin/admin";
     }
 
@@ -111,21 +116,33 @@ public class adminController {
             HttpSession session
 
     ) {
+
         if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
             createHoaDon(session);
         }
 
 
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
-        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+
+
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
+
         if (hoaDon1.getTrangThai() == 0) {
-            hoaDonChiTiet.setHoaDon(hoaDon1);
+            Integer idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
+            HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
+            if (sanPhamChiTiet1.getId().equals(idSPCTDaCo)) {
+                hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+                hoaDonChiTietRepo.save(hoaDonChiTiet1);
+            } else {
+                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                hoaDonChiTiet.setHoaDon(hoaDon1);
+                hoaDonChiTiet.setSoLuong(soLuong);
+                hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+                hoaDonChiTietRepo.save(hoaDonChiTiet);
+                System.out.println(sanPhamChiTiet1);
+            }
         }
-        hoaDonChiTiet.setSoLuong(soLuong);
-        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
-        hoaDonChiTietRepo.save(hoaDonChiTiet);
-        System.out.println(sanPhamChiTiet1);
+
 
         return "redirect:/t-shirt-luxury/admin";
     }
@@ -151,6 +168,7 @@ public class adminController {
         hoaDonRepo.save(hoaDon12);
         session.setAttribute("hoaDon12", hoaDon12);
         Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVc);
+        session.setAttribute("idVoucher", idVc);
         session.setAttribute("giaTriGiamVoucher", giaTriGiam);
         return "redirect:/t-shirt-luxury/admin";
     }

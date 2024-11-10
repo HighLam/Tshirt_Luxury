@@ -103,10 +103,10 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <form class="d-flex">
-                        <input style="width: 600px;" class="form-control me-2" type="search" placeholder="Tìm sản phẩm"
+                    <form action="/t-shirt-luxury/admin/timSanPham" method="get" class="d-flex">
+                        <input style="width: 600px;" class="form-control me-2" type="search" name="timKiemSanPham" placeholder="Tìm sản phẩm"
                                aria-label="Search">
-
+                        <button class="btn btn-success" type="submit">Tìm Kiếm</button>
                         <ul style="list-style-type: none;">
                             <li class="nav-item mt-3">
                                 <a href=""><i class="fa-solid fa-barcode" style="font-size: 30px; "></i></a>
@@ -213,7 +213,7 @@
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
                                     <select class="form-select" aria-label="Default select example" name="idVc" >
                                         <c:forEach var="vc" items="${voucher}" >
-                                            <option  value="${vc.id}">${vc.tenVoucher}</option>
+                                            <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
                                         </c:forEach>
                                     </select>
                                     <button   class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tiền khách đưa</p>
-                                    <input type="number" id="tienKhachDua" oninput="saveTemporary()">
+                                    <input type="number" id="tienKhachDua" >
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tiền thừa</p>
