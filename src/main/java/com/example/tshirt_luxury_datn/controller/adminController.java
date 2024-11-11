@@ -63,25 +63,28 @@ public class adminController {
         model.addAttribute("soLuongSanPhamMua", hoaDonRepo.soLuongSanPhamMua((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("chietKhau", session.getAttribute("giaTriGiamVoucher"));
-        model.addAttribute("idVoucher",session.getAttribute("idVoucher"));
+        model.addAttribute("idVoucher", session.getAttribute("idVoucher"));
 
         return "admin/admin";
     }
+
     @GetMapping("t-shirt-luxury/admin/timSanPham")
-    public String timSanPham(Model model ,@RequestParam("timKiemSanPham") String timKiemSanPham) {
-        model.addAttribute("SP",sanPhamRepo.timKiem(timKiemSanPham));
+    public String timSanPham(Model model, @RequestParam("timKiemSanPham") String timKiemSanPham) {
+        model.addAttribute("SP", sanPhamRepo.timKiem(timKiemSanPham));
         return "admin/admin";
     }
 
     @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
     @ResponseBody
-    public Map<String, Object> getProductById(@RequestParam(name = "idRequest") Integer idSanPham) {
+    public Map<String, Object> getProductById(@RequestParam(name = "idRequest") Integer idSanPham, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         SanPham sanPham = sanPhamRepo.getReferenceById(idSanPham);
         // Xử lý dữ liệu dựa trên idTEST (ví dụ: lấy thông tin từ CSDL)
         // Đây chỉ là ví dụ trả về ID sản phẩm, có thể thêm thông tin khác nếu cần
         response.put("id", idSanPham);
         response.put("tenSanPham", sanPham.getTenSanPham());
+
+        session.setAttribute("idSanPham", sanPham.getId());
 
         //Lấy màu sắc của từng sản phẩm
         List<Integer> listIdMauSac = sanPhamChiTietAdminRepo.getIdMauSac(idSanPham);
@@ -121,8 +124,8 @@ public class adminController {
             createHoaDon(session);
         }
 
-
-        SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize);
+        Integer idSanPham = (Integer) session.getAttribute("idSanPham");
+        SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize, idSanPham);
 
 
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
