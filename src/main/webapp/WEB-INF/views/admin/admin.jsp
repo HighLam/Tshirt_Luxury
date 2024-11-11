@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +106,8 @@
                 <div class="container-fluid">
 
                     <form action="/t-shirt-luxury/admin/timSanPham" method="get" class="d-flex">
-                        <input style="width: 600px;" class="form-control me-2" type="search" name="timKiemSanPham" placeholder="Tìm sản phẩm"
+                        <input style="width: 600px;" class="form-control me-2" type="search" name="timKiemSanPham"
+                               placeholder="Tìm sản phẩm"
                                aria-label="Search">
                         <button class="btn btn-success" type="submit">Tìm Kiếm</button>
                         <ul style="list-style-type: none;">
@@ -211,12 +214,12 @@
                             <label for="floatingInput">Voucher</label>
                             <div class="d-flex justify-content mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
-                                    <select class="form-select" aria-label="Default select example" name="idVc" >
-                                        <c:forEach var="vc" items="${voucher}" >
+                                    <select class="form-select" aria-label="Default select example" name="idVc">
+                                        <c:forEach var="vc" items="${voucher}">
                                             <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
                                         </c:forEach>
                                     </select>
-                                    <button   class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng
+                                    <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng
                                     </button>
                                 </form>
                             </div>
@@ -224,7 +227,7 @@
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
-                            <div >
+                            <div>
                                 <div class="d-flex justify-content-between">
                                     <p>Số lượng sản phẩm: </p>
                                     <p>${soLuongSanPhamMua == null ? 0 : soLuongSanPhamMua}</p>
@@ -238,25 +241,28 @@
                                     <p>${tongTien * chietKhau/100}</p>
                                 </div>
                                 <hr>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between mb-3">
                                     <h6>Khách phải trả</h6>
-                                    <input type="number" readonly name="tongTienHoaDon" value ="${tongTien - (tongTien * chietKhau/100)}">
+                                    <input type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                           value="<fmt:formatNumber value='${tongTien - (tongTien * chietKhau / 100)}' pattern="#,##0" />"
+                                           readonly/>
+                                    <spacer>₫</spacer>
                                 </div>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between mb-3">
                                     <p>Tiền khách đưa</p>
-                                    <input type="number" id="tienKhachDua" >
+                                    <input style="max-height: 30px" type="number" id="tienKhachDua" value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"  /> <spacer>₫</spacer>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <p>Tiền thừa</p>
-                                    <p>${tongTien}đ</p>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <p style="width: 107px">Tiền thừa</p>
+                                    <input style="max-height: 30px" id="tienThua" readonly/> <spacer>₫</spacer>
                                 </div>
                             </div>
 
 
-                        <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
-                            <button class="btn btn-secondary">Hủy</button>
-                            <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
-                        </div>
+                            <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
+                                <button class="btn btn-secondary">Hủy</button>
+                                <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
+                            </div>
                         </form>
 
                     </div>
@@ -436,19 +442,16 @@
     confirmDelete = () => {
         return confirm("Bạn có chắc muốn xóa ?");
     }
-    function saveTemporary() {
-        // Lấy giá trị từ ô input
-        const value = document.getElementById("tienKhachDua").value;
-        // Lưu vào sessionStorage với key là 'tienKhachDua'
-        sessionStorage.setItem("tienKhachDua", value);
-    }
+    $("#tienKhachDua").keyup(function () {
+        let tongTienHoaDon = parseFloat($("#tongTienHoaDon").val().replace(/\./g, ''));
+        let tienKhachDua = parseFloat($(this).val());
+        let tienThua = tienKhachDua - tongTienHoaDon;
 
-    // Khi trang tải lại, kiểm tra nếu đã có giá trị trong sessionStorage thì hiển thị lại
-    window.onload = function() {
-        const savedValue = sessionStorage.getItem("tienKhachDua");
-        if (savedValue) {
-            document.getElementById("tienKhachDua").value = savedValue;
-        }
-    }
+        // Định dạng tiền thừa với dấu chấm phân cách hàng nghìn
+        let formattedTienThua = tienThua > 0 ? tienThua.toLocaleString('en-GB').replace(/,/g, '.') : "0";
+
+// Gán giá trị đã được định dạng vào ô input
+        $("#tienThua").val(formattedTienThua);
+    });
 </script>
 </html>
