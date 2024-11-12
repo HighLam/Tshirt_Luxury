@@ -212,29 +212,36 @@
                         <hr>
                         <div class="voucher ">
                             <label for="floatingInput">Voucher</label>
-                            <div class="d-flex justify-content mt-2">
+                            <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
-                                    <select class="form-select" aria-label="Default select example" name="idVc">
-                                        <c:forEach var="vc" items="${voucher}">
-                                            <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng
-                                    </button>
+                                        <div class="row" >
+                                            <div class="col-6">
+                                            <select style="width: 250px" class="form-select" aria-label="Default select example" name="idVc" >
+                                                <c:forEach var="vc" items="${voucher}">
+                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
+                                                </c:forEach>
+                                            </select>
+                                            </div>
+                                            <div class="col-2"></div>
+                                            <div class="col-4">
+                                                <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng</button>
+                                            </div>
+                                        </div>
                                 </form>
                             </div>
 
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
-                            <div>
+                            <div class="mt-2">
                                 <div class="d-flex justify-content-between">
                                     <p>Số lượng sản phẩm: </p>
                                     <p>${soLuongSanPhamMua == null ? 0 : soLuongSanPhamMua}</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tổng tiền</p>
-                                    <p>${tongTien == null ? 0 : tongTien}đ</p>
+<%--                                    <p>${tongTien == null ? 0 : tongTien}đ</p>--%>
+                                    <p><fmt:formatNumber value='${tongTien == null ? 0 : tongTien}' pattern="#,##0" />₫</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
@@ -242,19 +249,19 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
-                                    <h6>Khách phải trả</h6>
-                                    <input type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                    <p>Khách phải trả</p>
+                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDon" name="tongTienHoaDon"
                                            value="<fmt:formatNumber value='${tongTien - (tongTien * chietKhau / 100)}' pattern="#,##0" />"
                                            readonly/>
                                     <spacer>₫</spacer>
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Tiền khách đưa</p>
-                                    <input style="max-height: 30px" type="number" id="tienKhachDua" value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"  /> <spacer>₫</spacer>
+                                    <input style="max-height: 30px" type="number" id="tienKhachDua" min="0" value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"  /> <spacer>₫</spacer>
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p style="width: 107px">Tiền thừa</p>
-                                    <input style="max-height: 30px" id="tienThua" readonly/> <spacer>₫</spacer>
+                                    <input class="text-end" style="max-height: 30px;border: #f8f8f8" id="tienThua" readonly/> <spacer>₫</spacer>
                                 </div>
                             </div>
 
@@ -296,7 +303,7 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="Số Lượng" name="soLuong">
+                        <input type="number" class="form-control" placeholder="Số Lượng" min="0" name="soLuong">
                         <label>Số Lượng</label>
                     </div>
 
