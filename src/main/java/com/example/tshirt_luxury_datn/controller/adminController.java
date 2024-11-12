@@ -131,21 +131,27 @@ public class adminController {
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
 
         if (hoaDon1.getTrangThai() == 0) {
-            Integer idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
+            List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
             HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
-            if (sanPhamChiTiet1.getId().equals(idSPCTDaCo)) {
+            boolean check = false;
+            for (Integer x : idSPCTDaCo){
+                if (sanPhamChiTiet1.getId().equals(x)){
+                    check = true;
+                    break;
+                }
+            }
+            if (check) {
                 hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
                 hoaDonChiTietRepo.save(hoaDonChiTiet1);
-            } else {
+            }
+            else {
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                 hoaDonChiTiet.setHoaDon(hoaDon1);
                 hoaDonChiTiet.setSoLuong(soLuong);
                 hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
                 hoaDonChiTietRepo.save(hoaDonChiTiet);
-                System.out.println(sanPhamChiTiet1);
             }
         }
-
 
         return "redirect:/t-shirt-luxury/admin";
     }

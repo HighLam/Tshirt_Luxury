@@ -23,5 +23,5 @@ public interface hoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet ,In
 
     @Query(value = "select hdct.sanPhamChiTiet.id from HoaDonChiTiet hdct " +
             "where hdct.hoaDon.id = :idHoaDon")
-    Integer getSanPhamChiTietDaCo( @Param("idHoaDon") Integer idHoaDon);
+    List<Integer> getSanPhamChiTietDaCo( @Param("idHoaDon") Integer idHoaDon);
 }

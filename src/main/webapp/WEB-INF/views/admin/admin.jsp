@@ -121,13 +121,12 @@
             </nav>
             <div class="row">
                 <div class="col-8">
-                    <p>Sản phẩm</p>
                     <div class="SPCT" style="height: 250px; width: 730px; overflow-y: auto;">
                         <table class="table" style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
                                 <th scope="col"
-                                    style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">ID
+                                    style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">STT
                                 </th>
                                 <th scope="col"
                                     style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">Mã
@@ -166,7 +165,7 @@
 
 
                     <hr>
-                    <div class="HDCT">
+                    <div class="HDCT" style="overflow-y: auto;">
 
                         <table class="table">
                             <thead>
@@ -303,7 +302,7 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="Số Lượng" min="0" name="soLuong">
+                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" name="soLuong" value="1">
                         <label>Số Lượng</label>
                     </div>
 
