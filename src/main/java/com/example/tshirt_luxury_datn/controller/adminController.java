@@ -198,4 +198,12 @@ public class adminController {
     }
 
 
+    @GetMapping("/t-shirt-luxury/admin/huy-hoa-don")
+    public String huyHoaDon(@RequestParam("idHoaDon") Integer idHoaDon, HttpSession session, Model model) {
+       hoaDonRepo.deleteById((Integer) session.getAttribute("idHoaDon"));
+        System.out.println("ID Hóa Đơn: " + idHoaDon);
+        return "redirect:/t-shirt-luxury/admin";
+    }
+
+
 }

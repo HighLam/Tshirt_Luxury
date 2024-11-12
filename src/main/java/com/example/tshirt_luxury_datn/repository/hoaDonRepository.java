@@ -3,9 +3,11 @@ package com.example.tshirt_luxury_datn.repository;
 import com.example.tshirt_luxury_datn.entity.HoaDon;
 import com.example.tshirt_luxury_datn.entity.HoaDonChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,4 +52,8 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "FROM dbo.hoa_don \n" +
             "ORDER BY ngay_tao DESC;\n\n", nativeQuery = true)
     Integer getTrangThaiDaThanhToan();
+
+
+    @Query(value = "DELETE FROM hoa_don_chi_tiet WHERE id_hoa_don = :idHoaDon", nativeQuery = true)
+    Integer huyHoaDon(@Param("idHoaDon") Integer idHoaDon);
 }

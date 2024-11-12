@@ -260,7 +260,8 @@
 
 
                             <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
-                                <button class="btn btn-secondary">Hủy</button>
+
+                                <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
                                 <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
                             </div>
                         </form>
@@ -453,5 +454,12 @@
 // Gán giá trị đã được định dạng vào ô input
         $("#tienThua").val(formattedTienThua);
     });
+
+    function confirmHuyHoaDon() {
+        if (confirm("Bạn có chắc chắn muốn hủy hóa đơn này?")) {
+            document.getElementById("huyHoaDonForm").submit();
+        }
+    }
 </script>
+
 </html>
