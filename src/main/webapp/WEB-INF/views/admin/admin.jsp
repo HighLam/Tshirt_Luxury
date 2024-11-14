@@ -269,7 +269,9 @@
 
                                 <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
                                 <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
+
                             </div>
+                            <p style="color: red">${noti}</p>
                         </form>
 
                     </div>
