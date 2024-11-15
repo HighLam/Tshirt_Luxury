@@ -31,10 +31,10 @@ public class SanPham {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "ngay_tao")
+    @Column(name = "ngay_tao", columnDefinition = "DATE")
     private Date ngayTao;
 
-    @Column(name = "ngay_sua")
+    @Column(name = "ngay_sua", columnDefinition = "DATE")
     private Date ngaySua;
 
     @Column(name = "mo_ta")
