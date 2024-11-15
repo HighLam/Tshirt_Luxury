@@ -64,7 +64,7 @@ public class adminController {
         model.addAttribute("tongTien", hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon")));
         model.addAttribute("chietKhau", session.getAttribute("giaTriGiamVoucher"));
         model.addAttribute("idVoucher", session.getAttribute("idVoucher"));
-
+        model.addAttribute("noti",session.getAttribute("noti"));
         return "admin/admin";
     }
 
@@ -119,7 +119,8 @@ public class adminController {
             HttpSession session
 
     ) {
-
+        String noti = "";
+        session.setAttribute("noti",noti);
         if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
             createHoaDon(session);
         }
@@ -131,21 +132,28 @@ public class adminController {
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
 
         if (hoaDon1.getTrangThai() == 0) {
-            Integer idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
+            List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
             HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
-            if (sanPhamChiTiet1.getId().equals(idSPCTDaCo)) {
+            boolean check = false;
+            for (Integer x : idSPCTDaCo){
+                if (sanPhamChiTiet1.getId().equals(x)){
+                    check = true;
+                    break;
+                }
+            }
+            if (check) {
                 hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
                 hoaDonChiTietRepo.save(hoaDonChiTiet1);
-            } else {
+            }
+            else {
+
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                 hoaDonChiTiet.setHoaDon(hoaDon1);
                 hoaDonChiTiet.setSoLuong(soLuong);
                 hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
                 hoaDonChiTietRepo.save(hoaDonChiTiet);
-                System.out.println(sanPhamChiTiet1);
             }
         }
-
 
         return "redirect:/t-shirt-luxury/admin";
     }
@@ -181,29 +189,65 @@ public class adminController {
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
     public String thanhToanHoaDon(
             HttpSession session, Model model) {
-        int idHoaDon = (Integer) session.getAttribute("idHoaDon");
-        HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
-        HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
-        Voucher voucherKhongGiam = voucherRepo.getReferenceById(1);
-        if (hoaDon1 == null) {
-            hoaDon.setVoucher(voucherKhongGiam);
-        } else {
-            hoaDon.setVoucher(hoaDon1.getVoucher());
+
+        if(hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")).isEmpty()){
+//            model.addAttribute("noti","bo deo cho thanh toan");
+            String noti = "Vui lòng chọn sản phẩm";
+            session.setAttribute("noti",noti);
         }
-        hoaDon.setId(idHoaDon);
-        hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
-        hoaDon.setTrangThai(1);
-        hoaDonRepo.save(hoaDon);
+        else {
+
+
+            int idHoaDon = (Integer) session.getAttribute("idHoaDon");
+            HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
+            HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
+            List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
+            List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTiet(idHoaDon);
+            Integer soLuongHDCT = hoaDonChiTietRepo.selectSoLuong(idHoaDon);
+            Voucher voucherKhongGiam = voucherRepo.getReferenceById(1);
+
+            if (hoaDon1 == null) {
+                hoaDon.setVoucher(voucherKhongGiam);
+            } else {
+                hoaDon.setVoucher(hoaDon1.getVoucher());
+            }
+
+
+            for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietSL) {
+                for (SanPhamChiTiet sanPhamChiTiet : idSPCT) {
+                    if (sanPhamChiTiet.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId())) {
+                        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongHDCT);
+                        sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+                    }
+                }
+
+            }
+
+            hoaDon.setId(idHoaDon);
+            hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
+            hoaDon.setTrangThai(1);
+            hoaDonRepo.save(hoaDon);
+        }
 
         return "redirect:/t-shirt-luxury/admin";
     }
 
 
+
     @GetMapping("/t-shirt-luxury/admin/huy-hoa-don")
-    public String huyHoaDon(@RequestParam("idHoaDon") Integer idHoaDon, HttpSession session, Model model) {
-       hoaDonRepo.deleteById((Integer) session.getAttribute("idHoaDon"));
-        System.out.println("ID Hóa Đơn: " + idHoaDon);
+    public String huyHoaDon(@RequestParam(value = "idHoaDon",defaultValue = "") Integer idHoaDon , HttpSession session, Model model) {
+        if(hoaDonRepo.getTrangThaiDaThanhToan() == 1 || idHoaDon.equals("")){
+//            model.addAttribute("noti","bo deo cho thanh toan");
+            String noti = "Không Có Hóa Dơn Để Hủy";
+            session.setAttribute("noti",noti);
+        }else {
+
+            hoaDonRepo.deleteById((Integer) session.getAttribute("idHoaDon"));
+            System.out.println("ID Hóa Đơn: " + idHoaDon);
+        }
         return "redirect:/t-shirt-luxury/admin";
+
+
     }
 
 

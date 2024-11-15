@@ -23,5 +23,17 @@ public interface hoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet ,In
 
     @Query(value = "select hdct.sanPhamChiTiet.id from HoaDonChiTiet hdct " +
             "where hdct.hoaDon.id = :idHoaDon")
-    Integer getSanPhamChiTietDaCo( @Param("idHoaDon") Integer idHoaDon);
+    List<Integer> getSanPhamChiTietDaCo( @Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "\n" +
+            "select hdct from HoaDonChiTiet hdct \n" +
+            "join hdct.hoaDon \n"+
+            "where hdct.hoaDon.id = :idHoaDon AND hdct.hoaDon.trangThai = 0")
+    List<HoaDonChiTiet> selectSoLuongHoaDonChiTiet(@Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "\n" +
+            "select hdct.soLuong from HoaDonChiTiet hdct \n" +
+            "join hdct.hoaDon \n"+
+            "where hdct.hoaDon.id = :idHoaDon AND hdct.hoaDon.trangThai = 0 ")
+    Integer selectSoLuong(@Param("idHoaDon") Integer idHoaDon);
 }
