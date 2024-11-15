@@ -234,7 +234,7 @@
         </div>
     </div>
     <div class="col-4">
-        <h6>DEVOTUS</h6>
+        <h6>${spDetail.tenSanPham}</h6>
         <p>Còn hàng</p>
         <hr>
         <div class="color">
