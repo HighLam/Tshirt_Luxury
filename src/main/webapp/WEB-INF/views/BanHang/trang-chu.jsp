@@ -164,70 +164,25 @@
     </div>
 
     <div class="row mt-5" style="padding-left:2rem">
+        <c:forEach var="spNew" items="${sanPhamList}" >
+
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
                 <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông DEVOTUS</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
+                    <h5 class="card-title text-center" style="font-size:13px">${spNew.tenSanPham}</h5>
+                    <p class="card-text fw-bold text-center" style="font-size: 14px;">${spNew.gia}</p>
 
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
                             <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="/t-shirt-luxury/san-pham-chi-tiet" class="btn btn-outline-light">
+                        <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spNew.id}" class="btn btn-outline-light">
                             <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/HEAVEN/red.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông HEAVEN</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_oversize/BUNNY/gray.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông BUNNY</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/NO-END/black.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông NO-END</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">489,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </c:forEach>
 
     </div>
 
@@ -236,7 +191,7 @@
     </div>
 
     <div class="text-center mt-5" style="padding-left:2rem">
-        <H1 class="text-center" style="font-size: 30px;">SẢN PHẨM BÁN CHẠY</H1>
+        <H1 class="text-center" style="font-size: 30px;">SẢN PHẨM DÀNH CHO BẠN</H1>
     </div>
 
     <div class="row mt-5" style="padding-left:2rem">
@@ -249,7 +204,7 @@
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
                             <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
+                        <a href="" class="btn btn-outline-light">
                             <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
                     </div>
                 </div>
