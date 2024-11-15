@@ -188,8 +188,11 @@
                                     <td>${s.sanPhamChiTiet.size.tenSize}</td>
                                     <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
                                     <td>${s.soLuong}</td>
-                                    <td>${s.sanPhamChiTiet.gia}</td>
-                                    <td>${s.soLuong * s.sanPhamChiTiet.gia}</td>
+                                    <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
+                                            </td>
+                                    <td>
+                                        <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
+                                            </td>
                                     <td class="text-center">
                                         <a class="btn" href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
                                            onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
@@ -244,7 +247,8 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p>${tongTien * chietKhau/100}</p>
+                                    <p> <fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0" />₫
+                                    </p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
