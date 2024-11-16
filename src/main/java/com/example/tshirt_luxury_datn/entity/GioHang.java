@@ -24,10 +24,10 @@ public class GioHang {
     @JoinColumn(name ="id_nguoi_dung")
     private NguoiDung nguoiDung;
 
+    @Column(name = "trang_thai")
+    private Integer trangThai;
 
-    @Column(name ="so_luong_spct")
-    private Integer soLuongSpct;
-    @Column(name = "don_gia")
-    private Double donGia;
+
+
 
 }
