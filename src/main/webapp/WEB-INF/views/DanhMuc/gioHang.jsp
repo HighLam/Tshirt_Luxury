@@ -25,8 +25,7 @@
             <div id="cartItems">
                 <div class="cart-item d-flex justify-content-between align-items-center">
                     <div class="cart-item-image">
-                        <img width="300px" src="../images/ao_phong_boxy/DEVOTUS/black.webp" alt="Áo Phông"
-                             height="200px" class="img-fluid">
+                        <img width="300px" src="../images/ao_phong_boxy/DEVOTUS/black.webp" alt="Áo Phông" height="200px" class="img-fluid">
                     </div>
                     <div class="cart-item-info">
                         <p>Áo Phông Fitted 1300 - Be - M</p>
@@ -37,8 +36,7 @@
                 <hr>
                 <div class="cart-item d-flex justify-content-between align-items-center">
                     <div class="cart-item-image">
-                        <img width="300px" src="../images/ao_phong_boxy/HEAVEN/red.webp" alt="Áo Phông" width="200px"
-                             class="img-fluid">
+                        <img width="300px" src="../images/ao_phong_boxy/HEAVEN/red.webp" alt="Áo Phông" width="200px" class="img-fluid">
                     </div>
                     <div class="cart-item-info">
                         <p>Áo Phông Fitted 1300 - Đen - L</p>
