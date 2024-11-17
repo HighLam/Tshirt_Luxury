@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div  >
+<div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -94,54 +94,112 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Hóa Đơn</h2>
+                <h2 class="">Quản Lý Ảnh Sản Phẩm</h2>
 
-                <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
+                <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                        data-bs-target="#themSanPham">
+                            data-bs-target="#themSanPham">
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
-                </div> -->
+                </div>
 
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Mã Hóa Đơn</th>
-                        <th scope="col">Tên Khách Hàng</th>
+                        <th scope="col">Mã Ảnh SP</th>
+                        <th scope="col">Tên Ảnh SP</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
-                        <th scope="col">Tổng Tiền</th>
+                        <th scope="col">Ngày Sửa</th>
                         <th scope="col">Mô Tả</th>
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listHoaDon}" var="hd" varStatus="i">
+                    <c:forEach items="${anhSanPham}" var="anh" varStatus="i">
                         <tr>
-                            <th scope="row">${i.index +1}</th>
-                            <th scope="row">${hd.maHoaDon}</th>
-                            <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
-                            <th scope="row">${hd.trangThai}</th>
-                            <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">${hd.tongTien}</th>
-                            <th scope="row">${hd.moTa}</th>
+                            <th scope="row">${i.index + 1}</th>
+                            <td>${anh.maAnhSanPham}</td>
+                            <td>${anh.tenAnhSanPham}</td>
                             <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
-                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
+                                <c:if test="${anh.trangThai == 1}">
+                                    Hoạt Động
+                                </c:if>
+                                <c:if test="${anh.trangThai == 0}">
+                                    Không Hoạt Động
+                                </c:if>
+                            </td>
+                            <td>${anh.ngayTao}</td>
+                            <td>${anh.ngaySua}</td>
+                            <td>${anh.moTa}</td>
+                            <td>
+                                <a class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" href="/t-shirt-luxury/admin/anh-san-pham/getOne?id=${anh.id}"
+                                   title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/t-shirt-luxury/admin/anh-san-pham/delete?id=${anh.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
-
                     </c:forEach>
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-</body>
 
+<!-- Modal -->
+<form action="/t-shirt-luxury/admin/anh-san-pham/add" method="post">
+    <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Ảnh" name="tenAnhSanPham">
+                        <label for="floatingInput">Tên Ảnh</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Url Ảnh" name="maAnhSanPham">
+                        <label for="floatingInput">URL Ảnh </label>
+                    </div>
+                    <div class="mt-3">
+                        <div class="text mt-2">
+                            Trạng Thái
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
+                                   value="1">
+                            <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
+                                   value="0">
+                            <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xoá Ảnh này không ?");
+    }
+</script>
 </html>
