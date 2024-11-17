@@ -65,13 +65,10 @@ public class trangChuController {
         model.addAttribute("spDetail",sanPhamRepo.getReferenceById(id));
         model.addAttribute("mauSac",sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size",sanPhamChiTietRepo.findSizesBySanPhamId(id));
-
-
         if(gioHangRepo.trangThaiGioHang() == 1){
             createGioHang(session);
         }
-
-
+        System.out.println("oqwuegrhjejrhdsjaklsdfj"+sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         session.setAttribute("idSPDetail", id);
         return "SanPhamChiTiet/san-pham-chi-tiet";
     }
