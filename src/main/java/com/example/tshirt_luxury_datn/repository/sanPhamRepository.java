@@ -16,7 +16,6 @@ public interface sanPhamRepository  extends JpaRepository<SanPham, Integer> {
     List<SanPham> timKiem(@Param("keyWord") String keyWord);
 
 
-
     @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamResponse(s.id, s.maSanPham, s.tenSanPham, s.ngayTao, " +
             " (SELECT spc.gia FROM SanPhamChiTiet spc WHERE spc.sanPham.id = s.id ORDER BY spc.ngayTao DESC LIMIT 1)) " +
             "FROM SanPham s " +

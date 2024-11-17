@@ -1,14 +1,15 @@
 package com.example.tshirt_luxury_datn.controller;
 
+
 import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.sanPhamResponse;
 import jakarta.servlet.http.HttpSession;
+import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,7 @@ public class trangChuController {
         session.setAttribute("idGioHang", gioHang.getId());
         return gioHang;
     }
+
 
     @GetMapping("/t-shirt-luxury/trang-chu")
     public String trangChu(Model model) {
