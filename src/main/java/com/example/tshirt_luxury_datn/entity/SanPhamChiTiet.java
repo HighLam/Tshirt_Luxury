@@ -38,9 +38,7 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chatLieu;
 
-    @ManyToOne
-    @JoinColumn(name = "id_gio_hang")
-    private GioHang gioHang;
+
 
 
     @ManyToOne
