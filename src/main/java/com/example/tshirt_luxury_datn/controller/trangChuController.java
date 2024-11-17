@@ -40,7 +40,6 @@ public class trangChuController {
         model.addAttribute("spDetail",sanPhamRepo.getReferenceById(id));
         model.addAttribute("mauSac",sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size",sanPhamChiTietRepo.findSizesBySanPhamId(id));
-        model.addAttribute("gioHang",gioHangRepo.findByGioHangId());
         System.out.println("oqwuegrhjejrhdsjaklsdfj"+sanPhamChiTietRepo.findMauSacBySanPhamId(id));
 
         session.setAttribute("idSPDetail", id);
