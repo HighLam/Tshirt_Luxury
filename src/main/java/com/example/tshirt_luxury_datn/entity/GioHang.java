@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -27,7 +28,11 @@ public class GioHang {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
 
+    @Column(name = "ngay_sua")
+    private Date ngaySua;
 
 
 }

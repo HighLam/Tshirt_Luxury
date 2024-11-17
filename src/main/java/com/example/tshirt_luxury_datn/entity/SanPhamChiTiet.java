@@ -60,6 +60,7 @@ public class SanPhamChiTiet {
 
     @Column(name = "mo_ta")
     private String moTa;
+
     @Column(name = "khoi_luong_san_pham ")
     private Double khoiLuongSanPham;
 }
