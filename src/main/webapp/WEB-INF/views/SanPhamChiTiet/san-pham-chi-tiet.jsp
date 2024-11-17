@@ -239,9 +239,14 @@
         <hr>
         <div class="color">
             <h6>MÀU SẮC</h6>
-            <a class="btn" href="#">Blue</a>
-            <a class="btn" href="#">Gray</a>
-            <a class="btn" href="#">Crem</a>
+            <div class="d-flex gap-2">
+                <c:forEach var="ms" items="${mauSac}">
+                    <input type="radio" class="btn" name="mauSac" >
+                    <span>${ms.tenMauSac}</span>
+                </c:forEach>
+            </div>
+
+
         </div>
 
         <div class="size" style="margin-top: 5px;">
@@ -254,10 +259,12 @@
                         chọn size</a>
                 </div>
             </div>
-            <a class="btn" href="#">S</a>
-            <a class="btn" href="#">M</a>
-            <a class="btn" href="#">L</a>
-            <a class="btn" href="#">XL</a>
+            <div class="d-flex gap-2">
+                <c:forEach var="s" items="${size}">
+                    <input type="radio" class="btn" name="size" >
+                    <span>${s.tenSize}</span>
+                </c:forEach>
+            </div>
         </div>
         <div class="soLuong" style="margin-top: 10px;">
             <div class="counter">
