@@ -181,6 +181,7 @@ public class adminController {
         Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVc);
         session.setAttribute("idVoucher", idVc);
         session.setAttribute("giaTriGiamVoucher", giaTriGiam);
+
         return "redirect:/t-shirt-luxury/admin";
     }
 

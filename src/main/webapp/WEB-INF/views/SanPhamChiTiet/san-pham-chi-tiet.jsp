@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../DanhMuc/gioHang.jsp" />
+<jsp:include page="../DanhMuc/gio-hang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -233,15 +233,24 @@
             </button>
         </div>
     </div>
+
+
     <div class="col-4">
+        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">
+            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
         <h6>${spDetail.tenSanPham}</h6>
         <p>Còn hàng</p>
         <hr>
         <div class="color">
             <h6>MÀU SẮC</h6>
-            <a class="btn" href="#">Blue</a>
-            <a class="btn" href="#">Gray</a>
-            <a class="btn" href="#">Crem</a>
+            <div class="d-flex gap-2">
+                <c:forEach var="ms" items="${mauSac}">
+                    <input type="radio" class="btn" name="mauSac" value="${ms.id}">
+                    <span>${ms.tenMauSac}</span>
+                </c:forEach>
+            </div>
+
+
         </div>
 
         <div class="size" style="margin-top: 5px;">
@@ -254,10 +263,12 @@
                         chọn size</a>
                 </div>
             </div>
-            <a class="btn" href="#">S</a>
-            <a class="btn" href="#">M</a>
-            <a class="btn" href="#">L</a>
-            <a class="btn" href="#">XL</a>
+            <div class="d-flex gap-2">
+                <c:forEach var="s" items="${size}">
+                    <input type="radio" class="btn" name="size" value="${s.id}">
+                    <span>${s.tenSize}</span>
+                </c:forEach>
+            </div>
         </div>
         <div class="soLuong" style="margin-top: 10px;">
             <div class="counter">
@@ -267,9 +278,12 @@
             </div>
         </div>
         <div class="order" style="margin-top: 20px;">
-            <a href="#" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</a>
+
+            <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>
+
             <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
         </div>
+
         <!-- Thuộc Tính Sản Phẩm  -->
         <div class="accordion" id="accordionExample" style="margin-top: 20px">
             <div class="accordion-item">
@@ -337,7 +351,9 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
+
 </div>
 <div class="comment " style="margin-top: 100px; ">
     <p style="margin-left: 80px;"><b>0 bình luận</b></p>

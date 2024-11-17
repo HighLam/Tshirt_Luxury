@@ -213,7 +213,7 @@
                         <h5>Thông tin đơn hàng</h5>
                         <hr>
                         <div class="voucher ">
-                            <label for="floatingInput">Voucher</label>
+                            <label>Voucher</label>
                             <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
                                         <div class="row" >

@@ -38,9 +38,7 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_chat_lieu")
     private ChatLieu chatLieu;
 
-    @ManyToOne
-    @JoinColumn(name = "id_gio_hang")
-    private GioHang gioHang;
+
 
 
     @ManyToOne
@@ -62,6 +60,7 @@ public class SanPhamChiTiet {
 
     @Column(name = "mo_ta")
     private String moTa;
+
     @Column(name = "khoi_luong_san_pham ")
     private Double khoiLuongSanPham;
 }
