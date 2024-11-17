@@ -6,14 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@Table(name = "gio_hang_chi_tiet")
 public class GioHangChiTiet {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -24,11 +28,16 @@ public class GioHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "id_gio_hang")
     private GioHang gioHang;
-    @Id
+
     @Column(name = "trang_thai")
     private int trangThai;
 
-    @Id
     @Column(name = "mo_ta")
     private String moTa;
+
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ngay_sua")
+    private Date ngaySua;
 }

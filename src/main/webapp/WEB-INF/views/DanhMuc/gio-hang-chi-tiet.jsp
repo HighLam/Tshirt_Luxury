@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../DanhMuc/gioHang.jsp" />
+<jsp:include page="gio-hang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,7 +211,10 @@
         </h2>
         <div class="row">
             <div class="col-md-8">
+
+                <c:forEach items="${GHCT}" var="ghct">
                 <div class="cart-item d-flex align-items-center">
+
                     <img
                             alt="Image "
                             height="150"
@@ -219,6 +222,7 @@
                             width="100"
                     />
                     <div class="ms-3">
+                        <p>${ghct.sanPhamChiTiet.sanPham.tenSanPham}</p>
                         <p>Áo Phông Fitted 1300 - Be - M</p>
                         <button class="btn btn-outline-secondary btn-sm">Xóa</button>
                     </div>
@@ -236,31 +240,8 @@
                         <p>329,000₫</p>
                     </div>
                 </div>
-                <div class="cart-item d-flex align-items-center">
-                    <img
-                            alt="Image "
-                            height="150"
-                            src="../images/ao_phong_boxy/NO-END/black.webp"
-                            width="100"
-                    />
-                    <div class="ms-3">
-                        <p>Áo Phông Fitted 1300 - Đen - L</p>
-                        <button class="btn btn-outline-secondary btn-sm">Xóa</button>
-                    </div>
-                    <div class="ms-auto d-flex align-items-center">
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <input
-                                class="form-control text-center mx-2"
-                                style="width: 50px"
-                                type="text"
-                                value="1"
-                        />
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <div class="ms-3">
-                        <p>329,000₫</p>
-                    </div>
-                </div>
+                </c:forEach>
+
             </div>
             <div class="col-md-4">
                 <div class="cart-summary">
