@@ -1,12 +1,16 @@
 package com.example.tshirt_luxury_datn.controller;
 
+import com.example.tshirt_luxury_datn.repository.gioHangChiTietRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class gioHangChiTietController {
-    @GetMapping("t-shirt-luxury/gio-hang-chi-tiet")
-    public String aoNam() {
-        return "DanhMuc/gio-hang-chi-tiet";
-    }
+
+    @Autowired
+    gioHangChiTietRepository gioHangChiTietRepo;
+
+
 }

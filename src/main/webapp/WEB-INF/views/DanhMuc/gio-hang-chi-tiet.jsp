@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../DanhMuc/gioHang.jsp" />
+<jsp:include page="gio-hang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,7 +211,10 @@
         </h2>
         <div class="row">
             <div class="col-md-8">
+
+                <c:forEach items="${GHCT}" var="ghct">
                 <div class="cart-item d-flex align-items-center">
+
                     <img
                             alt="Image "
                             height="150"
@@ -219,48 +222,27 @@
                             width="100"
                     />
                     <div class="ms-3">
-                        <p>Áo Phông Fitted 1300 - Be - M</p>
-                        <button class="btn btn-outline-secondary btn-sm">Xóa</button>
+                        <p>${ghct.sanPhamChiTiet.sanPham.tenSanPham} - ${ghct.sanPhamChiTiet.mauSac.tenMauSac} - ${ghct.sanPhamChiTiet.size.tenSize} </p>
+
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <button class="btn btn-outline-secondary btn-sm" id="decrement">-</button>
                         <input
                                 class="form-control text-center mx-2"
                                 style="width: 50px"
                                 type="text"
-                                value="1"
+                                value="${ghct.soLuong}"
+                                id="quantity"
                         />
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                        <button class="btn btn-outline-secondary btn-sm" id="increment">+</button>
                     </div>
                     <div class="ms-3">
-                        <p>329,000₫</p>
+                        <p>${ghct.sanPhamChiTiet.gia * ghct.soLuong}</p>
                     </div>
                 </div>
-                <div class="cart-item d-flex align-items-center">
-                    <img
-                            alt="Image "
-                            height="150"
-                            src="../images/ao_phong_boxy/NO-END/black.webp"
-                            width="100"
-                    />
-                    <div class="ms-3">
-                        <p>Áo Phông Fitted 1300 - Đen - L</p>
-                        <button class="btn btn-outline-secondary btn-sm">Xóa</button>
-                    </div>
-                    <div class="ms-auto d-flex align-items-center">
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <input
-                                class="form-control text-center mx-2"
-                                style="width: 50px"
-                                type="text"
-                                value="1"
-                        />
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <div class="ms-3">
-                        <p>329,000₫</p>
-                    </div>
-                </div>
+                </c:forEach>
+
             </div>
             <div class="col-md-4">
                 <div class="cart-summary">
@@ -268,14 +250,17 @@
                     <p>Chưa bao gồm phí vận chuyển:</p>
                     <p>
                         <strong> Tổng tiền: </strong>
-                        <span class="float-end"> 658,000₫ </span>
+                        <span class="float-end">${tongTienGioHang} </span>
                     </p>
+
                     <hr/>
                     <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
-                    <button class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</button>
+
+                    <a href="/t-shirt-luxury/ban-hang-onl" class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</a>
                     <button class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</button>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -420,6 +405,30 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+</script>
+<script>
+    const decrementBtn = document.getElementById("decrement");
+    const incrementBtn = document.getElementById("increment");
+    const quantityInput = document.getElementById("quantity");
+
+    // Xử lý khi nhấn nút Trừ (-)
+    decrementBtn.addEventListener("click", () => {
+        let currentValue = parseInt(quantityInput.value) || 0;
+        if (currentValue > 0) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+
+    // Xử lý khi nhấn nút Cộng (+)
+    incrementBtn.addEventListener("click", () => {
+        let currentValue = parseInt(quantityInput.value) || 0;
+        quantityInput.value = currentValue + 1;
+    });
+
+    // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
+    quantityInput.addEventListener("input", () => {
+        quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+    });
 </script>
 </body>
 </html>

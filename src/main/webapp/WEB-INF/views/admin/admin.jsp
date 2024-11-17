@@ -97,6 +97,7 @@
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -213,7 +214,7 @@
                         <h5>Thông tin đơn hàng</h5>
                         <hr>
                         <div class="voucher ">
-                            <label for="floatingInput">Voucher</label>
+                            <label>Voucher</label>
                             <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
                                         <div class="row" >

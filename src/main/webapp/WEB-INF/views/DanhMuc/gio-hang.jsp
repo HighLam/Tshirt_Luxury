@@ -21,23 +21,26 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+
             <p>Bạn đang có 2 sản phẩm trong giỏ hàng.</p>
             <div id="cartItems">
-               <c:forEach>
+
+                    <c:forEach items="${GHCT}" var="ghct">
                    <div class="cart-item d-flex justify-content-between align-items-center">
                        <div class="cart-item-image">
                            <img width="300px" src="../images/ao_phong_boxy/DEVOTUS/black.webp" alt="Áo Phông"
                                 height="200px" class="img-fluid">
                        </div>
                        <div class="cart-item-info">
+
                            <p>Áo Phông Fitted 1300 - Be - M</p>
                            <p>329,000 đ x 1</p>
                        </div>
                        <button class="btn btn-danger btn-sm">Xóa</button>
                    </div>
                    <hr>
-               </c:forEach>
 
+                    </c:forEach>
 
             </div>
             <hr>
