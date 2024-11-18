@@ -272,9 +272,9 @@
         </div>
         <div class="soLuong" style="margin-top: 10px;">
             <div class="counter">
-                <button class="btn" id="decrease"><b>-</b></button>
-                <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;">
-                <button class="btn" id="increase"><b>+</b></button>
+                <button type="button" class="btn" id="decrease"><b>-</b></button>
+                <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
+                <button type="button" class="btn" id="increase"><b>+</b></button>
             </div>
         </div>
         <div class="order" style="margin-top: 20px;">
