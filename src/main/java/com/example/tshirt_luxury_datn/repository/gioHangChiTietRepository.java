@@ -17,6 +17,6 @@ public interface gioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
             "FROM gio_hang_chi_tiet ghct " +
             "JOIN san_pham_chi_tiet spct ON ghct.id_san_pham_chi_tiet = spct.id",
             nativeQuery = true)
-    Double tinhTongGia();
+    Float tinhTongGia();
 
 }
