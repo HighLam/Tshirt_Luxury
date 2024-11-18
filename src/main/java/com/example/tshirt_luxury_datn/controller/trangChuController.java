@@ -88,6 +88,7 @@ public class trangChuController {
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
     public String addCart(@RequestParam("idSPDetail") Integer idSanPham,
                           @RequestParam("mauSac") Integer idMauSac,
+                          @RequestParam("soLuong") Integer soLuong,
                           @RequestParam("size") Integer idSize, HttpSession session) {
 
         SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
@@ -96,6 +97,7 @@ public class trangChuController {
 
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         gioHangChiTiet.setGioHang(gioHangRepo.getReferenceById(idGioHang));
+        gioHangChiTiet.setSoLuong(soLuong);
         gioHangChiTiet.setNgayTao(new Date());
         gioHangChiTiet.setNgaySua(new Date());
         gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);

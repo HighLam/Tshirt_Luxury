@@ -32,6 +32,8 @@ public class GioHangChiTiet {
     @Column(name = "trang_thai")
     private int trangThai;
 
+    @Column(name = "so_luong")
+    private int soLuong;
     @Column(name = "mo_ta")
     private String moTa;
 
