@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="gio-hang.jsp" />
 <!DOCTYPE html>
 <html lang="en">
@@ -238,7 +239,7 @@
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/plus?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
                     </div>
                     <div class="ms-3">
-                        <p><fmt:formatNumber value=' ${ghct.sanPhamChiTiet.gia * ghct.soLuong}' pattern="#,##0" />₫</p>
+                        <p> <fmt:formatNumber value='${ghct.sanPhamChiTiet.gia * ghct.soLuong}' pattern="#,##0" />₫</p>
                     </div>
                 </div>
                 </c:forEach>
