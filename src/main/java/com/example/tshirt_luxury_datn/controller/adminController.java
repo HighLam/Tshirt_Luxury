@@ -254,7 +254,7 @@ public class adminController {
         SanPham sanPham = sanPhamRepo.findSanPhamByBarcode(barcode);
             List<SanPham> sanPhamList = new ArrayList<>();
             sanPhamList.add(sanPham);
-            model.addAttribute("SP", sanPhamList);
+           model.addAttribute("SP", sanPhamList);
         return "admin/barcode-result";
     }
 
