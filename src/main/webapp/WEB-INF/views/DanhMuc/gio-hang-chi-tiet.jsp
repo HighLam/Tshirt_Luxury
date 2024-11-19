@@ -227,18 +227,18 @@
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
-                        <button class="btn btn-outline-secondary btn-sm" id="decrement">-</button>
-                        <input
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
+                        <input min="1"
                                 class="form-control text-center mx-2"
                                 style="width: 50px"
                                 type="text"
                                 value="${ghct.soLuong}"
                                 id="quantity"
                         />
-                        <button class="btn btn-outline-secondary btn-sm" id="increment">+</button>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/plus?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
                     </div>
                     <div class="ms-3">
-                        <p>${ghct.sanPhamChiTiet.gia * ghct.soLuong}</p>
+                        <p><fmt:formatNumber value=' ${ghct.sanPhamChiTiet.gia * ghct.soLuong}' pattern="#,##0" />₫</p>
                     </div>
                 </div>
                 </c:forEach>
@@ -250,7 +250,7 @@
                     <p>Chưa bao gồm phí vận chuyển:</p>
                     <p>
                         <strong> Tổng tiền: </strong>
-                        <span class="float-end">${tongTienGioHang} </span>
+                        <span class="float-end"><fmt:formatNumber value='${tongTienGioHang}' pattern="#,##0" />₫ </span>
                     </p>
 
                     <hr/>

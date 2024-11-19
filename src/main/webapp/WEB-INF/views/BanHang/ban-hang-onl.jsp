@@ -16,29 +16,32 @@
 
         <div class="TTGH" style="margin-top: 60px;">
             <h5>Thông tin giao hàng</h5>
-            <form>
+            <form action="/t-shirt-luxury/ban-hang-onl/createHD" method="post">
                 <div class="mb-3">
                     <input style="width: 600px; height: 50px;" class="form-control me-2"
-                           placeholder="Họ và tên">
+                           placeholder="Họ và tên" name="hoVaTen">
                 </div>
                 <div class="mb-3">
                     <input style="width: 600px;  height: 50px;" class="form-control me-2"
-                           placeholder="Số điện thoại">
+                           placeholder="Số điện thoại" name="soDienThoai">
                 </div>
                 <div class="mb-3 ">
                     <input style="width: 600px;  height: 50px; " class="form-control me-2"
-                           placeholder="Địa chỉ">
+                           placeholder="Địa chỉ" name="diaChiNhanHang">
                 </div>
                 <div class="mb-3 ">
                         <textarea style="width: 600px; height: 100px;" class="form-control me-2"
-                                  placeholder="Ghi chú"></textarea>
+                                  placeholder="Ghi chú"  name="ghiChu"></textarea>
                 </div>
+                <button style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
             </form>
         </div>
+
+
         <div>
             <h5 class="fw-normal">Phương thức thanh toán</h5>
             <div class="d-flex">
-                <input type="radio">
+                <input type="radio" value="1" checked name="trangThai">
                 <p style="margin-left: 10px; margin-top: 13px;">Thanh toán khi nhận hàng(COD)</p>
             </div>
         </div>
@@ -51,17 +54,17 @@
             <tr>
                 <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
                 <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac} - ${bh.sanPhamChiTiet.size.tenSize} </td>
-                <td>${bh.sanPhamChiTiet.gia * bh.soLuong}</td>
+                <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0" />₫ </td>
                 <td><div class="ms-auto d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm" id="decrement">-</button>
-                    <input
+                    <a href="/t-shirt-luxury/ban-hang-onl/subtract?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
+                    <input min="1"
                             class="form-control text-center mx-2"
                             style="width: 50px"
                             type="text"
                             value="${bh.soLuong}"
                             id="quantity"
                     />
-                    <button class="btn btn-outline-secondary btn-sm" id="increment">+</button>
+                    <a href="/t-shirt-luxury/ban-hang-onl/plus?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
                 </div>
                 </td>
             </tr>
@@ -69,20 +72,21 @@
             </tbody>
 
         </table>
+        <form action="/t-shirt-luxury/ban-hang-onl/getVoucher" method="get">
         <div class="voucher d-flex">
-            <select style="width: 300px;" class="form-select" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select style="width: 300px;" class="form-select" aria-label="Default select example" name="idVoucher">
+                <c:forEach var="vc" items="${voucher}">
+                    <option value="${vc.id}" >${vc.tenVoucher}</option>
+                </c:forEach>
             </select>
-            <button style="margin-left: 20px;" class="btn btn-secondary">Áp dụng</button>
+            <button type="submit" style="margin-left: 20px;" class="btn btn-secondary">Áp dụng</button>
         </div>
+        </form>
         <hr>
-        <h6 class="fw-normal" >Phí vận chuyển</h6>
+        <h6 class="fw-normal" >Phí vận chuyển: 35000₫</h6>
         <hr>
-        <h5 class="fw-normal" >Tổng cộng: ${tongTienGioHang}</h5>
-        <a href="" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</a>
+        <h5 class="fw-normal" >Tổng cộng: <fmt:formatNumber value=' ${(tongTienGioHang - (tongTienGioHang/100 * giaTriGiam))+35000 }' pattern="#,##0" />₫</h5>
+        <a href="/t-shirt-luxury/ban-hang-onl/createHD" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</a>
     </div>
 
 </div>
