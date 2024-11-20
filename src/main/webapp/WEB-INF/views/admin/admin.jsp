@@ -8,13 +8,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>T-Shirt Luxury | ADMIN</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@latest/umd/index.min.js"></script>
+
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body style="max-width: 1460px;">
@@ -115,19 +120,31 @@
                                placeholder="Tìm sản phẩm"
                                aria-label="Search">
                         <button class="btn btn-success" type="submit">Tìm Kiếm</button>
-                        <ul style="list-style-type: none;">
-                            <li class="nav-item mt-3">
-                                <a href=""><i class="fa-solid fa-barcode" style="font-size: 30px; "></i></a>
-                            </li>
-                        </ul>
-                    </form>
 
+                    </form>
+                    <ul style="list-style-type: none;">
+                        <li class="nav-item mt-3">
+                            <!-- Nút kích hoạt quét barcode -->
+                            <a href="#" id="scanBarcode" title="Quét mã vạch">
+                                <i class="fa-solid fa-barcode" style="font-size: 30px; cursor: pointer;"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
+
+            <div id="camera-container" style="display: none; text-align: center; margin-top: 20px;">
+                <!-- Video hiển thị luồng camera -->
+                <video id="camera-stream" autoplay muted style="width: 25%; border: 1px solid #ccc; border-radius: 8px;"></video>
+                <!-- Kết quả barcode -->
+                <p id="barcode-result" style="margin-top: 10px; font-weight: bold; color: #333;"></p>
+                <!-- Nút dừng quét -->
+                <button id="stopBarcode" style="margin-top: 10px; padding: 5px 10px; border: none; background: #ff4d4d; color: white; border-radius: 4px; cursor: pointer;">Dừng quét</button>
+            </div>
             <div class="row">
                 <div class="col-8">
                     <div class="SPCT" style="height: 250px; width: 730px; overflow-y: auto;">
-                        <table class="table" style="width: 100%; table-layout: fixed;">
+                        <table id="tabelSanPham" class="table" style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
                                 <th scope="col"
@@ -247,7 +264,6 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tổng tiền</p>
-<%--                                    <p>${tongTien == null ? 0 : tongTien}đ</p>--%>
                                     <p><fmt:formatNumber value='${tongTien == null ? 0 : tongTien}' pattern="#,##0" />₫</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
@@ -477,6 +493,72 @@
             document.getElementById("huyHoaDonForm").submit();
         }
     }
+
+
+// Chức năng quét Barcode
+    $(document).ready(function () {
+        const codeReader = new ZXing.BrowserMultiFormatReader();
+        let selectedDeviceId;
+
+        // Nút quét mã vạch
+        $("#scanBarcode").on("click", function (e) {
+            e.preventDefault();
+            $("#camera-container").show();
+
+            codeReader.listVideoInputDevices()
+                .then((videoInputDevices) => {
+                    selectedDeviceId = videoInputDevices[0]?.deviceId;
+
+                    if (!selectedDeviceId) {
+                        alert("Không tìm thấy camera!");
+                        return;
+                    }
+
+                    console.log("Found camera:", selectedDeviceId);
+
+                    codeReader.decodeFromVideoDevice(
+                        selectedDeviceId,
+                        "camera-stream",
+                        (result, err) => {
+                            if (result) {
+                                console.log("Barcode detected:", result.text);
+                                // Gửi mã vạch về server
+                                $.ajax({
+                                    url: "/scan-barcode",
+                                    method: "GET",
+                                    data: { barcode: result.text },
+                                    success: function (response) {
+                                        $("#tabelSanPham tbody").html(response); // Chèn dữ liệu vào bảng
+                                        codeReader.reset();
+                                        $("#camera-container").hide();
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error("Error:", error);
+                                    },
+                                });
+                            } else if (err) {
+                                console.error("Scanning error:", err);
+                            }
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.error("Error listing video devices:", err);
+                    alert("Không thể khởi tạo camera. Vui lòng kiểm tra trình duyệt!");
+                });
+        });
+
+        // Nút dừng quét mã vạch
+        $("#stopBarcode").on("click", function () {
+            $("#camera-container").hide();
+            codeReader.reset();
+            console.log("Scanning stopped.");
+        });
+    });
+
+
+
+
 </script>
 
 </html>

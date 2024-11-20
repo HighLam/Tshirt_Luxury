@@ -37,5 +37,23 @@ public class gioHangController {
         gioHangChiTietRepo.deleteById(id);
         return "redirect:/t-shirt-luxury/gio-hang-chi-tiet";
     }
+    @GetMapping("/t-shirt-luxury/gio-hang-chi-tiet/plus")
+    public String plusSLGioHangChiTiet(@RequestParam("id") Integer id){
+        GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getReferenceById(id);
+        gioHangChiTiet.setId(id);
+        gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong()+1);
+        gioHangChiTietRepo.save(gioHangChiTiet);
+        return "redirect:/t-shirt-luxury/gio-hang-chi-tiet";
+    }
+    @GetMapping("/t-shirt-luxury/gio-hang-chi-tiet/subtract")
+    public String subtractSLGioHangChiTiet(@RequestParam("id") Integer id){
+        GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getReferenceById(id);
+        gioHangChiTiet.setId(id);
+        gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong()-1);
+        gioHangChiTietRepo.save(gioHangChiTiet);
+        return "redirect:/t-shirt-luxury/gio-hang-chi-tiet";
+    }
+
+
 
 }

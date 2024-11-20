@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface sanPhamRepository  extends JpaRepository<SanPham, Integer> {
-    @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord% ",nativeQuery = true)
+public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
+    @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord% ", nativeQuery = true)
     List<SanPham> timKiem(@Param("keyWord") String keyWord);
 
 
@@ -22,5 +22,7 @@ public interface sanPhamRepository  extends JpaRepository<SanPham, Integer> {
             "ORDER BY s.ngayTao DESC")
     List<sanPhamResponse> findTop4NewestSanPhamWithGia(Pageable pageable);
 
+    @Query(value = "SELECT * FROM san_pham WHERE barcode = :barCode", nativeQuery = true)
+    SanPham findSanPhamByBarcode(@Param("barCode") String barCode);
 
 }

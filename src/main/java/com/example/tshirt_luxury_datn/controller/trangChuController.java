@@ -111,7 +111,6 @@ public class trangChuController {
         gioHangChiTiet.setNgaySua(new Date());
         gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
 
-
         // Lưu bản ghi mới
         gioHangChiTietRepo.save(gioHangChiTiet);
 
