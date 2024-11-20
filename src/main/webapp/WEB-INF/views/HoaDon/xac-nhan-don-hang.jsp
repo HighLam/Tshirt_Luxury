@@ -58,42 +58,42 @@
             </div>
         </form>
         <form class="mt-3" action="/t-shirt-luxury/ban-hang-onl/doneHD" method="post">
-        <table class="table">
+            <table class="table">
 
-            <tbody>
-            <c:forEach var="bh" items="${banHang}">
-            <tr>
-                <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
-                <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac} - ${bh.sanPhamChiTiet.size.tenSize} </td>
-                <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0" />₫ </td>
-                <td><div class="ms-auto d-flex align-items-center">
-                    <a href="/t-shirt-luxury/ban-hang-onl/subtract?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
-                    <input min="1"
-                            class="form-control text-center mx-2"
-                            style="width: 50px"
-                            type="text"
-                            value="${bh.soLuong}"
-                            id="quantity"
-                    />
-                    <a href="/t-shirt-luxury/ban-hang-onl/plus?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
-                </div>
-                </td>
-            </tr>
-            </c:forEach>
-            </tbody>
+                <tbody>
+                <c:forEach var="bh" items="${banHang}">
+                    <tr>
+                        <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
+                        <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac} - ${bh.sanPhamChiTiet.size.tenSize} </td>
+                        <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0" />₫ </td>
+                        <td><div class="ms-auto d-flex align-items-center">
+                            <a href="/t-shirt-luxury/ban-hang-onl/subtract?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
+                            <input min="1"
+                                   class="form-control text-center mx-2"
+                                   style="width: 50px"
+                                   type="text"
+                                   value="${bh.soLuong}"
+                                   id="quantity"
+                            />
+                            <a href="/t-shirt-luxury/ban-hang-onl/plus?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
+                        </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
 
-        </table>
+            </table>
 
-        <hr>
-        <h6 class="fw-normal" >Phí vận chuyển: 35000₫</h6>
-        <hr>
-        <div class="d-flex">
-        <h5 class="fw-normal" >Tổng cộng: </h5>
-        <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="number" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
-               value="<fmt:formatNumber value='${tongTienGioHang - (tongTienGioHang * giaTriGiam / 100) + 35000}' pattern="#,##0"/>"
-               readonly >
-        </div>
-        <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
+            <hr>
+            <h6 class="fw-normal" >Phí vận chuyển: 35000₫</h6>
+            <hr>
+            <div class="d-flex">
+                <h5 class="fw-normal" >Tổng cộng: </h5>
+                <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="number" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
+                       value="<fmt:formatNumber value='${tongTienGioHang - (tongTienGioHang * giaTriGiam / 100) + 35000}' pattern="#,##0"/>"
+                       readonly >
+            </div>
+            <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
         </form>
     </div>
 

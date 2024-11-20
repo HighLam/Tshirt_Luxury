@@ -2,7 +2,9 @@ package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.GioHangChiTiet;
 import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,4 +21,11 @@ public interface gioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
             nativeQuery = true)
     Float tinhTongGia();
 
+    @Query(value = "SELECT id_san_pham_chi_tiet FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
+    List<Integer> findIdSanPhamChiTietByIdGioHang(@Param("idGioHang") Integer idGioHang);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
+    void deleteByIdGioHang(@Param("idGioHang") Integer idGioHang);
 }

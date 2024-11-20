@@ -45,4 +45,7 @@ public class HoaDon {
     @OneToOne
     @JoinColumn(name = "id_voucher")
     private Voucher voucher;
+
+    @Column(name = "loai_hoa_don")
+    private String loaiHoaDon;
 }

@@ -65,10 +65,7 @@
                         class="fa-solid fa-users-gear"></i>
                     Quản Lý Người Dùng</a>
                 <a href="/t-shirt-luxury/admin/hoa-don" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-money-bill-transfer"></i> Quản Lý Hóa Đơn Tại Quầy</a>
-
-                <a href="/t-shirt-luxury/admin/hoa-don-online" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-money-bill-transfer"></i> Quản Lý Hóa Đơn Online</a>
+                        class="fa-solid fa-money-bill-transfer"></i> Quản Lý Hóa Đơn</a>
 
                 <a href="/t-shirt-luxury/admin/san-pham" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
@@ -119,7 +116,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listHoaDonTaiQuay}" var="hd" varStatus="i">
+                    <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
                             <th scope="row">${i.index +1}</th>
                             <th scope="row">${hd.maHoaDon}</th>

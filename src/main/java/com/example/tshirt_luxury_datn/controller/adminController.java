@@ -41,10 +41,11 @@ public class adminController {
     public HoaDon createHoaDon(HttpSession session) {
         HoaDon hoaDon = new HoaDon();
 
-        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() != 0) {
             hoaDon.setNgaySua(new Date());
             hoaDon.setNgayTao(new Date());
             hoaDon.setTrangThai(0);
+            hoaDon.setLoaiHoaDon("Hóa Đơn Tại Quầy");
             Voucher voucher = voucherRepo.getReferenceById(1);
             hoaDon.setVoucher(voucher);
             hoaDonRepo.save(hoaDon);
