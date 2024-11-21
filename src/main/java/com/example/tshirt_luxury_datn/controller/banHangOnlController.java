@@ -39,12 +39,14 @@ public class banHangOnlController {
         model.addAttribute("tongTienGioHang", gioHangChiTietRepo.tinhTongGia());
         model.addAttribute("banHang", gioHangChiTiets);
         model.addAttribute("giaTriGiam", session.getAttribute("giaTriGiam"));
+
         return "BanHang/ban-hang-onl";
     }
 
     @GetMapping("/t-shirt-luxury/ban-hang-onl/getVoucher")
     public String getVoucher(@RequestParam("idVoucher") Integer idVC, HttpSession session) {
         Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVC);
+
         session.setAttribute("giaTriGiam", giaTriGiam);
         Voucher voucher = voucherRepo.getReferenceById(idVC);
         session.setAttribute("voucher",voucher);
@@ -82,11 +84,13 @@ public class banHangOnlController {
     @PostMapping("/t-shirt-luxury/ban-hang-onl/createHD")
     public String createHD( HttpSession session,ThongTinNhanHang thongTinNhanHang) {
         thongTinDonHangRepo.save(thongTinNhanHang);
+        Voucher voucher = voucherRepo.getReferenceById(1);
         HoaDon hoaDon = new HoaDon();
         hoaDon.setNgaySua(new Date());
         hoaDon.setNgayTao(new Date());
         hoaDon.setTrangThai(0);
         hoaDon.setLoaiHoaDon(1);
+        hoaDon.setVoucher(voucher);
         hoaDon.setThongTinNhanHang(thongTinNhanHang);
         hoaDonRepo.save(hoaDon);
 
@@ -112,14 +116,17 @@ public class banHangOnlController {
         List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
         List<Integer>listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
         for(int i =0; i <= gioHangChiTiets.size(); i++){
-            for (Integer idSPCT : listIDSPCT){
-                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
-                hoaDonChiTiet.setHoaDon(hoaDon);
-                hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
-
-                hoaDonChiTietRepo.save(hoaDonChiTiet);
+            for (Integer idSPCT : listIDSPCT) {
+                for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
+                    SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
+                    hoaDonChiTiet.setHoaDon(hoaDon);
+                    hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+                    hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
+                    hoaDonChiTietRepo.save(hoaDonChiTiet);
+                }
             }
         }
+        session.setAttribute("giaTriGiam",0);
         gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
         return "redirect:/t-shirt-luxury/trang-chu";
     }

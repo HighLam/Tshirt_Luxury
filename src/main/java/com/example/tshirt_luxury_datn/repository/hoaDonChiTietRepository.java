@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.repository;
 
+import com.example.tshirt_luxury_datn.entity.HoaDon;
 import com.example.tshirt_luxury_datn.entity.HoaDonChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,4 +37,7 @@ public interface hoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet ,In
             "join hdct.hoaDon \n"+
             "where hdct.hoaDon.id = :idHoaDon AND hdct.hoaDon.trangThai = 0 ")
     Integer selectSoLuong(@Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "select * from hoa_don_chi_tiet where id_hoa_don = :idHoaDon",nativeQuery = true)
+    List<HoaDonChiTiet> getHoaDonChiTietByIdHoaDon(@Param("idHoaDon") Integer idHoaDon);
 }
