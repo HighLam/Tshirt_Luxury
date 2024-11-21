@@ -86,22 +86,27 @@ public class banHangOnlController {
         hoaDon.setNgaySua(new Date());
         hoaDon.setNgayTao(new Date());
         hoaDon.setTrangThai(0);
+        hoaDon.setLoaiHoaDon(1);
         hoaDon.setThongTinNhanHang(thongTinNhanHang);
         hoaDonRepo.save(hoaDon);
 
-        session.setAttribute("hoaDon", hoaDon);
-        session.setAttribute("idHoaDon", hoaDon.getId());
+        session.setAttribute("hoaDonOnl", hoaDon);
+        session.setAttribute("idHoaDonOnline", hoaDon.getId());
 
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
     @PostMapping("/t-shirt-luxury/ban-hang-onl/doneHD")
-    public String addSPCT(@RequestParam("tongTienHoaDonOnl") Float tongTien , HttpSession session){
+    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien , HttpSession session){
+        // Xóa dấu phẩy nếu có
+        tongTien = tongTien.replace(".", "");
+        // Chuyển đổi sang Float
+        float tongTienParsed = Float.parseFloat(tongTien);
+
         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDon");
+        HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
         hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
-        hoaDon.setTongTien(tongTien);
+        hoaDon.setTongTien(tongTienParsed);
         hoaDon.setTrangThai(2);
-        hoaDon.setLoaiHoaDon("Hóa Đơn Online");
         hoaDonRepo.save(hoaDon);
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
         List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);

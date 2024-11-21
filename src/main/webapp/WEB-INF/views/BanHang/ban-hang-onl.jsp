@@ -89,9 +89,9 @@
         <hr>
         <div class="d-flex">
         <h5 class="fw-normal" >Tổng cộng: </h5>
-        <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="number" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
+        <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
                value="<fmt:formatNumber value='${tongTienGioHang - (tongTienGioHang * giaTriGiam / 100) + 35000}' pattern="#,##0"/>"
-               readonly >
+               readonly/>
         </div>
         <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
         </form>

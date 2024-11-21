@@ -35,14 +35,10 @@ public class trangChuController {
 
     public GioHang createGioHang(HttpSession session) {
         GioHang gioHang = new GioHang();
-
-        if (gioHangRepo.trangThaiGioHang() == 1) {
             gioHang.setNgaySua(new Date());
             gioHang.setNgayTao(new Date());
             gioHang.setTrangThai(0);
             gioHangRepo.save(gioHang);
-        }
-
         session.setAttribute("idGioHang", gioHang.getId());
         return gioHang;
     }
@@ -60,12 +56,12 @@ public class trangChuController {
 
     @GetMapping("/t-shirt-luxury/san-pham-chi-tiet-detail")
     public String sanPhamChiTietDetail(@RequestParam("idSPDetail") Integer id, Model model, HttpSession session) {
-        model.addAttribute("spDetail",sanPhamRepo.getReferenceById(id));
-        model.addAttribute("mauSac",sanPhamChiTietRepo.findMauSacBySanPhamId(id));
-        model.addAttribute("size",sanPhamChiTietRepo.findSizesBySanPhamId(id));
+        model.addAttribute("spDetail", sanPhamRepo.getReferenceById(id));
+        model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
+        model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
 
 
-        if(gioHangRepo.trangThaiGioHang() == 1){
+        if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
         }
 
@@ -73,16 +69,6 @@ public class trangChuController {
         session.setAttribute("idSPDetail", id);
         return "SanPhamChiTiet/san-pham-chi-tiet";
     }
-
-//    @GetMapping("/t-shirt-luxury/gio-hang-canvas")
-//    public String gioHangCanvas(@RequestParam("idSPDetail") Integer idSanPham,Model model,
-//                                HttpSession session) {
-//        int idGioHang = (Integer) session.getAttribute("idGioHang");
-//        model.addAttribute("gioHang", gioHangRepo.getReferenceById(idGioHang));
-//        gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-//
-//        return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
-//    }
 
 
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
@@ -94,9 +80,9 @@ public class trangChuController {
         SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
 
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-
+        GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
-        gioHangChiTiet.setGioHang(gioHangRepo.getReferenceById(idGioHang));
+        gioHangChiTiet.setGioHang(gioHang);
         gioHangChiTiet.setSoLuong(soLuong);
         gioHangChiTiet.setNgayTao(new Date());
         gioHangChiTiet.setNgaySua(new Date());
@@ -107,8 +93,6 @@ public class trangChuController {
 
         return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
     }
-
-
 
 
 }

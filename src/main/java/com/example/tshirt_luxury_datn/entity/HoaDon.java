@@ -47,5 +47,5 @@ public class HoaDon {
     private Voucher voucher;
 
     @Column(name = "loai_hoa_don")
-    private String loaiHoaDon;
+    private Integer loaiHoaDon;
 }
