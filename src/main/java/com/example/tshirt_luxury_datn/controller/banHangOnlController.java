@@ -1,9 +1,6 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.GioHangChiTiet;
-import com.example.tshirt_luxury_datn.entity.HoaDon;
-import com.example.tshirt_luxury_datn.entity.ThongTinNhanHang;
-import com.example.tshirt_luxury_datn.entity.Voucher;
+import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +25,10 @@ public class banHangOnlController {
     gioHangRepository gioHangRepo;
     @Autowired
     hoaDonRepository hoaDonRepo;
-
+    @Autowired
+    sanPhamChiTietRepository sanPhamChiTietRepo;
+    @Autowired
+    hoaDonChiTietRepository hoaDonChiTietRepo;
 
     @GetMapping("/t-shirt-luxury/ban-hang-onl")
     public String banHangOnl(Model model, HttpSession session) {
@@ -46,6 +46,9 @@ public class banHangOnlController {
     public String getVoucher(@RequestParam("idVoucher") Integer idVC, HttpSession session) {
         Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVC);
         session.setAttribute("giaTriGiam", giaTriGiam);
+        Voucher voucher = voucherRepo.getReferenceById(idVC);
+        session.setAttribute("voucher",voucher);
+
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
 
@@ -83,13 +86,43 @@ public class banHangOnlController {
         hoaDon.setNgaySua(new Date());
         hoaDon.setNgayTao(new Date());
         hoaDon.setTrangThai(0);
+        hoaDon.setLoaiHoaDon(1);
         hoaDon.setThongTinNhanHang(thongTinNhanHang);
         hoaDonRepo.save(hoaDon);
 
-        session.setAttribute("hoaDon", hoaDon);
-        session.setAttribute("idHoaDon", hoaDon.getId());
+        session.setAttribute("hoaDonOnl", hoaDon);
+        session.setAttribute("idHoaDonOnline", hoaDon.getId());
 
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
+    @PostMapping("/t-shirt-luxury/ban-hang-onl/doneHD")
+    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien , HttpSession session){
+        // Xóa dấu phẩy nếu có
+        tongTien = tongTien.replace(".", "");
+        // Chuyển đổi sang Float
+        float tongTienParsed = Float.parseFloat(tongTien);
+
+        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+        HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
+        hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
+        hoaDon.setTongTien(tongTienParsed);
+        hoaDon.setTrangThai(2);
+        hoaDonRepo.save(hoaDon);
+        Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+        List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
+        List<Integer>listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+        for(int i =0; i <= gioHangChiTiets.size(); i++){
+            for (Integer idSPCT : listIDSPCT){
+                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
+                hoaDonChiTiet.setHoaDon(hoaDon);
+                hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+
+                hoaDonChiTietRepo.save(hoaDonChiTiet);
+            }
+        }
+        gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
+        return "redirect:/t-shirt-luxury/trang-chu";
+    }
+
 
 }

@@ -41,10 +41,11 @@ public class adminController {
     public HoaDon createHoaDon(HttpSession session) {
         HoaDon hoaDon = new HoaDon();
 
-        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonRepo.getTrangThaiHoaDonOnline() == 2) {
             hoaDon.setNgaySua(new Date());
             hoaDon.setNgayTao(new Date());
             hoaDon.setTrangThai(0);
+            hoaDon.setLoaiHoaDon(0);
             Voucher voucher = voucherRepo.getReferenceById(1);
             hoaDon.setVoucher(voucher);
             hoaDonRepo.save(hoaDon);
@@ -122,7 +123,7 @@ public class adminController {
     ) {
         String noti = "";
         session.setAttribute("noti", noti);
-        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonRepo.getTrangThaiHoaDonOnline() == 2) {
             createHoaDon(session);
         }
 

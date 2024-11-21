@@ -13,7 +13,12 @@ public class hoaDonController {
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don")
     public String hoaDonAdmin(Model model) {
-        model.addAttribute("listHoaDon", hoaDonRepository.selectHoaDon());
+        model.addAttribute("listHoaDonTaiQuay", hoaDonRepository.getHoaDonTaiQuay());
         return "HoaDon/hoa-don-admin";
+    }
+    @GetMapping("/t-shirt-luxury/admin/hoa-don-online")
+    public String hoaDonOnline(Model model) {
+        model.addAttribute("listHoaDonOnline", hoaDonRepository.getHoaDonOnline());
+        return "HoaDon/hoa-don-online";
     }
 }

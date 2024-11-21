@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface gioHangRepository extends JpaRepository<GioHang, Integer> {
 
-    @Query(value = "SELECT TOP 1 trang_thai FROM gio_hang ORDER BY ngay_tao DESC ", nativeQuery = true)
+    @Query(value = "SELECT TOP 1 trang_thai FROM gio_hang ORDER BY ngay_tao DESC", nativeQuery = true)
     Integer trangThaiGioHang();
 
 
