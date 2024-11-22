@@ -106,7 +106,6 @@
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Mã Hóa Đơn</th>
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
@@ -119,14 +118,13 @@
                     <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
                             <th scope="row">${i.index +1}</th>
-                            <th scope="row">${hd.maHoaDon}</th>
-                            <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
-                            <th scope="row">${hd.trangThai}</th>
+                            <th scope="row">${hd.thongTinNhanHang.hoVaTen}</th>
+                            <th scope="row">${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</th>
                             <th scope="row">${hd.ngayTao}</th>
                             <th scope="row">${hd.tongTien}</th>
                             <th scope="row">${hd.moTa}</th>
                             <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
+                                <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>

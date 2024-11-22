@@ -34,7 +34,7 @@ public class ThongTinNhanHang {
     private Integer trangThai;
 
     @Column(name = "ghi_chu")
-    private String ghiChu;
+        private String ghiChu;
 
 
 }

@@ -28,4 +28,8 @@ public interface gioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
     @Transactional
     @Query(value = "DELETE FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
     void deleteByIdGioHang(@Param("idGioHang") Integer idGioHang);
+
+    @Query(value = "SELECT id_san_pham_chi_tiet FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
+    List<Integer> getSoLuong(@Param("idGioHang") Integer idGioHang);
+
 }
