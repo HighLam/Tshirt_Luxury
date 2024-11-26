@@ -200,6 +200,7 @@ public class adminController {
             int idHoaDon = (Integer) session.getAttribute("idHoaDon");
             HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
             HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
+
             List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
             List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTiet(idHoaDon);
             List<Integer> soLuongHDCT = hoaDonChiTietRepo.selectSoLuong(idHoaDon);
@@ -212,18 +213,19 @@ public class adminController {
             }
 
 
-            for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietSL) {
+            for (int i = 0; i < hoaDonChiTietSL.size(); i++) {
+                HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietSL.get(i);
                 for (SanPhamChiTiet sanPhamChiTiet : idSPCT) {
                     if (sanPhamChiTiet.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId())) {
-                        for (int i =0; i < soLuongHDCT.size() ; i++){
-                            sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongHDCT.get(i));
-                            sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-                        }
-
+                        // Trừ số lượng tương ứng theo chỉ số của hoaDonChiTietSL
+                        int soLuongCanTru = soLuongHDCT.get(i); // Lấy số lượng tương ứng từ soLuongHDCT
+                        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongCanTru);
+                        sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+                        break; // Thoát vòng lặp nếu đã tìm thấy sản phẩm cần cập nhật
                     }
                 }
-
             }
+
 
             hoaDon.setId(idHoaDon);
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
