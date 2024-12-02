@@ -41,7 +41,7 @@ public class adminController {
     public HoaDon createHoaDon(HttpSession session) {
         HoaDon hoaDon = new HoaDon();
 
-        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonRepo.getTrangThaiHoaDonOnline() == 2) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() !=0) {
             hoaDon.setNgaySua(new Date());
             hoaDon.setNgayTao(new Date());
             hoaDon.setTrangThai(0);
@@ -123,7 +123,7 @@ public class adminController {
     ) {
         String noti = "";
         session.setAttribute("noti", noti);
-        if (hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonRepo.getTrangThaiHoaDonOnline() == 2) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() !=0) {
             createHoaDon(session);
         }
 
@@ -200,9 +200,10 @@ public class adminController {
             int idHoaDon = (Integer) session.getAttribute("idHoaDon");
             HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon12");
             HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
+
             List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
             List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTiet(idHoaDon);
-            Integer soLuongHDCT = hoaDonChiTietRepo.selectSoLuong(idHoaDon);
+            List<Integer> soLuongHDCT = hoaDonChiTietRepo.selectSoLuong(idHoaDon);
             Voucher voucherKhongGiam = voucherRepo.getReferenceById(1);
 
             if (hoaDon1 == null) {
@@ -212,15 +213,19 @@ public class adminController {
             }
 
 
-            for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietSL) {
+            for (int i = 0; i < hoaDonChiTietSL.size(); i++) {
+                HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietSL.get(i);
                 for (SanPhamChiTiet sanPhamChiTiet : idSPCT) {
                     if (sanPhamChiTiet.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId())) {
-                        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongHDCT);
+                        // Trừ số lượng tương ứng theo chỉ số của hoaDonChiTietSL
+                        int soLuongCanTru = soLuongHDCT.get(i); // Lấy số lượng tương ứng từ soLuongHDCT
+                        sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongCanTru);
                         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+                        break; // Thoát vòng lặp nếu đã tìm thấy sản phẩm cần cập nhật
                     }
                 }
-
             }
+
 
             hoaDon.setId(idHoaDon);
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));

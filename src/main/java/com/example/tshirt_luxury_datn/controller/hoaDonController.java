@@ -2,9 +2,11 @@ package com.example.tshirt_luxury_datn.controller;
 
 import com.example.tshirt_luxury_datn.entity.HoaDon;
 import com.example.tshirt_luxury_datn.entity.HoaDonChiTiet;
+import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.entity.ThongTinNhanHang;
 import com.example.tshirt_luxury_datn.repository.hoaDonChiTietRepository;
 import com.example.tshirt_luxury_datn.repository.hoaDonRepository;
+import com.example.tshirt_luxury_datn.repository.sanPhamChiTietAdminRepository;
 import com.example.tshirt_luxury_datn.repository.thongTinDonHangRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class hoaDonController {
@@ -25,12 +28,15 @@ public class hoaDonController {
 
     @Autowired
     thongTinDonHangRepository thongTinDonHangRepo;
+    @Autowired
+    sanPhamChiTietAdminRepository sanPhamChiTietAdminRepo;
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don")
     public String hoaDonAdmin(Model model) {
         model.addAttribute("listHoaDonTaiQuay", hoaDonRepo.getHoaDonTaiQuay());
         return "HoaDon/hoa-don-admin";
     }
+
     @GetMapping("/t-shirt-luxury/admin/hoa-don-online")
     public String hoaDonOnline(Model model) {
         model.addAttribute("listHoaDonOnline", hoaDonRepo.getHoaDonOnline());
@@ -38,24 +44,54 @@ public class hoaDonController {
     }
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don-online/detail")
-    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model, HttpSession session){
+    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model, HttpSession session) {
         List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(idHoaDon);
-        model.addAttribute("tongTien",hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
+        model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
 
-        model.addAttribute("hoaDonChiTietOnline",hoaDonChiTiet);
+        model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
         Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
-         ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
-         model.addAttribute("thongTinNhanHang",thongTinNhanHang);
+        ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
+        model.addAttribute("thongTinNhanHang", thongTinNhanHang);
         return "HoaDon/xac-nhan-don-hang";
 
     }
 
     @PostMapping("/t-shirt-luxury/admin/hoa-don-online/xac-nhan-don")
-    public String xacNhanDon(@RequestParam("idHoaDonXacNhan") Integer idHoaDon){
+    public String xacNhanDon(@RequestParam("idHoaDonXacNhan") Integer idHoaDon, HttpSession session) {
         HoaDon hoaDon = hoaDonRepo.getReferenceById(idHoaDon);
+
         hoaDon.setId(idHoaDon);
         hoaDon.setTrangThai(3);
         hoaDonRepo.save(hoaDon);
+
+        List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
+        List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTietOnline(idHoaDon);
+        List<Integer> soLuongHDCT = hoaDonChiTietRepo.selectSoLuongOnline(idHoaDon);
+        System.out.println("id san pham chi tiet"+idSPCT);
+        System.out.println("hoa don chi tiet so luong"+hoaDonChiTietSL);
+        System.out.println("so luong hoa don chi tiet"+soLuongHDCT);
+        for (int i = 0; i < hoaDonChiTietSL.size(); i++) {
+            HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietSL.get(i);
+            int soLuongCanTru = soLuongHDCT.get(i); // Lấy số lượng tương ứng từ soLuongHDCT
+
+            // Lọc danh sách SanPhamChiTiet phù hợp với ID từ HoaDonChiTiet
+            List<SanPhamChiTiet> sanPhamChiTietList = idSPCT.stream()
+                    .filter(sp -> sp.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId()))
+                    .collect(Collectors.toList());
+
+            // Trừ số lượng cho tất cả các SanPhamChiTiet phù hợp
+            for (SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList) {
+                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongCanTru);
+                sanPhamChiTiet.setId(sanPhamChiTiet.getId());
+                sanPhamChiTietAdminRepo.save(sanPhamChiTiet); // Lưu lại thay đổi
+            }
+        }
+
+
+
+
+
+
         return "redirect:/t-shirt-luxury/admin/hoa-don-online";
     }
 }

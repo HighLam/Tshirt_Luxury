@@ -101,6 +101,7 @@ public class banHangOnlController {
     }
     @PostMapping("/t-shirt-luxury/ban-hang-onl/doneHD")
     public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien , HttpSession session){
+
         // Xóa dấu phẩy nếu có
         tongTien = tongTien.replace(".", "");
         // Chuyển đổi sang Float
@@ -126,6 +127,7 @@ public class banHangOnlController {
                 }
             }
         }
+
         session.setAttribute("giaTriGiam",0);
         gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
         return "redirect:/t-shirt-luxury/trang-chu";
