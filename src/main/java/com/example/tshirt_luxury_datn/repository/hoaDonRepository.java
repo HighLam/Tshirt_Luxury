@@ -74,4 +74,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
 
     @Query(value = "select tong_tien from hoa_don where id = :idHoaDon",nativeQuery = true )
     Float tongTienHoaDonOnline(@Param("idHoaDon") Integer idHoaDon );
+
+    @Query(value = "SELECT TOP 1 ma_hoa_don FROM hoa_don ORDER BY ma_hoa_don DESC", nativeQuery = true)
+    String findLastMaHoaDon();
 }

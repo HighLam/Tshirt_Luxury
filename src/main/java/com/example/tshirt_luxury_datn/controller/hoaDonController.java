@@ -44,8 +44,9 @@ public class hoaDonController {
     }
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don-online/detail")
-    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model, HttpSession session) {
+    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model) {
         List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(idHoaDon);
+
         model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
 
         model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
