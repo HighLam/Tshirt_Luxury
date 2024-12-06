@@ -93,7 +93,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Hóa Đơn</h2>
+                <h2 class="">Quản Lý Hóa Đơn Online</h2>
 
                 <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
@@ -101,6 +101,7 @@
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
                 </div> -->
+
 
                 <table class="table table-striped">
                     <thead>

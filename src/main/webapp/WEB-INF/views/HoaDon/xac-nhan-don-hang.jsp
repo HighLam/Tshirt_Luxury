@@ -11,6 +11,11 @@
 </head>
 <body class="container">
 <div class="row">
+    <div class="p-2 bd-highlight d-flex justify-content-start mt-3">
+        <a type="button" href="/t-shirt-luxury/admin/hoa-don-online" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-backward"></i> Trở lại
+        </a>
+    </div>
     <div class="col-6 mt-5" >
         <a href="" style="text-decoration: none;">Giỏ hàng > </a>  Thanh toán
 
@@ -55,13 +60,21 @@
         <form class="mt-3" action="/t-shirt-luxury/admin/hoa-don-online/xac-nhan-don" method="post">
             <table class="table">
 
+                <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Thông tin sản phẩm</th>
+                        <th>Giá tiền</th>
+                        <th class="text-center">Số Lượng</th>
+                    </tr>
+                </thead>
                 <tbody>
                 <c:forEach var="hd" items="${hoaDonChiTietOnline}">
                     <tr>
                         <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
                         <td>${hd.sanPhamChiTiet.sanPham.tenSanPham} - ${hd.sanPhamChiTiet.mauSac.tenMauSac} - ${hd.sanPhamChiTiet.size.tenSize} </td>
                         <td><fmt:formatNumber value='${hd.sanPhamChiTiet.gia * hd.soLuong}' pattern="#,##0" />₫ </td>
-                        <td> ${hd.soLuong} </td>
+                        <td class="text-center"> ${hd.soLuong} </td>
                     </tr>
                     <input type="text" hidden="hidden" name="idHoaDonXacNhan" value="${hd.hoaDon.id}">
                 </c:forEach>
