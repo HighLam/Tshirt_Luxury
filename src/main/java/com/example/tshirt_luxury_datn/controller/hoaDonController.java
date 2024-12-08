@@ -49,7 +49,15 @@ public class hoaDonController {
 
         model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
 
+        model.addAttribute("voucherTrongHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+        //model.addAttribute("tongTienHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+
+        model.addAttribute("giaTienBanDau", hoaDonRepo.tongGiaBanDau(idHoaDon));
+
+        model.addAttribute("soSanPhamMua", hoaDonRepo.getSoLuongSanPhamMua(idHoaDon));
+
         model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
+        System.out.println("fhjskdhfksjhfkjshkjfhksjdhkfjs"+hoaDonChiTiet);
         Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
         ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
         model.addAttribute("thongTinNhanHang", thongTinNhanHang);
@@ -87,10 +95,6 @@ public class hoaDonController {
                 sanPhamChiTietAdminRepo.save(sanPhamChiTiet); // Lưu lại thay đổi
             }
         }
-
-
-
-
 
 
         return "redirect:/t-shirt-luxury/admin/hoa-don-online";

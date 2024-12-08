@@ -230,7 +230,18 @@
 
                         <h5>Thông tin đơn hàng</h5>
                         <hr>
-                        <div class="voucher ">
+<%--                        <div class="thongTinKhachHang">--%>
+<%--                            <form action="/t-shirt-luxury/admin/timKhachHang" method="get" class="d-flex">--%>
+<%--                                <input class="form-control me-2" type="search" id="searchSoDienThoai" placeholder="Số điện thoại" aria-label="Search">--%>
+<%--                                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>--%>
+<%--                            </form>--%>
+<%--                            <div class="form-floating mb-3 mt-3">--%>
+<%--                                <input type="text" class="form-control" id="floatingInput" value="${KH.ho + KH.tenDem + KH.ten}" >--%>
+<%--                                <label for="floatingInput">Tên khách hàng</label>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+
+                        <div class="voucher mt-3">
                             <label>Voucher</label>
                             <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">

@@ -15,11 +15,15 @@ public interface gioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
     @Query(value = "SELECT * FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
     List<GioHangChiTiet> gioHangChiTietByID(@Param("idGioHang") Integer idGioHang);
 
+    @Query(value = "SELECT * FROM gio_hang_chi_tiet \n" +
+            "JOIN san_pham_chi_tiet ON san_pham_chi_tiet.id = gio_hang_chi_tiet.id_san_pham_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
+    List<GioHangChiTiet> gioHangChiTietByIDGioHang(@Param("idGioHang") Integer idGioHang);
+
     @Query(value = "SELECT SUM(ghct.so_luong * spct.gia)  " +
             "FROM gio_hang_chi_tiet ghct " +
-            "JOIN san_pham_chi_tiet spct ON ghct.id_san_pham_chi_tiet = spct.id",
+            "JOIN san_pham_chi_tiet spct ON ghct.id_san_pham_chi_tiet = spct.id WHERE id_gio_hang = :idGioHang",
             nativeQuery = true)
-    Float tinhTongGia();
+    Float tinhTongGia(@Param("idGioHang") Integer idGioHang);
 
     @Query(value = "SELECT id_san_pham_chi_tiet FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
     List<Integer> findIdSanPhamChiTietByIdGioHang(@Param("idGioHang") Integer idGioHang);

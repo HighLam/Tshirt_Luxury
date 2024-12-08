@@ -75,6 +75,19 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     @Query(value = "select tong_tien from hoa_don where id = :idHoaDon",nativeQuery = true )
     Float tongTienHoaDonOnline(@Param("idHoaDon") Integer idHoaDon );
 
+//    @Query(value = "select id_voucher from hoa_don where id = :idHoaDon",nativeQuery = true)
+//    Integer getVoucherTrongHoaDon (@Param("idHoaDon") Integer idHoaDon);
+
     @Query(value = "SELECT TOP 1 ma_hoa_don FROM hoa_don ORDER BY ma_hoa_don DESC", nativeQuery = true)
     String findLastMaHoaDon();
+
+    @Query(value = "SELECT SUM(san_pham_chi_tiet.gia * hoa_don_chi_tiet.so_luong) FROM hoa_don_chi_tiet\n" +
+            "JOIN san_pham_chi_tiet ON hoa_don_chi_tiet.id_san_pham_chi_tiet = san_pham_chi_tiet.id WHERE id_hoa_don = :idHoaDon",
+            nativeQuery = true)
+    Float tongGiaBanDau(@Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "SELECT COUNT(*)\n" +
+            "FROM hoa_don_chi_tiet\n" +
+            "WHERE id_hoa_don = :idHoaDon",nativeQuery = true)
+    Integer getSoLuongSanPhamMua (@Param("idHoaDon") Integer idHoaDon);
 }

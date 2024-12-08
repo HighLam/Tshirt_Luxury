@@ -81,6 +81,9 @@ public class trangChuController {
 
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
         GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+
+        System.out.println("idGioHang: " + idGioHang);
+
         GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
         gioHangChiTiet.setGioHang(gioHang);
         gioHangChiTiet.setSoLuong(soLuong);

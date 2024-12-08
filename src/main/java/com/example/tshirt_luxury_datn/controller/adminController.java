@@ -94,6 +94,12 @@ public class adminController {
         return "admin/admin";
     }
 
+//    @GetMapping("t-shirt-luxury/admin/timKhachHang")
+//    public String searchKhachHang(Model model, @RequestParam("searchSoDienThoai") String timKhachHang) {
+//        model.addAttribute("KH", nguoiDungRepo.searchKhachHang(timKhachHang));
+//        return "admin/admin";
+//    }
+
     @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
     @ResponseBody
     public Map<String, Object> getProductById(@RequestParam(name = "idRequest") Integer idSanPham, HttpSession session) {
@@ -287,5 +293,7 @@ public class adminController {
            model.addAttribute("SP", sanPhamList);
         return "admin/barcode-result";
     }
+
+
 
 }

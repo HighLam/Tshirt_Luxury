@@ -26,8 +26,8 @@ public class gioHangController {
     public String gioHangCanvas(HttpSession session, Model model) {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
         List<GioHangChiTiet> gioHangChiTiets =  gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-        model.addAttribute("tongTienGioHang",gioHangChiTietRepo.tinhTongGia());
-        System.out.println("sjjdfhghjdk"+gioHangChiTietRepo.tinhTongGia());
+        model.addAttribute("tongTienGioHang",gioHangChiTietRepo.tinhTongGia(idGioHang));
+        System.out.println("sjjdfhghjdk"+gioHangChiTietRepo.tinhTongGia(idGioHang));
         model.addAttribute("GHCT", gioHangChiTiets);
         return "DanhMuc/gio-hang-chi-tiet";
 
