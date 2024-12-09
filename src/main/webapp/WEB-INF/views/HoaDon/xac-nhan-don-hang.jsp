@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>T-Shirt Luxury</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body class="container">
@@ -101,9 +102,9 @@
                     </p>
                 </c:when>
                 <c:otherwise>
-                    <h6 class="fw-normal ms-3">Khách hàng không áp dụng Voucher.</h6>
+                    <h6 class="fw-normal ms-3 fst-italic">Khách hàng không áp dụng Voucher cho hóa đơn này!</h6>
                     <p class="ms-3" >
-                        <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                        Tổng phụ <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
                     </p>
                 </c:otherwise>
             </c:choose>

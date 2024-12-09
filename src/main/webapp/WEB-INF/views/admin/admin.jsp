@@ -172,7 +172,15 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
+                                    <td>
+                                        <c:if test="${sp.trangThai == 1}">
+                                            <span class="badge bg-success">Còn Hàng</span>
+                                        </c:if>
+                                        <c:if test="${sp.trangThai == 0}">
+
+                                            <span class="badge bg-danger">Hết Hàng</span>
+                                        </c:if>
+                                    </td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
                                            data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
                                 </tr>
@@ -203,12 +211,12 @@
                                 <tr>
                                     <th scope="row">${i.index+1}</th>
                                     <td>${s.sanPhamChiTiet.sanPham.tenSanPham}</td>
-                                    <td>${s.sanPhamChiTiet.size.tenSize}</td>
-                                    <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
-                                    <td>${s.soLuong}</td>
-                                    <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
+                                    <td class="text-center">${s.sanPhamChiTiet.size.tenSize}</td>
+                                    <td class="text-center">${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
+                                    <td class="text-center">${s.soLuong}</td>
+                                    <td class="text-center"><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
                                             </td>
-                                    <td>
+                                    <td class="text-center">
                                         <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
                                             </td>
                                     <td class="text-center">

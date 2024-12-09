@@ -36,7 +36,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,7 +100,7 @@
                 <form action="/t-shirt-luxury/admin/updateSanPham?id=${sanPham.id}" method="POST">
                     <div>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 <!-- Mã Sản Phẩm -->
@@ -132,12 +132,12 @@
                     <div class="form-check form-check-inline mt-2">
                         <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1"
                         ${sanPham.trangThai == 1 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio1">Bán</label>
+                        <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                     </div>
                     <div class="form-check form-check-inline mt-2">
                         <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0"
                         ${sanPham.trangThai == 0 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                        <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
                     </div>
                 </div>
 
