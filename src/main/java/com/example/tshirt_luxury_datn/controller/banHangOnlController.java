@@ -155,6 +155,7 @@ public class banHangOnlController {
 
 
         session.setAttribute("giaTriGiam",0);
+
         gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
 
         return "redirect:/t-shirt-luxury/trang-chu";

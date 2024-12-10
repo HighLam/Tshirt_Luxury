@@ -254,6 +254,7 @@ public class adminController {
             hoaDon.setId(idHoaDon);
             hoaDon.setMaHoaDon(generateMaHoaDon());
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
+
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setTenNguoiDung("Khach vang lai");

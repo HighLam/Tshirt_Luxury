@@ -122,7 +122,24 @@
                     <fmt:formatNumber value="${tongTien}" type="currency" currencySymbol="₫" groupingUsed="true" /> (Đã bao gồm phí vận chuyển)
                 </p>
             </div>
-            <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary"  onclick="return confirmOrder()">Xác nhận đơn hàng</button>
+<%--            <c:if test="${hd.trangThai == 0}">--%>
+<%--                <span class="badge bg-primary">Chờ thanh toán</span>--%>
+<%--            </c:if>--%>
+<%--            <c:if test="${hd.trangThai == 1}">--%>
+<%--                <span class="badge bg-success">Đã thanh toán</span>--%>
+<%--            </c:if>--%>
+            <c:if test="${xacNhanHoaDonOnline == 2}">
+<%--                <span class="badge bg-secondary">Chờ xác nhận</span>--%>
+                <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary"  onclick="return confirmOrder()">Xác nhận đơn hàng</button>
+            </c:if>
+            <c:if test="${xacNhanHoaDonOnline == 3}">
+<%--                <span class="badge bg-warning text-dark">Đang giao hàng</span>--%>
+                <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-success"  onclick="return confirmOrder()">Giao hàng thành công</button>
+            </c:if>
+<%--            <c:if test="${hd.trangThai == 4}">--%>
+<%--                <span class="badge bg-info text-dark">Giao hàng thành công</span>--%>
+<%--            </c:if>--%>
+<%--            <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary"  onclick="return confirmOrder()">Xác nhận đơn hàng</button>--%>
         </form>
     </div>
 

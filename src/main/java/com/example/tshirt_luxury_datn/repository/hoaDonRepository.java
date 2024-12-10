@@ -1,13 +1,10 @@
 package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.HoaDon;
-import com.example.tshirt_luxury_datn.entity.HoaDonChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -90,4 +87,10 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "FROM hoa_don_chi_tiet\n" +
             "WHERE id_hoa_don = :idHoaDon",nativeQuery = true)
     Integer getSoLuongSanPhamMua (@Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "select trang_thai from hoa_don WHERE trang_thai = :trangThai AND id = :idHoaDon", nativeQuery = true)
+    Integer getHoaDonTrangThai(@Param("idHoaDon") Integer idHoaDon, @Param("trangThai") Integer trangThai);
+
+    @Query(value = "select trang_thai from hoa_don WHERE  id = :idHoaDon", nativeQuery = true)
+    Integer getHoaDonTrangThai1(@Param("idHoaDon") Integer idHoaDon);
 }

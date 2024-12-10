@@ -126,7 +126,6 @@
                                 <span class="badge bg-success">Hoạt Động</span>
                             </c:if>
                             <c:if test="${ms.trangThai == 0}">
-
                                 <span class="badge bg-danger">Không Hoạt Động</span>
                             </c:if>
                         </td>

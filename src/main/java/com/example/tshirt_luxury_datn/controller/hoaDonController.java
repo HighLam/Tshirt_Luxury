@@ -56,6 +56,8 @@ public class hoaDonController {
 
         model.addAttribute("soSanPhamMua", hoaDonRepo.getSoLuongSanPhamMua(idHoaDon));
 
+        model.addAttribute("xacNhanHoaDonOnline", hoaDonRepo.getHoaDonTrangThai1(idHoaDon));
+
         model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
         System.out.println("fhjskdhfksjhfkjshkjfhksjdhkfjs"+hoaDonChiTiet);
         Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
@@ -69,9 +71,33 @@ public class hoaDonController {
     public String xacNhanDon(@RequestParam("idHoaDonXacNhan") Integer idHoaDon, HttpSession session) {
         HoaDon hoaDon = hoaDonRepo.getReferenceById(idHoaDon);
 
+
         hoaDon.setId(idHoaDon);
-        hoaDon.setTrangThai(3);
-        hoaDonRepo.save(hoaDon);
+        //hoaDon.setTrangThai(3);
+        //int hoaDonId = idHoaDon;
+        int trangThai = hoaDonRepo.getHoaDonTrangThai1(idHoaDon);
+
+        int trangThaiHienTai = hoaDonRepo.getHoaDonTrangThai(idHoaDon, trangThai);
+
+        if (trangThaiHienTai == 2) {
+            hoaDon.setTrangThai(3);
+            hoaDonRepo.save(hoaDon);
+        } else if (trangThaiHienTai == 3) {
+            hoaDon.setTrangThai(4);
+            hoaDonRepo.save(hoaDon);
+        }
+
+
+//        if(hoaDonRepo.getHoaDonTrangThai(idHoaDon, 2) == 2) {
+//            hoaDon.setTrangThai(3);
+//            hoaDonRepo.save(hoaDon);
+//
+//        } else if(hoaDonRepo.getHoaDonTrangThai(idHoaDon, 3) == 3) {
+//            hoaDon.setTrangThai(4);
+//            hoaDonRepo.save(hoaDon);
+//        }
+
+        //hoaDonRepo.save(hoaDon);
 
         List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
         List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTietOnline(idHoaDon);
