@@ -197,7 +197,7 @@
     </div>
 </header>
 
-<div>
+<div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a class="home" href="/t-shirt-luxury/trang-chu"><i class="fas fa-home"></i> Trang chủ</a></li>
@@ -493,11 +493,11 @@
             </li>
         </ul>
     </nav>
-</div>
+
 <div class="row mt-5" style="padding-left:2rem">
     <img src="https://pos.nvncdn.com/be3159-662/bn/20240921_h3xCoY0r.gif" alt="">
 </div>
-
+</div>
 
 <footer class="container py-5">
     <div class="row">
