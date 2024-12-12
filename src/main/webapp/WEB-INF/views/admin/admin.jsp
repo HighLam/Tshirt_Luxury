@@ -207,10 +207,10 @@
                                     <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
                                     <td>${s.soLuong}</td>
                                     <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
-                                            </td>
+                                    </td>
                                     <td>
                                         <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
-                                            </td>
+                                    </td>
                                     <td class="text-center">
                                         <a class="btn" href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
                                            onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
@@ -222,6 +222,9 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+
+
                 <div class="col-4" style="border-left: 1px solid black;">
                     <div class="TTDH" style="height:500px ;">
 
@@ -231,19 +234,19 @@
                             <label>Voucher</label>
                             <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
-                                        <div class="row" >
-                                            <div class="col-6">
+                                    <div class="row" >
+                                        <div class="col-6">
                                             <select style="width: 250px" class="form-select" aria-label="Default select example" name="idVc" >
                                                 <c:forEach var="vc" items="${voucher}">
                                                     <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
                                                 </c:forEach>
                                             </select>
-                                            </div>
-                                            <div class="col-2"></div>
-                                            <div class="col-4">
-                                                <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng</button>
-                                            </div>
                                         </div>
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
 
@@ -286,8 +289,7 @@
                             <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
 
                                 <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
-
-                                <button type="submit" class="btn btn-dark ms-3" onclick="return confirmDoneHoaDon()">Thanh toán</button>
+                                <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
 
                             </div>
                             <p style="color: red">${noti}</p>
@@ -313,7 +315,6 @@
             <form action="/t-shirt-luxury/admin/getIdMau" method="POST">
                 <div class="modal-body d-flex flex-column">
 
-
                     <h6>Màu sắc:</h6>
                     <div class="box-mau-sac d-flex">
 
@@ -324,25 +325,15 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" max="${soLuongSpct}" name="soLuong" value="1">
+                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" name="soLuong" value="1">
                         <label>Số Lượng</label>
                     </div>
-                    <!-- Hiển thị thông báo -->
-<%--                    <div th:if="${errorMessage}" class="alert alert-danger">--%>
-<%--                        Quá số lượng trong kho--%>
-<%--                    </div>--%>
-<%--                    <div th:if="${successMessage}" class="alert alert-success">--%>
-<%--                        <p th:text="${successMessage}"></p--%>
-<%--                    </div>--%>
 
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button type="submit" class="btn btn-primary">Thêm</button>
-
-
-
                 </div>
             </form>
         </div>

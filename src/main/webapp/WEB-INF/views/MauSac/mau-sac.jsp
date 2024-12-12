@@ -123,10 +123,10 @@
                         <td>${ms.moTa}</td>
                         <td>
                             <c:if test="${ms.trangThai == 1}">
-                                Hoạt Động
+                                <span class="badge bg-success">Hoạt Động</span>
                             </c:if>
                             <c:if test="${ms.trangThai == 0}">
-                                Không Hoạt Động
+                                <span class="badge bg-danger">Không Hoạt Động</span>
                             </c:if>
                         </td>
                         <td>

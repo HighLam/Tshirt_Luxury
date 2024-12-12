@@ -93,7 +93,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Hóa Đơn</h2>
+                <h2 class="">Quản Lý Hóa Đơn Online</h2>
 
                 <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
@@ -101,6 +101,7 @@
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
                 </div> -->
+
 
                 <table class="table table-striped">
                     <thead>
@@ -117,12 +118,30 @@
                     <tbody>
                     <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
-                            <th scope="row">${i.index +1}</th>
-                            <th scope="row">${hd.thongTinNhanHang.hoVaTen}</th>
-                            <th scope="row">${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</th>
-                            <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">${hd.tongTien}</th>
-                            <th scope="row">${hd.moTa}</th>
+                            <td>${i.index +1}</td>
+                            <td>${hd.thongTinNhanHang.hoVaTen}</td>
+<%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
+                            <td>
+                                <c:if test="${hd.trangThai == 0}">
+                                    <span class="badge bg-primary">Chờ thanh toán</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 1}">
+                                    <span class="badge bg-success">Đã thanh toán</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 2}">
+                                    <span class="badge bg-secondary">Chờ xác nhận</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 3}">
+                                    <span class="badge bg-warning text-dark">Đang giao hàng</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 4}">
+                                    <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                </c:if>
+
+                            </td>
+                            <td>${hd.ngayTao}</td>
+                            <td>${hd.tongTien}</td>
+                            <td>${hd.moTa}</td>
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">

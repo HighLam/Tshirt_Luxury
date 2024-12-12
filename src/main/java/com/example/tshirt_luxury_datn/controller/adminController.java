@@ -38,6 +38,9 @@ public class adminController {
     @Autowired
     voucherRepository voucherRepo;
 
+    @Autowired
+    nguoiDungRepository nguoiDungRepo;
+
 
     public HoaDon createHoaDon(HttpSession session) {
         HoaDon hoaDon = new HoaDon();
@@ -54,6 +57,21 @@ public class adminController {
         session.setAttribute("hoaDon", hoaDon);
         session.setAttribute("idHoaDon", hoaDon.getId());
         return hoaDon;
+    }
+
+    public String generateMaHoaDon() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaHoaDon = hoaDonRepo.findLastMaHoaDon(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaHoaDon != null && lastMaHoaDon.startsWith("HD")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaHoaDon.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("HD%03d", nextNumber);
     }
 
 
@@ -78,6 +96,12 @@ public class adminController {
         session.setAttribute("SP",sanPhamRepo.timKiem(timKiemSanPham));
         return "redirect:/t-shirt-luxury/admin";
     }
+
+//    @GetMapping("t-shirt-luxury/admin/timKhachHang")
+//    public String searchKhachHang(Model model, @RequestParam("searchSoDienThoai") String timKhachHang) {
+//        model.addAttribute("KH", nguoiDungRepo.searchKhachHang(timKhachHang));
+//        return "admin/admin";
+//    }
 
     @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
     @ResponseBody
@@ -256,8 +280,15 @@ public class adminController {
 
 
             hoaDon.setId(idHoaDon);
+            hoaDon.setMaHoaDon(generateMaHoaDon());
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
+
             hoaDon.setTrangThai(1);
+            NguoiDung nguoiDung = new NguoiDung();
+            nguoiDung.setTenNguoiDung("Khach vang lai");
+            nguoiDungRepo.save(nguoiDung);
+
+            hoaDon.setNguoiDung(nguoiDung);
             hoaDonRepo.save(hoaDon);
             Integer idVc = hoaDon.getVoucher().getId();
             Voucher voucher = voucherRepo.getReferenceById(idVc);
@@ -295,5 +326,7 @@ public class adminController {
            model.addAttribute("SP", sanPhamList);
         return "admin/barcode-result";
     }
+
+
 
 }
