@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,13 +68,15 @@ public class adminController {
         model.addAttribute("chietKhau", session.getAttribute("giaTriGiamVoucher"));
         model.addAttribute("idVoucher", session.getAttribute("idVoucher"));
         model.addAttribute("noti", session.getAttribute("noti"));
+        model.addAttribute("SP", session.getAttribute("SP"));
         return "admin/admin";
     }
 
     @GetMapping("t-shirt-luxury/admin/timSanPham")
-    public String timSanPham(Model model, @RequestParam("timKiemSanPham") String timKiemSanPham) {
-        model.addAttribute("SP", sanPhamRepo.timKiem(timKiemSanPham));
-        return "admin/admin";
+    public String timSanPham(Model model, @RequestParam("timKiemSanPham") String timKiemSanPham, HttpSession session) {
+//        model.addAttribute("SP", sanPhamRepo.timKiem(timKiemSanPham));
+        session.setAttribute("SP",sanPhamRepo.timKiem(timKiemSanPham));
+        return "redirect:/t-shirt-luxury/admin";
     }
 
     @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
@@ -118,55 +121,78 @@ public class adminController {
             @RequestParam(name = "idMau") Integer idMau,
             @RequestParam(name = "idSize") Integer idSize,
             @RequestParam(name = "soLuong") Integer soLuong,
-            HttpSession session
-
+            HttpSession session,
+            RedirectAttributes redirectAttributes
     ) {
+        // Khởi tạo thông báo
         String noti = "";
         session.setAttribute("noti", noti);
-        if (hoaDonRepo.getTrangThaiDaThanhToan() !=0) {
+
+        // Kiểm tra trạng thái hóa đơn
+        if (hoaDonRepo.getTrangThaiDaThanhToan() != 0) {
             createHoaDon(session);
         }
 
         Integer idSanPham = (Integer) session.getAttribute("idSanPham");
+        Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMau, idSize, idSanPham);
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize, idSanPham);
-
 
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
 
         if (hoaDon1.getTrangThai() == 0) {
             List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
             HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
-            boolean check = false;
-            for (Integer x : idSPCTDaCo) {
-                if (sanPhamChiTiet1.getId().equals(x)) {
-                    check = true;
-                    break;
+
+            // Kiểm tra sản phẩm chi tiết đã tồn tại hay chưa
+            boolean sanPhamDaTonTai = idSPCTDaCo.contains(sanPhamChiTiet1.getId());
+            Integer idHDCT =(Integer) session.getAttribute("idHDCT");
+            Integer soLuongHDCT = hoaDonChiTietRepo.findSoLuongHDCTById(idHDCT);
+            if (sanPhamDaTonTai) {
+                // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+                if (hoaDonChiTiet1 != null && soLuong + soLuongHDCT <= soLuongSpct) {
+                    hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+                    hoaDonChiTietRepo.save(hoaDonChiTiet1);
+                    redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
                 }
             }
-            if (check) {
-                hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
-                hoaDonChiTietRepo.save(hoaDonChiTiet1);
-            } else {
 
-                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-                hoaDonChiTiet.setHoaDon(hoaDon1);
-                hoaDonChiTiet.setSoLuong(soLuong);
-                hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
-                hoaDonChiTietRepo.save(hoaDonChiTiet);
+            else {
+                // Nếu sản phẩm chưa tồn tại, thêm mới
+                if (soLuong <= soLuongSpct) {
+
+
+                    HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                    hoaDonChiTiet.setHoaDon(hoaDon1);
+                    hoaDonChiTiet.setSoLuong(soLuong);
+                    hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+                    hoaDonChiTietRepo.save(hoaDonChiTiet);
+                    session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
+                    session.setAttribute("idHDCT", hoaDonChiTiet.getId());
+
+                    redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+                }
             }
         }
 
         return "redirect:/t-shirt-luxury/admin";
     }
 
+
     @GetMapping("/t-shirt-luxury/admin/delete-hdct")
     public String deleteHoaDon(@RequestParam("id") Integer id, HttpSession session) {
+
+
         hoaDonChiTietRepo.deleteById(id);
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
         Voucher voucher = voucherRepo.getReferenceById(4);
         hoaDon.setVoucher(voucher);
         hoaDon.setId(hoaDon.getId());
         hoaDonRepo.save(hoaDon);
+
         return "redirect:/t-shirt-luxury/admin";
     }
 
@@ -176,8 +202,10 @@ public class adminController {
         HoaDon hoaDon12 = hoaDonRepo.getReferenceById((Integer) session.getAttribute("idHoaDon"));
         Voucher voucher = voucherRepo.getReferenceById(idVc);
         hoaDon12.setId((Integer) session.getAttribute("idHoaDon"));
+
         hoaDon12.setVoucher(voucher);
         hoaDonRepo.save(hoaDon12);
+
         session.setAttribute("hoaDon12", hoaDon12);
         Integer giaTriGiam = voucherRepo.getGiaTriGiam(idVc);
         session.setAttribute("idVoucher", idVc);
@@ -231,6 +259,10 @@ public class adminController {
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
             hoaDon.setTrangThai(1);
             hoaDonRepo.save(hoaDon);
+            Integer idVc = hoaDon.getVoucher().getId();
+            Voucher voucher = voucherRepo.getReferenceById(idVc);
+            voucher.setSoLuong(voucher.getSoLuong()-1);
+            voucherRepo.save(voucher);
         }
 
         return "redirect:/t-shirt-luxury/admin";

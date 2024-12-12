@@ -52,5 +52,9 @@ public interface hoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet ,In
     List<HoaDonChiTiet> selectSoLuongHoaDonChiTietOnline(@Param("idHoaDon") Integer idHoaDon);
 
 
+    @Query(value = "SELECT so_luong FROM hoa_don_chi_tiet WHERE id = :id", nativeQuery = true)
+    Integer findSoLuongHDCTById(@Param("id") Integer id);
+
+
 
 }
