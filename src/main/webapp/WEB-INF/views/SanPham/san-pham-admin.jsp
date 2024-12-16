@@ -97,11 +97,33 @@
                 <h2 class="">Quản Lý Sản Phẩm</h2>
 
                 <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    <div>
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <div class="container-fluid">
+                                <form action="/t-shirt-luxury/admin/timSP" method="get" class="d-flex align-items-center gap-2">
+                                    <input style="width: 600px;" class="form-control" type="search"
+                                           name="timKiemSanPham" placeholder="Tìm sản phẩm" aria-label="Search"
+                                           value="${timKiemSanPham}">
+                                    <select class="form-select" name="trangThai" id="trangThai">
+                                        <option value="">-- Chọn Trạng Thái --</option>
+                                        <option value="1" ${sanPham.trangThai == 1 ? 'selected' : ''}>Còn Hàng</option>
+                                        <option value="0" ${sanPham.trangThai == 0 ? 'selected' : ''}>Hết Hàng</option>
+                                    </select>
+                                    <button class="btn btn-success" type="submit">Tìm Kiếm</button>
+                                    <a href="/t-shirt-luxury/admin/timSP" class="btn btn-secondary d-flex align-items-center px-4">
+                                        <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                                    </a>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
                             data-bs-target="#themSanPham">
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
                 </div>
+
+
 
                 <table class="table table-striped ">
                     <thead>
@@ -295,4 +317,5 @@
         src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+
 </html>

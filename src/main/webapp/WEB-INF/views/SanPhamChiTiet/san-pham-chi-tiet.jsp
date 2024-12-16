@@ -236,121 +236,121 @@
 
 
     <div class="col-4">
-        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">
+        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post"  onsubmit="return showSuccessAlert()">
             <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
-        <h6>${spDetail.tenSanPham}</h6>
-        <p>Còn hàng</p>
-        <hr>
-        <div class="color">
-            <h6>MÀU SẮC</h6>
-            <div class="d-flex gap-2">
-                <c:forEach var="ms" items="${mauSac}">
-                    <input type="radio" class="btn" name="mauSac" value="${ms.id}">
-                    <span>${ms.tenMauSac}</span>
-                </c:forEach>
-            </div>
-
-
-        </div>
-
-        <div class="size" style="margin-top: 5px;">
-            <div class="row">
-                <div class="col-4">
-                    <h6>KÍCH THƯỚC</h6>
+            <h6>${spDetail.tenSanPham}</h6>
+            <p>Còn hàng</p>
+            <hr>
+            <div class="color">
+                <h6>MÀU SẮC</h6>
+                <div class="d-flex gap-2">
+                    <c:forEach var="ms" items="${mauSac}">
+                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">
+                        <span>${ms.tenMauSac}</span>
+                    </c:forEach>
                 </div>
-                <div class="col-6">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;">hướng dẫn
-                        chọn size</a>
+
+
+            </div>
+
+            <div class="size" style="margin-top: 5px;">
+                <div class="row">
+                    <div class="col-4">
+                        <h6>KÍCH THƯỚC</h6>
+                    </div>
+                    <div class="col-6">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;">hướng dẫn
+                            chọn size</a>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <c:forEach var="s" items="${size}">
+                        <input type="radio" class="btn" name="size" value="${s.id}">
+                        <span>${s.tenSize}</span>
+                    </c:forEach>
                 </div>
             </div>
-            <div class="d-flex gap-2">
-                <c:forEach var="s" items="${size}">
-                    <input type="radio" class="btn" name="size" value="${s.id}">
-                    <span>${s.tenSize}</span>
-                </c:forEach>
+            <div class="soLuong" style="margin-top: 10px;">
+                <div class="counter">
+                    <button type="button" class="btn" id="decrease"><b>-</b></button>
+                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
+                    <button type="button" class="btn" id="increase"><b>+</b></button>
+                </div>
             </div>
-        </div>
-        <div class="soLuong" style="margin-top: 10px;">
-            <div class="counter">
-                <button type="button" class="btn" id="decrease"><b>-</b></button>
-                <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
-                <button type="button" class="btn" id="increase"><b>+</b></button>
+            <div class="order" style="margin-top: 20px;">
+
+                <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>
+
+                <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
             </div>
-        </div>
-        <div class="order" style="margin-top: 20px;">
 
-            <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>
+            <!-- Thuộc Tính Sản Phẩm  -->
+            <div class="accordion" id="accordionExample" style="margin-top: 20px">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            THUỘC TÍNH SẢN PHẨM
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <P>Chất liệu: 90% Polyester, 9% Rayon, 1% Spandex</p>
+                            <P>►Vải Polyester chống nhăn hiệu quả, giữ nhiệt tốt, độ bền cao</P>
+                            <P>►Vải Rayon thoáng mát, mềm mại</P>
+                            <P>Kiểu dáng:
+                                <br>
+                                ►Form Classic rộng thoáng, dễ mặc tạo sự thoải mái tối đa</P>
+                            <P> Chi tiết:
+                                <br>
+                                ►Chất liệu có sự kết hợp của vải Rayon an toàn cho da, thoáng khí, hút ẩm tốt và đặc
+                                biệt là ít nhăn và có độ bền cao</P>
+                            <p> ►Thiết kế cổ tròn basic hài hòa, dễ chịu</p>
+                            <p>►Áo bo gấu nhẹ nhàng tạo sự gọn gàng, thoải mái</p>
+                            <p> ►Áo với hoạ tiết kẻ sọc năng động, dễ dàng đa dạng phong cách </P>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            CHÍNH SÁCH SẢN PHẨM
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p> ►Đổi hàng trong vòng 15 ngày.</p>
+                            <p> ►Giảm đến 15% trên tổng hóa đơn khi mua hàng ( tại cửa hàng ) vào tháng sinh nhật.</p>
+                            <p> ►Giao hàng nội thành Hà Nội chỉ từ 15.000đ trong vòng 24 giờ.</p>
+                            <p> ►Tích điểm 3-8% giá trị đơn hàng cho mỗi lần mua và trừ tiền vào lần mua tiếp theo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            HƯỚNG DẪN BẢO QUẢN
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>►Có thể giặt tay hay giặt máy đều được (ưu tiên giặt tay để tăng tuổi thọ của sản phẩm)
+                            </p>
+                            <p>►Lộn trái sản phẩm khi giặt, không giặt chung sản phẩm trắng với quần áo tối màu.</p>
+                            <p>►Sử dụng xà phòng trung tính,không sử dụng xà phòng có chất tẩy mạnh. </p>
+                            <p>►Không sử dụng chất tẩy, không ngâm sản phẩm. </p>
+                            <p>►Hạn chế sấy ở nhiệt độ cao, bảo quản nơi khô ráo, thoáng mát, không phơi trực tiếp dưới
+                                ánh nắng mặt trời.</p>
 
-            <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
-        </div>
-
-        <!-- Thuộc Tính Sản Phẩm  -->
-        <div class="accordion" id="accordionExample" style="margin-top: 20px">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        THUỘC TÍNH SẢN PHẨM
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <P>Chất liệu: 90% Polyester, 9% Rayon, 1% Spandex</p>
-                        <P>►Vải Polyester chống nhăn hiệu quả, giữ nhiệt tốt, độ bền cao</P>
-                        <P>►Vải Rayon thoáng mát, mềm mại</P>
-                        <P>Kiểu dáng:
-                            <br>
-                            ►Form Classic rộng thoáng, dễ mặc tạo sự thoải mái tối đa</P>
-                        <P> Chi tiết:
-                            <br>
-                            ►Chất liệu có sự kết hợp của vải Rayon an toàn cho da, thoáng khí, hút ẩm tốt và đặc
-                            biệt là ít nhăn và có độ bền cao</P>
-                        <p> ►Thiết kế cổ tròn basic hài hòa, dễ chịu</p>
-                        <p>►Áo bo gấu nhẹ nhàng tạo sự gọn gàng, thoải mái</p>
-                        <p> ►Áo với hoạ tiết kẻ sọc năng động, dễ dàng đa dạng phong cách </P>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        CHÍNH SÁCH SẢN PHẨM
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p> ►Đổi hàng trong vòng 15 ngày.</p>
-                        <p> ►Giảm đến 15% trên tổng hóa đơn khi mua hàng ( tại cửa hàng ) vào tháng sinh nhật.</p>
-                        <p> ►Giao hàng nội thành Hà Nội chỉ từ 15.000đ trong vòng 24 giờ.</p>
-                        <p> ►Tích điểm 3-8% giá trị đơn hàng cho mỗi lần mua và trừ tiền vào lần mua tiếp theo.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        HƯỚNG DẪN BẢO QUẢN
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>►Có thể giặt tay hay giặt máy đều được (ưu tiên giặt tay để tăng tuổi thọ của sản phẩm)
-                        </p>
-                        <p>►Lộn trái sản phẩm khi giặt, không giặt chung sản phẩm trắng với quần áo tối màu.</p>
-                        <p>►Sử dụng xà phòng trung tính,không sử dụng xà phòng có chất tẩy mạnh. </p>
-                        <p>►Không sử dụng chất tẩy, không ngâm sản phẩm. </p>
-                        <p>►Hạn chế sấy ở nhiệt độ cao, bảo quản nơi khô ráo, thoáng mát, không phơi trực tiếp dưới
-                            ánh nắng mặt trời.</p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
         </form>
     </div>
 
@@ -575,6 +575,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+</script>
+<script>
+    function showSuccessAlert() {
+        Swal.fire({
+            title: 'Thành công!',
+            text: 'Sản phẩm đã được thêm vào giỏ hàng!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+        return true; // Tiếp tục submit form
+    }
 </script>
 
 </body>
