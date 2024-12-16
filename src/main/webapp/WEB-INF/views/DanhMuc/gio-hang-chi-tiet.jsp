@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="gio-hang.jsp" />
+<%--<jsp:include page="gio-hang.jsp" />--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,7 +111,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -208,7 +208,7 @@
     <div class="container mt-4">
         <h2 class="cart-title">
             GIỎ HÀNG CỦA BẠN
-            <span class="text-muted"> (Có 2 sản phẩm trong giỏ hàng) </span>
+            <span class="text-muted"> (Có ${soLuongSanPhamMuaOnline} sản phẩm trong giỏ hàng) </span>
         </h2>
         <div class="row">
             <div class="col-md-8">

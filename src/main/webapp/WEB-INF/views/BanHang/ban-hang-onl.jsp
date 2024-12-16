@@ -12,7 +12,7 @@
 <body class="container">
 <div class="row">
     <div class="col-6 mt-5" >
-        <a href="" style="text-decoration: none;">Giỏ hàng > </a>  Thanh toán
+        <a href="/t-shirt-luxury/gio-hang-chi-tiet" style="text-decoration: none;">Giỏ hàng > </a>  Thanh toán
 
         <div class="TTGH" style="margin-top: 60px;">
             <h5>Thông tin giao hàng</h5>

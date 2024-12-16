@@ -20,6 +20,21 @@ public class mauSacController {
     mauSacRepository mauSacRepository;
 
 
+    public String generateMaMauSac() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaMauSac = mauSacRepository.findLastMaMauSac(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaMauSac != null && lastMaMauSac.startsWith("MS")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaMauSac.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("MS%03d", nextNumber);
+    }
+
     @GetMapping("t-shirt-luxury/admin/mau-sac")
     public String mauSac(Model model) {
         model.addAttribute("mauSac", mauSacRepository.findAll());
@@ -34,6 +49,7 @@ public class mauSacController {
 
     @PostMapping("t-shirt-luxury/admin/mau-sac/add")
     public String mauSacAdd(@ModelAttribute("mauSac") MauSac mauSac) {
+        mauSac.setMaMauSac(generateMaMauSac());
         mauSac.setNgayTao(new Date());
         mauSac.setNgaySua(new Date());
         mauSacRepository.save(mauSac);

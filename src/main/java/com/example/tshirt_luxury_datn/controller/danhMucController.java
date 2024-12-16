@@ -20,6 +20,21 @@ public class danhMucController {
     @Autowired
     danhMucRepository danhMucRepository;
 
+    public String generateMaDanhMuc() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaDanhMuc = danhMucRepository.findLastMaDanhMuc(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaDanhMuc != null && lastMaDanhMuc.startsWith("DM")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaDanhMuc.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("DM%03d", nextNumber);
+    }
+
     @GetMapping("/danh-muc")
     public String danhMucAdmin(Model model) {
         model.addAttribute("danhMuc", danhMucRepository.findAll());
@@ -38,6 +53,7 @@ public class danhMucController {
 
     @PostMapping("/danh-muc/add")
     public String danhMucAdminAdd(@ModelAttribute("danhMuc") DanhMuc danhMuc) {
+        danhMuc.setMaDanhMuc(generateMaDanhMuc());
         danhMuc.setNgayTao(new Date());
         danhMuc.setNgaySua(new Date());
         danhMucRepository.save(danhMuc);

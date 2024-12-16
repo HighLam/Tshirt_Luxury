@@ -19,6 +19,21 @@ public class sizeController {
     @Autowired
     sizeRepository sizeRepository;
 
+    public String generateMaSize() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaSize = sizeRepository.findLastMaSize(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaSize != null && lastMaSize.startsWith("S")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaSize.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("S%03d", nextNumber);
+    }
+
     @GetMapping("t-shirt-luxury/admin/size")
     public String sizeHienThi(Model model) {
         model.addAttribute("size", sizeRepository.findAll());
@@ -33,6 +48,7 @@ public class sizeController {
 
     @PostMapping("t-shirt-luxury/admin/size/add")
     public String sizeAdd(@ModelAttribute("size") Size size) {
+        size.setMaSize(generateMaSize());
         size.setNgayTao(new Date());
         size.setNgaySua(new Date());
         sizeRepository.save(size);

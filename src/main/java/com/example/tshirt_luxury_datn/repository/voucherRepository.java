@@ -15,6 +15,8 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     Integer getGiaTriGiam(@Param("idVoucher")Integer idVoucher);
 
 
+    @Query(value = "SELECT TOP 1 ma_voucher FROM voucher ORDER BY ma_voucher DESC", nativeQuery = true)
+    String findLastMaVoucher();
 
 
 

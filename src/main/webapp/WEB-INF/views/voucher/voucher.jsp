@@ -168,10 +168,10 @@
             </div>
             <form action="/t-shirt-luxury/admin/voucher/add" method="post">
             <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher">
-                    <label for="floatingInput">Mã Voucher</label>
-                </div>
+<%--                <div class="form-floating mb-3">--%>
+<%--                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher">--%>
+<%--                    <label for="floatingInput">Mã Voucher</label>--%>
+<%--                </div>--%>
 
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher">

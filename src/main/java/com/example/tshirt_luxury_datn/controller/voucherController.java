@@ -17,6 +17,21 @@ import java.util.Date;
 public class voucherController {
     @Autowired
     voucherRepository voucherRepo;
+
+    public String generateMaVoucher() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaVoucher = voucherRepo.findLastMaVoucher(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaVoucher != null && lastMaVoucher.startsWith("VC")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaVoucher.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("VC%03d", nextNumber);
+    }
     @GetMapping("/t-shirt-luxury/admin/voucher")
     public String Voucher(Model model) {
         model.addAttribute("listVoucher", voucherRepo.findAll());
@@ -24,6 +39,7 @@ public class voucherController {
     }
     @PostMapping("/t-shirt-luxury/admin/voucher/add")
     public String voucherAdd(@ModelAttribute("listVoucher") Voucher voucher){
+        voucher.setMaVoucher(generateMaVoucher());
         voucher.setNgayBatDau(new Date());
         voucher.setNgayKetThuc(new Date());
         voucherRepo.save(voucher);

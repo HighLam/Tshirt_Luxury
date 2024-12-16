@@ -21,6 +21,21 @@ public class nguoiDungController {
     @Autowired
     chucVuRepository cvuRepository;
 
+    public String generateMaNguoiDung() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaNguoiDung = nguoiDungRepository.findLastMaNguoiDung(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaNguoiDung != null && lastMaNguoiDung.startsWith("ND")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaNguoiDung.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("ND%03d", nextNumber);
+    }
+
     @ModelAttribute("listChucVu")
     public List<ChucVu> getListChucVu() {
         return cvuRepository.findAll();
@@ -34,6 +49,7 @@ public class nguoiDungController {
 
     @PostMapping("/taoNguoiDung")
     public String addNguoiDung(NguoiDung nguoiDung) {
+        nguoiDung.setMaNguoiDung(generateMaNguoiDung());
         nguoiDung.setNgayTao(new Date());
         nguoiDung.setNgaySua(new Date());
 

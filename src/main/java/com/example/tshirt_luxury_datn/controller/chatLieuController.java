@@ -24,6 +24,21 @@ public class chatLieuController {
 //        return "ChatLieu/chat-lieu";
 //    }
 
+    public String generateChatLieu() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaChatLieu = chatLieuRepository.findLastMaChatLieu(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaChatLieu != null && lastMaChatLieu.startsWith("CL")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaChatLieu.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("CL%03d", nextNumber);
+    }
+
     @GetMapping("t-shirt-luxury/admin/chat-lieu")
     public String chatLieuHienThi(Model model) {
         model.addAttribute("chatLieu", chatLieuRepository.findAll());
@@ -38,6 +53,7 @@ public class chatLieuController {
 
     @PostMapping("t-shirt-luxury/admin/chat-lieu/add")
     public String chatLieuAdd(@ModelAttribute("chatLieu") ChatLieu chatLieu) {
+        chatLieu.setMaChatLieu(generateChatLieu());
         chatLieu.setNgayTao(new Date());
         chatLieu.setNgaySua(new Date());
         chatLieuRepository.save(chatLieu);

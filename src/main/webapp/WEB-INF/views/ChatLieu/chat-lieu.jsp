@@ -157,10 +157,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Chất Liệu" name="maChatLieu">
-                    <label for="floatingInput">Mã Chất Liệu</label>
-                </div>
+<%--                <div class="form-floating mb-3">--%>
+<%--                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Chất Liệu" name="maChatLieu">--%>
+<%--                    <label for="floatingInput">Mã Chất Liệu</label>--%>
+<%--                </div>--%>
 
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Tên Chất Liệu" name="tenChatLieu">

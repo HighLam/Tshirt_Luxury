@@ -161,10 +161,10 @@
             </div>
             <form action="/t-shirt-luxyry/admin/giam-gia/add" method="post">
             <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Đợt Giảm Giá" name="maDotGiamGia">
-                    <label for="floatingInput">Mã Đợt Giảm Giá</label>
-                </div>
+<%--                <div class="form-floating mb-3">--%>
+<%--                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Đợt Giảm Giá" name="maDotGiamGia">--%>
+<%--                    <label for="floatingInput">Mã Đợt Giảm Giá</label>--%>
+<%--                </div>--%>
 
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Tên Đợt Giảm Giá" name="tenDotGiamGia">

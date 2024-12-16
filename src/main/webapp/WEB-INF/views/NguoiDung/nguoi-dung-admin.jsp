@@ -179,10 +179,10 @@
             <form action="/t-shirt-luxury/admin/taoNguoiDung" method="POST">
 
                 <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">
-                        <label for="floatingInput">Mã Người Dùng</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">--%>
+<%--                        <label for="floatingInput">Mã Người Dùng</label>--%>
+<%--                    </div>--%>
 
                     <div class="form-floating mb-3">
                         <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng">
