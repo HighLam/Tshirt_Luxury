@@ -307,20 +307,20 @@
                             <%--                            <button class="btn btn-success" type="submit">Thêm khách hàng</button>--%>
 
                             <div class="row g-3 align-items-center">
-                                <div class="col-auto">
+                                <div class="col-5">
                                     <label class="col-form-label">Số điện thoại</label>
                                 </div>
 
-                                <div class="col-auto">
+                                <div class="col-7">
                                     <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
-                                           name="soDienThoaiKhachHang" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
+                                           name="soDienThoai" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
                                 </div>
 
-                                <div class="col-auto">
+                                <div class="col-5">
                                     <label class="col-form-label">Tên khách hàng</label>
                                 </div>
 
-                                <div class="col-auto">
+                                <div class="col-7">
                                     <input type="text" class="form-control mt-3" id="floatingInput" aria-label="Tên khách hàng"
                                            name="hoVaTenKhachHang" placeholder="Tên khách hàng" value="${timKiemKhachHang}">
                                 </div>
