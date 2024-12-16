@@ -12,8 +12,6 @@ import java.util.List;
 
 @Repository
 public interface nguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
-//
-//    @Query(value = "SELECT ho, ten_dem, ten FROM nguoi_dung_chi_tiet \n" +
-//            "JOIN nguoi_dung ON nguoi_dung_chi_tiet.id_nguoi_dung = nguoi_dung.id WHERE so_dien_thoai LIKE  %:keyWord% ", nativeQuery = true)
-//    List<NguoiDungChiTiet> searchKhachHang(@Param("keyWord") String keyWord);
+    @Query(value = "SELECT TOP 1 ma_nguoi_dung FROM nguoi_dung ORDER BY ma_nguoi_dung DESC", nativeQuery = true)
+    String findLastMaNguoiDung();
 }

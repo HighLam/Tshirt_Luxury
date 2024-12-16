@@ -59,6 +59,7 @@ public class adminController {
         return hoaDon;
     }
 
+
     public String generateMaHoaDon() {
         // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
         String lastMaHoaDon = hoaDonRepo.findLastMaHoaDon(); // Giả sử phương thức này trả về "HD005"
@@ -72,6 +73,21 @@ public class adminController {
 
         // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
         return String.format("HD%03d", nextNumber);
+    }
+
+    public String generateMaNguoiDung() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaNguoiDung = nguoiDungRepo.findLastMaNguoiDung(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaNguoiDung != null && lastMaNguoiDung.startsWith("ND")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaNguoiDung.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("ND%03d", nextNumber);
     }
 
 
@@ -97,11 +113,27 @@ public class adminController {
         return "redirect:/t-shirt-luxury/admin";
     }
 
-//    @GetMapping("t-shirt-luxury/admin/timKhachHang")
-//    public String searchKhachHang(Model model, @RequestParam("searchSoDienThoai") String timKhachHang) {
-//        model.addAttribute("KH", nguoiDungRepo.searchKhachHang(timKhachHang));
-//        return "admin/admin";
-//    }
+
+    @GetMapping("/t-shirt-luxury/admin/timKhachHang")
+    public String searchKhachHang(RedirectAttributes redirectAttributes, @RequestParam("searchSoDienThoai") String timKhachHang) {
+        String hoVaTen = hoaDonRepo.getHoVaTenKhachHang(timKhachHang);
+
+        String soDienThoai = hoaDonRepo.getSoDienThoai(timKhachHang);
+        redirectAttributes.addFlashAttribute("soDienThoaiKhachHang", soDienThoai);
+
+        if (hoVaTen != null) {
+            hoVaTen = hoVaTen.replace(",", " ");
+            redirectAttributes.addFlashAttribute("timKiemKhachHang", hoVaTen);
+        }else {
+            redirectAttributes.addFlashAttribute("khongTimThay", "Không tìm thấy khách hàng !");
+        }
+
+
+
+        System.out.println("Tên khách hàng: " + hoVaTen);
+        return "redirect:/t-shirt-luxury/admin";
+    }
+
 
     @GetMapping("/t-shirt-luxury/admin/getMauAndSize")
     @ResponseBody
@@ -239,9 +271,12 @@ public class adminController {
     }
 
 
+
+
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
     public String thanhToanHoaDon(
-            HttpSession session, Model model) {
+            HttpSession session, Model model, @RequestParam("hoVaTenKhachHang") String hoVaTenKhachHang,
+            RedirectAttributes redirectAttributes, @RequestParam("soDienThoaiKhachHang") String soDienThoaiKhachHang) {
 
         if (hoaDonRepo.getTrangThaiDaThanhToan() == 1 || hoaDonChiTietRepo.selectHoaDonChiTiet((Integer) session.getAttribute("idHoaDon")).isEmpty()) {
             String noti = "Vui lòng chọn sản phẩm";
@@ -279,14 +314,46 @@ public class adminController {
             }
 
 
+
+
             hoaDon.setId(idHoaDon);
             hoaDon.setMaHoaDon(generateMaHoaDon());
             hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon));
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
-            nguoiDung.setTenNguoiDung("Khach vang lai");
-            nguoiDungRepo.save(nguoiDung);
+            if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
+                // Tạo người dùng mới cho khách vãng lai
+                nguoiDung.setMaNguoiDung(generateMaNguoiDung());
+                nguoiDung.setNgaySua(new Date());
+                nguoiDung.setNgayTao(new Date());
+                nguoiDung.setEmail("N/A");
+
+                ChucVu chucVu = new ChucVu();
+                chucVu.setId(3);
+                nguoiDung.setChucVu(chucVu);
+
+                nguoiDung.setTrangThai(1);
+                nguoiDung.setMoTa("Khách chưa cung cấp thông tin");
+                nguoiDung.setTenNguoiDung("Khách vãng lai");
+                nguoiDungRepo.save(nguoiDung);
+            }else {
+                int idNguoiDung = hoaDonRepo.getIdNguoiDung(soDienThoaiKhachHang);
+
+                // Kiểm tra người dùng đã tồn tại hay chưa
+                Optional<NguoiDung> existingNguoiDung = nguoiDungRepo.findById(idNguoiDung);
+                if (existingNguoiDung.isPresent()) {
+                    // Nếu tồn tại, cập nhật thông tin
+                    nguoiDung = existingNguoiDung.get();
+                } else {
+                    // Nếu không tồn tại, tạo mới
+                    nguoiDung.setId(idNguoiDung);
+                }
+
+                nguoiDung.setTenNguoiDung(hoVaTenKhachHang);
+                nguoiDungRepo.save(nguoiDung);
+            }
+
 
             hoaDon.setNguoiDung(nguoiDung);
             hoaDonRepo.save(hoaDon);

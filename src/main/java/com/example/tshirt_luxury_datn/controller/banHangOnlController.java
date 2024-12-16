@@ -124,34 +124,47 @@ public class banHangOnlController {
         float tongTienParsed = Float.parseFloat(tongTien);
 
         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+
         HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
         hoaDon.setMaHoaDon(generateMaHoaDon());
         hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
         hoaDon.setTongTien(tongTienParsed);
         hoaDon.setTrangThai(2);
         hoaDonRepo.save(hoaDon);
+
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+        GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+        gioHang.setNgaySua(new Date());
+        gioHang.setNgayTao(new Date());
+        gioHang.setTrangThai(1);
+        gioHangRepo.save(gioHang);
 
         List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
         List<Integer>listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
 
-            for (Integer idSPCT : listIDSPCT) {
-                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
 
+        for (Integer idSPCT : listIDSPCT) {
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
+
+            // Tìm `GioHangChiTiet` phù hợp với `idSPCT`
+            GioHangChiTiet gioHangChiTiet = gioHangChiTiets.stream()
+                    .filter(gh -> gh.getSanPhamChiTiet().getId().equals(idSPCT))
+                    .findFirst()
+                    .orElse(null);
+
+            if (gioHangChiTiet != null) {
                 HoaDonChiTiet hoaDonChiTietOnl = new HoaDonChiTiet();
                 hoaDonChiTietOnl.setHoaDon(hoaDon);
                 hoaDonChiTietOnl.setNgayTao(new Date());
                 hoaDonChiTietOnl.setNgaySua(new Date());
                 hoaDonChiTietOnl.setTrangThai(1);
                 hoaDonChiTietOnl.setSanPhamChiTiet(sanPhamChiTiet);
-
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
                 hoaDonChiTietOnl.setSoLuong(gioHangChiTiet.getSoLuong());
-                }
 
                 hoaDonChiTietRepo.save(hoaDonChiTietOnl);
-
+            }
         }
+
 
 
         session.setAttribute("giaTriGiam",0);
