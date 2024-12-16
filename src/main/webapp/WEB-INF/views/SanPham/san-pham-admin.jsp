@@ -121,7 +121,15 @@
                             <td>${sp.maSanPham}</td>
                             <td>${sp.tenSanPham}</td>
                             <td>${sp.danhMuc.tenDanhMuc}</td>
-                            <td>${sp.trangThai==1?"Dang Ban":"Chua Ban"}</td>
+                            <td>
+                                <c:if test="${sp.trangThai == 1}">
+                                    <span class="badge bg-success">Còn Hàng</span>
+                                </c:if>
+                                <c:if test="${sp.trangThai == 0}">
+
+                                    <span class="badge bg-danger">Hết Hàng</span>
+                                </c:if>
+                            </td>
                             <td>
                                 <a href="/t-shirt-luxury/admin/sua-san-pham/getOne?id=${sp.id}"  class="btn btn-warning rounded-pill"
 

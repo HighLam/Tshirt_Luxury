@@ -258,7 +258,7 @@
                     <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
 
                     <a href="/t-shirt-luxury/ban-hang-onl" class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</a>
-                    <button class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</button>
+                    <a href="/t-shirt-luxury/trang-chu" class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</a>
                 </div>
             </div>
 

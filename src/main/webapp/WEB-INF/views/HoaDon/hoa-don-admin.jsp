@@ -122,13 +122,13 @@
                     <tbody>
                     <c:forEach items="${listHoaDonTaiQuay}" var="hd" varStatus="i">
                         <tr>
-                            <th scope="row">${i.index +1}</th>
-                            <th scope="row">${hd.maHoaDon}</th>
-                            <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
-                            <th scope="row">${hd.trangThai}</th>
-                            <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">${hd.tongTien}</th>
-                            <th scope="row">${hd.moTa}</th>
+                            <td>${i.index +1}</td>
+                            <td>${hd.maHoaDon}</td>
+                            <td>${hd.nguoiDung.tenNguoiDung}</td>
+                            <td>${hd.trangThai}</td>
+                            <td>${hd.ngayTao}</td>
+                            <td>${hd.tongTien}</td>
+                            <td>${hd.moTa}</td>
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">

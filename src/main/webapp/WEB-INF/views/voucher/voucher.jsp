@@ -135,10 +135,11 @@
                         <td>${voucher.moTa}</td>
                         <td>
                             <c:if test="${voucher.trangThai == 1}">
-                                Hoạt Động
+                                <span class="badge bg-success">Hoạt Động</span>
                             </c:if>
                             <c:if test="${voucher.trangThai == 0}">
-                                Không Hoạt Động
+
+                                <span class="badge bg-danger">Không Hoạt Động</span>
                             </c:if>
                         </td>
                         <td>

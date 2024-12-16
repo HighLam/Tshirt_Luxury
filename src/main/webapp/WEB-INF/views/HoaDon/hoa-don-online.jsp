@@ -110,20 +110,40 @@
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Ngày Sửa</th>
                         <th scope="col">Tổng Tiền</th>
-                        <th scope="col">Mô Tả</th>
+
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
-                            <th scope="row">${i.index +1}</th>
-                            <th scope="row">${hd.thongTinNhanHang.hoVaTen}</th>
-                            <th scope="row">${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</th>
-                            <th scope="row">${hd.ngayTao}</th>
-                            <th scope="row">${hd.tongTien}</th>
-                            <th scope="row">${hd.moTa}</th>
+                            <td>${i.index +1}</td>
+                            <td>${hd.thongTinNhanHang.hoVaTen}</td>
+<%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
+                            <td>
+                                <c:if test="${hd.trangThai == 0}">
+                                    <span class="badge bg-primary">Chờ thanh toán</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 1}">
+                                    <span class="badge bg-success">Đã thanh toán</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 2}">
+                                    <span class="badge bg-secondary">Chờ xác nhận</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 3}">
+                                    <span class="badge bg-warning text-dark">Đang giao hàng</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 4}">
+                                    <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                </c:if>
+
+                            </td>
+                            <td>${hd.ngayTao}</td>
+                            <td>${hd.ngaySua}</td>
+                            <td>${hd.tongTien}</td>
+
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">

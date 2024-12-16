@@ -15,5 +15,8 @@ public interface gioHangRepository extends JpaRepository<GioHang, Integer> {
     Integer trangThaiGioHang();
 
 
+    @Query(value = "UPDATE gio_hang SET trang_thai = '1' WHERE id = :idGioHang", nativeQuery = true)
+    Integer updateTrangThaiGioHang( @Param("idGioHang") Integer idGioHang);
+
 
 }
