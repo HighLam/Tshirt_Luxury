@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,9 +82,11 @@ public class hoaDonController {
 
         if (trangThaiHienTai == 2) {
             hoaDon.setTrangThai(3);
+            hoaDon.setNgaySua(new Date());
             hoaDonRepo.save(hoaDon);
         } else if (trangThaiHienTai == 3) {
             hoaDon.setTrangThai(4);
+            hoaDon.setNgaySua(new Date());
             hoaDonRepo.save(hoaDon);
         }
 

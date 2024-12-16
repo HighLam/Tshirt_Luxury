@@ -110,8 +110,9 @@
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Ngày Sửa</th>
                         <th scope="col">Tổng Tiền</th>
-                        <th scope="col">Mô Tả</th>
+
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
@@ -140,8 +141,9 @@
 
                             </td>
                             <td>${hd.ngayTao}</td>
+                            <td>${hd.ngaySua}</td>
                             <td>${hd.tongTien}</td>
-                            <td>${hd.moTa}</td>
+
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">

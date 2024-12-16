@@ -126,20 +126,6 @@ public class adminController {
         return nguoiDung;
     }
 
-    private NguoiDungChiTiet createNguoiDungChiTietForGuest(NguoiDung nguoiDung) {
-        NguoiDungChiTiet nguoiDungChiTiet = new NguoiDungChiTiet();
-        nguoiDungChiTiet.setMaNguoiDungChiTiet("GUEST-" + nguoiDung.getId());
-        nguoiDungChiTiet.setHo("Khách");
-        nguoiDungChiTiet.setTen("Vãng Lai");
-        nguoiDungChiTiet.setGioiTinh("Không xác định");
-        nguoiDungChiTiet.setNgayTao(new Date());
-        nguoiDungChiTiet.setNgaySua(new Date());
-        nguoiDungChiTiet.setTrangThai(1);
-        nguoiDungChiTiet.setNguoiDung(nguoiDung);
-        nguoiDungChiTiet.setMoTa("Khách hàng không cung cấp thông tin chi tiết");
-        return nguoiDungChiTiet;
-    }
-
 
     private NguoiDungChiTiet createNguoiDungChiTiet(NguoiDung nguoiDung, String hoVaTenKhachHang, String soDienThoai) {
         NguoiDungChiTiet nguoiDungChiTiet = new NguoiDungChiTiet();
@@ -150,7 +136,7 @@ public class adminController {
         String ten = nameParts[nameParts.length - 1];
         String tenDem = String.join(" ", Arrays.copyOfRange(nameParts, 1, nameParts.length - 1));
 
-        nguoiDungChiTiet.setMaNguoiDungChiTiet("NDCT-" + nguoiDung.getId());
+        nguoiDungChiTiet.setMaNguoiDungChiTiet("NDCT" + nguoiDung.getId());
         nguoiDungChiTiet.setHo(ho);
         nguoiDungChiTiet.setTenDem(tenDem);
         nguoiDungChiTiet.setTen(ten);
