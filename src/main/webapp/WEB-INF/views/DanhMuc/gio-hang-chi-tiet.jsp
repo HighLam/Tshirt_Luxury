@@ -208,7 +208,7 @@
     <div class="container mt-4">
         <h2 class="cart-title">
             GIỎ HÀNG CỦA BẠN
-            <span class="text-muted"> (Có 2 sản phẩm trong giỏ hàng) </span>
+
         </h2>
         <div class="row">
             <div class="col-md-8">
@@ -256,7 +256,7 @@
 
                     <hr/>
                     <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
-
+                    <p style="color:red;">${gioHangNull}</p>
                     <a href="/t-shirt-luxury/ban-hang-onl" class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</a>
                     <a href="/t-shirt-luxury/trang-chu" class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</a>
                 </div>

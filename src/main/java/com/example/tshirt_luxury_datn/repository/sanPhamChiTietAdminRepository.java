@@ -47,4 +47,5 @@ public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiT
 
 
 
+
 }

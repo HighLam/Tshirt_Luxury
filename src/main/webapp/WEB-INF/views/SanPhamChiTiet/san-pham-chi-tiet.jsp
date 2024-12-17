@@ -277,6 +277,7 @@
                 <button type="button" class="btn" id="increase"><b>+</b></button>
             </div>
         </div>
+            <p style="color: red">${notiOnl}</p>
         <div class="order" style="margin-top: 20px;">
 
             <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>

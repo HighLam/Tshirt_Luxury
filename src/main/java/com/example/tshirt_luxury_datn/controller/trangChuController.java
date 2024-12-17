@@ -59,7 +59,7 @@ public class trangChuController {
         model.addAttribute("spDetail", sanPhamRepo.getReferenceById(id));
         model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
-
+        model.addAttribute("notiOnl",session.getAttribute("notiOnl"));
 
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
@@ -72,28 +72,36 @@ public class trangChuController {
 
 
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
-    public String addCart(@RequestParam("idSPDetail") Integer idSanPham,
-                          @RequestParam("mauSac") Integer idMauSac,
+    public String addCart(@RequestParam(value = "idSPDetail")  Integer idSanPham,
+                          @RequestParam(value = "mauSac",defaultValue = "") Integer idMauSac,
                           @RequestParam("soLuong") Integer soLuong,
-                          @RequestParam("size") Integer idSize, HttpSession session) {
+                          @RequestParam(value = "size",defaultValue = "") Integer idSize, HttpSession session) {
 
-        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
+        if(idMauSac == null || idMauSac <= 0){
+            String notiOnl = "Chưa chọn màu";
+            session.setAttribute("notiOnl", notiOnl);
+        }
+        if(idSize == null || idSize <= 0){
+            String notiOnl = "Chưa chọn size";
+            session.setAttribute("notiOnl", notiOnl);
+        }
+        else {
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
 
-        Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-        GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+            Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+            GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
 
-        System.out.println("idGioHang: " + idGioHang);
 
-        GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
-        gioHangChiTiet.setGioHang(gioHang);
-        gioHangChiTiet.setSoLuong(soLuong);
-        gioHangChiTiet.setNgayTao(new Date());
-        gioHangChiTiet.setNgaySua(new Date());
-        gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+            GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+            gioHangChiTiet.setGioHang(gioHang);
+            gioHangChiTiet.setSoLuong(soLuong);
+            gioHangChiTiet.setNgayTao(new Date());
+            gioHangChiTiet.setNgaySua(new Date());
+            gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
 
-        // Lưu bản ghi mới
-        gioHangChiTietRepo.save(gioHangChiTiet);
-
+            // Lưu bản ghi mới
+            gioHangChiTietRepo.save(gioHangChiTiet);
+        }
         return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
     }
 

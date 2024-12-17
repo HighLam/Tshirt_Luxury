@@ -137,6 +137,10 @@
                             <label for="floatingInput">Điều kiện áp dụng</label>
                         </div>
                         <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Giới hạn giảm" name="gioiHan" value="${voucher.gioiHan}">
+                            <label for="floatingInput">Giới hạn giảm</label>
+                        </div>
+                        <div class="form-floating mb-3">
                             <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu" value="${voucher.mucChiToiThieu}">
                             <label for="floatingInput">Mục chi tiêu tối thiểu</label>
                         </div>

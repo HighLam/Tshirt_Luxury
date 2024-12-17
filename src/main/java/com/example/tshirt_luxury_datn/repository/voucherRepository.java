@@ -14,6 +14,8 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)
     Integer getGiaTriGiam(@Param("idVoucher")Integer idVoucher);
 
+    @Query(value = "SELECT gioi_han FROM voucher  WHERE id = :id",nativeQuery = true)
+    Float  gioiHan(@Param("id") Integer id);
 
 
 

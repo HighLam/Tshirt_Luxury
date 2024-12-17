@@ -112,7 +112,7 @@
                         <th scope="col">Ngày Bắt Đầu</th>
                         <th scope="col">Ngày Kết Thúc</th>
                         <th scope="col">Số Lượng</th>
-                        <th scope="col">Điều Kiện Áp Dụng</th>
+                        <th scope="col">Giới hạn giảm</th>
                         <th scope="col">Mức Chi Tối Thiểu</th>
                         <th scope="col">Mô Tả</th>
                         <th scope="col">Trạng Thái</th>
@@ -129,7 +129,7 @@
                         <td>${voucher.ngayBatDau}</td>
                         <td>${voucher.ngayKetThuc}</td>
                         <td>${voucher.soLuong}</td>
-                        <td>${voucher.dieuKienApDung}</td>
+                        <td>${voucher.gioiHan}</td>
                         <td>${voucher.mucChiToiThieu}</td>
                         <td>${voucher.moTa}</td>
                         <td>
@@ -208,7 +208,11 @@
                 </div>
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu">
-                    <label for="floatingInput">Mục chi tiêu tối thiểu</label>
+                    <label for="floatingInput">Mức chi tiêu tối thiểu</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Giới hạn giảm" name="gioiHan">
+                    <label for="floatingInput">Giới hạn giảm</label>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>

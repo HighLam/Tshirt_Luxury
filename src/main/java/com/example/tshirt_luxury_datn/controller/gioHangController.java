@@ -29,6 +29,7 @@ public class gioHangController {
         model.addAttribute("tongTienGioHang",gioHangChiTietRepo.tinhTongGia(idGioHang));
         System.out.println("sjjdfhghjdk"+gioHangChiTietRepo.tinhTongGia(idGioHang));
         model.addAttribute("GHCT", gioHangChiTiets);
+        model.addAttribute("gioHangNull",session.getAttribute("gioHangNull"));
         return "DanhMuc/gio-hang-chi-tiet";
 
     }

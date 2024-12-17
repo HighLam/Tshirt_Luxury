@@ -48,14 +48,23 @@ public class banHangOnlController {
     @GetMapping("/t-shirt-luxury/ban-hang-onl")
     public String banHangOnl(Model model, HttpSession session) {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-        List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-        Float tongGia = gioHangChiTietRepo.tinhTongGia(idGioHang);
-        model.addAttribute("voucher", voucherRepo.listVoucher(tongGia));
-        model.addAttribute("tongTienGioHang", gioHangChiTietRepo.tinhTongGia(idGioHang));
-        model.addAttribute("banHang", gioHangChiTiets);
-        model.addAttribute("giaTriGiam", session.getAttribute("giaTriGiam"));
+        List<GioHangChiTiet> gioHangCT = gioHangChiTietRepo.getSoLuongInGioHang(idGioHang);
+        if (gioHangCT.size() < 1) {
+            String gioHangNull = "Chưa có sản phẩm để thanh toán";
+            session.setAttribute("gioHangNull", gioHangNull);
+            return "redirect:/t-shirt-luxury/gio-hang-chi-tiet";
+        } else {
 
-        return "BanHang/ban-hang-onl";
+
+            List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
+            Float tongGia = gioHangChiTietRepo.tinhTongGia(idGioHang);
+            model.addAttribute("voucher", voucherRepo.listVoucher(tongGia));
+            model.addAttribute("tongTienGioHang", gioHangChiTietRepo.tinhTongGia(idGioHang));
+            model.addAttribute("banHang", gioHangChiTiets);
+            model.addAttribute("giaTriGiam", session.getAttribute("giaTriGiam"));
+
+            return "BanHang/ban-hang-onl";
+        }
     }
 
     @GetMapping("/t-shirt-luxury/ban-hang-onl/getVoucher")
@@ -64,7 +73,7 @@ public class banHangOnlController {
 
         session.setAttribute("giaTriGiam", giaTriGiam);
         Voucher voucher = voucherRepo.getReferenceById(idVC);
-        session.setAttribute("voucher",voucher);
+        session.setAttribute("voucher", voucher);
 
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
@@ -97,7 +106,7 @@ public class banHangOnlController {
     }
 
     @PostMapping("/t-shirt-luxury/ban-hang-onl/createHD")
-    public String createHD( HttpSession session,ThongTinNhanHang thongTinNhanHang) {
+    public String createHD(HttpSession session, ThongTinNhanHang thongTinNhanHang) {
         thongTinDonHangRepo.save(thongTinNhanHang);
         Voucher voucher = voucherRepo.getReferenceById(1);
         HoaDon hoaDon = new HoaDon();
@@ -116,7 +125,7 @@ public class banHangOnlController {
     }
 
     @PostMapping("/t-shirt-luxury/ban-hang-onl/doneHD")
-    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien , HttpSession session){
+    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien, HttpSession session) {
 
         // Xóa dấu phẩy nếu có
         tongTien = tongTien.replace(".", "");
@@ -124,7 +133,7 @@ public class banHangOnlController {
         float tongTienParsed = Float.parseFloat(tongTien);
 
         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
+        HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
         hoaDon.setMaHoaDon(generateMaHoaDon());
         hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
         hoaDon.setTongTien(tongTienParsed);
@@ -133,28 +142,28 @@ public class banHangOnlController {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
 
         List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-        List<Integer>listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+        List<Integer> listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
 
-            for (Integer idSPCT : listIDSPCT) {
-                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
+        for (Integer idSPCT : listIDSPCT) {
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
 
-                HoaDonChiTiet hoaDonChiTietOnl = new HoaDonChiTiet();
-                hoaDonChiTietOnl.setHoaDon(hoaDon);
-                hoaDonChiTietOnl.setNgayTao(new Date());
-                hoaDonChiTietOnl.setNgaySua(new Date());
-                hoaDonChiTietOnl.setTrangThai(1);
-                hoaDonChiTietOnl.setSanPhamChiTiet(sanPhamChiTiet);
+            HoaDonChiTiet hoaDonChiTietOnl = new HoaDonChiTiet();
+            hoaDonChiTietOnl.setHoaDon(hoaDon);
+            hoaDonChiTietOnl.setNgayTao(new Date());
+            hoaDonChiTietOnl.setNgaySua(new Date());
+            hoaDonChiTietOnl.setTrangThai(1);
+            hoaDonChiTietOnl.setSanPhamChiTiet(sanPhamChiTiet);
 
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
+            for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
                 hoaDonChiTietOnl.setSoLuong(gioHangChiTiet.getSoLuong());
-                }
+            }
 
-                hoaDonChiTietRepo.save(hoaDonChiTietOnl);
+            hoaDonChiTietRepo.save(hoaDonChiTietOnl);
 
         }
 
 
-        session.setAttribute("giaTriGiam",0);
+        session.setAttribute("giaTriGiam", 0);
 
         gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
 
