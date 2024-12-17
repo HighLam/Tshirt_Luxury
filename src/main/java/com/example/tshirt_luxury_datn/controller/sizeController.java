@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 
@@ -34,6 +35,19 @@ public class sizeController {
         return String.format("S%03d", nextNumber);
     }
 
+    boolean validateAdd( Size size, RedirectAttributes redirectAttributes) {
+
+        if (size.getTenSize() == null || size.getTenSize().isEmpty()) {
+            String message = "Vui lòng nhập tên size !";
+            redirectAttributes.addFlashAttribute("errorTenSize", message);
+            redirectAttributes.addFlashAttribute("openModal", "themSize");
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("tenSize", size.getTenSize());
+        }
+        return true;
+    }
+
     @GetMapping("t-shirt-luxury/admin/size")
     public String sizeHienThi(Model model) {
         model.addAttribute("size", sizeRepository.findAll());
@@ -47,11 +61,13 @@ public class sizeController {
     }
 
     @PostMapping("t-shirt-luxury/admin/size/add")
-    public String sizeAdd(@ModelAttribute("size") Size size) {
-        size.setMaSize(generateMaSize());
-        size.setNgayTao(new Date());
-        size.setNgaySua(new Date());
-        sizeRepository.save(size);
+    public String sizeAdd(@ModelAttribute("size") Size size, RedirectAttributes redirectAttributes) {
+        if(validateAdd(size, redirectAttributes)) {
+            size.setMaSize(generateMaSize());
+            size.setNgayTao(new Date());
+            size.setNgaySua(new Date());
+            sizeRepository.save(size);
+        }
         return "redirect:/t-shirt-luxury/admin/size";
     }
 
@@ -65,15 +81,26 @@ public class sizeController {
 
 
     @PostMapping("t-shirt-luxury/admin/size/update")
-    public String updateSize(@RequestParam("id") Integer id, @ModelAttribute("size") Size size) {
+    public String updateSize(@RequestParam("id") Integer id,
+                             @RequestParam("tenSize") String tenSize,
+                             @ModelAttribute("size") Size size, RedirectAttributes redirectAttributes) {
         Size getOne = sizeRepository.getReferenceById(id);
         if (getOne.getId() == id) {
-            Date ngaySua = new Date();
-            size.setId(id);
-            size.setNgaySua(ngaySua);
-            size.setNgayTao(getOne.getNgayTao());
-            sizeRepository.save(size);
+        if(tenSize == null || tenSize.isEmpty()) {
+
+            String message = "Vui lòng nhập tên size !";
+            redirectAttributes.addFlashAttribute("errorTenSize", message);
+            return "redirect:/t-shirt-luxury/admin/size/getOne?id=" + id;
+        }else {
+
+                Date ngaySua = new Date();
+                size.setId(id);
+                size.setNgaySua(ngaySua);
+                size.setNgayTao(getOne.getNgayTao());
+                sizeRepository.save(size);
+            }
         }
+
         return "redirect:/t-shirt-luxury/admin/size";
     }
 }

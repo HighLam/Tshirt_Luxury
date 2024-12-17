@@ -96,7 +96,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Cập Nhật Màu Sắc</h2>
+                <h2 class="">Cập Nhật Size</h2>
 
 
                 <form action="/t-shirt-luxury/admin/size/update?id=${size.id}" method="POST">
@@ -105,7 +105,7 @@
                         <label for="floatingInput">Mã Size</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="tenSize" type="text" class="form-control" id="floatingInput" placeholder="Tên Size" value="${size.tenSize}">
+                        <input name="tenSize" type="text" class="form-control" id="floatingInputTenSize" placeholder="Tên Size" value="${size.tenSize}">
                         <label for="floatingInput">Tên Size</label>
                     </div>
                     <div class="mt-3">
@@ -127,6 +127,7 @@
                         <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${size.moTa}">
                         <label for="floatingInput">Mô tả</label>
                     </div>
+                    <p id="error-message" class="mb-3" style="color:red">${errorTenSize}</p>
                     <div class="p-2 bd-highlight d-flex justify-content-end">
                         <button type="submit" class="btn btn-outline-warning">
                             <i class="fa-solid fa-pen"></i> Cập Nhật
@@ -144,4 +145,13 @@
 </div>
 </body>
 
+<script>
+    $(document).ready(function() {
+        // Kiểm tra nếu errorMessage có giá trị (lỗi tồn tại)
+        if ($('#error-message').text().trim() !== '') {
+            // Nếu có lỗi, set giá trị của input là rỗng
+            $('#floatingInputTenSize').val('');
+        }
+    });
+</script>
 </html>

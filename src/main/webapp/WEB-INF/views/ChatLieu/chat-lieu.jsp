@@ -172,7 +172,7 @@
                     </div>
                     <div class="form-check form-check-inline mt-2">
                         <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                               value="1">
+                               value="1" checked>
                         <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
                     </div>
                     <div class="form-check form-check-inline mt-2">
@@ -185,6 +185,8 @@
                     <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
                 </div>
+    <p class="mb-3" style="color:red">${errorTenChatLieu}</p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -195,57 +197,18 @@
 </div>
 </form>
 
-<!-- Modal -->
-<div class="modal fade" id="sua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Chất Liệu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Chất Liệu">
-                    <label for="floatingInput">Mã Chất Liệu</label>
-                </div>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Chất Liệu">
-                    <label for="floatingInput">Tên Chất Liệu</label>
-                </div>
-                <div class="mt-3">
-                    <div class="text mt-2">
-                        Trạng Thái
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="hoatDong"
-                               value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khongHoatDong"
-                               value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
-                    </div>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập Nhật</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 <script>
     confirmDelete = () => {
         return confirm("Bạn có chắc muốn xóa ?");
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('${openModal}'));
+        myModal.show();
+    });
+
 </script>
 
 </html>

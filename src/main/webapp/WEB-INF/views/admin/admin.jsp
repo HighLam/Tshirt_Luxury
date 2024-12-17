@@ -315,7 +315,6 @@
                                     <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
                                            name="soDienThoai" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
                                 </div>
-
                                 <div class="col-5">
                                     <label class="col-form-label">Tên khách hàng</label>
                                 </div>

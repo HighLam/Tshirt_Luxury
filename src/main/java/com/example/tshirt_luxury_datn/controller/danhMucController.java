@@ -1,6 +1,7 @@
 package com.example.tshirt_luxury_datn.controller;
 
 
+import com.example.tshirt_luxury_datn.entity.ChatLieu;
 import com.example.tshirt_luxury_datn.entity.DanhMuc;
 import com.example.tshirt_luxury_datn.entity.NguoiDung;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.Optional;
@@ -35,6 +37,19 @@ public class danhMucController {
         return String.format("DM%03d", nextNumber);
     }
 
+    boolean validateAdd(DanhMuc danhMuc, RedirectAttributes redirectAttributes) {
+
+        if (danhMuc.getTenDanhMuc() == null || danhMuc.getTenDanhMuc().isEmpty()) {
+            String message = "Vui lòng nhập tên danh mục !";
+            redirectAttributes.addFlashAttribute("errorTenDanhMuc", message);
+            redirectAttributes.addFlashAttribute("openModal", "themDanhMuc");
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("tenDanhMuc", danhMuc.getTenDanhMuc());
+        }
+        return true;
+    }
+
     @GetMapping("/danh-muc")
     public String danhMucAdmin(Model model) {
         model.addAttribute("danhMuc", danhMucRepository.findAll());
@@ -52,11 +67,13 @@ public class danhMucController {
     }
 
     @PostMapping("/danh-muc/add")
-    public String danhMucAdminAdd(@ModelAttribute("danhMuc") DanhMuc danhMuc) {
-        danhMuc.setMaDanhMuc(generateMaDanhMuc());
-        danhMuc.setNgayTao(new Date());
-        danhMuc.setNgaySua(new Date());
-        danhMucRepository.save(danhMuc);
+    public String danhMucAdminAdd(@ModelAttribute("danhMuc") DanhMuc danhMuc, RedirectAttributes redirectAttributes) {
+        if(validateAdd(danhMuc,redirectAttributes)){
+            danhMuc.setMaDanhMuc(generateMaDanhMuc());
+            danhMuc.setNgayTao(new Date());
+            danhMuc.setNgaySua(new Date());
+            danhMucRepository.save(danhMuc);
+        }
         return "redirect:/t-shirt-luxury/admin/danh-muc";
     }
 
@@ -70,14 +87,21 @@ public class danhMucController {
 
 
     @PostMapping("/danh-muc/update")
-    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("danhMuc") DanhMuc danhMuc) {
+    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("danhMuc") DanhMuc danhMuc,
+                                  RedirectAttributes redirectAttributes, @RequestParam("tenDanhMuc") String tenDanhMuc) {
         DanhMuc getOne = danhMucRepository.getReferenceById(id);
         if (getOne.getId() == id) {
-            Date ngaySua = new Date();
-            danhMuc.setId(id);
-            danhMuc.setNgaySua(ngaySua);
-            danhMuc.setNgayTao(getOne.getNgayTao());
-            danhMucRepository.save(danhMuc);
+            if(tenDanhMuc == null || tenDanhMuc.isEmpty()){
+                String message = "Vui lòng nhập tên danh mục !";
+                redirectAttributes.addFlashAttribute("errorTenDanhMuc", message);
+                return "redirect:/t-shirt-luxury/admin/danh-muc/getOne?id=" + id;
+            }else {
+                Date ngaySua = new Date();
+                danhMuc.setId(id);
+                danhMuc.setNgaySua(ngaySua);
+                danhMuc.setNgayTao(getOne.getNgayTao());
+                danhMucRepository.save(danhMuc);
+            }
         }
         return "redirect:/t-shirt-luxury/admin/danh-muc";
     }

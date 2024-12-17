@@ -91,7 +91,6 @@
                             Mục</a></li>
                     </ul>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
         <div class="col-9" style="">
@@ -105,7 +104,7 @@
                         <label for="floatingInput">Mã Màu Sắc</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="tenMauSac" type="text" class="form-control" id="floatingInput" placeholder="Tên Màu Sắc" value="${mauSac.tenMauSac}">
+                        <input name="tenMauSac" type="text" class="form-control" id="floatingInputTenMauSac" placeholder="Tên Màu Sắc" value="${mauSac.tenMauSac}">
                         <label for="floatingInput">Tên Màu Sắc</label>
                     </div>
                     <div class="mt-3">
@@ -127,6 +126,8 @@
                         <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${mauSac.moTa}">
                         <label for="floatingInput">Mô tả</label>
                     </div>
+                    <p id="error-message" class="mb-3" style="color:red">${errorTenMauSac}</p>
+
                     <div class="p-2 bd-highlight d-flex justify-content-end">
                         <button type="submit" class="btn btn-outline-warning">
                             <i class="fa-solid fa-pen"></i> Cập Nhật
@@ -146,4 +147,13 @@
 </div>
 </body>
 
+<script>
+    $(document).ready(function() {
+        // Kiểm tra nếu errorMessage có giá trị (lỗi tồn tại)
+        if ($('#error-message').text().trim() !== '') {
+            // Nếu có lỗi, set giá trị của input là rỗng
+            $('#floatingInputTenMauSac').val('');
+        }
+    });
+</script>
 </html>
