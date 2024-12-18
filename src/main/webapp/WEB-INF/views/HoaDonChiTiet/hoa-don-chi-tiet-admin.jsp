@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +80,7 @@
                         <td>${i.index+1}</td>
                         <td>${hdctOff.maHoaDonChiTiet}</td>
                         <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>
-                        <td>${hdctOff.sanPhamChiTiet.gia}</td>
+                        <td><fmt:formatNumber value='${hdctOff.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
                         <td>${hdctOff.soLuong}</td>
                         <td>${hdctOff.ngayTao}</td>
 <%--                        <td>Active</td>--%>

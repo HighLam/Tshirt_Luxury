@@ -413,8 +413,29 @@ public class adminController {
 
             hoaDon.setId(idHoaDon);
             hoaDon.setMaHoaDon(generateMaHoaDon());
-            Float voucherGiam = (Float) session.getAttribute("giaTriGiamVoucher");
-            hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon)-voucherGiam);
+//            Float voucherGiam = (Float) session.getAttribute("giaTriGiamVoucher");
+//            hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon)-voucherGiam);
+
+            Object voucherGiamObj = session.getAttribute("giaTriGiamVoucher");
+            Float voucherGiam = null;
+            if (voucherGiamObj instanceof String) {
+                try {
+                    voucherGiam = Float.parseFloat((String) voucherGiamObj);
+                } catch (NumberFormatException e) {
+                    voucherGiam = null; // Handle this gracefully, e.g., set to null or default value
+                    System.err.println("Invalid voucher value: " + voucherGiamObj);
+                }
+            } else if (voucherGiamObj instanceof Float) {
+                voucherGiam = (Float) voucherGiamObj;
+            }
+
+            Float tongTien = hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon"));
+
+            if (voucherGiam == null || voucherGiam.isNaN()) {
+                hoaDon.setTongTien(tongTien);
+            } else {
+                hoaDon.setTongTien(tongTien - voucherGiam);
+            }
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();

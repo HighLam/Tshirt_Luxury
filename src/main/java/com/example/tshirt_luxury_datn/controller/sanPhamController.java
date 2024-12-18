@@ -27,15 +27,16 @@ public class sanPhamController {
     @Autowired
     anhSanPhamRepository anhSanPhamRepository;
 
+//    @GetMapping("t-shirt-luxury/admin/san-pham")
+//    public String sanPhamAdmin(@RequestParam(defaultValue = "0") int p, Model model) {
+//        Pageable pageable = PageRequest.of(p, 5);  // Hiển thị 5 sản phẩm mỗi trang
+//        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(pageable);
+//
+//        model.addAttribute("sanPhamPage", sanPhamPage);
+//        return "SanPham/san-pham-admin";
+//    }
+
     @GetMapping("t-shirt-luxury/admin/san-pham")
-    public String sanPhamAdmin(@RequestParam(defaultValue = "0") int p, Model model) {
-        Pageable pageable = PageRequest.of(p, 5);  // Hiển thị 5 sản phẩm mỗi trang
-        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(pageable);
-
-        model.addAttribute("sanPhamPage", sanPhamPage);
-        return "SanPham/san-pham-admin";
-    }
-
     public String sanPhamAdmin(Model model) {
         model.addAttribute("listSanPham", sanPhamRepository.findAllSanPhamByNgayTaoDesc());
         return "SanPham/san-pham-admin";

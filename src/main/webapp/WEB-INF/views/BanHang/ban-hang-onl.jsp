@@ -37,7 +37,9 @@
                         <textarea style="width: 600px; height: 100px;" class="form-control me-2"
                                   placeholder="Ghi chú"  name="ghiChu"></textarea>
                 </div>
-                <button style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất thông tin giao hàng</button>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                <button style="margin-left: 400px; height: 45px; font-size: large;width: 250px;" class="btn btn-secondary p-2 bd-highlight ms-5">Hoàn tất thông tin giao hàng</button>
+                </div>
             </form>
         </div>
 

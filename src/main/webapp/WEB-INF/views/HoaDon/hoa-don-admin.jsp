@@ -155,7 +155,7 @@
                             <td><fmt:formatNumber value='${hd.tongTien}' pattern="#,##0"/></td>
                             <td>${hd.moTa}</td>
                             <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
+                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet?idHoaDon=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
