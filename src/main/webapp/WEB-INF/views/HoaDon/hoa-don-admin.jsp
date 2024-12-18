@@ -10,12 +10,12 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-<div  >
+<div>
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -34,7 +34,8 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..."
+                             width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,7 +57,8 @@
     <div class="row mt-3 ">
         <div class="col-3 " style="">
             <div class="list-group ">
-                <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action" aria-current="true">
+                <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action"
+                   aria-current="true">
                     <i class="fa-solid fa-house"></i> Trang Chủ
                 </a>
                 <a href="#" class="list-group-item list-group-item-action"> <i
@@ -83,12 +85,16 @@
                         <i class="fa-solid fa-wand-magic-sparkles"></i> Quản Lý Thuộc Tính
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/mau-sac"><i class="fa-solid fa-palette"></i> Màu
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/mau-sac"><i
+                                class="fa-solid fa-palette"></i> Màu
                             Sắc</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/size"><i class="fa-solid fa-s"></i> Size</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/chat-lieu"><i class="fa-solid fa-star"></i> Chất
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/size"><i class="fa-solid fa-s"></i>
+                            Size</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/chat-lieu"><i
+                                class="fa-solid fa-star"></i> Chất
                             Liệu</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
+                                class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
                     </ul>
                 </div>
@@ -124,13 +130,34 @@
                             <th scope="row">${i.index +1}</th>
                             <th scope="row">${hd.maHoaDon}</th>
                             <th scope="row">${hd.nguoiDung.tenNguoiDung}</th>
-                            <th scope="row">${hd.trangThai}</th>
+                            <th scope="row">
+                                <c:choose>
+                                    <c:when test="${hd.trangThai == 0}">
+                                        Chờ thanh toán
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 1}">
+                                        Đã thanh toán
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 2}">
+                                            Chờ xác nhận
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 3}">
+                                        Đang giao hàng
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 4}">
+                                        Đã giao hàng
+                                    </c:when>
+                                    <c:otherwise>
+
+                                    </c:otherwise>
+                                </c:choose>
+                            </th>
                             <th scope="row">${hd.ngayTao}</th>
                             <th scope="row">${hd.tongTien}</th>
                             <th scope="row">${hd.moTa}</th>
                             <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet" class="btn btn-secondary rounded-pill"
-                                   data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet?id=${hd.id}" class="btn btn-secondary rounded-pill"
+                                    data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                             </td>

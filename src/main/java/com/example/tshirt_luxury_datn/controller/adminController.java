@@ -130,7 +130,6 @@ public class adminController {
         Integer idSanPham = (Integer) session.getAttribute("idSanPham");
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize, idSanPham);
 
-
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
 
         if (hoaDon1.getTrangThai() == 0) {
@@ -143,12 +142,14 @@ public class adminController {
                     break;
                 }
             }
+
             if (check) {
                 hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
                 hoaDonChiTietRepo.save(hoaDonChiTiet1);
             } else {
 
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                hoaDonChiTiet.setNgayTao(new Date());
                 hoaDonChiTiet.setHoaDon(hoaDon1);
                 hoaDonChiTiet.setSoLuong(soLuong);
                 hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);

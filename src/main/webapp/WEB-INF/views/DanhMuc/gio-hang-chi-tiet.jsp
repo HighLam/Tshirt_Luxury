@@ -430,6 +430,8 @@
     quantityInput.addEventListener("input", () => {
         quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
     });
+
+
 </script>
 </body>
 </html>

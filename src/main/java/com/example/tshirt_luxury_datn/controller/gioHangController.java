@@ -27,7 +27,6 @@ public class gioHangController {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
         List<GioHangChiTiet> gioHangChiTiets =  gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
         model.addAttribute("tongTienGioHang",gioHangChiTietRepo.tinhTongGia());
-        System.out.println("sjjdfhghjdk"+gioHangChiTietRepo.tinhTongGia());
         model.addAttribute("GHCT", gioHangChiTiets);
         return "DanhMuc/gio-hang-chi-tiet";
 

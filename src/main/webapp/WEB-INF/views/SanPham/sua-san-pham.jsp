@@ -100,7 +100,7 @@
                 <form action="/t-shirt-luxury/admin/updateSanPham?id=${sanPham.id}" method="POST">
                     <div>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body">
                 <!-- Mã Sản Phẩm -->
@@ -118,9 +118,9 @@
                 <!-- Danh Mục Sản Phẩm -->
                     <label for="floatingInputTenSanPham">Tên Danh Mục</label>
                     <select class="form-select" aria-label="Default select example" name="danhMuc.id">
+
                         <c:forEach items="${danhMuc}" var="s">
-                            <option  hidden="hidden">Chọn danh mục</option>
-                            <option value="${s.id}" ${sanPham.danhMuc.id.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
+                            <option value="${s.id}" ${sanPham.danhMuc.tenDanhMuc.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
                         </c:forEach>
 
                     </select>
@@ -147,6 +147,7 @@
                     <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${sanPham.moTa}">
                 </div>
             </div>
+                    <p id="error-message" style="color: red ">${errorMessageSanPham}</p>
                     <div class="p-2 bd-highlight d-flex justify-content-end">
                         <button type="submit" class="btn btn-outline-warning">
                             <i class="fa-solid fa-pen"></i> Cập nhật
@@ -160,13 +161,16 @@
     </div>
 </div>
 
-
-
-
-
-
-
 </div>
+<script>
+    $(document).ready(function() {
+        // Kiểm tra nếu errorMessage có giá trị (lỗi tồn tại)
+        if ($('#error-message').text().trim() !== '') {
+            // Nếu có lỗi, set giá trị của input là rỗng
+            $('#floatingInputTenSanPham').val('');
+        }
+    });
+</script>
 </body>
 
 </html>

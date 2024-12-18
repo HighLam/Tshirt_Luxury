@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1460px">
 <div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -177,7 +177,7 @@
                     <div>
                         <div class="text mt-2">Trạng Thái</div>
                         <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
+                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1" checked>
                             <label class="form-check-label" for="inlineRadio1">Bán</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
@@ -191,6 +191,7 @@
                         <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
                     </div>
+                    <p style="color: red">${errorMessageSanPham}</p>
                 </div>
 
                 <!-- Footer Modal -->
@@ -203,84 +204,13 @@
     </div>
 </form>
 
-<form action="" method="post">
-    <div class="modal fade" id="suaSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sửa Sản Phẩm</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Mã Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
 
-                    <!-- Tải Ảnh Lên -->
-                    <div class="mb-3">
-                        <label class="form-label">Chọn Ảnh Sản Phẩm</label>
-                        <select class="form-select" aria-label="Default select example" name="id_anh_san_pham">
-                            <c:forEach var="s" items="${anhSP}">
-                                <option value="${s.id}" <c:if test="${sanPham.anhSanPham.id == s.id}">selected</c:if>>
-                                        ${s.tenAnhSanPham}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-                    <!-- Tên Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham" value="${sanPham.tenSanPham}">
-                        <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
-                    </div>
-
-                    <!-- Danh Mục Sản Phẩm -->
-                    <div class="mb-3">
-                        <label class="form-label">Danh Mục Sản Phẩm</label>
-                        <select class="form-select" aria-label="Default select example" name="id_danh_muc">
-                            <c:forEach var="s" items="${danhMuc}">
-                                <option value="${s.id}" <c:if test="${sanPham.danhMuc.id == s.id}">selected</c:if>>
-                                        ${s.tenDanhMuc}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-
-                    <!-- Trạng Thái -->
-                    <div>
-                        <div class="text mt-2">Trạng Thái</div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" value="1"
-                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 1}">checked</c:if>>
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                        </div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" value="0"
-                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 0}">checked</c:if>>
-                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
-                        </div>
-                    </div>
-
-                    <!-- Mô Tả Sản Phẩm -->
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3">${sanPham.moTa}</textarea>
-                    </div>
-                </div>
-
-                <!-- Footer Modal -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-success">Cập Nhật</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('${openModal}'));
+        myModal.show();
+    });
+</script>
 </body>
 <script
         src="https://code.jquery.com/jquery-3.7.1.js"

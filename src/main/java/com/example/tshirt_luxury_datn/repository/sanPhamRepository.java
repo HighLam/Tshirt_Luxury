@@ -12,6 +12,9 @@ import java.util.List;
 
 @Repository
 public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
+    @Query(value = "SELECT * FROM san_pham ORDER BY ngay_tao DESC", nativeQuery = true)
+    List<SanPham> findAllSanPhamByNgayTaoDesc();
+
     @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord% ", nativeQuery = true)
     List<SanPham> timKiem(@Param("keyWord") String keyWord);
 
@@ -24,5 +27,6 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
 
     @Query(value = "SELECT * FROM san_pham WHERE barcode = :barCode", nativeQuery = true)
     SanPham findSanPhamByBarcode(@Param("barCode") String barCode);
+
 
 }

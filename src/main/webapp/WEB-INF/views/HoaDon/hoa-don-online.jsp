@@ -119,7 +119,28 @@
                         <tr>
                             <th scope="row">${i.index +1}</th>
                             <th scope="row">${hd.thongTinNhanHang.hoVaTen}</th>
-                            <th scope="row">${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</th>
+                            <th scope="row">
+                                <c:choose>
+                                    <c:when test="${hd.trangThai == 0}">
+                                        Chờ thanh toán
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 1}">
+                                        Đã thanh toán
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 2}">
+                                        Chờ xác nhận
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 3}">
+                                        Đang giao hàng
+                                    </c:when>
+                                    <c:when test="${hd.trangThai == 4}">
+                                        Đã giao hàng
+                                    </c:when>
+                                    <c:otherwise>
+
+                                    </c:otherwise>
+                                </c:choose>
+                            </th>
                             <th scope="row">${hd.ngayTao}</th>
                             <th scope="row">${hd.tongTien}</th>
                             <th scope="row">${hd.moTa}</th>
