@@ -136,14 +136,7 @@
                             <input type="text" class="form-control" id="floatingInput" placeholder="Điều Kiện Áp Dụng" name="dieuKienApDung" value="${voucher.dieuKienApDung}">
                             <label for="floatingInput">Điều kiện áp dụng</label>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="Giới hạn giảm" name="gioiHan" value="${voucher.gioiHan}">
-                            <label for="floatingInput">Giới hạn giảm</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu" value="${voucher.mucChiToiThieu}">
-                            <label for="floatingInput">Mục chi tiêu tối thiểu</label>
-                        </div>
+                        g
                         <div class="form-floating mb-3 mt-3">
                             <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${voucher.moTa}">
                             <label for="floatingInput">Mô tả</label>
