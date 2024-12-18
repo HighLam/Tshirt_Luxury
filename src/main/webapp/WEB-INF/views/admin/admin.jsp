@@ -180,7 +180,16 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
+<%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
+                                    <td>
+                                        <c:if test="${sp.trangThai == 1}">
+                                            <span class="badge bg-success">Đang Bán</span>
+                                        </c:if>
+                                        <c:if test="${sp.trangThai == 0}">
+
+                                            <span class="badge bg-danger">Chưa Bán</span>
+                                        </c:if>
+                                    </td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
                                            data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
                                 </tr>

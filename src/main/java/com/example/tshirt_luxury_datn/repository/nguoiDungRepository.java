@@ -17,7 +17,8 @@ public interface nguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
     @Query(value ="select * from nguoi_dung where ten_dang_nhap = :tenDangNhap\n" , nativeQuery = true)
     NguoiDung getNguoiDung(@Param("tenDangNhap") String tenDangNhap);
 
-
+    @Query(value ="select * from nguoi_dung ORDER BY ngay_tao DESC" , nativeQuery = true)
+    List<NguoiDung> getNguoiDungNgayTao();
 
     @Query(value = "SELECT TOP 1 ma_nguoi_dung FROM nguoi_dung ORDER BY ma_nguoi_dung DESC", nativeQuery = true)
     String findLastMaNguoiDung();

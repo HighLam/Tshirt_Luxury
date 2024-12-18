@@ -128,12 +128,13 @@
                         <td>${gg.ngayKetThuc}</td>
                         <td>${gg.moTa}</td>
                         <td>
-                        <c:if test="${gg.trangThai == 1}">
-                            Hoạt Động
-                        </c:if>
-                        <c:if test="${gg.trangThai == 0}">
-                            Không Hoạt Động
-                        </c:if>
+                            <c:if test="${gg.trangThai == 1}">
+                                <span class="badge bg-success">Hoạt Động</span>
+                            </c:if>
+                            <c:if test="${gg.trangThai == 0}">
+
+                                <span class="badge bg-danger">Không Hoạt Động</span>
+                            </c:if>
                         </td>
                         <td>
                             <a class="btn btn-warning rounded-pill" data-toggle="tooltip" data-placement="top"

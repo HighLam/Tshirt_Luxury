@@ -144,4 +144,24 @@ public class hoaDonController {
         return "HoaDon/hoa-don-online"; // Trả về tên file JSP
     }
 
+    @GetMapping("/t-shirt-luxury/admin/timHDTQ")
+    public String timHoaDonTaiQ(
+            @RequestParam(value = "searchName", required = false) String searchName,
+            @RequestParam(value = "trangThai", required = false) Integer trangThai,
+            Model model) {
+
+        List<HoaDon> listHoaDonTaiQuay;
+
+        if (searchName == null && trangThai == null) {
+
+            listHoaDonTaiQuay = hoaDonRepo.findAll();
+        } else {
+            listHoaDonTaiQuay = hoaDonRepo.timHoaDonTaiQuay(searchName, trangThai);
+        }
+        model.addAttribute("listHoaDonTaiQuay", listHoaDonTaiQuay);
+        model.addAttribute("searchName", searchName);
+        model.addAttribute("trangThai", trangThai);
+
+        return "HoaDon/hoa-don-admin"; // Trả về tên file JSP
+    }
 }

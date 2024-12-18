@@ -43,7 +43,7 @@ public class nguoiDungController {
 
     @GetMapping("/nguoi-dung")
     public String nguoiDung(Model model, HttpSession session) {
-        model.addAttribute("listNguoiDung", nguoiDungRepository.findAll());
+        model.addAttribute("listNguoiDung", nguoiDungRepository.getNguoiDungNgayTao());
         return "NguoiDung/nguoi-dung-admin";
     }
 
