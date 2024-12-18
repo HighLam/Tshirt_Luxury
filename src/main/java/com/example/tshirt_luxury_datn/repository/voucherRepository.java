@@ -40,5 +40,7 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
             @Param("ngayBatDau") Date ngayBatDau,
             @Param("ngayKetThuc") Date ngayKetThuc);
 
+    @Query(value = "SELECT TOP 1 ma_voucher FROM voucher ORDER BY ma_voucher DESC", nativeQuery = true)
+    String findLastMaVoucher();
 
 }

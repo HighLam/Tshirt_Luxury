@@ -91,7 +91,6 @@
                             Mục</a></li>
                     </ul>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
         <div class="col-9" style="">

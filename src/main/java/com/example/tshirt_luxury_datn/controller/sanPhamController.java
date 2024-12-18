@@ -5,6 +5,9 @@ import com.example.tshirt_luxury_datn.repository.anhSanPhamRepository;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,14 @@ public class sanPhamController {
     anhSanPhamRepository anhSanPhamRepository;
 
     @GetMapping("t-shirt-luxury/admin/san-pham")
+    public String sanPhamAdmin(@RequestParam(defaultValue = "0") int p, Model model) {
+        Pageable pageable = PageRequest.of(p, 5);  // Hiển thị 5 sản phẩm mỗi trang
+        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(pageable);
+
+        model.addAttribute("sanPhamPage", sanPhamPage);
+        return "SanPham/san-pham-admin";
+    }
+
     public String sanPhamAdmin(Model model) {
         model.addAttribute("listSanPham", sanPhamRepository.findAllSanPhamByNgayTaoDesc());
         return "SanPham/san-pham-admin";
@@ -114,7 +125,7 @@ public class sanPhamController {
 
 
     @GetMapping("t-shirt-luxury/admin/timSP")
-    public String timSanPham(Model model,
+    public String timSP(Model model,
                              @RequestParam(value = "timKiemSanPham", required = false) String timKiemSanPham,
                              @RequestParam(value = "trangThai", required = false) Integer trangThai) {
 

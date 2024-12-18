@@ -200,7 +200,6 @@
                     <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher">
                     <label for="floatingInput">Mã Voucher</label>
                 </div>
-
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher" value="${tenVoucher}">
                         <label for="floatingInput">Tên Voucher</label>
@@ -214,7 +213,6 @@
                     <div class="form-floating mb-3">
                         <input type="number" min ="1" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${soLuong}">
                         <label for="floatingInput">Số lượng</label>
-
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher">
                     <label for="floatingInput">Tên Voucher</label>
