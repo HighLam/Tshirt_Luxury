@@ -96,6 +96,7 @@
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -155,6 +156,13 @@
                             <th scope="row">${hd.ngayTao}</th>
                             <th scope="row">${hd.tongTien}</th>
                             <th scope="row">${hd.moTa}</th>
+                            <td>${i.index +1}</td>
+                            <td>${hd.maHoaDon}</td>
+                            <td>${hd.nguoiDung.tenNguoiDung}</td>
+                            <td>${hd.trangThai}</td>
+                            <td>${hd.ngayTao}</td>
+                            <td>${hd.tongTien}</td>
+                            <td>${hd.moTa}</td>
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet?id=${hd.id}" class="btn btn-secondary rounded-pill"
                                     data-placement="top" title="Xem Chi Tiết">

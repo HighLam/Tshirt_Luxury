@@ -18,7 +18,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class voucherController {
@@ -138,6 +141,32 @@ public class voucherController {
         }
         updateVoucherStatusBasedOnDate(voucher);
         return "redirect:/t-shirt-luxury/admin/voucher";
+    }
+    @GetMapping("/t-shirt-luxury/admin/timVoucher")
+    public String timVoucher(Model model,
+                             @RequestParam(value = "tenVoucher", required = false) String tenVoucher,
+                             @RequestParam(value = "trangThai", required = false) Integer trangThai,
+                             @RequestParam(value = "ngayBatDau", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayBatDau,
+                             @RequestParam(value = "ngayKetThuc", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKetThuc) {
+
+        List<Voucher> ketQua;
+
+        if (tenVoucher == null && trangThai == null && ngayBatDau == null && ngayKetThuc == null) {
+            ketQua = voucherRepo.findAll();
+        } else {
+            Date startDate = (ngayBatDau != null) ? Date.from(ngayBatDau.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+            Date endDate = (ngayKetThuc != null) ? Date.from(ngayKetThuc.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+
+            ketQua = voucherRepo.timKiemVoucher(tenVoucher, trangThai, startDate, endDate);
+        }
+
+        model.addAttribute("listVoucher", ketQua);
+        model.addAttribute("tenVoucher", tenVoucher);
+        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("ngayBatDau", ngayBatDau);
+        model.addAttribute("ngayKetThuc", ngayKetThuc);
+
+        return "voucher/voucher";
     }
     private void updateVoucherStatusBasedOnDate(Voucher voucher) {
         // Lấy ngày kết thúc của voucher

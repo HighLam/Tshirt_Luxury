@@ -36,7 +36,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,6 +89,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
                 <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
@@ -132,12 +133,12 @@
                     <div class="form-check form-check-inline mt-2">
                         <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1"
                         ${sanPham.trangThai == 1 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio1">Bán</label>
+                        <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                     </div>
                     <div class="form-check form-check-inline mt-2">
                         <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0"
                         ${sanPham.trangThai == 0 ? 'checked' :''}>
-                        <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                        <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
                     </div>
                 </div>
 

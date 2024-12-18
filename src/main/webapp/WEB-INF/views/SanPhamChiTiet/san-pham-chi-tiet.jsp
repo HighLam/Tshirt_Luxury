@@ -251,6 +251,20 @@
                     </c:forEach>
                 </div>
             </div>
+            <h6>${spDetail.tenSanPham}</h6>
+            <p>Còn hàng</p>
+            <hr>
+            <div class="color">
+                <h6>MÀU SẮC</h6>
+                <div class="d-flex gap-2">
+                    <c:forEach var="ms" items="${mauSac}">
+                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">
+                        <span>${ms.tenMauSac}</span>
+                    </c:forEach>
+                </div>
+
+
+            </div>
 
             <div class="size" style="margin-top: 5px;">
                 <div class="row">
@@ -281,8 +295,34 @@
                 ${errorMessage}
             </span>
             <div class="order" style="margin-top: 20px;">
+            <div class="size" style="margin-top: 5px;">
+                <div class="row">
+                    <div class="col-4">
+                        <h6>KÍCH THƯỚC</h6>
+                    </div>
+                    <div class="col-6">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;">hướng dẫn
+                            chọn size</a>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <c:forEach var="s" items="${size}">
+                        <input type="radio" class="btn" name="size" value="${s.id}">
+                        <span>${s.tenSize}</span>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="soLuong" style="margin-top: 10px;">
+                <div class="counter">
+                    <button type="button" class="btn" id="decrease"><b>-</b></button>
+                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
+                    <button type="button" class="btn" id="increase"><b>+</b></button>
+                </div>
+            </div>
+            <div class="order" style="margin-top: 20px;">
 
                 <button type="submit" class="btn btn-dark" style="width:185px">THÊM VÀO GIỎ HÀNG</button>
+                <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>
 
                 <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
             </div>

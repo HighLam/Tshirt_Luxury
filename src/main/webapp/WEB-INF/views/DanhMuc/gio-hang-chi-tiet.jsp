@@ -187,9 +187,9 @@
                 </li>
                 <ul class="login-and-signin">
                     <i class="fa-regular fa-user pe-3"></i>
-                    <li class="button-login pe-3"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
+                    <li class="button-login pe-3"><a href="/t-shirt-luxury/login" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
                     </li>
-                    <li class="button-sign-in"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
+                    <li class="button-sign-in"><a href="/t-shirt-luxury/register" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
                     </li>
                 </ul>
             </ul>
@@ -225,7 +225,7 @@
                     <div class="ms-3">
                         <p>${ghct.sanPhamChiTiet.sanPham.tenSanPham} - ${ghct.sanPhamChiTiet.mauSac.tenMauSac} - ${ghct.sanPhamChiTiet.size.tenSize} </p>
 
-                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm">Xóa</a>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" onclick="return confirmDelete()">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
@@ -258,7 +258,7 @@
                     <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
 
                     <a href="/t-shirt-luxury/ban-hang-onl" class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</a>
-                    <button class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</button>
+                    <a href="/t-shirt-luxury/trang-chu" class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</a>
                 </div>
             </div>
 
@@ -432,6 +432,10 @@
     });
 
 
+
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+    }
 </script>
 </body>
 </html>

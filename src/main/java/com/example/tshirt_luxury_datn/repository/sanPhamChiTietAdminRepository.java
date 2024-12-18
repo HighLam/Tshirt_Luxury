@@ -40,6 +40,14 @@ public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiT
             @Param("idSanPham") Integer idSanPham
     );
 
+    @Query(value = "SELECT so_luong FROM dbo.san_pham_chi_tiet WHERE id_mau_sac = :idMauSac AND id_size = :idSize AND id_san_pham = :idSanPham", nativeQuery = true)
+    Integer getSoLuong(
+            @Param("idMauSac") Integer idMauSac,
+            @Param("idSize") Integer idSize,
+            @Param("idSanPham") Integer idSanPham
+    );
+
+
 
 
 

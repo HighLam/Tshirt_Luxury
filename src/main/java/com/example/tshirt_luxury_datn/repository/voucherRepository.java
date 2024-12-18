@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Date;
 import java.util.List;
 
 public interface voucherRepository extends JpaRepository<Voucher, Integer> {
@@ -27,6 +28,15 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query("SELECT v FROM Voucher v WHERE v.ngayKetThuc > :currentDate AND v.trangThai = :status")
     List<Voucher> findActiveVouchers(@Param("currentDate") LocalDate currentDate, @Param("status") Integer status);
 
+    @Query(value = "SELECT * FROM voucher WHERE ten_voucher LIKE %:keyWord% "
+            + "AND (:trangThai IS NULL OR trang_thai = :trangThai) "
+            + "AND (:ngayBatDau IS NULL OR ngay_bat_dau >= :ngayBatDau) "
+            + "AND (:ngayKetThuc IS NULL OR ngay_ket_thuc <= :ngayKetThuc)", nativeQuery = true)
+    List<Voucher> timKiemVoucher(
+            @Param("keyWord") String keyWord,
+            @Param("trangThai") Integer trangThai,
+            @Param("ngayBatDau") Date ngayBatDau,
+            @Param("ngayKetThuc") Date ngayKetThuc);
 
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +45,22 @@ public class hoaDonController {
     }
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don-online/detail")
-    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model, HttpSession session) {
+    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model) {
         List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(idHoaDon);
+
         model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
 
+        model.addAttribute("voucherTrongHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+        //model.addAttribute("tongTienHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+
+        model.addAttribute("giaTienBanDau", hoaDonRepo.tongGiaBanDau(idHoaDon));
+
+        model.addAttribute("soSanPhamMua", hoaDonRepo.getSoLuongSanPhamMua(idHoaDon));
+
+        model.addAttribute("xacNhanHoaDonOnline", hoaDonRepo.getHoaDonTrangThai1(idHoaDon));
+
         model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
+        System.out.println("fhjskdhfksjhfkjshkjfhksjdhkfjs"+hoaDonChiTiet);
         Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
         ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
         model.addAttribute("thongTinNhanHang", thongTinNhanHang);
@@ -60,9 +72,35 @@ public class hoaDonController {
     public String xacNhanDon(@RequestParam("idHoaDonXacNhan") Integer idHoaDon, HttpSession session) {
         HoaDon hoaDon = hoaDonRepo.getReferenceById(idHoaDon);
 
+
         hoaDon.setId(idHoaDon);
-        hoaDon.setTrangThai(3);
-        hoaDonRepo.save(hoaDon);
+        //hoaDon.setTrangThai(3);
+        //int hoaDonId = idHoaDon;
+        int trangThai = hoaDonRepo.getHoaDonTrangThai1(idHoaDon);
+
+        int trangThaiHienTai = hoaDonRepo.getHoaDonTrangThai(idHoaDon, trangThai);
+
+        if (trangThaiHienTai == 2) {
+            hoaDon.setTrangThai(3);
+            hoaDon.setNgaySua(new Date());
+            hoaDonRepo.save(hoaDon);
+        } else if (trangThaiHienTai == 3) {
+            hoaDon.setTrangThai(4);
+            hoaDon.setNgaySua(new Date());
+            hoaDonRepo.save(hoaDon);
+        }
+
+
+//        if(hoaDonRepo.getHoaDonTrangThai(idHoaDon, 2) == 2) {
+//            hoaDon.setTrangThai(3);
+//            hoaDonRepo.save(hoaDon);
+//
+//        } else if(hoaDonRepo.getHoaDonTrangThai(idHoaDon, 3) == 3) {
+//            hoaDon.setTrangThai(4);
+//            hoaDonRepo.save(hoaDon);
+//        }
+
+        //hoaDonRepo.save(hoaDon);
 
         List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
         List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTietOnline(idHoaDon);
@@ -86,10 +124,6 @@ public class hoaDonController {
                 sanPhamChiTietAdminRepo.save(sanPhamChiTiet); // Lưu lại thay đổi
             }
         }
-
-
-
-
 
 
         return "redirect:/t-shirt-luxury/admin/hoa-don-online";

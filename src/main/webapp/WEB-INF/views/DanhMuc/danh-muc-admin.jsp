@@ -36,9 +36,6 @@
                     </ul>
                     <form class="d-flex">
                         <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
-                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..."
-                             width="40px" height="40px">
-                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,6 +93,7 @@
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -133,10 +131,11 @@
                             <td>${danhmuc.moTa}</td>
                             <td>
                                 <c:if test="${danhmuc.trangThai == 1}">
-                                    Hoạt Động
+                                    <span class="badge bg-success">Hoạt Động</span>
                                 </c:if>
                                 <c:if test="${danhmuc.trangThai == 0}">
-                                    Không Hoạt Động
+
+                                    <span class="badge bg-danger">Không Hoạt Động</span>
                                 </c:if>
                             </td>
                             <td>

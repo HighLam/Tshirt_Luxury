@@ -1,14 +1,15 @@
 package com.example.tshirt_luxury_datn.controller;
 
+
 import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.sanPhamResponse;
 import jakarta.servlet.http.HttpSession;
+import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ public class trangChuController {
         return gioHang;
     }
 
+
     @GetMapping("/t-shirt-luxury/trang-chu")
     public String trangChu(Model model) {
         Pageable pageable = PageRequest.of(0, 4); // Lấy 4 sản phẩm mới nhất
@@ -60,13 +62,21 @@ public class trangChuController {
         model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
 
-        if (gioHangRepo.trangThaiGioHang() != 0) {
+        if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
         }
+        System.out.println("oqwuegrhjejrhdsjaklsdfj" + sanPhamChiTietRepo.findMauSacBySanPhamId(id));
 
-        session.setAttribute("idSPDetail", id);
-        return "SanPhamChiTiet/san-pham-chi-tiet";
-    }
+
+        if (gioHangRepo.trangThaiGioHang() == 1) {
+            if (gioHangRepo.trangThaiGioHang() != 0) {
+                createGioHang(session);
+            }
+
+        }
+            session.setAttribute("idSPDetail", id);
+            return "SanPhamChiTiet/san-pham-chi-tiet";
+        }
 
 
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
@@ -116,8 +126,6 @@ public class trangChuController {
                 // Lưu bản ghi mới
                 gioHangChiTietRepo.save(gioHangChiTiet);
             }
-
-
 
 
         return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;

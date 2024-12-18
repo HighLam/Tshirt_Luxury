@@ -87,6 +87,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -95,12 +96,39 @@
             <div class="row">
                 <h2 class="">Quản Lý Voucher</h2>
 
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themVoucher">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
+                <div class="p-3 bg-light rounded border mt-3">
+                    <form action="${pageContext.request.contextPath}/t-shirt-luxury/admin/timVoucher" method="get" class="row g-3 align-items-center">
+                        <div class="col-md-3">
+                            <input name="tenVoucher" class="form-control" placeholder="Tìm Voucher" />
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="trangThai" id="trangThai">
+                                <option value="">-- Chọn Trạng Thái --</option>
+                                <option value="1">Hoạt Động</option>
+                                <option value="0">Không hoạt động</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" name="ngayBatDau" class="form-control" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" name="ngayKetThuc" class="form-control" />
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Tìm Kiếm</button>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <a href="${pageContext.request.contextPath}/t-shirt-luxury/admin/timVoucher" class="btn btn-secondary w-100 mt-2">Reset</a>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="button" class="btn btn-outline-success w-100 mt-2" data-bs-toggle="modal" data-bs-target="#themVoucher">
+                                <i class="fa-solid fa-circle-plus"></i> Thêm
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
+
 
                 <table class="table table-striped">
                     <thead>
@@ -132,10 +160,11 @@
                         <td>${voucher.gioiHan}</td>
                         <td>
                             <c:if test="${voucher.trangThai == 1}">
-                                Hoạt Động
+                                <span class="badge bg-success">Hoạt Động</span>
                             </c:if>
                             <c:if test="${voucher.trangThai == 0}">
-                                Không Hoạt Động
+
+                                <span class="badge bg-danger">Không Hoạt Động</span>
                             </c:if>
                         </td>
                         <td>
@@ -165,6 +194,12 @@
             <form action="/t-shirt-luxury/admin/voucher/add" method="post">
                 <div class="modal-body">
 
+            <div class="modal-body">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher">
+                    <label for="floatingInput">Mã Voucher</label>
+                </div>
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher" value="${tenVoucher}">
@@ -179,6 +214,29 @@
                     <div class="form-floating mb-3">
                         <input type="number" min ="1" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${soLuong}">
                         <label for="floatingInput">Số lượng</label>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Voucher" name="tenVoucher">
+                    <label for="floatingInput">Tên Voucher</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm" name="giaTriGiam">
+                    <label for="floatingInput">Giá Trị Giảm</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong">
+                    <label for="floatingInput">Số lượng</label>
+                </div>
+
+                <div class="mt-3 mb-3">
+                    <div class="text mt-2">
+                        Trạng Thái
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="trangThai"
+                               value="1">
+                        <label class="form-check-label">Hoạt Động</label>
                     </div>
                     <p style="color: red">${errorSoLuongVoucher}</p>
                     <div class="form-floating mb-3">

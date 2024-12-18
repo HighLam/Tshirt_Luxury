@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body style="max-width: 1460px">
+<body>
 <div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -94,81 +94,54 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Quản Lý Sản Phẩm</h2>
+                <h2 class="">Quản Lý Ảnh Sản Phẩm</h2>
 
-
-
-                <div class="p-3 bg-light rounded border mt-3">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
-                        <div class="container-fluid">
-                            <form action="/t-shirt-luxury/admin/timSP" method="get" class="d-flex align-items-center gap-2 w-100">
-                                <input name="timKiemSanPham" class="form-control" type="search"
-                                       placeholder="Tìm sản phẩm" aria-label="Search"
-                                       value="${timKiemSanPham}" style="max-width: 600px;">
-
-                                <select class="form-select" name="trangThai" id="trangThai" style="width: 30%;">
-                                    <option value="">-- Chọn Trạng Thái --</option>
-                                    <option value="1" ${sanPham.trangThai == 1 ? 'selected' : ''}>Còn Hàng</option>
-                                    <option value="0" ${sanPham.trangThai == 0 ? 'selected' : ''}>Hết Hàng</option>
-                                </select>
-                                <button class="btn btn-success d-flex align-items-center px-4 mt-2" type="submit">
-                                    <i class="bi bi-search me-1"></i> Tìm Kiếm
-                                </button>
-                                <a href="/t-shirt-luxury/admin/timSP" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
-                                    <i class="bi bi-arrow-clockwise me-1"></i> Reset
-                                </a>
-                                <button type="button" class="btn btn-outline-success ms-2 mt-2" data-bs-toggle="modal"
-                                        data-bs-target="#themSanPham">
-                                    <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                                </button>
-
-                            </form>
-                        </div>
-                    </nav>
+                <div class="p-2 bd-highlight d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#themSanPham">
+                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                    </button>
                 </div>
 
-                <table class="table table-striped ">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Mã Sản Phẩm</th>
-                        <th scope="col">Tên Sản Phẩm</th>
-                        <th scope="col">Danh Mục</th>
+                        <th scope="col">Mã Ảnh SP</th>
+                        <th scope="col">Tên Ảnh SP</th>
                         <th scope="col">Trạng Thái</th>
+                        <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Ngày Sửa</th>
+                        <th scope="col">Mô Tả</th>
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listSanPham}" var="sp" varStatus="i">
+                    <c:forEach items="${anhSanPham}" var="anh" varStatus="i">
                         <tr>
-                            <td>${i.index+1}</td>
-                            <td>${sp.maSanPham}</td>
-                            <td>${sp.tenSanPham}</td>
-                            <td>${sp.danhMuc.tenDanhMuc}</td>
+                            <th scope="row">${i.index + 1}</th>
+                            <td>${anh.maAnhSanPham}</td>
+                            <td>${anh.tenAnhSanPham}</td>
                             <td>
-                                <c:if test="${sp.trangThai == 1}">
-                                    <span class="badge bg-success">Còn Hàng</span>
+                                <c:if test="${anh.trangThai == 1}">
+                                    Hoạt Động
                                 </c:if>
-                                <c:if test="${sp.trangThai == 0}">
-
-                                    <span class="badge bg-danger">Hết Hàng</span>
+                                <c:if test="${anh.trangThai == 0}">
+                                    Không Hoạt Động
                                 </c:if>
                             </td>
+                            <td>${anh.ngayTao}</td>
+                            <td>${anh.ngaySua}</td>
+                            <td>${anh.moTa}</td>
                             <td>
-                                <a href="/t-shirt-luxury/admin/sua-san-pham/getOne?id=${sp.id}"  class="btn btn-warning rounded-pill"
-
-                                        title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" title="Xóa" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
-                                <a href="/t-shirt-luxury/admin/san-pham-chi-tiet?id=${sp.id}" class="btn btn-secondary rounded-pill"
-                                   data-toggl e="tooltip" data-placement="top" title="Xem Chi Tiết">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
+                                <a class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" href="/t-shirt-luxury/admin/anh-san-pham/getOne?id=${anh.id}"
+                                   title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/t-shirt-luxury/admin/anh-san-pham/delete?id=${anh.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
                     </c:forEach>
-
-
                     </tbody>
                 </table>
             </div>
@@ -176,60 +149,44 @@
     </div>
 </div>
 
-
 <!-- Modal -->
-<form action="/t-shirt-luxury/admin/san-pham/add" method="post">
+<form action="/t-shirt-luxury/admin/anh-san-pham/add" method="post">
     <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Sản Phẩm</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Ảnh</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Mã Sản Phẩm -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Ảnh" name="tenAnhSanPham">
+                        <label for="floatingInput">Tên Ảnh</label>
                     </div>
-
-                    <!-- Tên Sản Phẩm -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham">
-                        <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Url Ảnh" name="maAnhSanPham">
+                        <label for="floatingInput">URL Ảnh </label>
                     </div>
-
-                    <!-- Danh Mục Sản Phẩm -->
-                    <select class="form-select" aria-label="Default select example" name="id_danh_muc">
-                        <c:forEach var="s" items="${danhMuc}">
-                            <option value="${s.id}">${s.tenDanhMuc}</option>
-                        </c:forEach>
-                    </select>
-
-                    <!-- Trạng Thái -->
-                    <div>
-                        <div class="text mt-2">Trạng Thái</div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1" checked>
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
+                    <div class="mt-3">
+                        <div class="text mt-2">
+                            Trạng Thái
                         </div>
                         <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0">
-                            <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
+                            <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
+                                   value="1">
+                            <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
+                                   value="0">
+                            <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
                         </div>
                     </div>
-
-                    <!-- Mô Tả Sản Phẩm -->
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
                     </div>
-                    <p style="color: red">${errorMessageSanPham}</p>
                 </div>
-
-                <!-- Footer Modal -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button type="submit" class="btn btn-success">Thêm Mới</button>
@@ -239,22 +196,10 @@
     </div>
 </form>
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var myModal = new bootstrap.Modal(document.getElementById('${openModal}'));
-        myModal.show();
-    });
-</script>
 </body>
-<script
-        src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
 <script>
     confirmDelete = () => {
-        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+        return confirm("Bạn có chắc chắn muốn xoá Ảnh này không ?");
     }
 </script>
-
 </html>

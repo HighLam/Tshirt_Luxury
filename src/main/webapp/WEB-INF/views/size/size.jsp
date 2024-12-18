@@ -87,6 +87,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -122,10 +123,11 @@
                         <td>${s.moTa}</td>
                         <td>
                             <c:if test="${s.trangThai == 1}">
-                                Hoạt Động
+                                <span class="badge bg-success">Hoạt Động</span>
                             </c:if>
                             <c:if test="${s.trangThai == 0}">
-                                Không Hoạt Động
+
+                                <span class="badge bg-danger">Không Hoạt Động</span>
                             </c:if>
                         </td>
                         <td>
