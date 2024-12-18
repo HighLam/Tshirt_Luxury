@@ -225,7 +225,7 @@
                     <div class="ms-3">
                         <p>${ghct.sanPhamChiTiet.sanPham.tenSanPham} - ${ghct.sanPhamChiTiet.mauSac.tenMauSac} - ${ghct.sanPhamChiTiet.size.tenSize} </p>
 
-                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm">Xóa</a>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" onclick="return confirmDelete()">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
@@ -430,6 +430,10 @@
     quantityInput.addEventListener("input", () => {
         quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
     });
+
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+    }
 </script>
 </body>
 </html>

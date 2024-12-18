@@ -236,7 +236,7 @@
 
 
     <div class="col-4">
-        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post"  onsubmit="return showSuccessAlert()">
+        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">
             <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
             <h6>${spDetail.tenSanPham}</h6>
             <p>Còn hàng</p>
@@ -575,17 +575,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-</script>
-<script>
-    function showSuccessAlert() {
-        Swal.fire({
-            title: 'Thành công!',
-            text: 'Sản phẩm đã được thêm vào giỏ hàng!',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-        return true; // Tiếp tục submit form
-    }
 </script>
 
 </body>

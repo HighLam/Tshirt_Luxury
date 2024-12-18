@@ -4,6 +4,7 @@ import com.example.tshirt_luxury_datn.entity.DotGiamGia;
 import com.example.tshirt_luxury_datn.entity.Voucher;
 import com.example.tshirt_luxury_datn.repository.voucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class voucherController {
@@ -52,5 +56,31 @@ public class voucherController {
             voucherRepo.save(voucher);
         }
         return "redirect:/t-shirt-luxury/admin/voucher";
+    }
+    @GetMapping("/t-shirt-luxury/admin/timVoucher")
+    public String timVoucher(Model model,
+                             @RequestParam(value = "tenVoucher", required = false) String tenVoucher,
+                             @RequestParam(value = "trangThai", required = false) Integer trangThai,
+                             @RequestParam(value = "ngayBatDau", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayBatDau,
+                             @RequestParam(value = "ngayKetThuc", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKetThuc) {
+
+        List<Voucher> ketQua;
+
+        if (tenVoucher == null && trangThai == null && ngayBatDau == null && ngayKetThuc == null) {
+            ketQua = voucherRepo.findAll();
+        } else {
+            Date startDate = (ngayBatDau != null) ? Date.from(ngayBatDau.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+            Date endDate = (ngayKetThuc != null) ? Date.from(ngayKetThuc.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+
+            ketQua = voucherRepo.timKiemVoucher(tenVoucher, trangThai, startDate, endDate);
+        }
+
+        model.addAttribute("listVoucher", ketQua);
+        model.addAttribute("tenVoucher", tenVoucher);
+        model.addAttribute("trangThai", trangThai);
+        model.addAttribute("ngayBatDau", ngayBatDau);
+        model.addAttribute("ngayKetThuc", ngayKetThuc);
+
+        return "voucher/voucher";
     }
 }

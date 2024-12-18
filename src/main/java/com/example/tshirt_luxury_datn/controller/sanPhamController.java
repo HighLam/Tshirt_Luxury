@@ -78,20 +78,6 @@ public class sanPhamController {
         }
         return "redirect:/t-shirt-luxury/admin/san-pham";
     }
-    @GetMapping("t-shirt-luxury/admin/timSP")
-    public String timSanPham(Model model,
-                             @RequestParam(value = "timKiemSanPham", required = false) String timKiemSanPham,
-                             @RequestParam(value = "trangThai", required = false) Integer trangThai) {
-
-        List<SanPham> ketQua = sanPhamRepository.timKiemSP(timKiemSanPham, trangThai);
-        model.addAttribute("listSanPham", ketQua);
-
-        model.addAttribute("timKiemSanPham", timKiemSanPham);
-        model.addAttribute("trangThai", trangThai);
-
-        return "SanPham/san-pham-admin";
-    }
-
 
 
     @GetMapping("t-shirt-luxury/admin/timSP")

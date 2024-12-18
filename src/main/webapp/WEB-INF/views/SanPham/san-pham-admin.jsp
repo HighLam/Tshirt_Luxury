@@ -96,32 +96,7 @@
             <div class="row">
                 <h2 class="">Quản Lý Sản Phẩm</h2>
 
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <div>
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            <div class="container-fluid">
-                                <form action="/t-shirt-luxury/admin/timSP" method="get" class="d-flex align-items-center gap-2">
-                                    <input style="width: 600px;" class="form-control" type="search"
-                                           name="timKiemSanPham" placeholder="Tìm sản phẩm" aria-label="Search"
-                                           value="${timKiemSanPham}">
-                                    <select class="form-select" name="trangThai" id="trangThai">
-                                        <option value="">-- Chọn Trạng Thái --</option>
-                                        <option value="1" ${sanPham.trangThai == 1 ? 'selected' : ''}>Còn Hàng</option>
-                                        <option value="0" ${sanPham.trangThai == 0 ? 'selected' : ''}>Hết Hàng</option>
-                                    </select>
-                                    <button class="btn btn-success" type="submit">Tìm Kiếm</button>
-                                    <a href="/t-shirt-luxury/admin/timSP" class="btn btn-secondary d-flex align-items-center px-4">
-                                        <i class="bi bi-arrow-clockwise me-1"></i> Reset
-                                    </a>
-                                </form>
-                            </div>
-                        </nav>
-                    </div>
-                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
-                            data-bs-target="#themSanPham">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
-                </div>
+
 
                 <div class="p-3 bg-light rounded border mt-3">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
@@ -184,7 +159,7 @@
 
                                         title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                                        data-placement="top" title="Xóa" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham-chi-tiet?id=${sp.id}" class="btn btn-secondary rounded-pill"
                                    data-toggl e="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
@@ -344,5 +319,10 @@
         src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+    }
+</script>
 
 </html>

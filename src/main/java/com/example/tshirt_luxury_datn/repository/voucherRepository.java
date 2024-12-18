@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface voucherRepository extends JpaRepository<Voucher, Integer> {
@@ -14,9 +15,15 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)
     Integer getGiaTriGiam(@Param("idVoucher")Integer idVoucher);
 
-
-
-
+    @Query(value = "SELECT * FROM voucher WHERE ten_voucher LIKE %:keyWord% "
+            + "AND (:trangThai IS NULL OR trang_thai = :trangThai) "
+            + "AND (:ngayBatDau IS NULL OR ngay_bat_dau >= :ngayBatDau) "
+            + "AND (:ngayKetThuc IS NULL OR ngay_ket_thuc <= :ngayKetThuc)", nativeQuery = true)
+    List<Voucher> timKiemVoucher(
+            @Param("keyWord") String keyWord,
+            @Param("trangThai") Integer trangThai,
+            @Param("ngayBatDau") Date ngayBatDau,
+            @Param("ngayKetThuc") Date ngayKetThuc);
 
 
 }
