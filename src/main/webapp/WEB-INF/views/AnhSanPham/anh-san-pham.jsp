@@ -7,17 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Luxury | ADMIN</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="../js/script.js"></script>
 </head>
 
 <body>
-<div class="container">
+<div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -96,17 +94,78 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Cập Nhật Danh Mục</h2>
+                <h2 class="">Quản Lý Ảnh Sản Phẩm</h2>
 
+                <div class="p-2 bd-highlight d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#themSanPham">
+                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                    </button>
+                </div>
 
-                <form action="/t-shirt-luxury/admin/danh-muc/update?id=${danhMuc.id}" method="POST">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Mã Ảnh SP</th>
+                        <th scope="col">Tên Ảnh SP</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Ngày Sửa</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">Hành Động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${anhSanPham}" var="anh" varStatus="i">
+                        <tr>
+                            <th scope="row">${i.index + 1}</th>
+                            <td>${anh.maAnhSanPham}</td>
+                            <td>${anh.tenAnhSanPham}</td>
+                            <td>
+                                <c:if test="${anh.trangThai == 1}">
+                                    Hoạt Động
+                                </c:if>
+                                <c:if test="${anh.trangThai == 0}">
+                                    Không Hoạt Động
+                                </c:if>
+                            </td>
+                            <td>${anh.ngayTao}</td>
+                            <td>${anh.ngaySua}</td>
+                            <td>${anh.moTa}</td>
+                            <td>
+                                <a class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" href="/t-shirt-luxury/admin/anh-san-pham/getOne?id=${anh.id}"
+                                   title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/t-shirt-luxury/admin/anh-san-pham/delete?id=${anh.id}" onclick="return confirmDelete()" class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                   data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<form action="/t-shirt-luxury/admin/anh-san-pham/add" method="post">
+    <div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="form-floating mb-3">
-                        <input readonly name="maDanhMuc" type="text" class="form-control" id="floatingInput"  value="${danhMuc.maDanhMuc}">
-                        <label for="floatingInput">Mã Danh Mục</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Ảnh" name="tenAnhSanPham">
+                        <label for="floatingInput">Tên Ảnh</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="tenDanhMuc" type="text" class="form-control" id="floatingInputTenDanhMuc" placeholder="Tên Danh Mục" value="${danhMuc.tenDanhMuc}">
-                        <label for="floatingInput">Tên Danh Mục</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Url Ảnh" name="maAnhSanPham">
+                        <label for="floatingInput">URL Ảnh </label>
                     </div>
                     <div class="mt-3">
                         <div class="text mt-2">
@@ -114,51 +173,33 @@
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                                   value="1" ${danhMuc.trangThai == 1 ? 'checked' :''}>
+                                   value="1">
                             <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
-                                   value="0" ${danhMuc.trangThai == 0 ? 'checked' :''}>
+                                   value="0">
                             <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
                         </div>
                     </div>
-                    <div class="form-floating mb-3 mt-3">
-                        <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${danhMuc.moTa}">
-                        <label for="floatingInput">Mô tả</label>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
                     </div>
-                    <p id="error-message" class="mb-3" style="color:red">${errorTenDanhMuc}</p>
-
-                    <div class="p-2 bd-highlight d-flex justify-content-end">
-                        <button type="submit" class="btn btn-outline-warning">
-                            <i class="fa-solid fa-pen"></i> Cập Nhật
-                        </button>
-                    </div>
-                </form>
-
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
-
-
-
-
-
-
-</div>
 </body>
-
 <script>
-    $(document).ready(function() {
-        // Kiểm tra nếu errorMessage có giá trị (lỗi tồn tại)
-        if ($('#error-message').text().trim() !== '') {
-            // Nếu có lỗi, set giá trị của input là rỗng
-            $('#floatingInputTenDanhMuc').val('');
-        }
-    });
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xoá Ảnh này không ?");
+    }
 </script>
-
 </html>

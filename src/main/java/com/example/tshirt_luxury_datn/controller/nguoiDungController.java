@@ -84,6 +84,17 @@ public class nguoiDungController {
         }
         return "redirect:/t-shirt-luxury/admin/nguoi-dung";
     }
-
-
+    @GetMapping("/timNguoiDung")
+    public String timKiemNguoiDung(Model model,
+                                   @RequestParam(value = "timKiemNguoiDung", required = false) String timKiemNguoiDung,
+                                   @RequestParam(value = "idChucVu", required = false) Integer idChucVu) {
+        List<NguoiDung> nguoiDungList;
+        if (timKiemNguoiDung == null && idChucVu == null) {
+            nguoiDungList = nguoiDungRepository.findAll();
+        } else {
+            nguoiDungList = nguoiDungRepository.timKiemND(timKiemNguoiDung, idChucVu);
+        }
+        model.addAttribute("listNguoiDung", nguoiDungList);
+        return "NguoiDung/nguoi-dung-admin";
+    }
 }

@@ -28,9 +28,11 @@ public class AnhSanPham {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "ngay_sua")
     private Date ngaySua;
 

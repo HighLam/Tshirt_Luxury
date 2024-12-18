@@ -60,10 +60,10 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     @Query(value = "DELETE FROM hoa_don_chi_tiet WHERE id_hoa_don = :idHoaDon", nativeQuery = true)
     Integer huyHoaDon(@Param("idHoaDon") Integer idHoaDon);
 
-    @Query(value = "select * from hoa_don where loai_hoa_don = 0",nativeQuery = true)
+    @Query(value = "select * from hoa_don where loai_hoa_don = 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonTaiQuay();
 
-    @Query(value = "select * from hoa_don where loai_hoa_don = 1 ORDER BY ngay_sua DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don where loai_hoa_don = 1 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonOnline();
 
     @Query(value = "select id_thong_tin_nhan_hang from hoa_don where id = :idHoaDon",nativeQuery = true)

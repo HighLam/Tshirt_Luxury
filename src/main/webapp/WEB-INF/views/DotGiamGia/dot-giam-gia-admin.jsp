@@ -87,6 +87,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>

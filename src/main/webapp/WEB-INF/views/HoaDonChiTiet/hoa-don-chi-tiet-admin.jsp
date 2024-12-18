@@ -6,15 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Shirt Luxury | ADMIN</title>
-
+    <title>T-Shirt Luxury | ADMIN | Chi tiết hoá đơn</title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1476px">
 <div  >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,8 +22,8 @@
                 <nav class="navbar navbar-light bg-light">
                     <div class="container">
                         <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="LogoDATN.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top">
+                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
+                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
                             <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
                                style="text-decoration: none; color:black; font-size:23px">T-SHIRT
                                 LUXURY </a>
@@ -51,7 +51,7 @@
             </div>
         </nav>
     </div>
-    <div class="row">
+    <div class="row" style="margin: 0px">
         <div class="p-2 bd-highlight d-flex justify-content-start mt-3">
             <a type="button" href="/t-shirt-luxury/admin/hoa-don" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-backward"></i> Trở lại
@@ -59,30 +59,33 @@
         </div>
         <div class="row mt-2">
             <h2 class="">Hóa Đơn Chi Tiết</h2>
-            <table class="table table-striped">
+            <table class="table table-striped" style="margin-left: 13px; max-width: 1476px">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">STT</th>
                     <th scope="col">Mã Hóa Đơn Chi Tiết</th>
                     <th scope="col">Tên Sản Phẩm</th>
                     <th scope="col">Giá</th>
                     <th scope="col">Số Lượng</th>
                     <th scope="col">Ngày Tạo</th>
-                    <th scope="col">Trạng Thái</th>
-                    <th scope="col">Mô tả</th>
+<%--                    <th scope="col">Trạng Thái</th>--%>
+<%--                    <th scope="col">Mô tả</th>--%>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>@mdo</td>
-                    <td>Active</td>
-                    <td>Active</td>
-                    <td>********</td>
-                    <td>Active</td>
-                    <td>Active</td>
-                </tr>
+                <c:forEach items="${listHDCTTaiQuay}" var="hdctOff" varStatus="i">
+                    <tr>
+                        <td>${i.index+1}</td>
+                        <td>${hdctOff.maHoaDonChiTiet}</td>
+                        <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>
+                        <td>${hdctOff.sanPhamChiTiet.gia}</td>
+                        <td>${hdctOff.soLuong}</td>
+                        <td>${hdctOff.ngayTao}</td>
+<%--                        <td>Active</td>--%>
+<%--                        <td>${hdctOff.ngayTao}</td>--%>
+                    </tr>
+                </c:forEach>
+
 
                 </tbody>
             </table>
