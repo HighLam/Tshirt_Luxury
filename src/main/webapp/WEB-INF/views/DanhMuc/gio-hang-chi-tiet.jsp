@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link href="../css/chiTietGioHang.css" rel="stylesheet">
 </head>
 <body >
@@ -430,6 +431,8 @@
     quantityInput.addEventListener("input", () => {
         quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
     });
+
+
 
     confirmDelete = () => {
         return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");

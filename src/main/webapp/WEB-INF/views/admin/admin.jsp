@@ -189,7 +189,9 @@
                         </table>
                     </div>
 
-
+                    <span style="color:red">
+                        ${errorMessage}
+                    </span>
                     <hr>
                     <div class="HDCT" style="overflow-y: auto;">
 

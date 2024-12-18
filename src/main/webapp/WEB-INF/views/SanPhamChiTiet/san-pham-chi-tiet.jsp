@@ -1,24 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<jsp:include page="../DanhMuc/gio-hang.jsp" />--%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
+    <title>Chi Tiết Sản Phẩm</title>
     <%--    <link rel="stylesheet" href="../css/sanPhamChiTiet.css">--%>
     <link rel="stylesheet" href="../css/sanPhamChiTiet.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/sanPhamChiTiet.js"></script>
 </head>
 
-<body >
+<body>
 <div class="wrapper">
     <div class="header d-flex"
          style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);padding: 10px 0px;gap: 382px;justify-content: space-between;z-index: 5;">
@@ -36,9 +37,9 @@
                 </a>
             </div>
             <div class="search-favourite-cart-popup" style="margin-left: 0;">
-                <form action="" class="form-search-popup">
+                <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                 </form>
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
@@ -102,9 +103,9 @@
             <li><a href="#" class="name-danh-muc-popup">Tin tức</a></li>
         </ul>
         <div class="search-favourite-cart-popup">
-            <form action="" class="form-search-popup">
+            <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
             </form>
             <a href="#">
                 <i class="fa-regular fa-user ps-5"></i>
@@ -112,7 +113,7 @@
             <a href="#">
                 <i class="fa-regular fa-heart ps-5"></i>
             </a>
-            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+            <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                 <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
             </a>
 
@@ -241,6 +242,7 @@
             <h6>${spDetail.tenSanPham}</h6>
             <p>Còn hàng</p>
             <hr>
+
             <div class="color">
                 <h6>MÀU SẮC</h6>
                 <div class="d-flex gap-2">
@@ -259,7 +261,7 @@
                         <h6>KÍCH THƯỚC</h6>
                     </div>
                     <div class="col-6">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;">hướng dẫn
+                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;text-decoration: none">Hướng dẫn
                             chọn size</a>
                     </div>
                 </div>
@@ -273,13 +275,20 @@
             <div class="soLuong" style="margin-top: 10px;">
                 <div class="counter">
                     <button type="button" class="btn" id="decrease"><b>-</b></button>
-                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
+                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;"
+                           name="soLuong">
                     <button type="button" class="btn" id="increase"><b>+</b></button>
                 </div>
             </div>
+            <span style="color:red">
+                ${errorMessage}
+            </span>
+
+
             <div class="order" style="margin-top: 20px;">
 
-                <button type="submit" class="btn btn-dark">THÊM VÀO GIỎ HÀNG</button>
+                <button type="submit" class="btn btn-dark" style="width:185px">THÊM VÀO GIỎ HÀNG</button>
+
 
                 <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
             </div>
@@ -375,10 +384,10 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top"
+                <img src="../images/ao_phong_boxy/DEVOTUS/white.webp" class="card-img-top"
                      alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông DEVOTUS</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -391,9 +400,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_co_chu_v/ATINO/black.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Cổ Chữ V</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -405,9 +414,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_unisex/LABUBU/pink.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông LABUBU</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -419,9 +428,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_unisex/SMILE/green.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông SMILE</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -432,7 +441,7 @@
             </div>
         </div>
         <div class="text-center mt-4" style="padding-left:2rem">
-            <button class="btn btn-outline-dark" type="submit" style="width: 110px;">Xem Thêm</button>
+            <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them" style="width: 110px;">Xem Thêm</a>
         </div>
     </div>
 </div>
@@ -578,5 +587,54 @@
 </script>
 
 </body>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            let isValid = true;
+            let errorMessage = "";
+
+            // Kiểm tra màu sắc
+            if ($('input[name="mauSac"]:checked').length === 0) {
+                isValid = false;
+                errorMessage += "Vui lòng chọn màu sắc!\n";
+            }
+
+            // Kiểm tra kích thước
+            if ($('input[name="size"]:checked').length === 0) {
+                isValid = false;
+                errorMessage += "Vui lòng chọn kích thước!\n";
+            }
+
+            // Hiển thị lỗi nếu không hợp lệ
+            if (!isValid) {
+                alert(errorMessage);
+                e.preventDefault(); // Ngăn form submit
+            }
+        });
+    });
+
+</script>
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("search").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+
+
+</script>
 
 </html>

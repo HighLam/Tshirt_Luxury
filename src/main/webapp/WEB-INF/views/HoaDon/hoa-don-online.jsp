@@ -163,7 +163,7 @@
                             <td>${i.index +1}</td>
                             <td>${hd.maHoaDon}</td>
                             <td>${hd.thongTinNhanHang.hoVaTen}</td>
-<%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
+                                <%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
                             <td>
                                 <c:if test="${hd.trangThai == 0}">
                                     <span class="badge bg-primary">Chờ thanh toán</span>

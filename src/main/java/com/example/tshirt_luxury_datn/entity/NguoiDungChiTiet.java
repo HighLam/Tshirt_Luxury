@@ -45,9 +45,6 @@ public class NguoiDungChiTiet {
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
 
-    @Column(name = "mat_khau")
-    private String matKhau;
-
     @Column(name = "trang_thai")
     private Integer trangThai;
 

@@ -1,8 +1,10 @@
 package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.SanPham;
+import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.response.sanPhamResponse;
 import org.springframework.data.domain.Page;
+import com.example.tshirt_luxury_datn.response.sanPhamSearchResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Repository
 public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
+    @Query(value = "SELECT * FROM san_pham ORDER BY ngay_tao DESC", nativeQuery = true)
+    List<SanPham> findAllSanPhamByNgayTaoDesc();
+
     @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord% ", nativeQuery = true)
     List<SanPham> timKiem(@Param("keyWord") String keyWord);
 
@@ -36,5 +41,23 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
     String findLastMaSanPham();
 
     Page<SanPham> findAll(Pageable pageable);
+
+    @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamSearchResponse(sp.id, sp.tenSanPham, spct.gia) " +
+            "FROM SanPhamChiTiet spct " +
+            "JOIN spct.sanPham sp " +
+            "WHERE sp.tenSanPham LIKE %:keyWord% " +
+            "GROUP BY sp.id, sp.tenSanPham, spct.gia")
+    List<sanPhamSearchResponse> sanPhamSearch(@Param("keyWord") String keyWord);
+
+    @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamSearchResponse(sp.id, sp.tenSanPham, spct.gia) " +
+            "FROM SanPhamChiTiet spct " +
+            "JOIN spct.sanPham sp " +
+            " " +
+            "GROUP BY sp.id, sp.tenSanPham, spct.gia")
+    List<sanPhamSearchResponse> getAllXemThem();
+
+
+
+
 
 }

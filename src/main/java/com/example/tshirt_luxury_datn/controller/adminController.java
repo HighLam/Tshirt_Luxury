@@ -259,49 +259,64 @@ public class adminController {
         if (hoaDon1.getTrangThai() == 0) {
             List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
             HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
-
-            // Kiểm tra sản phẩm chi tiết đã tồn tại hay chưa
-            boolean sanPhamDaTonTai = idSPCTDaCo.contains(sanPhamChiTiet1.getId());
-            Integer idHDCT =(Integer) session.getAttribute("idHDCT");
-            Integer soLuongHDCT = hoaDonChiTietRepo.findSoLuongHDCTById(idHDCT);
-            if (sanPhamDaTonTai) {
-                // Nếu sản phẩm đã tồn tại, cập nhật số lượng
-                if (hoaDonChiTiet1 != null && soLuong + soLuongHDCT <= soLuongSpct) {
-                    hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
-                    hoaDonChiTietRepo.save(hoaDonChiTiet1);
-                    redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
-                } else {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+            boolean check = false;
+            for (Integer x : idSPCTDaCo) {
+                if (sanPhamChiTiet1.getId().equals(x)) {
+                    check = true;
+                    break;
                 }
             }
 
-            else {
-                // Nếu sản phẩm chưa tồn tại, thêm mới
-                if (soLuong <= soLuongSpct) {
+            if (check) {
+                hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+                hoaDonChiTietRepo.save(hoaDonChiTiet1);
+            } else {
 
-
-                    HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-                    hoaDonChiTiet.setHoaDon(hoaDon1);
-                    hoaDonChiTiet.setSoLuong(soLuong);
-                    hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
-                    hoaDonChiTietRepo.save(hoaDonChiTiet);
-                    session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
-                    session.setAttribute("idHDCT", hoaDonChiTiet.getId());
-
-                    redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
+                // Kiểm tra sản phẩm chi tiết đã tồn tại hay chưa
+                boolean sanPhamDaTonTai = idSPCTDaCo.contains(sanPhamChiTiet1.getId());
+                Integer idHDCT = (Integer) session.getAttribute("idHDCT");
+                Integer soLuongHDCT = hoaDonChiTietRepo.findSoLuongHDCTById(idHDCT);
+                if (sanPhamDaTonTai) {
+                    // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+                    if (hoaDonChiTiet1 != null && soLuong + soLuongHDCT <= soLuongSpct) {
+                        hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+                        hoaDonChiTietRepo.save(hoaDonChiTiet1);
+                        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
+                    } else {
+                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+                    }
                 } else {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+                    // Nếu sản phẩm chưa tồn tại, thêm mới
+                    if (soLuong <= soLuongSpct) {
+
+
+                        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                        hoaDonChiTiet.setNgayTao(new Date());
+                        hoaDonChiTiet.setHoaDon(hoaDon1);
+                        hoaDonChiTiet.setSoLuong(soLuong);
+                        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+                        hoaDonChiTietRepo.save(hoaDonChiTiet);
+
+                        hoaDonChiTiet.setHoaDon(hoaDon1);
+                        hoaDonChiTiet.setSoLuong(soLuong);
+                        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+                        hoaDonChiTietRepo.save(hoaDonChiTiet);
+                        session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
+                        session.setAttribute("idHDCT", hoaDonChiTiet.getId());
+
+                        redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
+                    } else {
+                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+                    }
                 }
             }
         }
-
-        return "redirect:/t-shirt-luxury/admin";
-    }
+            return "redirect:/t-shirt-luxury/admin";
+        }
 
 
     @GetMapping("/t-shirt-luxury/admin/delete-hdct")
-    public String deleteHoaDon(@RequestParam("id") Integer id, HttpSession session) {
-
+    public String deleteHoaDon(@RequestParam("id") Integer id, HttpSession session, Model model) {
 
         hoaDonChiTietRepo.deleteById(id);
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDon");
