@@ -2,6 +2,7 @@ package com.example.tshirt_luxury_datn.controller;
 
 import com.example.tshirt_luxury_datn.entity.ChatLieu;
 import com.example.tshirt_luxury_datn.entity.DanhMuc;
+import com.example.tshirt_luxury_datn.entity.Size;
 import com.example.tshirt_luxury_datn.repository.chatLieuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 
@@ -24,6 +26,34 @@ public class chatLieuController {
 //        return "ChatLieu/chat-lieu";
 //    }
 
+    public String generateChatLieu() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaChatLieu = chatLieuRepository.findLastMaChatLieu(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaChatLieu != null && lastMaChatLieu.startsWith("CL")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaChatLieu.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("CL%03d", nextNumber);
+    }
+
+    boolean validateAdd(ChatLieu chatLieu, RedirectAttributes redirectAttributes) {
+
+        if (chatLieu.getTenChatLieu() == null || chatLieu.getTenChatLieu().isEmpty()) {
+            String message = "Vui lòng nhập tên chất liệu !";
+            redirectAttributes.addFlashAttribute("errorTenChatLieu", message);
+            redirectAttributes.addFlashAttribute("openModal", "themChatLieu");
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("tenChatLieu", chatLieu.getTenChatLieu());
+        }
+        return true;
+    }
+
     @GetMapping("t-shirt-luxury/admin/chat-lieu")
     public String chatLieuHienThi(Model model) {
         model.addAttribute("chatLieu", chatLieuRepository.findAll());
@@ -37,10 +67,14 @@ public class chatLieuController {
     }
 
     @PostMapping("t-shirt-luxury/admin/chat-lieu/add")
-    public String chatLieuAdd(@ModelAttribute("chatLieu") ChatLieu chatLieu) {
-        chatLieu.setNgayTao(new Date());
-        chatLieu.setNgaySua(new Date());
-        chatLieuRepository.save(chatLieu);
+    public String chatLieuAdd(@ModelAttribute("chatLieu") ChatLieu chatLieu, RedirectAttributes redirectAttributes) {
+        if (validateAdd(chatLieu, redirectAttributes)){
+
+            chatLieu.setMaChatLieu(generateChatLieu());
+            chatLieu.setNgayTao(new Date());
+            chatLieu.setNgaySua(new Date());
+            chatLieuRepository.save(chatLieu);
+        }
         return "redirect:/t-shirt-luxury/admin/chat-lieu";
     }
 
@@ -52,14 +86,22 @@ public class chatLieuController {
     }
 
     @PostMapping("t-shirt-luxury/admin/chat-lieu/update")
-    public String updateChatLieu(@RequestParam("id") Integer id, @ModelAttribute("chatLieu") ChatLieu chatLieu) {
+    public String updateChatLieu(@RequestParam("id") Integer id, @ModelAttribute("chatLieu") ChatLieu chatLieu,
+                                 @RequestParam("tenChatLieu") String tenChatLieu,
+                                 RedirectAttributes redirectAttributes) {
         ChatLieu getOne = chatLieuRepository.getReferenceById(id);
         if (getOne.getId() == id) {
-            Date ngaySua = new Date();
-            chatLieu.setId(id);
-            chatLieu.setNgaySua(ngaySua);
-            chatLieu.setNgayTao(getOne.getNgayTao());
-            chatLieuRepository.save(chatLieu);
+           if(tenChatLieu.isEmpty() || tenChatLieu == null){
+               String message = "Vui lòng nhập tên chất liệu !";
+               redirectAttributes.addFlashAttribute("errorTenChatLieu", message);
+               return "redirect:/t-shirt-luxury/admin/chat-lieu/getOne?id=" + id;
+           }else {
+               Date ngaySua = new Date();
+               chatLieu.setId(id);
+               chatLieu.setNgaySua(ngaySua);
+               chatLieu.setNgayTao(getOne.getNgayTao());
+               chatLieuRepository.save(chatLieu);
+           }
         }
         return "redirect:/t-shirt-luxury/admin/chat-lieu";
     }

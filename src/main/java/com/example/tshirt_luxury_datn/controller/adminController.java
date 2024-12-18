@@ -383,44 +383,47 @@ public class adminController {
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
+            NguoiDungChiTiet nguoiDungChiTiet1 = new NguoiDungChiTiet();
 
-            if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()
-            ) {
-                // Tạo người dùng mới cho khách vãng lai
-                nguoiDung = createNguoiDungForGuest();
-                nguoiDungRepo.save(nguoiDung);
 
-                // Tạo người dùng chi tiết tương ứng
-//                NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTietForGuest(nguoiDung);
-//                nguoiDungChiTietRepo.save(nguoiDungChiTiet);
-            } else {
-                // Lấy ID người dùng dựa trên số điện thoại
-                Integer idNguoiDung = hoaDonRepo.getIdNguoiDung(soDienThoaiKhachHang);
+                if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
+                    // Tạo người dùng mới cho khách vãng lai
+                    nguoiDung = createNguoiDungForGuest();
 
-                if (idNguoiDung != null) {
-                    // Kiểm tra xem người dùng có tồn tại không
-                    Optional<NguoiDung> existingNguoiDung = nguoiDungRepo.findById(idNguoiDung);
+                    nguoiDungRepo.save(nguoiDung);
 
-                    if (existingNguoiDung.isPresent()) {
-                        // Nếu tồn tại, cập nhật thông tin
-                        nguoiDung = existingNguoiDung.get();
+                    nguoiDungChiTiet1 = createNguoiDungChiTiet(nguoiDung, "Khách vãng lai", soDienThoaiKhachHang);
+                    nguoiDungChiTietRepo.save(nguoiDungChiTiet1);
+
+                } else {
+                    // Lấy ID người dùng dựa trên số điện thoại
+                    Integer idNguoiDung = hoaDonRepo.getIdNguoiDung(soDienThoaiKhachHang);
+
+                    if (idNguoiDung != null) {
+                        // Kiểm tra xem người dùng có tồn tại không
+                        Optional<NguoiDung> existingNguoiDung = nguoiDungRepo.findById(idNguoiDung);
+
+                        if (existingNguoiDung.isPresent()) {
+                            // Nếu tồn tại, cập nhật thông tin
+                            nguoiDung = existingNguoiDung.get();
+                        } else {
+                            // Nếu không tồn tại, tạo mới
+                            nguoiDung = createNguoiDung(hoVaTenKhachHang);
+                            nguoiDung.setId(idNguoiDung);
+                            NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
+                            nguoiDungChiTietRepo.save(nguoiDungChiTiet);
+                        }
                     } else {
-                        // Nếu không tồn tại, tạo mới
+                        // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
                         nguoiDung = createNguoiDung(hoVaTenKhachHang);
-                        nguoiDung.setId(idNguoiDung);
+                        nguoiDungRepo.save(nguoiDung);
+
+                        // Tạo người dùng chi tiết tương ứng
                         NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
                         nguoiDungChiTietRepo.save(nguoiDungChiTiet);
                     }
-                } else {
-                    // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
-                    nguoiDung = createNguoiDung(hoVaTenKhachHang);
-                    nguoiDungRepo.save(nguoiDung);
-
-                    // Tạo người dùng chi tiết tương ứng
-                    NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
-                    nguoiDungChiTietRepo.save(nguoiDungChiTiet);
                 }
-            }
+
 
 
             hoaDon.setNguoiDung(nguoiDung);

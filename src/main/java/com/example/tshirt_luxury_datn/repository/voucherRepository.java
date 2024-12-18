@@ -15,6 +15,7 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)
     Integer getGiaTriGiam(@Param("idVoucher")Integer idVoucher);
 
+
     @Query(value = "SELECT * FROM voucher WHERE ten_voucher LIKE %:keyWord% "
             + "AND (:trangThai IS NULL OR trang_thai = :trangThai) "
             + "AND (:ngayBatDau IS NULL OR ngay_bat_dau >= :ngayBatDau) "
@@ -25,5 +26,7 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
             @Param("ngayBatDau") Date ngayBatDau,
             @Param("ngayKetThuc") Date ngayKetThuc);
 
+    @Query(value = "SELECT TOP 1 ma_voucher FROM voucher ORDER BY ma_voucher DESC", nativeQuery = true)
+    String findLastMaVoucher();
 
 }

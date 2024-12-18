@@ -188,10 +188,10 @@
                 </div>
                 <div class="modal-body">
                     <!-- Mã Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">--%>
+<%--                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>--%>
+<%--                    </div>--%>
 
                     <!-- Tên Sản Phẩm -->
                     <div class="form-floating mb-3">
