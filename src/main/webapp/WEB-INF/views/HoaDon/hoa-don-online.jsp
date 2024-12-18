@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,6 +110,7 @@
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
+                        <th scope="col">Mã Hóa Đơn</th>
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
@@ -120,6 +124,7 @@
                     <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
                             <td>${i.index +1}</td>
+                            <td>${hd.maHoaDon}</td>
                             <td>${hd.thongTinNhanHang.hoVaTen}</td>
 <%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
                             <td>
@@ -142,7 +147,8 @@
                             </td>
                             <td>${hd.ngayTao}</td>
                             <td>${hd.ngaySua}</td>
-                            <td>${hd.tongTien}</td>
+
+                            <td><fmt:formatNumber value='${hd.tongTien}' pattern="#,##0"/></td>
 
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
