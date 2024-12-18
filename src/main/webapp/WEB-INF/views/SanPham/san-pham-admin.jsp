@@ -123,7 +123,34 @@
                     </button>
                 </div>
 
+                <div class="p-3 bg-light rounded border mt-3">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
+                        <div class="container-fluid">
+                            <form action="/t-shirt-luxury/admin/timSP" method="get" class="d-flex align-items-center gap-2 w-100">
+                                <input name="timKiemSanPham" class="form-control" type="search"
+                                       placeholder="Tìm sản phẩm" aria-label="Search"
+                                       value="${timKiemSanPham}" style="max-width: 600px;">
 
+                                <select class="form-select" name="trangThai" id="trangThai" style="width: 30%;">
+                                    <option value="">-- Chọn Trạng Thái --</option>
+                                    <option value="1" ${sanPham.trangThai == 1 ? 'selected' : ''}>Còn Hàng</option>
+                                    <option value="0" ${sanPham.trangThai == 0 ? 'selected' : ''}>Hết Hàng</option>
+                                </select>
+                                <button class="btn btn-success d-flex align-items-center px-4 mt-2" type="submit">
+                                    <i class="bi bi-search me-1"></i> Tìm Kiếm
+                                </button>
+                                <a href="/t-shirt-luxury/admin/timSP" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                                </a>
+                                <button type="button" class="btn btn-outline-success ms-2 mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#themSanPham">
+                                    <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                                </button>
+
+                            </form>
+                        </div>
+                    </nav>
+                </div>
 
                 <table class="table table-striped ">
                     <thead>
@@ -209,11 +236,11 @@
                         <div class="text mt-2">Trạng Thái</div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
+                            <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0">
-                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                            <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
                         </div>
                     </div>
 

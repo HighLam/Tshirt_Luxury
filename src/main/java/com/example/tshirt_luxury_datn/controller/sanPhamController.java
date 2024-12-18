@@ -94,5 +94,28 @@ public class sanPhamController {
 
 
 
+    @GetMapping("t-shirt-luxury/admin/timSP")
+    public String timSanPham(Model model,
+                             @RequestParam(value = "timKiemSanPham", required = false) String timKiemSanPham,
+                             @RequestParam(value = "trangThai", required = false) Integer trangThai) {
+
+        List<SanPham> ketQua;
+
+        if (timKiemSanPham == null && trangThai == null) {
+            ketQua = sanPhamRepository.findAll();
+        } else {
+            ketQua = sanPhamRepository.timKiemSP(timKiemSanPham, trangThai);
+        }
+
+        model.addAttribute("listSanPham", ketQua);
+        model.addAttribute("timKiemSanPham", timKiemSanPham);
+        model.addAttribute("trangThai", trangThai);
+
+        return "SanPham/san-pham-admin";
+    }
+
+
+
+
 
 }
