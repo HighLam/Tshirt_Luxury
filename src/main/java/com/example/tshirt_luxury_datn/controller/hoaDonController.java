@@ -128,4 +128,30 @@ public class hoaDonController {
 
         return "redirect:/t-shirt-luxury/admin/hoa-don-online";
     }
+    @GetMapping("/t-shirt-luxury/admin/timHDO")
+    public String timHoaDonOn(
+            @RequestParam(value = "searchTerm", required = false) String searchTerm,
+            @RequestParam(value = "trangThai", required = false) Integer trangThai,
+            Model model) {
+
+        List<HoaDon> hoaDonOnlineList;
+
+        if (searchTerm == null && trangThai == null) {
+            // Load danh sách mặc định nếu không có bộ lọc
+            hoaDonOnlineList = hoaDonRepo.findAll();
+        } else {
+            // Lọc danh sách hóa đơn theo bộ lọc
+            hoaDonOnlineList = hoaDonRepo.timHoaDonOnline(searchTerm, trangThai);
+        }
+
+        // Đưa danh sách hóa đơn vào model để hiển thị trên giao diện
+        model.addAttribute("listHoaDonOnline", hoaDonOnlineList);
+
+        // Truyền lại giá trị của searchTerm và trangThai để hiển thị lại trong form tìm kiếm
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("trangThai", trangThai);
+
+        return "HoaDon/hoa-don-online"; // Trả về tên file JSP
+    }
+
 }

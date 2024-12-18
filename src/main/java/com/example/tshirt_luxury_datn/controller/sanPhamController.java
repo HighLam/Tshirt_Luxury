@@ -5,6 +5,9 @@ import com.example.tshirt_luxury_datn.repository.anhSanPhamRepository;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +42,15 @@ public class sanPhamController {
     }
 
     @GetMapping("t-shirt-luxury/admin/san-pham")
-    public String sanPhamAdmin(Model model) {
-        model.addAttribute("listSanPham",sanPhamRepository.findAll());
+    public String sanPhamAdmin(@RequestParam(defaultValue = "0") int p, Model model) {
+        Pageable pageable = PageRequest.of(p, 5);  // Hiển thị 5 sản phẩm mỗi trang
+        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(pageable);
+
+        model.addAttribute("sanPhamPage", sanPhamPage);
+
         return "SanPham/san-pham-admin";
     }
+
     @ModelAttribute("danhMuc")
     public String getDanhMuc(Model model) {
         model.addAttribute("danhMuc",danhMucRepository.findAll());
@@ -115,6 +123,14 @@ public class sanPhamController {
 
         return "SanPham/san-pham-admin";
     }
+//    @GetMapping("t-shirt-luxury/admin/san-pham")
+//    public String phanTrang(
+//            @RequestParam(defaultValue = "0") int p,
+//            Model model){
+//        Pageable pageable = PageRequest.of(p, 5);
+//        model.addAttribute("page", sanPhamRepository.findAll(pageable));
+//        return "/SanPham/san-pham-admin";
+//    }
 
 
 

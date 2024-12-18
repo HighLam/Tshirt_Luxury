@@ -2,6 +2,7 @@ package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.SanPham;
 import com.example.tshirt_luxury_datn.response.sanPhamResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,5 +34,7 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
 
     @Query(value = "SELECT TOP 1 ma_san_pham FROM san_pham ORDER BY ma_san_pham DESC", nativeQuery = true)
     String findLastMaSanPham();
+
+    Page<SanPham> findAll(Pageable pageable);
 
 }

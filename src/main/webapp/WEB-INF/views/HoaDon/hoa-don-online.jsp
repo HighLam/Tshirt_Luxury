@@ -98,6 +98,43 @@
             <div class="row">
                 <h2 class="">Quản Lý Hóa Đơn Online</h2>
 
+                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
+                    <div class="container-fluid">
+                        <form action="/t-shirt-luxury/admin/timHDO" method="get" class="d-flex align-items-center gap-2 w-100">
+                            <!-- Ô tìm kiếm -->
+                            <input
+                                    name="searchTerm"
+                                    class="form-control"
+                                    type="search"
+                                    placeholder="Tìm tên khách hàng hoặc mã hóa đơn"
+                                    aria-label="Search"
+                                    value="${searchTerm}"
+                                    style="max-width: 600px;">
+
+                            <!-- Dropdown chọn trạng thái -->
+                            <select class="form-select" name="trangThai" id="trangThai" style="width: 30%;">
+                                <option value="">-- Chọn Trạng Thái --</option>
+                                <option value="0" ${trangThai == 0 ? 'selected' : ''}>Chờ thanh toán</option>
+                                <option value="1" ${trangThai == 1 ? 'selected' : ''}>Đã thanh toán</option>
+                                <option value="2" ${trangThai == 2 ? 'selected' : ''}>Chờ xác nhận</option>
+                                <option value="3" ${trangThai == 3 ? 'selected' : ''}>Đang giao hàng</option>
+                                <option value="4" ${trangThai == 4 ? 'selected' : ''}>Giao hàng thành công</option>
+                            </select>
+
+                            <!-- Nút tìm kiếm -->
+                            <button class="btn btn-success d-flex align-items-center px-4 mt-2" type="submit">
+                                <i class="bi bi-search me-1"></i> Tìm Kiếm
+                            </button>
+
+                            <!-- Nút reset -->
+                            <a href="/t-shirt-luxury/admin/timHDO" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
+                                <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                            </a>
+                        </form>
+                    </div>
+                </nav>
+
+
                 <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                         data-bs-target="#themSanPham">
