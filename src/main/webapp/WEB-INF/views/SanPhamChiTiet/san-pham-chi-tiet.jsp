@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +18,8 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/sanPhamChiTiet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -39,7 +42,8 @@
             <div class="search-favourite-cart-popup" style="margin-left: 0;">
                 <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp"
+                           placeholder="Tìm kiếm">
                 </form>
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
@@ -47,7 +51,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -113,7 +117,7 @@
             <a href="#">
                 <i class="fa-regular fa-heart ps-5"></i>
             </a>
-            <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
+            <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                 <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
             </a>
 
@@ -237,135 +241,197 @@
 
 
     <div class="col-4">
-        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">
-            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
-            <h6>${spDetail.tenSanPham}</h6>
-            <p>Còn hàng</p>
-            <hr>
+<%--        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">--%>
+<%--            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">--%>
+<%--            <h6>${spDetail.tenSanPham}</h6>--%>
+<%--            <p>Còn hàng</p>--%>
+<%--            <hr>--%>
 
-            <div class="color">
-                <h6>MÀU SẮC</h6>
-                <div class="d-flex gap-2">
-                    <c:forEach var="ms" items="${mauSac}">
-                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">
-                        <span>${ms.tenMauSac}</span>
-                    </c:forEach>
-                </div>
+<%--            <div class="color">--%>
+<%--                <h6>MÀU SẮC</h6>--%>
+<%--                <div class="d-flex gap-2">--%>
+<%--                    <c:forEach var="ms" items="${mauSac}">--%>
+<%--                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">--%>
+<%--                        <span>${ms.tenMauSac}</span>--%>
+<%--                    </c:forEach>--%>
+<%--                </div>--%>
 
 
+<%--            </div>--%>
+
+<%--            <div class="size" style="margin-top: 5px;">--%>
+<%--                <div class="row">--%>
+<%--                    <div class="col-4">--%>
+<%--                        <h6>KÍCH THƯỚC</h6>--%>
+<%--                    </div>--%>
+<%--                    <div class="col-6">--%>
+<%--                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize"--%>
+<%--                           style="color: black;text-decoration: none">Hướng dẫn--%>
+<%--                            chọn size</a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="d-flex gap-2">--%>
+<%--                    <c:forEach var="s" items="${size}">--%>
+<%--                        <input type="radio" class="btn" name="size" value="${s.id}">--%>
+<%--                        <span>${s.tenSize}</span>--%>
+<%--                    </c:forEach>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="soLuong" style="margin-top: 10px;">--%>
+<%--                <div class="counter">--%>
+<%--                    <button type="button" class="btn" id="decrease"><b>-</b></button>--%>
+<%--                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;"--%>
+<%--                           name="soLuong">--%>
+<%--                    <button type="button" class="btn" id="increase"><b>+</b></button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <span style="color:red">--%>
+<%--                ${errorMessage}--%>
+<%--            </span>--%>
+
+
+<%--            <div class="order" style="margin-top: 20px;">--%>
+
+
+<%--                <p style="color: red">${notiOnl}</p>--%>
+<%--                <p style="color:red;">${quaSoLuong}</p>--%>
+<%--        --%>
+<%--                <div class="order" style="margin-top: 20px;">--%>
+
+<%--                    <button type="button" class="btn btn-dark" style="width:185px" onclick="showSuccessMessage()">THÊM--%>
+<%--                        VÀO GIỎ HÀNG--%>
+<%--                    </button>--%>
+
+
+<%--                    <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>--%>
+<%--                </div>--%>
+
+<%--            </div>--%>
+
+<%--        </form>--%>
+    <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">
+        <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
+        <h6>${spDetail.tenSanPham}</h6>
+        <p>Còn hàng</p>
+        <hr>
+
+        <!-- Color Selection -->
+        <div class="color">
+            <h6>MÀU SẮC</h6>
+            <div class="d-flex gap-2">
+                <c:forEach var="ms" items="${mauSac}">
+                    <input type="radio" class="btn" name="mauSac" value="${ms.id}">
+                    <span>${ms.tenMauSac}</span>
+                </c:forEach>
             </div>
+        </div>
 
-            <div class="size" style="margin-top: 5px;">
-                <div class="row">
-                    <div class="col-4">
-                        <h6>KÍCH THƯỚC</h6>
-                    </div>
-                    <div class="col-6">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;text-decoration: none">Hướng dẫn
-                            chọn size</a>
-                    </div>
+        <!-- Size Selection -->
+        <div class="size" style="margin-top: 5px;">
+            <div class="row">
+                <div class="col-4">
+                    <h6>KÍCH THƯỚC</h6>
                 </div>
-                <div class="d-flex gap-2">
-                    <c:forEach var="s" items="${size}">
-                        <input type="radio" class="btn" name="size" value="${s.id}">
-                        <span>${s.tenSize}</span>
-                    </c:forEach>
+                <div class="col-6">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;text-decoration: none">Hướng dẫn chọn size</a>
                 </div>
             </div>
-            <div class="soLuong" style="margin-top: 10px;">
-                <div class="counter">
-                    <button type="button" class="btn" id="decrease"><b>-</b></button>
-                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;"
-                           name="soLuong">
-                    <button type="button" class="btn" id="increase"><b>+</b></button>
-                </div>
+            <div class="d-flex gap-2">
+                <c:forEach var="s" items="${size}">
+                    <input type="radio" class="btn" name="size" value="${s.id}">
+                    <span>${s.tenSize}</span>
+                </c:forEach>
             </div>
-            <span style="color:red">
-                ${errorMessage}
-            </span>
+        </div>
 
+        <!-- Quantity Selector -->
+        <div class="soLuong" style="margin-top: 10px;">
+            <div class="counter">
+                <button type="button" class="btn" id="decrease"><b>-</b></button>
+                <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;" name="soLuong">
+                <button type="button" class="btn" id="increase"><b>+</b></button>
+            </div>
+        </div>
 
-            <div class="order" style="margin-top: 20px;">
+        <!-- Error Messages -->
+        <span style="color:red">${errorMessage}</span>
 
-
+        <!-- Add to Cart Button -->
+        <div class="order" style="margin-top: 20px;">
             <p style="color: red">${notiOnl}</p>
             <p style="color:red;">${quaSoLuong}</p>
-        <div class="order" style="margin-top: 20px;">
-
-                <button type="submit" class="btn btn-dark" style="width:185px">THÊM VÀO GIỎ HÀNG</button>
-
-
-                <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
-            </div>
-
-            <!-- Thuộc Tính Sản Phẩm  -->
-            <div class="accordion" id="accordionExample" style="margin-top: 20px">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            THUỘC TÍNH SẢN PHẨM
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <P>Chất liệu: 90% Polyester, 9% Rayon, 1% Spandex</p>
-                            <P>►Vải Polyester chống nhăn hiệu quả, giữ nhiệt tốt, độ bền cao</P>
-                            <P>►Vải Rayon thoáng mát, mềm mại</P>
-                            <P>Kiểu dáng:
-                                <br>
-                                ►Form Classic rộng thoáng, dễ mặc tạo sự thoải mái tối đa</P>
-                            <P> Chi tiết:
-                                <br>
-                                ►Chất liệu có sự kết hợp của vải Rayon an toàn cho da, thoáng khí, hút ẩm tốt và đặc
-                                biệt là ít nhăn và có độ bền cao</P>
-                            <p> ►Thiết kế cổ tròn basic hài hòa, dễ chịu</p>
-                            <p>►Áo bo gấu nhẹ nhàng tạo sự gọn gàng, thoải mái</p>
-                            <p> ►Áo với hoạ tiết kẻ sọc năng động, dễ dàng đa dạng phong cách </P>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            CHÍNH SÁCH SẢN PHẨM
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p> ►Đổi hàng trong vòng 15 ngày.</p>
-                            <p> ►Giảm đến 15% trên tổng hóa đơn khi mua hàng ( tại cửa hàng ) vào tháng sinh nhật.</p>
-                            <p> ►Giao hàng nội thành Hà Nội chỉ từ 15.000đ trong vòng 24 giờ.</p>
-                            <p> ►Tích điểm 3-8% giá trị đơn hàng cho mỗi lần mua và trừ tiền vào lần mua tiếp theo.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            HƯỚNG DẪN BẢO QUẢN
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p>►Có thể giặt tay hay giặt máy đều được (ưu tiên giặt tay để tăng tuổi thọ của sản phẩm)
-                            </p>
-                            <p>►Lộn trái sản phẩm khi giặt, không giặt chung sản phẩm trắng với quần áo tối màu.</p>
-                            <p>►Sử dụng xà phòng trung tính,không sử dụng xà phòng có chất tẩy mạnh. </p>
-                            <p>►Không sử dụng chất tẩy, không ngâm sản phẩm. </p>
-                            <p>►Hạn chế sấy ở nhiệt độ cao, bảo quản nơi khô ráo, thoáng mát, không phơi trực tiếp dưới
-                                ánh nắng mặt trời.</p>
-
-                        </div>
+            <button type="button" class="btn btn-dark" style="width:185px" onclick="handleAddToCart()">THÊM VÀO GIỎ HÀNG</button>
+            <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
+        </div>
+    </form>
+        <!-- Thuộc Tính Sản Phẩm  -->
+        <div class="accordion" id="accordionExample" style="margin-top: 20px">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        THUỘC TÍNH SẢN PHẨM
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <P>Chất liệu: 90% Polyester, 9% Rayon, 1% Spandex</p>
+                        <P>►Vải Polyester chống nhăn hiệu quả, giữ nhiệt tốt, độ bền cao</P>
+                        <P>►Vải Rayon thoáng mát, mềm mại</P>
+                        <P>Kiểu dáng:
+                            <br>
+                            ►Form Classic rộng thoáng, dễ mặc tạo sự thoải mái tối đa</P>
+                        <P> Chi tiết:
+                            <br>
+                            ►Chất liệu có sự kết hợp của vải Rayon an toàn cho da, thoáng khí, hút ẩm tốt và đặc
+                            biệt là ít nhăn và có độ bền cao</P>
+                        <p> ►Thiết kế cổ tròn basic hài hòa, dễ chịu</p>
+                        <p>►Áo bo gấu nhẹ nhàng tạo sự gọn gàng, thoải mái</p>
+                        <p> ►Áo với hoạ tiết kẻ sọc năng động, dễ dàng đa dạng phong cách </P>
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        CHÍNH SÁCH SẢN PHẨM
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p> ►Đổi hàng trong vòng 15 ngày.</p>
+                        <p> ►Giảm đến 15% trên tổng hóa đơn khi mua hàng ( tại cửa hàng ) vào tháng sinh nhật.</p>
+                        <p> ►Giao hàng nội thành Hà Nội chỉ từ 15.000đ trong vòng 24 giờ.</p>
+                        <p> ►Tích điểm 3-8% giá trị đơn hàng cho mỗi lần mua và trừ tiền vào lần mua tiếp theo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        HƯỚNG DẪN BẢO QUẢN
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>►Có thể giặt tay hay giặt máy đều được (ưu tiên giặt tay để tăng tuổi thọ của sản phẩm)
+                        </p>
+                        <p>►Lộn trái sản phẩm khi giặt, không giặt chung sản phẩm trắng với quần áo tối màu.</p>
+                        <p>►Sử dụng xà phòng trung tính,không sử dụng xà phòng có chất tẩy mạnh. </p>
+                        <p>►Không sử dụng chất tẩy, không ngâm sản phẩm. </p>
+                        <p>►Hạn chế sấy ở nhiệt độ cao, bảo quản nơi khô ráo, thoáng mát, không phơi trực tiếp dưới
+                            ánh nắng mặt trời.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -618,9 +684,7 @@
         });
     });
 
-</script>
-<script>
-    document.getElementById("searchForm").addEventListener("submit", function(event) {
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
         // Đảm bảo chỉ ngăn gửi form nếu cần
         const searchInput = document.getElementById("search").value.trim();
         if (!searchInput) {
@@ -629,7 +693,7 @@
         }
     });
 
-    document.getElementById("searchForm").addEventListener("submit", function(event) {
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
         // Đảm bảo chỉ ngăn gửi form nếu cần
         const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
         if (!searchInput) {
@@ -638,6 +702,37 @@
         }
     });
 
+
+    function handleAddToCart() {
+        // Lấy giá trị từ các trường form
+        var mauSac = document.querySelector('input[name="mauSac"]:checked');
+        var size = document.querySelector('input[name="size"]:checked');
+        var soLuong = document.getElementById('number').value;
+
+        // Kiểm tra tính hợp lệ của form
+        if (!mauSac || !size || !soLuong || soLuong <= 0) {
+            // Nếu không hợp lệ, hiển thị thông báo lỗi
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Vui lòng chọn màu sắc, kích thước và số lượng hợp lệ.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Nếu form hợp lệ, hiển thị thông báo thành công
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Sản phẩm đã được thêm vào giỏ hàng!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 5000, // Hiển thị trong 5 giây
+                willClose: () => {
+                    // Gửi form sau khi thông báo đóng
+                    document.getElementById('addToCartForm').submit();
+                }
+            });
+        }
+    }
 
 
 </script>

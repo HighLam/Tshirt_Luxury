@@ -4,11 +4,13 @@ import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
@@ -33,7 +35,7 @@ public class banHangOnlController {
 
     boolean checkTTNH(ThongTinNhanHang thongTinNhanHang, RedirectAttributes redirectAttributes) {
         if (thongTinNhanHang.getHoVaTen().isEmpty() || thongTinNhanHang.getHoVaTen() == null) {
-            String validHoTen = "Họ tên không được để trống";
+            String validHoTen = "Họ và tên không được để trống";
             redirectAttributes.addFlashAttribute("errorName", validHoTen);
             return false;
         } else {
@@ -47,7 +49,7 @@ public class banHangOnlController {
             redirectAttributes.addFlashAttribute("soDienThoai", thongTinNhanHang.getSoDienThoai());
         }
         if (thongTinNhanHang.getDiaChiNhanHang().isEmpty() || thongTinNhanHang.getDiaChiNhanHang() == null) {
-            String valiAddess = "Địa chỉ thoại không được để trống";
+            String valiAddess = "Địa chỉ không được để trống";
             redirectAttributes.addFlashAttribute("errorAddess", valiAddess);
             return false;
         } else {
@@ -170,23 +172,31 @@ public class banHangOnlController {
         // Chuyển đổi sang Float
         float tongTienParsed = Float.parseFloat(tongTien);
 
+
         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-        HoaDon  hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
-        hoaDon.setMaHoaDon(generateMaHoaDon());
-        hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
-        hoaDon.setTongTien(tongTienParsed);
-        hoaDon.setTrangThai(2);
-        hoaDonRepo.save(hoaDon);
-        Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-        GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
-        gioHang.setNgaySua(new Date());
-        gioHang.setNgayTao(new Date());
-        gioHang.setTrangThai(1);
-        gioHangRepo.save(gioHang);
+        HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDonOnl");
+        if (hoaDon == null || hoaDon.getThongTinNhanHang() == null || hoaDon.getThongTinNhanHang().getId() == null) {
+            String TTGHNull = "Chưa có thông tin giao hàng";
+            session.setAttribute("TTGHNull", TTGHNull);
+            return "redirect:/t-shirt-luxury/ban-hang-onl";
+        }
+        else {
+
+            hoaDon.setMaHoaDon(generateMaHoaDon());
+            hoaDon.setVoucher((Voucher) session.getAttribute("voucher"));
+            hoaDon.setTongTien(tongTienParsed);
+            hoaDon.setTrangThai(2);
+            hoaDonRepo.save(hoaDon);
+            Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+            GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+            gioHang.setNgaySua(new Date());
+            gioHang.setNgayTao(new Date());
+            gioHang.setTrangThai(1);
+            gioHangRepo.save(gioHang);
 
 
-        List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-        List<Integer>listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+            List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
+            List<Integer> listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
 
             for (Integer idSPCT : listIDSPCT) {
                 SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
@@ -199,19 +209,39 @@ public class banHangOnlController {
                 hoaDonChiTietOnl.setSanPhamChiTiet(sanPhamChiTiet);
 
                 for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
-                hoaDonChiTietOnl.setSoLuong(gioHangChiTiet.getSoLuong());
+                    hoaDonChiTietOnl.setSoLuong(gioHangChiTiet.getSoLuong());
                 }
 
                 hoaDonChiTietRepo.save(hoaDonChiTietOnl);
 
+            }
+
+
+            session.setAttribute("giaTriGiam", 0);
+
+            gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
         }
-
-
-        session.setAttribute("giaTriGiam",0);
-
-        gioHangChiTietRepo.deleteByIdGioHang(idGioHang);
-
         return "redirect:/t-shirt-luxury/trang-chu";
+    }
+
+
+    @PostMapping("/t-shirt-luxury/ban-hang-onl/update-quantity")
+    @ResponseBody // Trả về JSON khi được gọi bằng AJAX
+    public ResponseEntity<String> updateQuantity(@RequestParam("idGioHangChiTiet") Integer idGioHangChiTiet,
+                                                 @RequestParam("soLuong") Integer soLuong) {
+        try {
+            GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.findById(idGioHangChiTiet)
+                    .orElseThrow(() -> new IllegalArgumentException("Chi tiết giỏ hàng không tồn tại"));
+
+            gioHangChiTiet.setSoLuong(soLuong);
+            gioHangChiTietRepo.save(gioHangChiTiet);
+            System.out.println(idGioHangChiTiet);
+
+            return ResponseEntity.ok("Cập nhật thành công!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Cập nhật thất bại!"+idGioHangChiTiet);
+
+        }
     }
 
 
