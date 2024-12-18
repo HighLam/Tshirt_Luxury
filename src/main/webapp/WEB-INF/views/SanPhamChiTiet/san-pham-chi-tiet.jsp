@@ -1,14 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<jsp:include page="../DanhMuc/gio-hang.jsp" />--%>
-<jsp:include page="../DanhMuc/gio-hang.jsp"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chi Tiết Sản Phẩm</title>
     <%--    <link rel="stylesheet" href="../css/sanPhamChiTiet.css">--%>
     <link rel="stylesheet" href="../css/sanPhamChiTiet.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
@@ -38,9 +37,9 @@
                 </a>
             </div>
             <div class="search-favourite-cart-popup" style="margin-left: 0;">
-                <form action="" class="form-search-popup">
+                <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                 </form>
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
@@ -104,9 +103,9 @@
             <li><a href="#" class="name-danh-muc-popup">Tin tức</a></li>
         </ul>
         <div class="search-favourite-cart-popup">
-            <form action="" class="form-search-popup">
+            <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
             </form>
             <a href="#">
                 <i class="fa-regular fa-user ps-5"></i>
@@ -114,7 +113,7 @@
             <a href="#">
                 <i class="fa-regular fa-heart ps-5"></i>
             </a>
-            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+            <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                 <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
             </a>
 
@@ -385,10 +384,10 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none">
-                <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top"
+                <img src="../images/ao_phong_boxy/DEVOTUS/white.webp" class="card-img-top"
                      alt="...">
                 <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông DEVOTUS</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                     <div class="text-center" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
@@ -401,9 +400,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_co_chu_v/ATINO/black.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Cổ Chữ V</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -415,9 +414,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_unisex/LABUBU/pink.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông LABUBU</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -429,9 +428,9 @@
         </div>
         <div class="col-3">
             <div class="card" style="width: 18rem; border-style:none"></div>
-            <img src="/images/Images_teeshirt/ao_phong_unisex/Airplane/black.webp" class="card-img-top" alt="...">
+            <img src="../images/ao_phong_unisex/SMILE/green.webp" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
+                <h5 class="card-title text-center" style="font-size:13px">Áo Phông SMILE</h5>
                 <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
                 <div class="text-center" style="font-size:5px">
                     <a href="#" class="btn btn-outline-light">
@@ -442,7 +441,7 @@
             </div>
         </div>
         <div class="text-center mt-4" style="padding-left:2rem">
-            <button class="btn btn-outline-dark" type="submit" style="width: 110px;">Xem Thêm</button>
+            <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them" style="width: 110px;">Xem Thêm</a>
         </div>
     </div>
 </div>
@@ -615,4 +614,27 @@
     });
 
 </script>
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("search").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+
+
+</script>
+
 </html>

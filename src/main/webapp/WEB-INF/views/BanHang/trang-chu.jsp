@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +41,11 @@
                     <li><a href="#" class="name-danh-muc-popup">Album</a></li>
                     <li><a href="#" class="name-danh-muc-popup">Tin tức</a></li>
                 </ul>
+
                 <div class="search-favourite-cart-popup">
-                    <form action="" class="form-search-popup">
+                    <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                        <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                     </form>
                     <a href="#">
                         <i class="fa-regular fa-user ps-5"></i>
@@ -50,7 +53,7 @@
                     <a href="#">
                         <i class="fa-regular fa-heart ps-5"></i>
                     </a>
-                    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                    <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                         <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                     </a>
 
@@ -136,10 +139,11 @@
                 </a>
             </div>
             <div class="search-favourite-cart">
-                <form action="" class="form-search">
+                <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="input-search" type="text" name="" id="" placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
                 </form>
+
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
                 </a>
@@ -167,13 +171,15 @@
         <c:forEach var="spNew" items="${sanPhamList}" >
 
         <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
+            <div class="card product-card" style="width: 18rem; border-style:none">
                 <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
-                <div class="card-body">
+                <div class="card-body product-info">
                     <h5 class="card-title text-center" style="font-size:13px">${spNew.tenSanPham}</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">${spNew.gia}</p>
+                    <p class="card-text fw-bold text-center" style="font-size: 14px;">
+                        <fmt:formatNumber value='${spNew.gia}' pattern="#,##0"/>₫
+                    </p>
 
-                    <div class="text-center" style="font-size:5px">
+                    <div class="text-center product-actions" style="font-size:5px">
                         <a href="#" class="btn btn-outline-light">
                             <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
                         <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spNew.id}" class="btn btn-outline-light">
@@ -263,7 +269,7 @@
     </div>
 
     <div class="text-center mt-4" style="padding-left:2rem">
-        <a class="btn btn-outline-dark" type="submit">Xem Thêm</a>
+        <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them">Xem Thêm</a>
     </div>
 
     <div class="text-center mt-5" style="padding-left:2rem">
@@ -555,5 +561,28 @@
         crossorigin="anonymous"></script>
 
 </body>
+
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("search").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+
+
+</script>
 
 </html>

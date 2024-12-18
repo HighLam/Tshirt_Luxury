@@ -4,6 +4,7 @@ package com.example.tshirt_luxury_datn.controller;
 import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.sanPhamResponse;
+import com.example.tshirt_luxury_datn.response.sanPhamSearchResponse;
 import jakarta.servlet.http.HttpSession;
 import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,9 @@ public class trangChuController {
         Pageable pageable = PageRequest.of(0, 4); // Lấy 4 sản phẩm mới nhất
         List<sanPhamResponse> sanPhamList = sanPhamRepo.findTop4NewestSanPhamWithGia(pageable);
         System.out.println(sanPhamList);
+
         model.addAttribute("sanPhamList", sanPhamList);
+
         return "BanHang/trang-chu";
     }
 
@@ -129,6 +132,16 @@ public class trangChuController {
 
 
         return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+    }
+
+
+    @GetMapping("/t-shirt-luxury/tim-san-pham")
+    public String timSanPham(Model model, @RequestParam("timKiemSanPham") String timKiemSanPham) {
+
+        List<sanPhamSearchResponse> results = sanPhamRepo.sanPhamSearch(timKiemSanPham);
+        model.addAttribute("sanPhamSearch", results);
+        System.out.println("fhsjdkshfkshkdfjfhskjkdsjhfkshdkjhjk" + results);
+        return "Other/tim-kiem-san-pham";
     }
 
 

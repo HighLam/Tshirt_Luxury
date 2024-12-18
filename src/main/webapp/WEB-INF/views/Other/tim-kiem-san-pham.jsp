@@ -37,9 +37,9 @@
                     </a>
                 </div>
                 <div class="search-favourite-cart-popup" style="margin-left: 0;">
-                    <form action="" class="form-search-popup">
+                    <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                        <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
                     </form>
                     <a href="#">
                         <i class="fa-regular fa-user ps-5"></i>
@@ -48,7 +48,7 @@
                         <i class="fa-regular fa-heart ps-5"></i>
                     </a>
                     <!--mở Drawer giỏ hàng -->
-                    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                    <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                         <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                     </a>
                 </div>
@@ -314,26 +314,26 @@
     </nav>
 
     <div class="row">
-        <c:forEach var="spsearch" items="${allSanPham}">
-            <div class="col-md-3">
-                <div class="card product-card">
-                    <img alt="Anh1"
-                         src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="600"/>
-                    <div class="product-info">
-                        <div class="colors"><img alt="option 1" height="20"
-                                                 src="../images/ao_phong_boxy/DEVOTUS/black.webp"
-                                                 width="20"/></div>
-                        <p>${spsearch.tenSanPham}</p>
-                        <p class="price">
-                            <fmt:formatNumber value='${spsearch.gia}' pattern="#,##0"/>₫</p>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                        <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spsearch.id}" class="btn btn-outline-dark"><i class="fas fa-eye"></i>
-                            Xem chi tiết</a>
-                    </div>
+        <c:forEach var="spsearch" items="${sanPhamSearch}">
+        <div class="col-md-3">
+            <div class="card product-card">
+                <img alt="Anh1"
+                     src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="600"/>
+                <div class="product-info">
+                    <div class="colors"><img alt="option 1" height="20"
+                                             src="../images/ao_phong_boxy/DEVOTUS/black.webp"
+                                             width="20"/></div>
+                    <p>${spsearch.tenSanPham}</p>
+                    <p class="price">
+                        <fmt:formatNumber value='${spsearch.gia}' pattern="#,##0"/>₫</p>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
+                    <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spsearch.id}" class="btn btn-outline-dark"><i class="fas fa-eye"></i>
+                        Xem chi tiết</a>
                 </div>
             </div>
+        </div>
         </c:forEach>
 
     </div>

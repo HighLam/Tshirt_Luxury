@@ -134,6 +134,11 @@ public class sanPhamController {
     }
 
 
+    @GetMapping("t-shirt-luxury/xem-them")
+    public String xemThem(Model model) {
+        model.addAttribute("allSanPham", sanPhamRepository.getAllXemThem());
+        return "Other/xem-them";
+    }
 
 
 
