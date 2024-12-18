@@ -181,8 +181,9 @@
                         </table>
                     </div>
 
-
+                    <p style="color:red;">${errorSL}</p>
                     <hr>
+
                     <div class="HDCT" style="overflow-y: auto;">
 
                         <table class="table">

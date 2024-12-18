@@ -120,7 +120,7 @@
                     <select class="form-select" aria-label="Default select example" name="danhMuc.id">
                         <c:forEach items="${danhMuc}" var="s">
                             <option  hidden="hidden">Chọn danh mục</option>
-                            <option value="${s.id}" ${sanPham.danhMuc.id.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
+                            <option value="${s.id}" ${sanPham.danhMuc.tenDanhMuc.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
                         </c:forEach>
 
                     </select>

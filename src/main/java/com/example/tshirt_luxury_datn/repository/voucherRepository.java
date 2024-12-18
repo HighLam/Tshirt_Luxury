@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface voucherRepository extends JpaRepository<Voucher, Integer> {
-    @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien", nativeQuery = true)
+    @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien AND vc.so_luong >= 1 AND vc.trang_thai = 1", nativeQuery = true)
     List<Voucher> listVoucher(@Param("tongTien") Float tongTien);
 
     @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)

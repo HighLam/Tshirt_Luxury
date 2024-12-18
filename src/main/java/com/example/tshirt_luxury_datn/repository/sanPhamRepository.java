@@ -12,9 +12,11 @@ import java.util.List;
 
 @Repository
 public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
-    @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord% ", nativeQuery = true)
+    @Query(value = "SELECT * FROM san_pham WHERE ten_san_pham LIKE  %:keyWord%  AND trang_thai = 1 ", nativeQuery = true)
     List<SanPham> timKiem(@Param("keyWord") String keyWord);
 
+    @Query(value = "SELECT * FROM san_pham WHERE trang_thai = 1 ", nativeQuery = true)
+    List<SanPham> SanPham();
 
     @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamResponse(s.id, s.maSanPham, s.tenSanPham, s.ngayTao, " +
             " (SELECT spc.gia FROM SanPhamChiTiet spc WHERE spc.sanPham.id = s.id ORDER BY spc.ngayTao DESC LIMIT 1)) " +

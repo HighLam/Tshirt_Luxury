@@ -79,7 +79,7 @@ public class adminController {
     public String getSanPhamChiTiet(Model model, HttpSession session) {
         List<SanPham> sanPhamList = (List<SanPham>) session.getAttribute("SP");
         if(sanPhamList == null) {
-            model.addAttribute("SP", sanPhamRepo.findAll());
+            model.addAttribute("SP", sanPhamRepo.SanPham());
         }
         else{
             model.addAttribute("SP", session.getAttribute("SP"));
@@ -93,6 +93,7 @@ public class adminController {
         model.addAttribute("idVoucher", session.getAttribute("idVoucher"));
         model.addAttribute("noti", session.getAttribute("noti"));
         model.addAttribute("notiVC", session.getAttribute("notiVC"));
+        model.addAttribute("errorSL",session.getAttribute("errorSL"));
         session.setAttribute("listVoucher",voucherRepo.listVoucher(tongTien));
         return "admin/admin";
     }
@@ -184,12 +185,18 @@ public class adminController {
                     hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
                     hoaDonChiTietRepo.save(hoaDonChiTiet1);
                     redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
+                    String errorSL = "121";
+                    session.setAttribute("errorSL",errorSL);
                 } else {
                     redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+                    String errorSL = "Số lượng k đc quá "+ soLuongSpct;
+                    session.setAttribute("errorSL",errorSL);
                 }
             }
 
             else {
+                String errorSL = "";
+                session.setAttribute("errorSL",errorSL);
                 // Nếu sản phẩm chưa tồn tại, thêm mới
                 if (soLuong <= soLuongSpct) {
                     HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
