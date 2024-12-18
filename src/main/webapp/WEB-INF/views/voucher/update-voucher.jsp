@@ -170,12 +170,6 @@
 </div>
 
 
-
-
-
-
-
-</div>
 <script>
     $(document).ready(function() {
         // Kiểm tra nếu errorMessage có giá trị (lỗi tồn tại)
@@ -201,6 +195,7 @@
         }
     });
 </script>
+
 </body>
 
 </html>

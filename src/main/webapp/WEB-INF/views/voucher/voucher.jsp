@@ -139,6 +139,7 @@
                         <th scope="col">Ngày Bắt Đầu</th>
                         <th scope="col">Ngày Kết Thúc</th>
                         <th scope="col">Số Lượng</th>
+                        <th scope="col">Giới hạn giảm</th>
                         <th scope="col">Mức Chi Tối Thiểu</th>
                         <th scope="col">Giới Hạn Giảm</th>
                         <th scope="col">Trạng Thái</th>
@@ -242,6 +243,28 @@
                                value="0">
                         <label class="form-check-label">Chưa Hoạt Động</label>
                     </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Điều Kiện Áp Dụng" name="dieuKienApDung">
+                    <label for="floatingInput">Điều kiện áp dụng</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Mục Chi Tiêu Tối Thiểu" name="mucChiToiThieu">
+                    <label for="floatingInput">Mức chi tiêu tối thiểu</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="Giới hạn giảm" name="gioiHan">
+                    <label for="floatingInput">Giới hạn giảm</label>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thêm Mới</button>
+                </div>
+            </div>
                     <p style="color: red">${errorNgayKetThucVoucher}</p>
 <%--                    <div class="mt-3 mb-3">--%>
 <%--                        <div class="text mt-2">--%>

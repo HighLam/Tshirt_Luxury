@@ -94,17 +94,17 @@
                 <c:when test="${voucherTrongHoaDon.voucher != null && voucherTrongHoaDon.voucher.tenVoucher != null}">
                     <h6 class="fw-normal ms-3">Áp dụng Voucher: ${voucherTrongHoaDon.voucher.tenVoucher} (giảm ${voucherTrongHoaDon.voucher.giaTriGiam}%)</h6>
                     <p class="ms-3" >
-                        Tổng phụ <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                        Tổng phụ: <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
                     </p>
 
                     <p class="ms-3" style="color:red;">
-                    Chiết khấu <fmt:formatNumber value="${giaTienBanDau * (voucherTrongHoaDon.voucher.giaTriGiam / 100)}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                    Chiết khấu <fmt:formatNumber value="${giaTriGiam}" type="currency" currencySymbol="₫" groupingUsed="true" />
                     </p>
                 </c:when>
                 <c:otherwise>
                     <h6 class="fw-normal ms-3 fst-italic">Khách hàng không áp dụng Voucher cho hóa đơn này!</h6>
                     <p class="ms-3" >
-                        Tổng phụ <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                        Tổng phụ: <fmt:formatNumber value="${giaTienBanDau}" type="currency" currencySymbol="₫" groupingUsed="true" />
                     </p>
                 </c:otherwise>
             </c:choose>

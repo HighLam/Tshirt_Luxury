@@ -287,6 +287,11 @@
 
             <div class="order" style="margin-top: 20px;">
 
+
+            <p style="color: red">${notiOnl}</p>
+            <p style="color:red;">${quaSoLuong}</p>
+        <div class="order" style="margin-top: 20px;">
+
                 <button type="submit" class="btn btn-dark" style="width:185px">THÊM VÀO GIỎ HÀNG</button>
 
 

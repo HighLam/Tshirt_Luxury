@@ -37,13 +37,14 @@ public class Voucher {
     @Column(name = "ngay_bat_dau")
     private Date ngayBatDau;
 
+    @Column(name = "gioi_han")
+    private Integer gioiHan;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "ngay_ket_thuc")
     @DateTimeFormat(pattern = "yyyy-MM-dd")  // Thêm pattern để Spring biết cách chuyển đổi
     private Date ngayKetThuc;
 
-    @Column(name = "gioi_han")
-    private Integer gioiHan;
 
     @Column(name = "so_luong")
     private Integer soLuong;

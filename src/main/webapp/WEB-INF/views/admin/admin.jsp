@@ -192,7 +192,9 @@
                     <span style="color:red">
                         ${errorMessage}
                     </span>
+                    <p style="color:red;">${errorSL}</p>
                     <hr>
+
                     <div class="HDCT" style="overflow-y: auto;">
 
                         <table class="table">
@@ -304,7 +306,7 @@
                                     </div>
                                 </form>
                             </div>
-
+                                <p style="color: red">${notiVC}</p>
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
@@ -345,15 +347,15 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫
+                                    <p> <fmt:formatNumber value='${chietKhau}' pattern="#,##0" />₫
+<%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
                                     </p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Khách phải trả</p>
-                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text"
-                                           id="tongTienHoaDon" name="tongTienHoaDon"
-                                           value="<fmt:formatNumber value='${tongTien - (tongTien * chietKhau / 100)}' pattern="#,##0" />"
+                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                           value="<fmt:formatNumber value='${tongTien - chietKhau}' pattern="#,##0" />"
                                            readonly/>
                                     <spacer>₫</spacer>
                                 </div>
@@ -374,11 +376,8 @@
 
                             <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
 
-                                <a onclick="confirmHuyHoaDon()"
-                                   href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}"
-                                   class="btn btn-secondary">Hủy</a>
-                                <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
-
+                                <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
+                                <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh toán</button>
                             </div>
                             <p style="color: red">${noti}</p>
                         </form>

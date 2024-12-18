@@ -20,21 +20,24 @@
             <form action="/t-shirt-luxury/ban-hang-onl/createHD" method="post">
                 <div class="mb-3">
                     <input style="width: 600px; height: 50px;" class="form-control me-2"
-                           placeholder="Họ và tên" name="hoVaTen">
+                           placeholder="Họ và tên" name="hoVaTen" value="${hoVaTen}">
                 </div>
+                <p class="mb-3" style="color:red">${errorName}</p>
                 <div class="mb-3">
                     <input style="width: 600px;  height: 50px;" class="form-control me-2"
-                           placeholder="Số điện thoại" name="soDienThoai">
+                           placeholder="Số điện thoại" name="soDienThoai" value="${soDienThoai}">
                 </div>
+                <p class="mb-3" style="color:red">${errorNumber}</p>
                 <div class="mb-3 ">
                     <input style="width: 600px;  height: 50px; " class="form-control me-2"
-                           placeholder="Địa chỉ" name="diaChiNhanHang">
+                           placeholder="Địa chỉ" name="diaChiNhanHang" value="${diaChiNhanHang}">
                 </div>
+                <p class="mb-3" style="color:red">${errorAddess}</p>
                 <div class="mb-3 ">
                         <textarea style="width: 600px; height: 100px;" class="form-control me-2"
                                   placeholder="Ghi chú"  name="ghiChu"></textarea>
                 </div>
-                <button style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
+                <button style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất thông tin giao hàng</button>
             </form>
         </div>
 
@@ -67,17 +70,7 @@
                 <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
                 <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac} - ${bh.sanPhamChiTiet.size.tenSize} </td>
                 <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0" />₫ </td>
-                <td><div class="ms-auto d-flex align-items-center">
-                    <a href="/t-shirt-luxury/ban-hang-onl/subtract?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
-                    <input min="1"
-                            class="form-control text-center mx-2"
-                            style="width: 50px"
-                            type="text"
-                            value="${bh.soLuong}"
-                            id="quantity"
-                    />
-                    <a href="/t-shirt-luxury/ban-hang-onl/plus?id=${bh.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
-                </div>
+                <td>x${bh.soLuong}
                 </td>
             </tr>
             </c:forEach>
@@ -91,9 +84,10 @@
         <div class="d-flex">
         <h5 class="fw-normal" >Tổng cộng: </h5>
         <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
-               value="<fmt:formatNumber value='${tongTienGioHang - (tongTienGioHang * giaTriGiam / 100) + 35000}' pattern="#,##0"/>"
+               value="<fmt:formatNumber value='${tongTienGioHang -  giaTriGiam  + 35000}' pattern="#,##0"/>"
                readonly/>
         </div>
+            <p style="color: red">${TTGHNull}</p>
         <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
         </form>
     </div>
@@ -105,28 +99,62 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
-    const decrementBtn = document.getElementById("decrement");
-    const incrementBtn = document.getElementById("increment");
-    const quantityInput = document.getElementById("quantity");
-
-    // Xử lý khi nhấn nút Trừ (-)
-    decrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value) || 0;
-        if (currentValue > 0) {
-            quantityInput.value = currentValue - 1;
+    $(document).ready(function () {
+        function updateQuantity(id, quantity) {
+            $.ajax({
+                url: '/t-shirt-luxury/ban-hang-onl/update-quantity', // Endpoint Controller
+                type: 'POST',
+                data: {
+                    idGioHangChiTiet: id,
+                    soLuong: quantity
+                },
+                success: function (response) {
+                    alert("Cập nhật thành công!");
+                    location.reload(); // Reload lại trang để cập nhật giao diện
+                },
+                error: function () {
+                    alert("Cập nhật thất bại!");
+                    console.log(id);
+                }
+            });
         }
-    });
+        $(".quantity-input").on("keyup",function (e){
+            if (e.key==="Enter"){
+                console.log("ADADAADAD");
+                let id = parseInt($(this).data("id"));
+                let newQuantity = parseInt($(this).val());
+                if (newQuantity >= 1) {
+                    updateQuantity(id, newQuantity);
+                } else {
+                    alert("Số lượng phải lớn hơn hoặc bằng 1!");
+                    $(this).val(1);
+                }
+            }
+        })
 
-    // Xử lý khi nhấn nút Cộng (+)
-    incrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value) || 0;
-        quantityInput.value = currentValue + 1;
-    });
 
-    // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
-    quantityInput.addEventListener("input", () => {
-        quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
-    });
+    // const decrementBtn = document.getElementById("decrement");
+    // const incrementBtn = document.getElementById("increment");
+    // const quantityInput = document.getElementById("quantity");
+    //
+    // // Xử lý khi nhấn nút Trừ (-)
+    // decrementBtn.addEventListener("click", () => {
+    //     let currentValue = parseInt(quantityInput.value) || 0;
+    //     if (currentValue > 0) {
+    //         quantityInput.value = currentValue - 1;
+    //     }
+    // });
+    //
+    // // Xử lý khi nhấn nút Cộng (+)
+    // incrementBtn.addEventListener("click", () => {
+    //     let currentValue = parseInt(quantityInput.value) || 0;
+    //     quantityInput.value = currentValue + 1;
+    // });
+    //
+    // // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
+    // quantityInput.addEventListener("input", () => {
+    //     quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+    // });
 </script>
 </body>
 </html>
