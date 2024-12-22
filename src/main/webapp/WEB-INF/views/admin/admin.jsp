@@ -180,7 +180,16 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
+<%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
+                                    <td>
+                                        <c:if test="${sp.trangThai == 1}">
+                                            <span class="badge bg-success">Đang Bán</span>
+                                        </c:if>
+                                        <c:if test="${sp.trangThai == 0}">
+
+                                            <span class="badge bg-danger">Chưa Bán</span>
+                                        </c:if>
+                                    </td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
                                            data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
                                 </tr>
@@ -192,7 +201,9 @@
                     <span style="color:red">
                         ${errorMessage}
                     </span>
+                    <p style="color:red;">${errorSL}</p>
                     <hr>
+
                     <div class="HDCT" style="overflow-y: auto;">
 
                         <table class="table">
@@ -304,7 +315,7 @@
                                     </div>
                                 </form>
                             </div>
-
+                                <p style="color: red">${notiVC}</p>
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
@@ -321,7 +332,6 @@
                                     <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
                                            name="soDienThoai" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
                                 </div>
-
                                 <div class="col-5">
                                     <label class="col-form-label">Tên khách hàng</label>
                                 </div>
@@ -346,15 +356,15 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫
+                                    <p> <fmt:formatNumber value='${chietKhau}' pattern="#,##0" />₫
+<%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
                                     </p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Khách phải trả</p>
-                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text"
-                                           id="tongTienHoaDon" name="tongTienHoaDon"
-                                           value="<fmt:formatNumber value='${tongTien - (tongTien * chietKhau / 100)}' pattern="#,##0" />"
+                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                           value="<fmt:formatNumber value='${tongTien - chietKhau}' pattern="#,##0" />"
                                            readonly/>
                                     <spacer>₫</spacer>
                                 </div>
@@ -375,11 +385,8 @@
 
                             <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
 
-                                <a onclick="confirmHuyHoaDon()"
-                                   href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}"
-                                   class="btn btn-secondary">Hủy</a>
-                                <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
-
+                                <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
+                                <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh toán</button>
                             </div>
                             <p style="color: red">${noti}</p>
                         </form>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="gio-hang.jsp" />
+<%--<jsp:include page="gio-hang.jsp" />--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+
     <link href="../css/danhMucAoNam.css" rel="stylesheet">
 </head>
 <body >
@@ -33,9 +35,9 @@
                     </a>
                 </div>
                 <div class="search-favourite-cart-popup" style="margin-left: 0;">
-                    <form action="" class="form-search-popup">
+                    <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="input-search-popup" type="text" name="" id="" placeholder="Tìm kiếm">
+                        <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                     </form>
                     <a href="#">
                         <i class="fa-regular fa-user ps-5"></i>
@@ -100,9 +102,9 @@
                 <li><a href="#" class="name-danh-muc-popup">Tin tức</a></li>
             </ul>
             <div class="search-favourite-cart-popup">
-                <form action="" class="form-search-popup">
+                <form action="/t-shirt-luxury/tim-san-pham" method="get" class="form-search-popup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="input-search-popup" type="text" name="" id="3" placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
                 </form>
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
@@ -110,7 +112,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -640,5 +642,29 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
+
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("search").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+
+
+</script>
+
 
 </html>

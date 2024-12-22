@@ -9,6 +9,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,15 @@ public class sanPhamController {
     danhMucRepository danhMucRepository;
     @Autowired
     anhSanPhamRepository anhSanPhamRepository;
+
+//    @GetMapping("t-shirt-luxury/admin/san-pham")
+//    public String sanPhamAdmin(@RequestParam(defaultValue = "0") int p, Model model) {
+//        Pageable pageable = PageRequest.of(p, 5);  // Hiển thị 5 sản phẩm mỗi trang
+//        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(pageable);
+//
+//        model.addAttribute("sanPhamPage", sanPhamPage);
+//        return "SanPham/san-pham-admin";
+//    }
 
     @GetMapping("t-shirt-luxury/admin/san-pham")
     public String sanPhamAdmin(Model model) {
@@ -171,7 +183,7 @@ public class sanPhamController {
 
 
     @GetMapping("t-shirt-luxury/admin/timSP")
-    public String timSanPham(Model model,
+    public String timSP(Model model,
                              @RequestParam(value = "timKiemSanPham", required = false) String timKiemSanPham,
                              @RequestParam(value = "trangThai", required = false) Integer trangThai) {
 
@@ -191,6 +203,11 @@ public class sanPhamController {
     }
 
 
+    @GetMapping("t-shirt-luxury/xem-them")
+    public String xemThem(Model model) {
+        model.addAttribute("allSanPham", sanPhamRepository.getAllXemThem());
+        return "Other/xem-them";
+    }
 
 
 

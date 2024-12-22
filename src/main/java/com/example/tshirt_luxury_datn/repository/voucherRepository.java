@@ -16,7 +16,7 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
     @Query(value = "SELECT * FROM voucher ORDER BY ngay_bat_dau DESC", nativeQuery = true)
     List<Voucher> findAllVoucherByNgayTaoDesc();
 
-    @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien", nativeQuery = true)
+    @Query(value = "select * from dbo.voucher vc where vc.muc_chi_toi_thieu <= :tongTien AND vc.so_luong >= 1 AND vc.trang_thai = 1", nativeQuery = true)
     List<Voucher> listVoucher(@Param("tongTien") Float tongTien);
 
     @Query(value = "select gia_tri_giam from voucher where id = :idVoucher\n", nativeQuery = true)
@@ -24,6 +24,8 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
 
     @Query("SELECT v FROM Voucher v WHERE v.ngayKetThuc < :currentDate AND v.trangThai = :status")
     List<Voucher> findExpiredVouchers(@Param("currentDate") LocalDate currentDate, @Param("status") Integer status);
+    @Query(value = "SELECT gioi_han FROM voucher  WHERE id = :id",nativeQuery = true)
+    Float  gioiHan(@Param("id") Integer id);
 
     @Query("SELECT v FROM Voucher v WHERE v.ngayKetThuc > :currentDate AND v.trangThai = :status")
     List<Voucher> findActiveVouchers(@Param("currentDate") LocalDate currentDate, @Param("status") Integer status);
@@ -38,5 +40,7 @@ public interface voucherRepository extends JpaRepository<Voucher, Integer> {
             @Param("ngayBatDau") Date ngayBatDau,
             @Param("ngayKetThuc") Date ngayKetThuc);
 
+    @Query(value = "SELECT TOP 1 ma_voucher FROM voucher ORDER BY ma_voucher DESC", nativeQuery = true)
+    String findLastMaVoucher();
 
 }

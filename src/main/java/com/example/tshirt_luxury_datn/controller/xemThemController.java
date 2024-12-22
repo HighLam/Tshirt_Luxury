@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class xemThemController {
-    @GetMapping("t-shirt-luxury/xem-them")
+    @GetMapping("t-shirt-luxury/sxem-them")
     public String xemThem() {
         return "Other/xem-them";
     }

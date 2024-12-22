@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="gio-hang.jsp" />
+<%--<jsp:include page="gio-hang.jsp" />--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link href="../css/chiTietGioHang.css" rel="stylesheet">
 </head>
 <body >
@@ -111,7 +112,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -208,7 +209,8 @@
     <div class="container mt-4">
         <h2 class="cart-title">
             GIỎ HÀNG CỦA BẠN
-            <span class="text-muted"> (Có 2 sản phẩm trong giỏ hàng) </span>
+            <span class="text-muted"> (Có ${soLuongSanPhamMuaOnline} sản phẩm trong giỏ hàng) </span>
+
         </h2>
         <div class="row">
             <div class="col-md-8">
@@ -228,20 +230,22 @@
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" onclick="return confirmDelete()">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
-                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="decrement">-</a>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="${ghct.id}" >-</a>
                         <input min="1"
-                                class="form-control text-center mx-2"
-                                style="width: 50px"
-                                type="text"
-                                value="${ghct.soLuong}"
-                                id="quantity"
+                               class="quantity-input form-control text-center mx-2"
+                               style="width: 80px"
+                               type="number"
+                               value="${ghct.soLuong}"
+                               data-id="${ghct.id}"
                         />
-                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/plus?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="increment">+</a>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/plus?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="${ghct.id}">+</a>
                     </div>
+
                     <div class="ms-3">
                         <p> <fmt:formatNumber value='${ghct.sanPhamChiTiet.gia * ghct.soLuong}' pattern="#,##0" />₫</p>
                     </div>
                 </div>
+                    <p style="color: red">${quaSL}</p>
                 </c:forEach>
 
             </div>
@@ -256,7 +260,7 @@
 
                     <hr/>
                     <p>Bạn có thể nhập mã giảm giá ở trang thanh toán</p>
-
+                    <p style="color:red;">${gioHangNull}</p>
                     <a href="/t-shirt-luxury/ban-hang-onl" class="btn btn-dark">TIẾN HÀNH ĐẶT HÀNG</a>
                     <a href="/t-shirt-luxury/trang-chu" class="btn btn-outline-dark">MUA THÊM SẢN PHẨM</a>
                 </div>
@@ -408,22 +412,62 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
 <script>
-    const decrementBtn = document.getElementById("decrement");
-    const incrementBtn = document.getElementById("increment");
-    const quantityInput = document.getElementById("quantity");
 
-    // Xử lý khi nhấn nút Trừ (-)
-    decrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value) || 0;
-        if (currentValue > 0) {
-            quantityInput.value = currentValue - 1;
+
+
+    $(document).ready(function () {
+        function updateQuantity(id, quantity) {
+            $.ajax({
+                url: '/t-shirt-luxury/gio-hang-chi-tiet/update-quantity', // Endpoint Controller
+                type: 'POST',
+                data: {
+                    idGioHangChiTiet: id,
+                    soLuong: quantity
+                },
+                success: function (response) {
+                    alert("Cập nhật thành công!");
+                    location.reload(); // Reload lại trang để cập nhật giao diện
+                },
+                error: function () {
+                    alert("Cập nhật thất bại!");
+                    console.log(id);
+                    location.reload()
+                }
+            });
         }
-    });
+        $(".quantity-input").on("keyup",function (e){
+            if (e.key==="Enter"){
+                console.log("ADADAADAD");
+                let id = parseInt($(this).data("id"));
+                let newQuantity = parseInt($(this).val());
+                if (newQuantity >= 1) {
+                    updateQuantity(id, newQuantity);
+                } else {
+                    alert("Số lượng phải lớn hơn hoặc bằng 1!");
+                    $(this).val(1);
+                }
+            }
+        })
 
-    // Xử lý khi nhấn nút Cộng (+)
-    incrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value) || 0;
-        quantityInput.value = currentValue + 1;
+
+
+        // Xử lý khi nhấn "Enter"
+
+        // $(document).on('keyup','.quantity-input', function (e) {
+        //     if (e.key === "Enter" || e.keyCode === 13 || e.which === 13) {
+        //         let id = parseInt($(this).data("id"));
+        //         let newQuantity = parseInt($(this).val());
+        //
+        //
+        //         if (newQuantity >= 1) {
+        //             updateQuantity(id, newQuantity);
+        //         } else {
+        //             alert("Số lượng phải lớn hơn hoặc bằng 1!");
+        //             $(this).val(1);
+        //         }
+        //     }
+        // });
+
     });
 
     // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
@@ -436,6 +480,30 @@
     confirmDelete = () => {
         return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
     }
+
+    // const decrementBtn = document.getElementById("decrement");
+    // const incrementBtn = document.getElementById("increment");
+    // const quantityInput = document.getElementById("quantity");
+    //
+    // // Xử lý khi nhấn nút Trừ (-)
+    // decrementBtn.addEventListener("click", () => {
+    //     let currentValue = parseInt(quantityInput.value) || 0;
+    //     if (currentValue > 0) {
+    //         quantityInput.value = currentValue - 1;
+    //     }
+    // });
+    //
+    // // Xử lý khi nhấn nút Cộng (+)
+    // incrementBtn.addEventListener("click", () => {
+    //     let currentValue = parseInt(quantityInput.value) || 0;
+    //     quantityInput.value = currentValue + 1;
+    // });
+    //
+    // // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
+    // quantityInput.addEventListener("input", () => {
+    //     quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+    // });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

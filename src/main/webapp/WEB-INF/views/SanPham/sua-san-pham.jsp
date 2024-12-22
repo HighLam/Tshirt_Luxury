@@ -92,7 +92,6 @@
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
         <div class="col-9" style="">
@@ -121,6 +120,8 @@
                     <select class="form-select" aria-label="Default select example" name="danhMuc.id">
 
                         <c:forEach items="${danhMuc}" var="s">
+                            <option value="${s.id}" ${sanPham.danhMuc.tenDanhMuc.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
+                            <option  hidden="hidden">Chọn danh mục</option>
                             <option value="${s.id}" ${sanPham.danhMuc.tenDanhMuc.equals(s.tenDanhMuc) ? 'selected':''}>${s.tenDanhMuc}</option>
                         </c:forEach>
 

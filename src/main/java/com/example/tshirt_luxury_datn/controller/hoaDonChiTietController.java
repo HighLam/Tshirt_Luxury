@@ -13,7 +13,7 @@ public class hoaDonChiTietController {
     hoaDonChiTietRepository hoaDonChiTietRepo;
 
     @GetMapping("/t-shirt-luxury/admin/hoa-don-chi-tiet")
-    public String hoaDonChiTietAdmin(Model model, @RequestParam("id") Integer id) {
+    public String hoaDonChiTietAdmin(Model model, @RequestParam("idHoaDon") Integer id) {
         model.addAttribute("listHDCTTaiQuay", hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(id));
         return "HoaDonChiTiet/hoa-don-chi-tiet-admin";
     }

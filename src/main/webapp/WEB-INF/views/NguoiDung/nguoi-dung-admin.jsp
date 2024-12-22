@@ -152,13 +152,14 @@
                             <td>${nd.email}</td>
                             <td>${nd.chucVu.tenChucVu}</td>
                             <td>
-                                    <c:if test="${nd.trangThai == 1}">
-                                        Hoạt Động
-                                    </c:if>
-                                <c:if test="${nd.trangThai == 0}">
-                                    Không Hoạt Động
+                                <c:if test="${nd.trangThai == 1}">
+                                    <span class="badge bg-success">Hoạt Động</span>
                                 </c:if>
-                                    </td>
+                                <c:if test="${nd.trangThai == 0}">
+
+                                    <span class="badge bg-danger">Không Hoạt Động</span>
+                                </c:if>
+                            </td>
                             <td>${nd.moTa}</td>
                             <td>
                                 <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
@@ -203,10 +204,10 @@
             <form action="/t-shirt-luxury/admin/taoNguoiDung" method="POST">
 
                 <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">
-                        <label for="floatingInput">Mã Người Dùng</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">--%>
+<%--                        <label for="floatingInput">Mã Người Dùng</label>--%>
+<%--                    </div>--%>
 
                     <div class="form-floating mb-3">
                         <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng">
@@ -240,7 +241,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -169,10 +169,31 @@
                             </td>
                         </tr>
                     </c:forEach>
-
-
                     </tbody>
                 </table>
+<%--                <nav aria-label="Page navigation">--%>
+<%--                    <ul class="pagination justify-content-center mt-4">--%>
+<%--                        <c:if test="${sanPhamPage.number > 0}">--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=0">First</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.number-1}">Previous</a>--%>
+<%--                            </li>--%>
+<%--                        </c:if>--%>
+<%--                        <li class="page-item disabled">--%>
+<%--                            <a class="page-link" href="#">Page ${sanPhamPage.number + 1} of ${sanPhamPage.totalPages}</a>--%>
+<%--                        </li>--%>
+<%--                        <c:if test="${sanPhamPage.number + 1 < sanPhamPage.totalPages}">--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.number+1}">Next</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.totalPages-1}">Last</a>--%>
+<%--                            </li>--%>
+<%--                        </c:if>--%>
+<%--                    </ul>--%>
+<%--                </nav>--%>
             </div>
         </div>
     </div>
@@ -190,10 +211,10 @@
                 </div>
                 <div class="modal-body">
                     <!-- Mã Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">--%>
+<%--                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>--%>
+<%--                    </div>--%>
 
                     <!-- Tên Sản Phẩm -->
                     <div class="form-floating mb-3">
