@@ -88,23 +88,26 @@ public class sanPhamChiTietAdminController {
     public String sanPhamChiTietSave(
             HttpSession session,
 //            @RequestParam("idSanPham") Integer idSanPham,
-            @RequestParam("id_anh_san_pham_chi_tiet") Integer idAnhSanPham,
+            @RequestParam("tenAnhSanPham") String tenAnhSanPham,
             @RequestParam("id_size") Integer idSize,
             @RequestParam("id_chat_lieu") Integer idChatLieu,
             @RequestParam("id_mau_sac") Integer idMauSac,
-            @ModelAttribute("sanPhamChiTiet") SanPhamChiTiet sanPhamChiTiet) {
+             SanPhamChiTiet sanPhamChiTiet) {
 
-
-        SanPham sanPhamAdd = sanPhamRepo.getReferenceById((Integer) session.getAttribute("idSanPham"));
+Integer idSanPham =(Integer) session.getAttribute("idSanPham");
+        System.out.println(idSanPham);
+        SanPham sanPhamAdd = sanPhamRepo.getReferenceById(idSanPham);
         sanPhamChiTiet.setSanPham(sanPhamAdd);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
-        sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.findById(idAnhSanPham).get());
+       Integer idAnh = anhSanPhamRepo.getIdAnh(tenAnhSanPham);
+        System.out.println("******************************************"+ idAnh);
+        sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.getReferenceById(idAnh));
         sanPhamChiTiet.setSize(sizeRepo.findById(idSize).get());
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + idSanPham;
     }
 
 

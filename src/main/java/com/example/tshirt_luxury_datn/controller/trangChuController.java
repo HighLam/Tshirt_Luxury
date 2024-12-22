@@ -88,46 +88,109 @@ public class trangChuController {
                           RedirectAttributes redirectAttributes
 
     ) {
-        // Kiểm tra màu sắc
-        if (idMauSac == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
-            return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
-        }
+//        // Kiểm tra màu sắc
+//        if (idMauSac == null) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
+//            return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+//        }
+//
+//        // Kiểm tra kích thước
+//        if (idSize == null) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn kích thước!");
+//            return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+//        }
+//        Integer soLuongSPCT = sanPhamChiTietAdminRepo.getSoLuongTonSanPhamChiTiet(idMauSac, idSize, idSanPham);
+//
+//        if (soLuong <= soLuongSPCT) {
+//            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
+//
+//            Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+//            GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+//            List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+//            boolean idExist = false;
+//            for (Integer idSPCT : idSPCTExistList) {
+//                if (idSPCT.equals(sanPhamChiTiet.getId())) {
+//                    idExist = true;
+//                    break;
+//                }
+//            }
+//            if (idExist) {
+//                GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getGHCTByIdSPCT(sanPhamChiTiet.getId());
+//                gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + soLuong);
+//                gioHangChiTietRepo.save(gioHangChiTiet);
+//            } else {
+//                GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+//                gioHangChiTiet.setGioHang(gioHang);
+//                gioHangChiTiet.setSoLuong(soLuong);
+//                gioHangChiTiet.setNgayTao(new Date());
+//                gioHangChiTiet.setNgaySua(new Date());
+//                gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+//
+//                // Lưu bản ghi mới
+//                gioHangChiTietRepo.save(gioHangChiTiet);
+//                String gioHangNull = "";
+//                session.setAttribute("gioHangNull", gioHangNull);
+//                String quaSoLuong = "";
+//                session.setAttribute("quaSoLuong", quaSoLuong);
+//            }
+//
+//        }else {
+//            String quaSoLuong = "Số lượng không được vượt quá " + soLuongSPCT;
+//            session.setAttribute("quaSoLuong", quaSoLuong);
+//        }
+        Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
-        // Kiểm tra kích thước
+        if (idMauSac == null) {
+           redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
+           return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+       }
+
+       // Kiểm tra kích thước
         if (idSize == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn kích thước!");
             return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
         }
-        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
-        Integer soLuongSPCT = sanPhamChiTietAdminRepo.getSoLuongTonSanPhamChiTiet(idMauSac, idSize, idSanPham);
-        Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-        GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
-        List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
-        boolean idExist = false;
-        for (Integer idSPCT : idSPCTExistList) {
-            if (idSPCT.equals(sanPhamChiTiet.getId())) {
-                idExist = true;
-                break;
+        else {
+            if (soLuong <= soLuongSpct) {
+                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
+
+                Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+                GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+                List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+            boolean idExist = false;
+            for (Integer idSPCT : idSPCTExistList) {
+                if (idSPCT.equals(sanPhamChiTiet.getId())) {
+                    idExist = true;
+                    break;
+                }
             }
-        }
-            if (idExist) {
+                if (idExist) {
                 GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getGHCTByIdSPCT(sanPhamChiTiet.getId());
                 gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + soLuong);
                 gioHangChiTietRepo.save(gioHangChiTiet);
-            }else {
-                GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
-                gioHangChiTiet.setGioHang(gioHang);
-                gioHangChiTiet.setSoLuong(soLuong);
-                gioHangChiTiet.setNgayTao(new Date());
-                gioHangChiTiet.setNgaySua(new Date());
-                gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+            } else {
+                    GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+                    gioHangChiTiet.setGioHang(gioHang);
+                    gioHangChiTiet.setSoLuong(soLuong);
+                    gioHangChiTiet.setNgayTao(new Date());
+                    gioHangChiTiet.setNgaySua(new Date());
+                    gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
 
-                // Lưu bản ghi mới
-                gioHangChiTietRepo.save(gioHangChiTiet);
+                    // Lưu bản ghi mới
+                    gioHangChiTietRepo.save(gioHangChiTiet);
+                    String gioHangNull = "";
+                    session.setAttribute("gioHangNull", gioHangNull);
+                    String quaSoLuong = "";
+                    session.setAttribute("quaSoLuong", quaSoLuong);
+
+                }
+
+
+            } else {
+                String quaSoLuong = "Số lượng không được vượt quá " + soLuongSpct;
+                session.setAttribute("quaSoLuong", quaSoLuong);
             }
-
-
+        }
         return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
     }
 

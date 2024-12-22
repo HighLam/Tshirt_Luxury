@@ -37,6 +37,9 @@ public class SanPham {
     @Column(name = "ngay_sua", columnDefinition = "DATE")
     private Date ngaySua;
 
+    @Column(name = "barcode")
+    private String barcode;
+
     @Column(name = "mo_ta")
     private String moTa;
 }

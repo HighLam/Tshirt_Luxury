@@ -107,7 +107,7 @@
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
-                        <th scope="col">Mã Ảnh SP</th>
+                        <th scope="col"> Ảnh SP</th>
                         <th scope="col">Tên Ảnh SP</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
@@ -120,7 +120,10 @@
                     <c:forEach items="${anhSanPham}" var="anh" varStatus="i">
                         <tr>
                             <th scope="row">${i.index + 1}</th>
-                            <td>${anh.maAnhSanPham}</td>
+                            <td>
+                                <img style="max-width: 100px" src="${pageContext.request.contextPath}/images/${anh.tenAnhSanPham}">
+
+                            </td>
                             <td>${anh.tenAnhSanPham}</td>
                             <td>
                                 <c:if test="${anh.trangThai == 1}">
@@ -159,14 +162,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên Ảnh" name="tenAnhSanPham">
-                        <label for="floatingInput">Tên Ảnh</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Url Ảnh" name="maAnhSanPham">
-                        <label for="floatingInput">URL Ảnh </label>
-                    </div>
+
+                        <input type="file" name="tenAnhSanPham" class="form-control" id="fileInput" accept="image/*" onchange="displayFileName()">
+                        <label for="fileInput">Chọn Ảnh</label>
+
+
+
                     <div class="mt-3">
                         <div class="text mt-2">
                             Trạng Thái
@@ -201,5 +202,8 @@
     confirmDelete = () => {
         return confirm("Bạn có chắc chắn muốn xoá Ảnh này không ?");
     }
+
+
+
 </script>
 </html>
