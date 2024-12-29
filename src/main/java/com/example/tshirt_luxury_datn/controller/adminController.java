@@ -301,6 +301,8 @@ public class adminController {
                         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                         hoaDonChiTiet.setHoaDon(hoaDon1);
                         hoaDonChiTiet.setSoLuong(soLuong);
+                        hoaDonChiTiet.setNgaySua(new Date());
+                        hoaDonChiTiet.setNgayTao(new Date());
                         hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
                         hoaDonChiTietRepo.save(hoaDonChiTiet);
                         session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);

@@ -32,6 +32,22 @@ public class voucherController {
         model.addAttribute("listVoucher", voucherRepo.findAllVoucherByNgayTaoDesc());
         return "voucher/voucher";
     }
+
+    public String generateMaVoucher() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastVoucher = voucherRepo.findLastMaVoucher(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastVoucher != null && lastVoucher.startsWith("VC")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastVoucher.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("VC%03d", nextNumber);
+    }
+
     boolean validate( Voucher voucher, RedirectAttributes redirectAttributes) {
         if (voucher.getTenVoucher() == null || voucher.getTenVoucher().isEmpty()) {
             redirectAttributes.addFlashAttribute("errorTenVoucher", "Vui lòng nhập tên voucher !");
@@ -82,6 +98,7 @@ public class voucherController {
     @PostMapping("/t-shirt-luxury/admin/voucher/add")
     public String voucherAdd(@ModelAttribute("listVoucher") Voucher voucher, RedirectAttributes redirectAttributes){
         if (validate(voucher,redirectAttributes )){
+            voucher.setMaVoucher(generateMaVoucher());
             voucher.setTrangThai(1);
             voucher.setNgayBatDau(new Date());
             voucher.setNgayKetThuc(voucher.getNgayKetThuc());

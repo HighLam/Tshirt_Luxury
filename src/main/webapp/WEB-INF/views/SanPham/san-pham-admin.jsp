@@ -232,8 +232,6 @@
                         <div class="text mt-2">Trạng Thái</div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1" checked>
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
                             <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">

@@ -65,6 +65,21 @@ public class sanPhamController {
         return true;
     }
 
+    public String generateMaSanPham() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaSanPham = sanPhamRepository.findLastSanPham(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaSanPham != null && lastMaSanPham.startsWith("SP")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaSanPham.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("SP%03d", nextNumber);
+    }
+
     @PostMapping("t-shirt-luxury/admin/san-pham/add")
     public String sanPhamSave(
             @RequestParam("id_danh_muc") Integer idDanhMuc,
@@ -72,6 +87,7 @@ public class sanPhamController {
             RedirectAttributes redirectAttributes
     ) {
         if (validate(sanPham, redirectAttributes)) {
+            sanPham.setMaSanPham(generateMaSanPham());
             sanPham.setNgayTao(new Date());
             sanPham.setNgaySua(new Date());
             sanPham.setDanhMuc(danhMucRepository.findById(idDanhMuc).get());

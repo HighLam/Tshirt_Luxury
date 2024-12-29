@@ -62,6 +62,7 @@ public class trangChuController {
     @GetMapping("/t-shirt-luxury/san-pham-chi-tiet-detail")
     public String sanPhamChiTietDetail(@RequestParam("idSPDetail") Integer id, Model model, HttpSession session) {
         model.addAttribute("spDetail", sanPhamRepo.getReferenceById(id));
+
         model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
         model.addAttribute("notiOnl",session.getAttribute("notiOnl"));
