@@ -308,8 +308,16 @@ public class adminController {
 
             hoaDon.setId(idHoaDon);
             hoaDon.setMaHoaDon(generateMaHoaDon());
-            Float voucherGiam = (Float) session.getAttribute("giaTriGiamVoucher");
-            hoaDon.setTongTien(hoaDonRepo.tongTien(idHoaDon)-voucherGiam);
+            Float tongTien = hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon"));
+            if(
+                    session.getAttribute("giaTriGiamVoucher") == null ||
+                    session.getAttribute("giaTriGiamVoucher").toString().isBlank()
+            ){
+                hoaDon.setTongTien(tongTien);
+            }else {
+                Float voucherGiam = (Float) session.getAttribute("giaTriGiamVoucher");
+                hoaDon.setTongTien(tongTien-voucherGiam);
+            }
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
