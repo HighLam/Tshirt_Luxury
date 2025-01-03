@@ -25,14 +25,19 @@ public class NguoiDung {
 
     @Column(name = "ten_nguoi_dung")
     private String tenNguoiDung;
-    
+
+    @Column(name = "ten_dang_nhap")
+    private String tenDangNhap;
+
+    @Column(name = "mat_khau")
+    private String matKhau;
+
     @Column(name = "email")
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "id_chuc_vu")
     private ChucVu chucVu;
-
 
     @Column(name = "trang_thai")
     private Integer trangThai;

@@ -103,6 +103,10 @@
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
 
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
+
+
+
                     </ul>
                 </div>
             </div>
@@ -131,11 +135,15 @@
 
             <div id="camera-container" style="display: none; text-align: center; margin-top: 20px;">
                 <!-- Video hiển thị luồng camera -->
-                <video id="camera-stream" autoplay muted style="width: 25%; border: 1px solid #ccc; border-radius: 8px;"></video>
+                <video id="camera-stream" autoplay muted
+                       style="width: 25%; border: 1px solid #ccc; border-radius: 8px;"></video>
                 <!-- Kết quả barcode -->
                 <p id="barcode-result" style="margin-top: 10px; font-weight: bold; color: #333;"></p>
                 <!-- Nút dừng quét -->
-                <button id="stopBarcode" style="margin-top: 10px; padding: 5px 10px; border: none; background: #ff4d4d; color: white; border-radius: 4px; cursor: pointer;">Dừng quét</button>
+                <button id="stopBarcode"
+                        style="margin-top: 10px; padding: 5px 10px; border: none; background: #ff4d4d; color: white; border-radius: 4px; cursor: pointer;">
+                    Dừng quét
+                </button>
             </div>
             <div class="row">
                 <div class="col-8">
@@ -172,7 +180,16 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
+<%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
+                                    <td>
+                                        <c:if test="${sp.trangThai == 1}">
+                                            <span class="badge bg-success">Đang Bán</span>
+                                        </c:if>
+                                        <c:if test="${sp.trangThai == 0}">
+
+                                            <span class="badge bg-danger">Chưa Bán</span>
+                                        </c:if>
+                                    </td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
                                            data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
                                 </tr>
@@ -181,6 +198,9 @@
                         </table>
                     </div>
 
+                    <span style="color:red">
+                        ${errorMessage}
+                    </span>
                     <p style="color:red;">${errorSL}</p>
                     <hr>
 
@@ -207,10 +227,10 @@
                                     <td>${s.sanPhamChiTiet.size.tenSize}</td>
                                     <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
                                     <td>${s.soLuong}</td>
-                                    <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
+                                    <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0"/>₫
                                     </td>
                                     <td>
-                                        <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0" />₫
+                                        <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0"/>₫
                                     </td>
                                     <td class="text-center">
                                         <a class="btn" href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
@@ -231,13 +251,56 @@
 
                         <h5>Thông tin đơn hàng</h5>
                         <hr>
+                        <div class="mt-2 ms-2">
+                            <form action="/t-shirt-luxury/admin/timKhachHang">
+                                <p>
+                                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseExample" aria-expanded="false"
+                                            aria-controls="collapseExample">
+                                        Thông tin khách hàng
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <div class="row">
+
+                                            <form class="d-flex">
+                                                <div class="col-8">
+                                                    <input class="form-control me-2" name="searchSoDienThoai"
+                                                           type="search" placeholder="Search" aria-label="Search">
+                                                </div>
+                                                <div class="col-3 ">
+                                                    <button class="btn btn-outline-success" type="submit">Search
+                                                    </button>
+                                                </div>
+                                                <div class="col-1"></div>
+                                                <%--                                                    <div class="col-12 mt-4">--%>
+                                                <%--                                                        <div class="form-floating mb-3">--%>
+                                                <%--&lt;%&ndash;                                                            <input type="text" class="form-control" id="floatingInput" aria-label="Tên khách hàng" placeholder="Tên khách hàng" value="${timKiemKhachHang.ho +timKiemKhachHang.tenDem + timKiemKhachHang.ten}">&ndash;%&gt;--%>
+                                                <%--&lt;%&ndash;                                                            <label for="floatingInput">Tên Khách Hàng</label>&ndash;%&gt;--%>
+                                                <%--                                                        </div>--%>
+                                                <%--                                                    </div>--%>
+
+                                                <%--                                                    <button type="submit" class="btn btn-success">Thêm khách hàng</button>--%>
+
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
                         <div class="voucher ">
                             <label>Voucher</label>
                             <div class=" mt-2">
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
-                                    <div class="row" >
+                                    <div class="row">
                                         <div class="col-6">
-                                            <select style="width: 250px" class="form-select" aria-label="Default select example" name="idVc" >
+                                            <select style="width: 250px" class="form-select"
+                                                    aria-label="Default select example" name="idVc">
                                                 <c:forEach var="vc" items="${voucher}">
                                                     <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
                                                 </c:forEach>
@@ -245,7 +308,9 @@
                                         </div>
                                         <div class="col-2"></div>
                                         <div class="col-4">
-                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">Áp Dụng</button>
+                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">
+                                                Áp Dụng
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -254,6 +319,31 @@
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
+
+
+                            <%--                            <button class="btn btn-success" type="submit">Thêm khách hàng</button>--%>
+
+                            <div class="row g-3 align-items-center">
+                                <div class="col-5">
+                                    <label class="col-form-label">Số điện thoại</label>
+                                </div>
+
+                                <div class="col-7">
+                                    <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
+                                           name="soDienThoai" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
+                                </div>
+                                <div class="col-5">
+                                    <label class="col-form-label">Tên khách hàng</label>
+                                </div>
+
+                                <div class="col-7">
+                                    <input type="text" class="form-control mt-3" id="floatingInput" aria-label="Tên khách hàng"
+                                           name="hoVaTenKhachHang" placeholder="Tên khách hàng" value="${timKiemKhachHang}">
+                                </div>
+                                <div class="col-auto">
+                                    <p class="mt-3" style="color: red">${khongTimThay}</p>
+                                </div>
+                            </div>
                             <div class="mt-2">
                                 <div class="d-flex justify-content-between">
                                     <p>Số lượng sản phẩm: </p>
@@ -261,11 +351,13 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tổng tiền</p>
-                                    <p><fmt:formatNumber value='${tongTien == null ? 0 : tongTien}' pattern="#,##0" />₫</p>
+                                    <p><fmt:formatNumber value='${tongTien == null ? 0 : tongTien}'
+                                                         pattern="#,##0"/>₫</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
                                     <p> <fmt:formatNumber value='${chietKhau}' pattern="#,##0" />₫
+<%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
                                     </p>
                                 </div>
                                 <hr>
@@ -278,11 +370,15 @@
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Tiền khách đưa</p>
-                                    <input style="max-height: 30px" type="number" id="tienKhachDua" min="0" value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"  /> <spacer>₫</spacer>
+                                    <input style="max-height: 30px" type="number" id="tienKhachDua" min="0"
+                                           value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"/>
+                                    <spacer>₫</spacer>
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p style="width: 107px">Tiền thừa</p>
-                                    <input class="text-end" style="max-height: 30px;border: #f8f8f8" id="tienThua" readonly/> <spacer>₫</spacer>
+                                    <input class="text-end" style="max-height: 30px;border: #f8f8f8" id="tienThua"
+                                           readonly/>
+                                    <spacer>₫</spacer>
                                 </div>
                             </div>
 
@@ -291,7 +387,6 @@
 
                                 <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
                                 <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh toán</button>
-
                             </div>
                             <p style="color: red">${noti}</p>
                         </form>
@@ -326,7 +421,8 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" name="soLuong" value="1">
+                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" name="soLuong"
+                               value="1">
                         <label>Số Lượng</label>
                     </div>
 
@@ -469,7 +565,7 @@
         });
     });
 
-    confirmDoneHoaDon= () => {
+    confirmDoneHoaDon = () => {
         return confirm("Xác nhận thanh toán ?");
     }
     confirmDelete = () => {
@@ -494,7 +590,7 @@
     }
 
 
-// Chức năng quét Barcode
+    // Chức năng quét Barcode
     $(document).ready(function () {
         const codeReader = new ZXing.BrowserMultiFormatReader();
         let selectedDeviceId;
@@ -525,7 +621,7 @@
                                 $.ajax({
                                     url: "/scan-barcode",
                                     method: "GET",
-                                    data: { barcode: result.text },
+                                    data: {barcode: result.text},
                                     success: function (response) {
                                         $("#tabelSanPham tbody").html(response); // Chèn dữ liệu vào bảng
                                         codeReader.reset();
@@ -554,9 +650,6 @@
             console.log("Scanning stopped.");
         });
     });
-
-
-
 
 
 </script>

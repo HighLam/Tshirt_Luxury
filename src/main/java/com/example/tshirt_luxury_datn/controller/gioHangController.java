@@ -32,6 +32,8 @@ public class gioHangController {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
         List<GioHangChiTiet> gioHangChiTiets =  gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
         model.addAttribute("tongTienGioHang",gioHangChiTietRepo.tinhTongGia(idGioHang));
+
+        model.addAttribute("soLuongSanPhamMuaOnline", gioHangRepo.getSoLuongMuaOnline(idGioHang));
         System.out.println("sjjdfhghjdk"+gioHangChiTietRepo.tinhTongGia(idGioHang));
         model.addAttribute("GHCT", gioHangChiTiets);
         model.addAttribute("gioHangNull",session.getAttribute("gioHangNull"));

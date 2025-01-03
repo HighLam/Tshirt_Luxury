@@ -91,7 +91,6 @@
                             Mục</a></li>
                     </ul>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa-solid fa-wallet"></i> Ví</a>
             </div>
         </div>
         <div class="col-9" style="">
@@ -110,7 +109,7 @@
                             <label for="floatingInput">Tên Sản Phẩm</label>
                         </div>
                         <div class="form-floating mb-3 mt-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${SPCT.soLuong}">
+                            <input min = "0" type="number" class="form-control" id="floatingInput" placeholder="Số Lượng" name="soLuong" value="${SPCT.soLuong}">
                             <label for="floatingInput">Số Lượng</label>
                         </div>
                         <!-- Trạng Thái -->

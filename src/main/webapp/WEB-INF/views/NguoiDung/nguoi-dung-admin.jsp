@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../js/script.js"></script>
+<%--    <script src="../js/script.js"></script>--%>
 </head>
 
 <body>
@@ -91,6 +91,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -98,11 +99,34 @@
         <div class="col-9" style="">
             <div class="row">
                 <h2 class="">Quản Lý Người Dùng</h2>
-
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                <div class="p-2 bd-highlight d-flex justify-content-between align-items-center">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm w-100 rounded">
+                        <div class="container-fluid">
+                            <form action="/t-shirt-luxury/admin/timNguoiDung" method="get"
+                                  class="d-flex align-items-center w-100 gap-2">
+                                <input style="max-width: 600px;"
+                                       class="form-control py-2"
+                                       type="search" name="timKiemNguoiDung"
+                                       placeholder="Tìm người dùng"
+                                       aria-label="Search">
+                                <select class="form-select" name="idChucVu">
+                                    <option value="" hidden>-- Chọn chức vụ --</option>
+                                    <c:forEach items="${listChucVu}" var="cv">
+                                        <option value="${cv.id}">${cv.tenChucVu}</option>
+                                    </c:forEach>
+                                </select>
+                                <button class="btn btn-success d-flex align-items-center px-4" type="submit">
+                                    <i class="bi bi-search me-1"></i> Tìm Kiếm
+                                </button>
+                                <a href="/t-shirt-luxury/admin/timNguoiDung" class="btn btn-secondary d-flex align-items-center px-4">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                                </a>
+                            </form>
+                        </div>
+                    </nav>
+                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
                             data-bs-target="#themNguoiDung">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                        <i class="fa-solid fa-circle-plus me-1"></i> Thêm Mới
                     </button>
                 </div>
 
@@ -128,13 +152,14 @@
                             <td>${nd.email}</td>
                             <td>${nd.chucVu.tenChucVu}</td>
                             <td>
-                                    <c:if test="${nd.trangThai == 1}">
-                                        Hoạt Động
-                                    </c:if>
-                                <c:if test="${nd.trangThai == 0}">
-                                    Không Hoạt Động
+                                <c:if test="${nd.trangThai == 1}">
+                                    <span class="badge bg-success">Hoạt Động</span>
                                 </c:if>
-                                    </td>
+                                <c:if test="${nd.trangThai == 0}">
+
+                                    <span class="badge bg-danger">Không Hoạt Động</span>
+                                </c:if>
+                            </td>
                             <td>${nd.moTa}</td>
                             <td>
                                 <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
@@ -179,10 +204,10 @@
             <form action="/t-shirt-luxury/admin/taoNguoiDung" method="POST">
 
                 <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">
-                        <label for="floatingInput">Mã Người Dùng</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input name="maNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Mã Người Dùng">--%>
+<%--                        <label for="floatingInput">Mã Người Dùng</label>--%>
+<%--                    </div>--%>
 
                     <div class="form-floating mb-3">
                         <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng">
@@ -216,7 +241,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

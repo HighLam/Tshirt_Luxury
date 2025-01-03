@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,9 +87,11 @@ public class hoaDonController {
 
         if (trangThaiHienTai == 2) {
             hoaDon.setTrangThai(3);
+            hoaDon.setNgaySua(new Date());
             hoaDonRepo.save(hoaDon);
         } else if (trangThaiHienTai == 3) {
             hoaDon.setTrangThai(4);
+            hoaDon.setNgaySua(new Date());
             hoaDonRepo.save(hoaDon);
         }
 
@@ -114,5 +117,51 @@ public class hoaDonController {
 
 
         return "redirect:/t-shirt-luxury/admin/hoa-don-online";
+    }
+    @GetMapping("/t-shirt-luxury/admin/timHDO")
+    public String timHoaDonOn(
+            @RequestParam(value = "searchTerm", required = false) String searchTerm,
+            @RequestParam(value = "trangThai", required = false) Integer trangThai,
+            Model model) {
+
+        List<HoaDon> hoaDonOnlineList;
+
+        if (searchTerm == null && trangThai == null) {
+            // Load danh sách mặc định nếu không có bộ lọc
+            hoaDonOnlineList = hoaDonRepo.findAll();
+        } else {
+            // Lọc danh sách hóa đơn theo bộ lọc
+            hoaDonOnlineList = hoaDonRepo.timHoaDonOnline(searchTerm, trangThai);
+        }
+
+        // Đưa danh sách hóa đơn vào model để hiển thị trên giao diện
+        model.addAttribute("listHoaDonOnline", hoaDonOnlineList);
+
+        // Truyền lại giá trị của searchTerm và trangThai để hiển thị lại trong form tìm kiếm
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("trangThai", trangThai);
+
+        return "HoaDon/hoa-don-online"; // Trả về tên file JSP
+    }
+
+    @GetMapping("/t-shirt-luxury/admin/timHDTQ")
+    public String timHoaDonTaiQ(
+            @RequestParam(value = "searchName", required = false) String searchName,
+            @RequestParam(value = "trangThai", required = false) Integer trangThai,
+            Model model) {
+
+        List<HoaDon> listHoaDonTaiQuay;
+
+        if (searchName == null && trangThai == null) {
+
+            listHoaDonTaiQuay = hoaDonRepo.findAll();
+        } else {
+            listHoaDonTaiQuay = hoaDonRepo.timHoaDonTaiQuay(searchName, trangThai);
+        }
+        model.addAttribute("listHoaDonTaiQuay", listHoaDonTaiQuay);
+        model.addAttribute("searchName", searchName);
+        model.addAttribute("trangThai", trangThai);
+
+        return "HoaDon/hoa-don-admin"; // Trả về tên file JSP
     }
 }

@@ -33,6 +33,33 @@ public class banHangOnlController {
     @Autowired
     hoaDonChiTietRepository hoaDonChiTietRepo;
 
+    boolean checkTTNH(ThongTinNhanHang thongTinNhanHang, RedirectAttributes redirectAttributes) {
+        if (thongTinNhanHang.getHoVaTen().isEmpty() || thongTinNhanHang.getHoVaTen() == null) {
+            String validHoTen = "Họ và tên không được để trống";
+            redirectAttributes.addFlashAttribute("errorName", validHoTen);
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("hoVaTen", thongTinNhanHang.getHoVaTen());
+        }
+        if (thongTinNhanHang.getSoDienThoai().isEmpty() || thongTinNhanHang.getSoDienThoai() == null) {
+            String validSDT = "Số điện thoại không được để trống";
+            redirectAttributes.addFlashAttribute("errorNumber", validSDT);
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("soDienThoai", thongTinNhanHang.getSoDienThoai());
+        }
+        if (thongTinNhanHang.getDiaChiNhanHang().isEmpty() || thongTinNhanHang.getDiaChiNhanHang() == null) {
+            String valiAddess = "Địa chỉ không được để trống";
+            redirectAttributes.addFlashAttribute("errorAddess", valiAddess);
+            return false;
+        } else {
+            redirectAttributes.addFlashAttribute("diaChiNhanHang", thongTinNhanHang.getDiaChiNhanHang());
+        }
+
+        return true;
+
+    }
+
     public String generateMaHoaDon() {
         // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
         String lastMaHoaDon = hoaDonRepo.findLastMaHoaDon(); // Giả sử phương thức này trả về "HD005"
@@ -51,24 +78,14 @@ public class banHangOnlController {
     @GetMapping("/t-shirt-luxury/ban-hang-onl")
     public String banHangOnl(Model model, HttpSession session) {
         Integer idGioHang = (Integer) session.getAttribute("idGioHang");
-        List<GioHangChiTiet> gioHangCT = gioHangChiTietRepo.getSoLuongInGioHang(idGioHang);
-        if (gioHangCT.size() < 1) {
-            String gioHangNull = "Chưa có sản phẩm để thanh toán";
-            session.setAttribute("gioHangNull", gioHangNull);
-            return "redirect:/t-shirt-luxury/gio-hang-chi-tiet";
-        } else {
+        List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
+        Float tongGia = gioHangChiTietRepo.tinhTongGia(idGioHang);
+        model.addAttribute("voucher", voucherRepo.listVoucher(tongGia));
+        model.addAttribute("tongTienGioHang", gioHangChiTietRepo.tinhTongGia(idGioHang));
+        model.addAttribute("banHang", gioHangChiTiets);
+        model.addAttribute("giaTriGiam", session.getAttribute("giaTriGiam"));
 
-
-            List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
-            Float tongGia = gioHangChiTietRepo.tinhTongGia(idGioHang);
-            model.addAttribute("voucher", voucherRepo.listVoucher(tongGia));
-            model.addAttribute("tongTienGioHang", gioHangChiTietRepo.tinhTongGia(idGioHang));
-            model.addAttribute("banHang", gioHangChiTiets);
-            model.addAttribute("giaTriGiam", session.getAttribute("giaTriGiam"));
-            model.addAttribute("TTGHNull",session.getAttribute("TTGHNull"));
-
-            return "BanHang/ban-hang-onl";
-        }
+        return "BanHang/ban-hang-onl";
     }
 
     @GetMapping("/t-shirt-luxury/ban-hang-onl/getVoucher")
@@ -89,13 +106,9 @@ public class banHangOnlController {
             voucherRepo.save(voucher);
             session.setAttribute("voucher", voucher);
         }
-
-
-
-
-
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
+
 
     @GetMapping("/t-shirt-luxury/ban-hang-onl/plus")
     public String plusSLGHCTBanHang(@RequestParam("id") Integer id, HttpSession session) {
@@ -124,33 +137,6 @@ public class banHangOnlController {
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
 
-    boolean checkTTNH(ThongTinNhanHang thongTinNhanHang, RedirectAttributes redirectAttributes) {
-        if (thongTinNhanHang.getHoVaTen().isEmpty() || thongTinNhanHang.getHoVaTen() == null) {
-            String validHoTen = "Họ tên không được để trống";
-            redirectAttributes.addFlashAttribute("errorName", validHoTen);
-            return false;
-        } else {
-            redirectAttributes.addFlashAttribute("hoVaTen", thongTinNhanHang.getHoVaTen());
-        }
-        if (thongTinNhanHang.getSoDienThoai().isEmpty() || thongTinNhanHang.getSoDienThoai() == null) {
-            String validSDT = "Số điện thoại không được để trống";
-            redirectAttributes.addFlashAttribute("errorNumber", validSDT);
-            return false;
-        } else {
-            redirectAttributes.addFlashAttribute("soDienThoai", thongTinNhanHang.getSoDienThoai());
-        }
-        if (thongTinNhanHang.getDiaChiNhanHang().isEmpty() || thongTinNhanHang.getDiaChiNhanHang() == null) {
-            String valiAddess = "Địa chỉ thoại không được để trống";
-            redirectAttributes.addFlashAttribute("errorAddess", valiAddess);
-            return false;
-        } else {
-            redirectAttributes.addFlashAttribute("diaChiNhanHang", thongTinNhanHang.getDiaChiNhanHang());
-        }
-
-        return true;
-
-    }
-
     @PostMapping("/t-shirt-luxury/ban-hang-onl/createHD")
     public String createHD(HttpSession session, ThongTinNhanHang thongTinNhanHang,
                            RedirectAttributes redirectAttributes
@@ -177,8 +163,9 @@ public class banHangOnlController {
         return "redirect:/t-shirt-luxury/ban-hang-onl";
     }
 
+
     @PostMapping("/t-shirt-luxury/ban-hang-onl/doneHD")
-    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien, HttpSession session) {
+    public String addSPCT(@RequestParam("tongTienHoaDonOnl") String tongTien , HttpSession session){
 
         // Xóa dấu phẩy nếu có
         tongTien = tongTien.replace(".", "");
@@ -201,6 +188,12 @@ public class banHangOnlController {
             hoaDon.setTrangThai(2);
             hoaDonRepo.save(hoaDon);
             Integer idGioHang = (Integer) session.getAttribute("idGioHang");
+            GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+            gioHang.setNgaySua(new Date());
+            gioHang.setNgayTao(new Date());
+            gioHang.setTrangThai(1);
+            gioHangRepo.save(gioHang);
+
 
             List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
             List<Integer> listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
@@ -230,6 +223,7 @@ public class banHangOnlController {
         }
         return "redirect:/t-shirt-luxury/trang-chu";
     }
+
 
     @PostMapping("/t-shirt-luxury/ban-hang-onl/update-quantity")
     @ResponseBody // Trả về JSON khi được gọi bằng AJAX

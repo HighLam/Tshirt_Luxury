@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="gio-hang.jsp" />
+<%--<jsp:include page="gio-hang.jsp" />--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link href="../css/chiTietGioHang.css" rel="stylesheet">
 </head>
 <body >
@@ -111,7 +112,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
-                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
 
@@ -187,9 +188,9 @@
                 </li>
                 <ul class="login-and-signin">
                     <i class="fa-regular fa-user pe-3"></i>
-                    <li class="button-login pe-3"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
+                    <li class="button-login pe-3"><a href="/t-shirt-luxury/login" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
                     </li>
-                    <li class="button-sign-in"><a href="#" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
+                    <li class="button-sign-in"><a href="/t-shirt-luxury/register" class="ten-danh-muc hover-change-color">ĐĂNG KÝ</a>
                     </li>
                 </ul>
             </ul>
@@ -208,6 +209,7 @@
     <div class="container mt-4">
         <h2 class="cart-title">
             GIỎ HÀNG CỦA BẠN
+            <span class="text-muted"> (Có ${soLuongSanPhamMuaOnline} sản phẩm trong giỏ hàng) </span>
 
         </h2>
         <div class="row">
@@ -225,7 +227,7 @@
                     <div class="ms-3">
                         <p>${ghct.sanPhamChiTiet.sanPham.tenSanPham} - ${ghct.sanPhamChiTiet.mauSac.tenMauSac} - ${ghct.sanPhamChiTiet.size.tenSize} </p>
 
-                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm">Xóa</a>
+                        <a href="/t-shirt-luxury/gio-hang-chi-tiet/delete?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" onclick="return confirmDelete()">Xóa</a>
                     </div>
                     <div class="ms-auto d-flex align-items-center">
                         <a href="/t-shirt-luxury/gio-hang-chi-tiet/subtract?id=${ghct.id}" class="btn btn-outline-secondary btn-sm" id="${ghct.id}" >-</a>
@@ -468,6 +470,16 @@
 
     });
 
+    // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
+    quantityInput.addEventListener("input", () => {
+        quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+    });
+
+
+
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+    }
 
     // const decrementBtn = document.getElementById("decrement");
     // const incrementBtn = document.getElementById("increment");

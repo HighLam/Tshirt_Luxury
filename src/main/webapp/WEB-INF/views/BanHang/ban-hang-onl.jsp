@@ -6,7 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tiến Hành Đặt Hàng</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body class="container">
@@ -36,7 +37,9 @@
                         <textarea style="width: 600px; height: 100px;" class="form-control me-2"
                                   placeholder="Ghi chú"  name="ghiChu"></textarea>
                 </div>
-                <button style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất thông tin giao hàng</button>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                <button style="margin-left: 400px; height: 45px; font-size: large;width: 250px;" id="completeInfoButton" class="btn btn-secondary p-2 bd-highlight ms-5">Hoàn tất thông tin giao hàng</button>
+                </div>
             </form>
         </div>
 
@@ -89,6 +92,10 @@
             <p style="color: red">${TTGHNull}</p>
         <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
         </form>
+
+
+
+
     </div>
 
 </div>
@@ -132,28 +139,11 @@
         })
 
 
-    // const decrementBtn = document.getElementById("decrement");
-    // const incrementBtn = document.getElementById("increment");
-    // const quantityInput = document.getElementById("quantity");
-    //
-    // // Xử lý khi nhấn nút Trừ (-)
-    // decrementBtn.addEventListener("click", () => {
-    //     let currentValue = parseInt(quantityInput.value) || 0;
-    //     if (currentValue > 0) {
-    //         quantityInput.value = currentValue - 1;
-    //     }
-    // });
-    //
-    // // Xử lý khi nhấn nút Cộng (+)
-    // incrementBtn.addEventListener("click", () => {
-    //     let currentValue = parseInt(quantityInput.value) || 0;
-    //     quantityInput.value = currentValue + 1;
-    // });
-    //
-    // // Đảm bảo giá trị nhập vào là số nguyên hợp lệ
-    // quantityInput.addEventListener("input", () => {
-    //     quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
-    // });
+
+
+
 </script>
+
+
 </body>
 </html>

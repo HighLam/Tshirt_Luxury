@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,6 +98,43 @@
             <div class="row">
                 <h2 class="">Quản Lý Hóa Đơn Online</h2>
 
+                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
+                    <div class="container-fluid">
+                        <form action="/t-shirt-luxury/admin/timHDO" method="get" class="d-flex align-items-center gap-2 w-100">
+                            <!-- Ô tìm kiếm -->
+                            <input
+                                    name="searchTerm"
+                                    class="form-control"
+                                    type="search"
+                                    placeholder="Tìm tên khách hàng hoặc mã hóa đơn"
+                                    aria-label="Search"
+                                    value="${searchTerm}"
+                                    style="max-width: 600px;">
+
+                            <!-- Dropdown chọn trạng thái -->
+                            <select class="form-select" name="trangThai" id="trangThai" style="width: 30%;">
+                                <option value="">-- Chọn Trạng Thái --</option>
+                                <option value="0" ${trangThai == 0 ? 'selected' : ''}>Chờ thanh toán</option>
+                                <option value="1" ${trangThai == 1 ? 'selected' : ''}>Đã thanh toán</option>
+                                <option value="2" ${trangThai == 2 ? 'selected' : ''}>Chờ xác nhận</option>
+                                <option value="3" ${trangThai == 3 ? 'selected' : ''}>Đang giao hàng</option>
+                                <option value="4" ${trangThai == 4 ? 'selected' : ''}>Giao hàng thành công</option>
+                            </select>
+
+                            <!-- Nút tìm kiếm -->
+                            <button class="btn btn-success d-flex align-items-center px-4 mt-2" type="submit">
+                                <i class="bi bi-search me-1"></i> Tìm Kiếm
+                            </button>
+
+                            <!-- Nút reset -->
+                            <a href="/t-shirt-luxury/admin/timHDO" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
+                                <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                            </a>
+                        </form>
+                    </div>
+                </nav>
+
+
                 <!-- <div class="p-2 bd-highlight d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                         data-bs-target="#themSanPham">
@@ -107,11 +147,13 @@
                     <thead>
                     <tr>
                         <th scope="col">STT</th>
+                        <th scope="col">Mã Hóa Đơn</th>
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Ngày Sửa</th>
                         <th scope="col">Tổng Tiền</th>
-                        <th scope="col">Mô Tả</th>
+
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
@@ -119,8 +161,9 @@
                     <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
                             <td>${i.index +1}</td>
+                            <td>${hd.maHoaDon}</td>
                             <td>${hd.thongTinNhanHang.hoVaTen}</td>
-<%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
+                                <%--                            <td>${hd.trangThai == 1 ? "Thành công" : (hd.trangThai == 2 ? "Chờ xác nhận" : "Đang giao hàng")}</td>--%>
                             <td>
                                 <c:if test="${hd.trangThai == 0}">
                                     <span class="badge bg-primary">Chờ thanh toán</span>
@@ -140,8 +183,10 @@
 
                             </td>
                             <td>${hd.ngayTao}</td>
-                            <td>${hd.tongTien}</td>
-                            <td>${hd.moTa}</td>
+                            <td>${hd.ngaySua}</td>
+
+                            <td><fmt:formatNumber value='${hd.tongTien}' pattern="#,##0"/></td>
+
                             <td>
                                 <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=${hd.id}" class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">

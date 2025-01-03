@@ -60,10 +60,10 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     @Query(value = "DELETE FROM hoa_don_chi_tiet WHERE id_hoa_don = :idHoaDon", nativeQuery = true)
     Integer huyHoaDon(@Param("idHoaDon") Integer idHoaDon);
 
-    @Query(value = "select * from hoa_don where loai_hoa_don = 0",nativeQuery = true)
+    @Query(value = "select * from hoa_don where loai_hoa_don = 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonTaiQuay();
 
-    @Query(value = "select * from hoa_don where loai_hoa_don = 1 ORDER BY ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don where loai_hoa_don = 1 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonOnline();
 
     @Query(value = "select id_thong_tin_nhan_hang from hoa_don where id = :idHoaDon",nativeQuery = true)
@@ -93,4 +93,33 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
 
     @Query(value = "select trang_thai from hoa_don WHERE  id = :idHoaDon", nativeQuery = true)
     Integer getHoaDonTrangThai1(@Param("idHoaDon") Integer idHoaDon);
+
+    @Query(value = "SELECT ho, ten_dem, ten FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    String getHoVaTenKhachHang(@Param("soDienThoai") String soDienThoai);
+
+    @Query(value = "SELECT so_dien_thoai FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    String getSoDienThoai(@Param("soDienThoai") String soDienThoai);
+
+    @Query(value = "SELECT id_nguoi_dung FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    Integer getIdNguoiDung(@Param("soDienThoai") String soDienThoai);
+
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:searchTerm IS NULL OR " +
+            "       LOWER(h.thongTinNhanHang.hoVaTen) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
+            "AND (:trangThai IS NULL OR h.trangThai = :trangThai)")
+    List<HoaDon> timHoaDonOnline(
+            @Param("searchTerm") String searchTerm,
+            @Param("trangThai") Integer trangThai);
+
+
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:searchName IS NULL OR " +
+            "       LOWER(h.nguoiDung.tenNguoiDung) LIKE LOWER(CONCAT('%', :searchName, '%')) OR " +
+            "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchName, '%'))) " +
+            "AND (:trangThai IS NULL OR h.trangThai = :trangThai)")
+    List<HoaDon> timHoaDonTaiQuay(
+            @Param("searchName") String searchName,
+            @Param("trangThai") Integer trangThai);
+
 }

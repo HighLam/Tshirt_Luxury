@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1460px">
 <div >
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -87,6 +87,7 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -95,11 +96,35 @@
             <div class="row">
                 <h2 class="">Quản Lý Sản Phẩm</h2>
 
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themSanPham">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
+
+
+                <div class="p-3 bg-light rounded border mt-3">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
+                        <div class="container-fluid">
+                            <form action="/t-shirt-luxury/admin/timSP" method="get" class="d-flex align-items-center gap-2 w-100">
+                                <input name="timKiemSanPham" class="form-control" type="search"
+                                       placeholder="Tìm sản phẩm" aria-label="Search"
+                                       value="${timKiemSanPham}" style="max-width: 600px;">
+
+                                <select class="form-select" name="trangThai" id="trangThai" style="width: 30%;">
+                                    <option value="">-- Chọn Trạng Thái --</option>
+                                    <option value="1" ${sanPham.trangThai == 1 ? 'selected' : ''}>Còn Hàng</option>
+                                    <option value="0" ${sanPham.trangThai == 0 ? 'selected' : ''}>Hết Hàng</option>
+                                </select>
+                                <button class="btn btn-success d-flex align-items-center px-4 mt-2" type="submit">
+                                    <i class="bi bi-search me-1"></i> Tìm Kiếm
+                                </button>
+                                <a href="/t-shirt-luxury/admin/timSP" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Reset
+                                </a>
+                                <button type="button" class="btn btn-outline-success ms-2 mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#themSanPham">
+                                    <i class="fa-solid fa-circle-plus"></i> Thêm Mới
+                                </button>
+
+                            </form>
+                        </div>
+                    </nav>
                 </div>
 
                 <table class="table table-striped ">
@@ -134,7 +159,7 @@
 
                                         title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham/delete?id=${sp.id}" class="btn btn-danger rounded-pill" data-toggle="tooltip"
-                                        data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                                        data-placement="top" title="Xóa" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
                                 <a href="/t-shirt-luxury/admin/san-pham-chi-tiet?id=${sp.id}" class="btn btn-secondary rounded-pill"
                                    data-toggl e="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
@@ -142,10 +167,31 @@
                             </td>
                         </tr>
                     </c:forEach>
-
-
                     </tbody>
                 </table>
+<%--                <nav aria-label="Page navigation">--%>
+<%--                    <ul class="pagination justify-content-center mt-4">--%>
+<%--                        <c:if test="${sanPhamPage.number > 0}">--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=0">First</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.number-1}">Previous</a>--%>
+<%--                            </li>--%>
+<%--                        </c:if>--%>
+<%--                        <li class="page-item disabled">--%>
+<%--                            <a class="page-link" href="#">Page ${sanPhamPage.number + 1} of ${sanPhamPage.totalPages}</a>--%>
+<%--                        </li>--%>
+<%--                        <c:if test="${sanPhamPage.number + 1 < sanPhamPage.totalPages}">--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.number+1}">Next</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link" href="${pageContext.request.contextPath}/t-shirt-luxury/admin/san-pham?p=${sanPhamPage.totalPages-1}">Last</a>--%>
+<%--                            </li>--%>
+<%--                        </c:if>--%>
+<%--                    </ul>--%>
+<%--                </nav>--%>
             </div>
         </div>
     </div>
@@ -163,10 +209,10 @@
                 </div>
                 <div class="modal-body">
                     <!-- Mã Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
+<%--                    <div class="form-floating mb-3">--%>
+<%--                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham">--%>
+<%--                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>--%>
+<%--                    </div>--%>
 
                     <!-- Tên Sản Phẩm -->
                     <div class="form-floating mb-3">
@@ -185,12 +231,12 @@
                     <div>
                         <div class="text mt-2">Trạng Thái</div>
                         <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
+                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1" checked>
+                            <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2" value="0">
-                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
+                            <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
                         </div>
                     </div>
 
@@ -199,6 +245,7 @@
                         <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3"></textarea>
                     </div>
+                    <p style="color: red">${errorMessageSanPham}</p>
                 </div>
 
                 <!-- Footer Modal -->
@@ -211,87 +258,22 @@
     </div>
 </form>
 
-<form action="" method="post">
-    <div class="modal fade" id="suaSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sửa Sản Phẩm</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Mã Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
-                        <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
-                    </div>
 
-                    <!-- Tải Ảnh Lên -->
-                    <div class="mb-3">
-                        <label class="form-label">Chọn Ảnh Sản Phẩm</label>
-                        <select class="form-select" aria-label="Default select example" name="id_anh_san_pham">
-                            <c:forEach var="s" items="${anhSP}">
-                                <option value="${s.id}" <c:if test="${sanPham.anhSanPham.id == s.id}">selected</c:if>>
-                                        ${s.tenAnhSanPham}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-                    <!-- Tên Sản Phẩm -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputTenSanPham" placeholder="Tên Sản Phẩm" name="tenSanPham" value="${sanPham.tenSanPham}">
-                        <label for="floatingInputTenSanPham">Tên Sản Phẩm</label>
-                    </div>
-
-                    <!-- Danh Mục Sản Phẩm -->
-                    <div class="mb-3">
-                        <label class="form-label">Danh Mục Sản Phẩm</label>
-                        <select class="form-select" aria-label="Default select example" name="id_danh_muc">
-                            <c:forEach var="s" items="${danhMuc}">
-                                <option value="${s.id}" <c:if test="${sanPham.danhMuc.id == s.id}">selected</c:if>>
-                                        ${s.tenDanhMuc}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-
-                    <!-- Trạng Thái -->
-                    <div>
-                        <div class="text mt-2">Trạng Thái</div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" value="1"
-                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 1}">checked</c:if>>
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                        </div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="trangThai" value="0"
-                                   <c:if test="${sanPham.trangThai != null && sanPham.trangThai == 0}">checked</c:if>>
-                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
-                        </div>
-                    </div>
-
-                    <!-- Mô Tả Sản Phẩm -->
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa" rows="3">${sanPham.moTa}</textarea>
-                    </div>
-                </div>
-
-                <!-- Footer Modal -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-success">Cập Nhật</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('${openModal}'));
+        myModal.show();
+    });
+</script>
 </body>
 <script
         src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+<script>
+    confirmDelete = () => {
+        return confirm("Bạn có chắc chắn muốn xóa Sản Phẩm này không ?");
+    }
+</script>
+
 </html>

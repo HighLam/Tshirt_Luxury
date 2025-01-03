@@ -20,6 +20,21 @@ public class dotGiamGiaController {
     @Autowired
     danhMucRepository danhMucRepo;
 
+    public String generateMaDotGiamGia() {
+        // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
+        String lastMaDotGiamGia = dotGiamGiaRepo.findLastMaDotGiamGia(); // Giả sử phương thức này trả về "HD005"
+
+        int nextNumber = 1; // Số bắt đầu nếu không có hóa đơn nào
+        if (lastMaDotGiamGia != null && lastMaDotGiamGia.startsWith("DGG")) {
+            // Lấy phần số từ mã hóa đơn cuối cùng
+            String numberPart = lastMaDotGiamGia.substring(2); // Bỏ "HD"
+            nextNumber = Integer.parseInt(numberPart) + 1;
+        }
+
+        // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
+        return String.format("DGG%03d", nextNumber);
+    }
+
     @GetMapping("/t-shirt-luxury/admin/giam-gia")
     public String dotGiamGia(Model model) {
         model.addAttribute("listGiamGia", dotGiamGiaRepo.findAll());
@@ -27,6 +42,7 @@ public class dotGiamGiaController {
     }
     @PostMapping("/t-shirt-luxyry/admin/giam-gia/add")
     public String addGiamGia(DotGiamGia dotGiamGia){
+        dotGiamGia.setMaDotGiamGia(generateMaDotGiamGia());
         dotGiamGia.setNgayBatDau(new Date());
         dotGiamGia.setNgayKetThuc(new Date());
 
