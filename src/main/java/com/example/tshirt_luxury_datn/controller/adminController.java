@@ -41,8 +41,7 @@ public class adminController {
     @Autowired
     nguoiDungRepository nguoiDungRepo;
 
-    @Autowired
-    nguoiDungChiTietRepository nguoiDungChiTietRepo;
+
 
 
     public HoaDon createHoaDon(HttpSession session) {
@@ -127,28 +126,7 @@ public class adminController {
     }
 
 
-    private NguoiDungChiTiet createNguoiDungChiTiet(NguoiDung nguoiDung, String hoVaTenKhachHang, String soDienThoai) {
-        NguoiDungChiTiet nguoiDungChiTiet = new NguoiDungChiTiet();
 
-        // Tách họ, tên đệm và tên từ hoVaTenKhachHang
-        String[] nameParts = hoVaTenKhachHang.trim().split("\\s+");
-        String ho = nameParts[0];
-        String ten = nameParts[nameParts.length - 1];
-        String tenDem = String.join(" ", Arrays.copyOfRange(nameParts, 1, nameParts.length - 1));
-
-        nguoiDungChiTiet.setMaNguoiDungChiTiet("NDCT" + nguoiDung.getId());
-        nguoiDungChiTiet.setHo(ho);
-        nguoiDungChiTiet.setTenDem(tenDem);
-        nguoiDungChiTiet.setTen(ten);
-        nguoiDungChiTiet.setGioiTinh("Không rõ");
-        nguoiDungChiTiet.setSoDienThoai(soDienThoai);
-        nguoiDungChiTiet.setNgayTao(new Date());
-        nguoiDungChiTiet.setNgaySua(new Date());
-        nguoiDungChiTiet.setTrangThai(1);
-        nguoiDungChiTiet.setNguoiDung(nguoiDung);
-        nguoiDungChiTiet.setMoTa("Thông tin chi tiết được thêm mới");
-        return nguoiDungChiTiet;
-    }
 
 
 
