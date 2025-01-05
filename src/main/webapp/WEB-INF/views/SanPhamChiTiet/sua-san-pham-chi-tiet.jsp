@@ -73,8 +73,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i
-                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>
+<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -97,10 +97,10 @@
             <div class="row">
                 <h2 class="">Sửa Sản Phẩm</h2>
                 <form action="/t-shirt-luxury/admin/updateSanPhamChiTiet?id=${SPCT.id}" method="POST">
-                    <div>
+<%--                    <div>--%>
 
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+<%--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
+<%--                    </div>--%>
                     <div class="modal-body">
                         <!-- Mã Sản Phẩm -->
                         <div class="form-floating mb-3">

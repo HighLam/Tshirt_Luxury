@@ -115,6 +115,8 @@ public class adminController {
         nguoiDung.setNgaySua(new Date());
         nguoiDung.setNgayTao(new Date());
         nguoiDung.setEmail("N/A");
+        nguoiDung.setMatKhau("123tshirtluxury");
+        nguoiDung.setDiaChi("N/A");
 
         ChucVu chucVu = new ChucVu();
         chucVu.setId(3); // ID vai trò mặc định
@@ -419,7 +421,7 @@ public class adminController {
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
-            NguoiDungChiTiet nguoiDungChiTiet1 = new NguoiDungChiTiet();
+
 
 
                 if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
@@ -427,9 +429,6 @@ public class adminController {
                     nguoiDung = createNguoiDungForGuest();
 
                     nguoiDungRepo.save(nguoiDung);
-
-                    nguoiDungChiTiet1 = createNguoiDungChiTiet(nguoiDung, "Khách vãng lai", soDienThoaiKhachHang);
-                    nguoiDungChiTietRepo.save(nguoiDungChiTiet1);
 
                 } else {
                     // Lấy ID người dùng dựa trên số điện thoại
@@ -446,17 +445,12 @@ public class adminController {
                             // Nếu không tồn tại, tạo mới
                             nguoiDung = createNguoiDung(hoVaTenKhachHang);
                             nguoiDung.setId(idNguoiDung);
-                            NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
-                            nguoiDungChiTietRepo.save(nguoiDungChiTiet);
+
                         }
                     } else {
                         // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
                         nguoiDung = createNguoiDung(hoVaTenKhachHang);
                         nguoiDungRepo.save(nguoiDung);
-
-                        // Tạo người dùng chi tiết tương ứng
-                        NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
-                        nguoiDungChiTietRepo.save(nguoiDungChiTiet);
                     }
                 }
 

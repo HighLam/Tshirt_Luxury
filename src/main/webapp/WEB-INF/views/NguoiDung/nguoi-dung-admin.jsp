@@ -176,10 +176,7 @@
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </button>
-                                <a href="/t-shirt-luxury/admin/nguoi-dung-chi-tiet" class="btn btn-secondary rounded-pill"
-                                    data-placement="top" title="Xem Chi Tiết">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
+
                             </td>
                         </tr>
                     </c:forEach>
