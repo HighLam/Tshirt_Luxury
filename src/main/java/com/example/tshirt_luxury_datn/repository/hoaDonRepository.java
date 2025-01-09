@@ -94,13 +94,13 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     @Query(value = "select trang_thai from hoa_don WHERE  id = :idHoaDon", nativeQuery = true)
     Integer getHoaDonTrangThai1(@Param("idHoaDon") Integer idHoaDon);
 
-    @Query(value = "SELECT ho, ten_dem, ten FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    @Query(value = "SELECT ten_nguoi_dung FROM nguoi_dung WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
     String getHoVaTenKhachHang(@Param("soDienThoai") String soDienThoai);
 
-    @Query(value = "SELECT so_dien_thoai FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    @Query(value = "SELECT so_dien_thoai FROM nguoi_dung WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
     String getSoDienThoai(@Param("soDienThoai") String soDienThoai);
 
-    @Query(value = "SELECT id_nguoi_dung FROM nguoi_dung_chi_tiet WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
+    @Query(value = "SELECT id FROM nguoi_dung WHERE so_dien_thoai = :soDienThoai", nativeQuery = true)
     Integer getIdNguoiDung(@Param("soDienThoai") String soDienThoai);
 
     @Query("SELECT h FROM HoaDon h " +

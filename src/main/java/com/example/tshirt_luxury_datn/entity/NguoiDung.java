@@ -50,4 +50,13 @@ public class NguoiDung {
 
     @Column(name = "mo_ta")
     private String moTa;
+
+    @Column(name = "so_dien_thoai")
+    private String soDienThoai;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
+
+
+
 }

@@ -72,8 +72,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i
-                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>
+<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -100,7 +100,7 @@
                 <form action="/t-shirt-luxury/admin/voucher/update?id=${voucher.id}" method="post">
                     <div class="modal-body">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher" value="${voucher.maVoucher}">
+                            <input readonly type="text" class="form-control" id="floatingInput" placeholder="Mã Voucher" name="maVoucher" value="${voucher.maVoucher}">
                             <label for="floatingInput">Mã Voucher</label>
                         </div>
 
@@ -158,7 +158,7 @@
                             <label for="floatingInput">Mô tả</label>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <a href="/t-shirt-luxury/admin/voucher" class="btn btn-secondary">Đóng</a>
                             <button type="submit" class="btn btn-success">Cập nhật</button>
                         </div>
                     </div>

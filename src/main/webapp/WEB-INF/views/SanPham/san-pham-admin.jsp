@@ -71,8 +71,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i
-                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>
+<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -234,8 +234,6 @@
                         <div class="text mt-2">Trạng Thái</div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1" checked>
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                            <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1" value="1">
                             <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">

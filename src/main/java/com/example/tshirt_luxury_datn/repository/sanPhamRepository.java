@@ -60,6 +60,7 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
 
 
 
-
+    @Query(value = "SELECT TOP 1 ma_san_pham FROM san_pham ORDER BY ma_san_pham DESC", nativeQuery = true)
+    String findLastSanPham();
 
 }

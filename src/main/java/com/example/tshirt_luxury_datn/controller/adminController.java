@@ -41,8 +41,7 @@ public class adminController {
     @Autowired
     nguoiDungRepository nguoiDungRepo;
 
-    @Autowired
-    nguoiDungChiTietRepository nguoiDungChiTietRepo;
+
 
 
     public HoaDon createHoaDon(HttpSession session) {
@@ -116,6 +115,8 @@ public class adminController {
         nguoiDung.setNgaySua(new Date());
         nguoiDung.setNgayTao(new Date());
         nguoiDung.setEmail("N/A");
+        nguoiDung.setMatKhau("123tshirtluxury");
+        nguoiDung.setDiaChi("N/A");
 
         ChucVu chucVu = new ChucVu();
         chucVu.setId(3); // ID vai trò mặc định
@@ -127,28 +128,7 @@ public class adminController {
     }
 
 
-    private NguoiDungChiTiet createNguoiDungChiTiet(NguoiDung nguoiDung, String hoVaTenKhachHang, String soDienThoai) {
-        NguoiDungChiTiet nguoiDungChiTiet = new NguoiDungChiTiet();
 
-        // Tách họ, tên đệm và tên từ hoVaTenKhachHang
-        String[] nameParts = hoVaTenKhachHang.trim().split("\\s+");
-        String ho = nameParts[0];
-        String ten = nameParts[nameParts.length - 1];
-        String tenDem = String.join(" ", Arrays.copyOfRange(nameParts, 1, nameParts.length - 1));
-
-        nguoiDungChiTiet.setMaNguoiDungChiTiet("NDCT" + nguoiDung.getId());
-        nguoiDungChiTiet.setHo(ho);
-        nguoiDungChiTiet.setTenDem(tenDem);
-        nguoiDungChiTiet.setTen(ten);
-        nguoiDungChiTiet.setGioiTinh("Không rõ");
-        nguoiDungChiTiet.setSoDienThoai(soDienThoai);
-        nguoiDungChiTiet.setNgayTao(new Date());
-        nguoiDungChiTiet.setNgaySua(new Date());
-        nguoiDungChiTiet.setTrangThai(1);
-        nguoiDungChiTiet.setNguoiDung(nguoiDung);
-        nguoiDungChiTiet.setMoTa("Thông tin chi tiết được thêm mới");
-        return nguoiDungChiTiet;
-    }
 
 
 
@@ -301,6 +281,8 @@ public class adminController {
                         HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                         hoaDonChiTiet.setHoaDon(hoaDon1);
                         hoaDonChiTiet.setSoLuong(soLuong);
+                        hoaDonChiTiet.setNgaySua(new Date());
+                        hoaDonChiTiet.setNgayTao(new Date());
                         hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
                         hoaDonChiTietRepo.save(hoaDonChiTiet);
                         session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
@@ -439,7 +421,7 @@ public class adminController {
 
             hoaDon.setTrangThai(1);
             NguoiDung nguoiDung = new NguoiDung();
-            NguoiDungChiTiet nguoiDungChiTiet1 = new NguoiDungChiTiet();
+
 
 
                 if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
@@ -447,9 +429,6 @@ public class adminController {
                     nguoiDung = createNguoiDungForGuest();
 
                     nguoiDungRepo.save(nguoiDung);
-
-                    nguoiDungChiTiet1 = createNguoiDungChiTiet(nguoiDung, "Khách vãng lai", soDienThoaiKhachHang);
-                    nguoiDungChiTietRepo.save(nguoiDungChiTiet1);
 
                 } else {
                     // Lấy ID người dùng dựa trên số điện thoại
@@ -466,17 +445,12 @@ public class adminController {
                             // Nếu không tồn tại, tạo mới
                             nguoiDung = createNguoiDung(hoVaTenKhachHang);
                             nguoiDung.setId(idNguoiDung);
-                            NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
-                            nguoiDungChiTietRepo.save(nguoiDungChiTiet);
+
                         }
                     } else {
                         // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
                         nguoiDung = createNguoiDung(hoVaTenKhachHang);
                         nguoiDungRepo.save(nguoiDung);
-
-                        // Tạo người dùng chi tiết tương ứng
-                        NguoiDungChiTiet nguoiDungChiTiet = createNguoiDungChiTiet(nguoiDung, hoVaTenKhachHang, soDienThoaiKhachHang);
-                        nguoiDungChiTietRepo.save(nguoiDungChiTiet);
                     }
                 }
 
