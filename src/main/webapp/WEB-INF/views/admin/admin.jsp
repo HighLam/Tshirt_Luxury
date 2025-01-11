@@ -70,7 +70,7 @@
                    aria-current="true">
                     <i class="fa-solid fa-house"></i> Trang Chủ
                 </a>
-                <a href="#" class="list-group-item list-group-item-action"> <i
+                <a href="/t-shirt-luxury/admin/thong-ke" class="list-group-item list-group-item-action"> <i
                         class="fa-solid fa-chart-simple"></i> Số Liệu Thống Kê</a>
                 <a href="/t-shirt-luxury/admin/nguoi-dung" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-users-gear"></i>

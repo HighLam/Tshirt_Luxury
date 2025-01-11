@@ -30,7 +30,7 @@
             <p>Welcome back!</p>
             <p>Thương hiệu thời trang của người Việt</p>
         </div>
-        <form action="/manhDay" method="POST">
+        <form action="/log-in" method="POST">
             <input type="text" class="tai-khoan" name="ten_dang_nhap" placeholder="Tên đăng nhập">
             <input type="password" class="mat-khau" name="mat_khau" placeholder="Mật khẩu">
             <a href="#" class="forgot-password">Quên mật khẩu ?</a>

@@ -40,42 +40,97 @@ public class hoaDonController {
         return "HoaDon/hoa-don-online";
     }
 
+//    @GetMapping("/t-shirt-luxury/admin/hoa-don-online/detail")
+//    public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model) {
+//        List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(idHoaDon);
+//        HoaDon hoaDon = hoaDonRepo.getReferenceById(idHoaDon);
+//        Integer idVC = hoaDon.getVoucher().getId();
+//        Float tongGia = hoaDonRepo.tongGiaBanDau(idHoaDon);
+//        Voucher voucher = voucherRepo.getReferenceById(idVC);
+//        Integer phanTramGiam = voucher.getGiaTriGiam();
+//        Float gioiHanGiam =  voucherRepo.gioiHan(idVC);
+//
+//        Float giaTriGiam = tongGia * phanTramGiam /100;
+//
+//        if(giaTriGiam>gioiHanGiam){
+//            model.addAttribute("giaTriGiam",gioiHanGiam );
+//        }else {
+//            model.addAttribute("giaTriGiam",giaTriGiam );
+//        }
+//        model.addAttribute("voucherTrongHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+//        //model.addAttribute("tongTienHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+//        model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
+//
+//
+//        model.addAttribute("giaTienBanDau", hoaDonRepo.tongGiaBanDau(idHoaDon));
+//
+//        model.addAttribute("soSanPhamMua", hoaDonRepo.getSoLuongSanPhamMua(idHoaDon));
+//
+//        model.addAttribute("xacNhanHoaDonOnline", hoaDonRepo.getHoaDonTrangThai1(idHoaDon));
+//
+//        model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
+//        System.out.println("fhjskdhfksjhfkjshkjfhksjdhkfjs"+hoaDonChiTiet);
+//        Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
+//        ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
+//        model.addAttribute("thongTinNhanHang", thongTinNhanHang);
+//        return "HoaDon/xac-nhan-don-hang";
+//
+//    }
+
     @GetMapping("/t-shirt-luxury/admin/hoa-don-online/detail")
     public String hoaDonOnlineDetail(@RequestParam("idHoaDonOnline") Integer idHoaDon, Model model) {
+        // Lấy danh sách chi tiết hóa đơn
         List<HoaDonChiTiet> hoaDonChiTiet = hoaDonChiTietRepo.getHoaDonChiTietByIdHoaDon(idHoaDon);
+
+        // Lấy thông tin hóa đơn
         HoaDon hoaDon = hoaDonRepo.getReferenceById(idHoaDon);
-        Integer idVC = hoaDon.getVoucher().getId();
-        Float tongGia = hoaDonRepo.tongGiaBanDau(idHoaDon);
-        Voucher voucher = voucherRepo.getReferenceById(idVC);
-        Integer phanTramGiam = voucher.getGiaTriGiam();
-        Float gioiHanGiam =  voucherRepo.gioiHan(idVC);
 
-        Float giaTriGiam = tongGia * phanTramGiam /100;
-
-        if(giaTriGiam>gioiHanGiam){
-            model.addAttribute("giaTriGiam",gioiHanGiam );
-        }else {
-            model.addAttribute("giaTriGiam",giaTriGiam );
+        // Kiểm tra nếu voucher là null
+        Voucher voucher = null;
+        Integer idVC = null;
+        if (hoaDon.getVoucher() != null) {
+            idVC = hoaDon.getVoucher().getId();
+            voucher = voucherRepo.getReferenceById(idVC);
         }
-        model.addAttribute("voucherTrongHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
-        //model.addAttribute("tongTienHoaDon", hoaDonRepo.getReferenceById(idHoaDon));
+
+        // Tính tổng giá ban đầu của hóa đơn
+        Float tongGia = hoaDonRepo.tongGiaBanDau(idHoaDon);
+
+        // Kiểm tra voucher và tính toán giá trị giảm
+        Integer phanTramGiam = 0;
+        Float gioiHanGiam = 0.0f;
+        Float giaTriGiam = 0.0f;
+
+        if (voucher != null) {
+            phanTramGiam = voucher.getGiaTriGiam();
+            gioiHanGiam = voucherRepo.gioiHan(idVC);
+            giaTriGiam = tongGia * phanTramGiam / 100;
+        }
+
+        // Kiểm tra và áp dụng giới hạn giảm giá
+        if (giaTriGiam > gioiHanGiam) {
+            model.addAttribute("giaTriGiam", gioiHanGiam);
+        } else {
+            model.addAttribute("giaTriGiam", giaTriGiam);
+        }
+
+        // Thêm các thuộc tính vào model
+        model.addAttribute("voucherTrongHoaDon", hoaDon);
         model.addAttribute("tongTien", hoaDonRepo.tongTienHoaDonOnline(idHoaDon));
-
-
         model.addAttribute("giaTienBanDau", hoaDonRepo.tongGiaBanDau(idHoaDon));
-
         model.addAttribute("soSanPhamMua", hoaDonRepo.getSoLuongSanPhamMua(idHoaDon));
-
         model.addAttribute("xacNhanHoaDonOnline", hoaDonRepo.getHoaDonTrangThai1(idHoaDon));
-
         model.addAttribute("hoaDonChiTietOnline", hoaDonChiTiet);
-        System.out.println("fhjskdhfksjhfkjshkjfhksjdhkfjs"+hoaDonChiTiet);
+
+        // Lấy thông tin đơn hàng
         Integer idThongTinDonHang = hoaDonRepo.getThongTinDonHang(idHoaDon);
         ThongTinNhanHang thongTinNhanHang = thongTinDonHangRepo.getReferenceById(idThongTinDonHang);
         model.addAttribute("thongTinNhanHang", thongTinNhanHang);
-        return "HoaDon/xac-nhan-don-hang";
 
+        // Trả về trang xác nhận đơn hàng
+        return "HoaDon/xac-nhan-don-hang";
     }
+
 
     @PostMapping("/t-shirt-luxury/admin/hoa-don-online/xac-nhan-don")
     public String xacNhanDon(@RequestParam("idHoaDonXacNhan") Integer idHoaDon, HttpSession session) {

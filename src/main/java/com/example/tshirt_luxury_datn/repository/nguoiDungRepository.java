@@ -27,6 +27,8 @@ public interface nguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
             + " AND (:idChucVu IS NULL OR id_chuc_vu = :idChucVu)", nativeQuery = true)
     List<NguoiDung> timKiemND(@Param("keyWord") String keyWord, @Param("idChucVu") Integer idChucVu);
 
+    NguoiDung findByTenDangNhap(String tenDangNhap);
+
 }
 
 
