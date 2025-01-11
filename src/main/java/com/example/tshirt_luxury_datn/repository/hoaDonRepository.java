@@ -125,13 +125,13 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("trangThai") Integer trangThai);
 
 
-    @Query(value = "select * from hoa_don where trang_thai = 1 order by ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getAllBill();
 
-    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai = 1", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
     Integer getSoLuongHoaDon();
 
-    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai = 1", nativeQuery = true)
+    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
     Double getTongDoanhThu();
 
     @Query("SELECT new com.example.tshirt_luxury_datn.response.hoaDonReponse(COUNT(h), SUM(h.tongTien)) " +
@@ -152,8 +152,16 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "FROM HoaDonChiTiet hct " +
             "JOIN HoaDon hd ON hct.hoaDon.id = hd.id " +
             "WHERE hd.ngayTao BETWEEN :ngayBatDau AND :ngayKetThuc " +
-            "AND (hd.loaiHoaDon != 1 OR (hd.loaiHoaDon = 1 AND hd.trangThai = 4))")
+            "AND (hd.loaiHoaDon != 1 OR (hd.loaiHoaDon = 1 AND hd.trangThai = 4)) ")
     Integer tinhTongSoLuong(@Param("ngayBatDau") Date ngayBatDau, @Param("ngayKetThuc") Date ngayKetThuc);
+
+
+    @Query(value = "SELECT \n" +
+            "    COUNT(*) AS soLuongHoaDon,\n" +
+            "    SUM(tong_tien) AS tongDoanhThu\n" +
+            "FROM hoa_don\n" +
+            "WHERE ngay_tao >= DATEADD(DAY, -:soNgay, GETDATE())", nativeQuery = true)
+    Integer selectTheoSoNgay(@Param("soNgay") Integer soNgay);
 
 
 }

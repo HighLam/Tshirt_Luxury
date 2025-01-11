@@ -10,14 +10,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thống Kê</title>
+    <title>T-Shirt Luxury | Thống Kê</title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -102,7 +103,7 @@
 
             <div class="row">
 
-                <div class="col-3">
+                <div class="col-3" style="height: 50px; width: 330px">
                     <div class="p-3 border bg-light"><i class="fa-solid fa-chart-line"></i> Tổng Doanh Thu:
                         <fmt:formatNumber value="${tongDoanhThu}" type="currency" currencySymbol="₫" groupingUsed="true" /></div>
                 </div>
@@ -118,42 +119,37 @@
 
             </div>
 
-            <form action="/t-shirt-luxury/admin/thong-ke/loc" method="post">
-            <div class="row g-2 mt-2 justify-content-end align-items-end">
-                <!-- Input Ngày Bắt Đầu -->
 
-                <div class="col-auto">
+
+            <div class="row g-2 mt-3 justify-content-end align-items-center ms-3">
+                <!-- Form Lọc theo số ngày -->
+                <form action="/t-shirt-luxury/admin/thong-ke/loc-theo-so-ngay" method="post" class="d-flex align-items-center col-auto gap-3" id="locForm">
+                    <select class="form-select" aria-label="Default select example" name="locTheoSoNgay" id="locTheoSoNgay" onchange="saveSelection()">
+                        <option value="10000" selected>Tất Cả</option>
+                        <option value="7">7 ngày</option>
+                        <option value="28">28 ngày</option>
+                        <option value="365">1 năm</option>
+                    </select>
+                </form>
+
+                <!-- Form Lọc theo ngày -->
+                <form action="/t-shirt-luxury/admin/thong-ke/loc" method="post" class="d-flex align-items-center col-auto gap-3">
+                    <!-- Input Ngày Bắt Đầu -->
                     <div class="form-floating">
-                        <input id="floatingInputNgayBatDau"
-                               type="date"
-                               class="form-control"
-                               placeholder="Ngày Bắt Đầu"
-                               name="ngayBatDau"
-                               >
+                        <input id="floatingInputNgayBatDau" type="date" class="form-control" placeholder="Ngày Bắt Đầu" name="ngayBatDau">
                         <label for="floatingInputNgayBatDau">Ngày Bắt Đầu</label>
                     </div>
-                </div>
 
-                <!-- Input Ngày Kết Thúc -->
-                <div class="col-auto">
+                    <!-- Input Ngày Kết Thúc -->
                     <div class="form-floating">
-                        <input id="floatingInputNgayKetThuc"
-                               type="date"
-                               class="form-control"
-                               placeholder="Ngày Kết Thúc"
-                               name="ngayKetThuc"
-                               >
+                        <input id="floatingInputNgayKetThuc" type="date" class="form-control" placeholder="Ngày Kết Thúc" name="ngayKetThuc">
                         <label for="floatingInputNgayKetThuc">Ngày Kết Thúc</label>
                     </div>
-                </div>
 
-                <!-- Button Lọc -->
-                <div class="col-auto">
+                    <!-- Button Lọc -->
                     <button type="submit" class="btn btn-dark">Lọc</button>
-                </div>
-
+                </form>
             </div>
-            </form>
 
             <div class="row mt-2">
 
@@ -190,8 +186,47 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+<script>
+    // Hàm để lấy cookie theo tên
+    function getCookie(name) {
+        let value = "; " + document.cookie;
+        let parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+    // Đọc cookie và giữ lại giá trị select
+    window.onload = function() {
+        let locTheoSoNgay = getCookie("locTheoSoNgay");
+        if (locTheoSoNgay) {
+            document.querySelector("select[name='locTheoSoNgay']").value = locTheoSoNgay;
+        }
+    }
+    function saveSelection() {
+        var selectValue = document.getElementById("locTheoSoNgay").value;
+        // Lưu giá trị vào cookie
+        document.cookie = "locTheoSoNgay=" + selectValue + "; path=/";
+        var form = document.getElementById('locForm');
+
+        // Gửi form khi chọn một option
+        form.submit();
+    }
+
+    // Khi trang tải, kiểm tra cookie và tự động chọn giá trị tương ứng
+    document.addEventListener("DOMContentLoaded", function() {
+        var cookies = document.cookie.split(';');
+        var locTheoSoNgayValue = cookies.find(cookie => cookie.trim().startsWith('locTheoSoNgay='));
+
+        if (locTheoSoNgayValue) {
+            // Lấy giá trị cookie và tách giá trị
+            var value = locTheoSoNgayValue.split('=')[1];
+            // Đặt giá trị vào select
+            document.getElementById("locTheoSoNgay").value = value;
+        }
+    });
+</script>
 
 </html>

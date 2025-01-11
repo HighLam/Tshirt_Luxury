@@ -29,6 +29,9 @@ public interface nguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
 
     NguoiDung findByTenDangNhap(String tenDangNhap);
 
+    @Query(value ="select * from nguoi_dung where so_dien_thoai = :soDienThoai\n" , nativeQuery = true)
+    NguoiDung findBySoDienThoai(@Param("soDienThoai") String soDienThoai);
+
 }
 
 
