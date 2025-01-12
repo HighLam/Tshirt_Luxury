@@ -79,7 +79,10 @@ public class sanPhamChiTietAdminController {
     public String sanPhamChiTietAdmin(@RequestParam("id") Integer id, Model model, HttpSession session) {
         model.addAttribute("spct", sanPhamChiTietAdminRepo.findBySanPhamId(id));
         session.setAttribute("idSanPham", id);
-        model.addAttribute("idSanPham", id);
+        SanPham sanPham = sanPhamRepo.getReferenceById(id);
+        String tenSanPham = sanPham.getTenSanPham();
+        model.addAttribute("idSanPham", tenSanPham);
+
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
@@ -87,25 +90,28 @@ public class sanPhamChiTietAdminController {
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
             HttpSession session,
-//            @RequestParam("idSanPham") Integer idSanPham,
             @RequestParam("id_anh_san_pham_chi_tiet") Integer idAnhSanPham,
             @RequestParam("id_size") Integer idSize,
             @RequestParam("id_chat_lieu") Integer idChatLieu,
             @RequestParam("id_mau_sac") Integer idMauSac,
             @ModelAttribute("sanPhamChiTiet") SanPhamChiTiet sanPhamChiTiet) {
 
+        Integer idSanPham = (Integer) session.getAttribute("idSanPham");
+        SanPham sanPhamAdd = sanPhamRepo.getReferenceById(idSanPham);
 
-        SanPham sanPhamAdd = sanPhamRepo.getReferenceById((Integer) session.getAttribute("idSanPham"));
         sanPhamChiTiet.setSanPham(sanPhamAdd);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
-        sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.findById(idAnhSanPham).get());
-        sanPhamChiTiet.setSize(sizeRepo.findById(idSize).get());
-        sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
-        sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
+        sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.getReferenceById(idAnhSanPham));
+        sanPhamChiTiet.setSize(sizeRepo.getReferenceById(idSize));
+        sanPhamChiTiet.setChatLieu(chatLieuRepo.getReferenceById(idChatLieu));
+        sanPhamChiTiet.setMauSac(mauSacRepo.getReferenceById(idMauSac));
+
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
+
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + idSanPham;
     }
+
 
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
@@ -124,7 +130,9 @@ public class sanPhamChiTietAdminController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPhamChiTiet")
-    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("SPCT") SanPhamChiTiet sanPhamChiTiet) {
+    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("SPCT") SanPhamChiTiet sanPhamChiTiet,
+                                  @RequestParam("soLuong" )Integer soLuong
+                                  ) {
         SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.getReferenceById(id);
         if (getOne.getId() == id) {
             Date ngaySua = new Date();
@@ -140,6 +148,7 @@ public class sanPhamChiTietAdminController {
             sanPhamChiTiet.setMoTa(getOne.getMoTa());
             sanPhamChiTiet.setKhoiLuongSanPham(getOne.getKhoiLuongSanPham());
             sanPhamChiTiet.setAnhSanPham(getOne.getAnhSanPham());
+            sanPhamChiTiet.setSoLuong(soLuong);
             sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
         }
         return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + getOne.getSanPham().getId();
