@@ -115,6 +115,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("trangThai") Integer trangThai);
 
 
+
     @Query("SELECT h FROM HoaDon h " +
             "WHERE (:searchName IS NULL OR " +
             "       LOWER(h.nguoiDung.tenNguoiDung) LIKE LOWER(CONCAT('%', :searchName, '%')) OR " +
@@ -123,6 +124,14 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     List<HoaDon> timHoaDonTaiQuay(
             @Param("searchName") String searchName,
             @Param("trangThai") Integer trangThai);
+
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:searchName IS NULL OR " +
+            "       LOWER(h.nguoiDung.tenNguoiDung) LIKE LOWER(CONCAT('%', :searchName, '%')) OR " +
+            "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchName, '%'))) " +
+            "AND h.loaiHoaDon = 0 ")
+    List<HoaDon> timHoaDonTaiQuay1(
+            @Param("searchName") String searchName);
 
 
     @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) order by ngay_tao DESC",nativeQuery = true)

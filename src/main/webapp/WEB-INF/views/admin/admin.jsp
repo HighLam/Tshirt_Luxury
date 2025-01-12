@@ -82,8 +82,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
-<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
+                <%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+                <%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -103,8 +103,8 @@
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
 
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
-
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i
+                                class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
 
 
                     </ul>
@@ -180,7 +180,7 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-<%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
+                                        <%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
                                     <td>
                                         <c:if test="${sp.trangThai == 1}">
                                             <span class="badge bg-success">Đang Bán</span>
@@ -294,31 +294,54 @@
 
                         </div>
                         <div class="voucher ">
-                            <label>Voucher</label>
+
                             <div class=" mt-2">
+
+                                <%--                                <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">--%>
+                                <%--                                    <div class="row">--%>
+                                <%--                                        <div class="col-6">--%>
+                                <%--                                            <select style="width: 250px" class="form-select"--%>
+                                <%--                                                    aria-label="Default select example" name="idVc">--%>
+                                <%--                                                <c:forEach var="vc" items="${voucher}">--%>
+                                <%--                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>--%>
+                                <%--                                                </c:forEach>--%>
+                                <%--                                            </select>--%>
+                                <%--                                        </div>--%>
+                                <%--                                        <div class="col-2"></div>--%>
+                                <%--                                        <div class="col-4">--%>
+                                <%--                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">--%>
+                                <%--                                                Áp Dụng--%>
+                                <%--                                            </button>--%>
+                                <%--                                        </div>--%>
+                                <%--                                    </div>--%>
+                                <%--                                </form>--%>
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
                                     <div class="row">
+                                        <div class="col-3">
+                                            <label>Voucher</label>
+                                        </div>
                                         <div class="col-6">
-                                            <select style="width: 250px" class="form-select"
-                                                    aria-label="Default select example" name="idVc">
+
+                                            <select
+                                                    style="width: 250px"
+                                                    class="form-select"
+                                                    aria-label="Default select example"
+                                                    name="idVc"
+                                                    onchange="this.form.submit()">
                                                 <c:forEach var="vc" items="${voucher}">
-                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>
+                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id) ? 'selected' : ''}>
+                                                            ${vc.tenVoucher}
+                                                    </option>
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        <div class="col-2"></div>
-                                        <div class="col-4">
-                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">
-                                                Áp Dụng
-                                            </button>
-                                        </div>
                                     </div>
                                 </form>
+
                             </div>
-                                <p style="color: red">${notiVC}</p>
+                            <p style="color: red">${notiVC}</p>
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
-
 
 
                             <%--                            <button class="btn btn-success" type="submit">Thêm khách hàng</button>--%>
@@ -330,15 +353,18 @@
 
                                 <div class="col-7">
                                     <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
-                                           name="soDienThoai" placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
+                                           name="soDienThoai" placeholder="Số Điện Thoại"
+                                           value="${soDienThoaiKhachHang}">
                                 </div>
                                 <div class="col-5">
                                     <label class="col-form-label">Tên khách hàng</label>
                                 </div>
 
                                 <div class="col-7">
-                                    <input type="text" class="form-control mt-3" id="floatingInput" aria-label="Tên khách hàng"
-                                           name="hoVaTenKhachHang" placeholder="Tên khách hàng" value="${timKiemKhachHang}">
+                                    <input type="text" class="form-control mt-3" id="floatingInput"
+                                           aria-label="Tên khách hàng"
+                                           name="hoVaTenKhachHang" placeholder="Tên khách hàng"
+                                           value="${timKiemKhachHang}">
                                 </div>
                                 <div class="col-auto">
                                     <p class="mt-3" style="color: red">${khongTimThay}</p>
@@ -356,14 +382,15 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p> <fmt:formatNumber value='${chietKhau}' pattern="#,##0" />₫
-<%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
+                                    <p><fmt:formatNumber value='${chietKhau}' pattern="#,##0"/>₫
+                                        <%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
                                     </p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Khách phải trả</p>
-                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text"
+                                           id="tongTienHoaDon" name="tongTienHoaDon"
                                            value="<fmt:formatNumber value='${tongTien - chietKhau}' pattern="#,##0" />"
                                            readonly/>
                                     <spacer>₫</spacer>
@@ -385,8 +412,12 @@
 
                             <div class="btnHoaDon mt-5 d-flex justify-content-end me-5">
 
-                                <a onclick="confirmHuyHoaDon()" href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}" class="btn btn-secondary">Hủy</a>
-                                <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh toán</button>
+                                <a onclick="confirmHuyHoaDon()"
+                                   href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}"
+                                   class="btn btn-secondary">Hủy</a>
+                                <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh
+                                    toán
+                                </button>
                             </div>
                             <p style="color: red">${noti}</p>
                         </form>
@@ -650,6 +681,12 @@
             console.log("Scanning stopped.");
         });
     });
+
+
+    function submitFormOnChange(selectElement) {
+        selectElement.form.submit();
+    }
+
 
 
 </script>

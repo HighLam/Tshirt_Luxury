@@ -209,7 +209,7 @@ public class hoaDonController {
 
         if (searchName == null && trangThai == null) {
 
-            listHoaDonTaiQuay = hoaDonRepo.findAll();
+            listHoaDonTaiQuay = hoaDonRepo.timHoaDonTaiQuay1(searchName);
         } else {
             listHoaDonTaiQuay = hoaDonRepo.timHoaDonTaiQuay(searchName, trangThai);
         }

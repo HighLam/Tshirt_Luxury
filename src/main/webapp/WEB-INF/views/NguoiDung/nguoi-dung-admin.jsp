@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <%--    <script src="../js/script.js"></script>--%>
+
 </head>
 
 <body>
@@ -216,7 +217,7 @@
                     </div>
                     <select class="form-select" aria-label="Default select example" name="chucVu.id">
                         <c:forEach items="${listChucVu}" var="cv">
-                            <option selected hidden="hidden">Chọn chức vụ</option>
+                            <option selected hidden="hidden" value="3">Chọn chức vụ</option>
                             <option value="${cv.id}">${cv.tenChucVu}</option>
                         </c:forEach>
 
