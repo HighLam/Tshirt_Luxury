@@ -171,7 +171,7 @@ public class sanPhamController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPham")
-    public String updateNguoiDung(@RequestParam("id") Integer id,
+    public String up(@RequestParam("id") Integer id,
                                   @ModelAttribute("sanPham") SanPham sanPham,
                                   @RequestParam("tenSanPham") String tenSanPham,
                                   RedirectAttributes redirectAttributes) {

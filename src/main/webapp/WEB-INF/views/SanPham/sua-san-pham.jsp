@@ -105,7 +105,7 @@
             <div class="modal-body">
                 <!-- Mã Sản Phẩm -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
+                    <input type="text" readonly class="form-control" id="floatingInputMaSanPham" placeholder="Mã Sản Phẩm" name="maSanPham" value="${sanPham.maSanPham}">
                     <label for="floatingInputMaSanPham">Mã Sản Phẩm</label>
                 </div>
 

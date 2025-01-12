@@ -42,12 +42,10 @@ public class adminController {
     nguoiDungRepository nguoiDungRepo;
 
 
-
-
     public HoaDon createHoaDon(HttpSession session) {
         HoaDon hoaDon = new HoaDon();
 
-        if (hoaDonRepo.getTrangThaiDaThanhToan() !=0) {
+        if (hoaDonRepo.getTrangThaiDaThanhToan() != 0) {
             hoaDon.setNgaySua(new Date());
             hoaDon.setNgayTao(new Date());
             hoaDon.setTrangThai(0);
@@ -128,17 +126,12 @@ public class adminController {
     }
 
 
-
-
-
-
     @GetMapping("t-shirt-luxury/admin")
     public String getSanPhamChiTiet(Model model, HttpSession session) {
         List<SanPham> sanPhamList = (List<SanPham>) session.getAttribute("SP");
-        if(sanPhamList == null) {
+        if (sanPhamList == null) {
             model.addAttribute("SP", sanPhamRepo.SanPham());
-        }
-        else{
+        } else {
             model.addAttribute("SP", session.getAttribute("SP"));
         }
         Float tongTien = hoaDonRepo.tongTien((Integer) session.getAttribute("idHoaDon"));
@@ -150,15 +143,15 @@ public class adminController {
         model.addAttribute("idVoucher", session.getAttribute("idVoucher"));
         model.addAttribute("noti", session.getAttribute("noti"));
         model.addAttribute("notiVC", session.getAttribute("notiVC"));
-        model.addAttribute("errorSL",session.getAttribute("errorSL"));
-        session.setAttribute("listVoucher",voucherRepo.listVoucher(tongTien));
+        model.addAttribute("errorSL", session.getAttribute("errorSL"));
+        session.setAttribute("listVoucher", voucherRepo.listVoucher(tongTien));
         return "admin/admin";
     }
 
     @GetMapping("t-shirt-luxury/admin/timSanPham")
     public String timSanPham(Model model, @RequestParam("timKiemSanPham") String timKiemSanPham, HttpSession session) {
 //        model.addAttribute("SP", sanPhamRepo.timKiem(timKiemSanPham));
-        session.setAttribute("SP",sanPhamRepo.timKiem(timKiemSanPham));
+        session.setAttribute("SP", sanPhamRepo.timKiem(timKiemSanPham));
         return "redirect:/t-shirt-luxury/admin";
     }
 
@@ -173,10 +166,9 @@ public class adminController {
         if (hoVaTen != null) {
             hoVaTen = hoVaTen.replace(",", " ");
             redirectAttributes.addFlashAttribute("timKiemKhachHang", hoVaTen);
-        }else {
+        } else {
             redirectAttributes.addFlashAttribute("khongTimThay", "Không tìm thấy khách hàng !");
         }
-
 
 
         System.out.println("Tên khách hàng: " + hoVaTen);
@@ -221,6 +213,84 @@ public class adminController {
         return response;
     }
 
+    //// Cũ
+//    @PostMapping("/t-shirt-luxury/admin/getIdMau")
+//    public String getidMau(
+//            @RequestParam(name = "idMau") Integer idMau,
+//            @RequestParam(name = "idSize") Integer idSize,
+//            @RequestParam(name = "soLuong") Integer soLuong,
+//            HttpSession session,
+//            RedirectAttributes redirectAttributes
+//    ) {
+//        // Khởi tạo thông báo
+//        String noti = "";
+//        session.setAttribute("noti", noti);
+//
+//        // Kiểm tra trạng thái hóa đơn
+//        if (hoaDonRepo.getTrangThaiDaThanhToan() != 0) {
+//            createHoaDon(session);
+//        }
+//
+//        Integer idSanPham = (Integer) session.getAttribute("idSanPham");
+//        Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMau, idSize, idSanPham);
+//        SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize, idSanPham);
+//
+//        HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
+//
+//        if (hoaDon1.getTrangThai() == 0) {
+//            List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
+//            HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
+//            boolean check = false;
+//            for (Integer x : idSPCTDaCo) {
+//                if (sanPhamChiTiet1.getId().equals(x)) {
+//                    check = true;
+//                    break;
+//                }
+//            }
+//
+//            if (check) {
+//                hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+//                hoaDonChiTietRepo.save(hoaDonChiTiet1);
+//            } else {
+//
+//                // Kiểm tra sản phẩm chi tiết đã tồn tại hay chưa
+//                boolean sanPhamDaTonTai = idSPCTDaCo.contains(sanPhamChiTiet1.getId());
+//                Integer idHDCT = (Integer) session.getAttribute("idHDCT");
+//                Integer soLuongHDCT = hoaDonChiTietRepo.findSoLuongHDCTById(idHDCT);
+//                if (sanPhamDaTonTai) {
+//                    // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+//                    if (hoaDonChiTiet1 != null && soLuong + soLuongHDCT <= soLuongSpct) {
+//                        hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
+//                        hoaDonChiTietRepo.save(hoaDonChiTiet1);
+//                        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
+//                    } else if (soLuong > soLuongSpct){
+//                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
+//                    }
+//                } else {
+//                    // Nếu sản phẩm chưa tồn tại, thêm mới
+//                    if (soLuong <= soLuongSpct) {
+//                        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+//                        hoaDonChiTiet.setHoaDon(hoaDon1);
+//                        hoaDonChiTiet.setSoLuong(soLuong);
+//                        hoaDonChiTiet.setNgaySua(new Date());
+//                        hoaDonChiTiet.setNgayTao(new Date());
+//                        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+//                        hoaDonChiTietRepo.save(hoaDonChiTiet);
+//                        session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
+//                        session.setAttribute("idHDCT", hoaDonChiTiet.getId());
+//
+//                        redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
+//                    } else  if (soLuong > soLuongSpct){
+//                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá số lượng tồn: " + soLuongSpct);
+//
+//                    }
+//                }
+//            }
+//        }
+//            return "redirect:/t-shirt-luxury/admin";
+//        }
+//
+// MỚI
     @PostMapping("/t-shirt-luxury/admin/getIdMau")
     public String getidMau(
             @RequestParam(name = "idMau") Integer idMau,
@@ -242,11 +312,18 @@ public class adminController {
         Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMau, idSize, idSanPham);
         SanPhamChiTiet sanPhamChiTiet1 = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMau, idSize, idSanPham);
 
+        // Kiểm tra nếu sản phẩm hết hàng
+        if (soLuongSpct == 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Sản phẩm đã hết hàng.");
+            return "redirect:/t-shirt-luxury/admin";
+        }
+
         HoaDon hoaDon1 = (HoaDon) session.getAttribute("hoaDon");
 
         if (hoaDon1.getTrangThai() == 0) {
             List<Integer> idSPCTDaCo = hoaDonChiTietRepo.getSanPhamChiTietDaCo((Integer) session.getAttribute("idHoaDon"));
             HoaDonChiTiet hoaDonChiTiet1 = hoaDonChiTietRepo.getHoaDonChiTiet((Integer) session.getAttribute("idHoaDon"), sanPhamChiTiet1.getId());
+
             boolean check = false;
             for (Integer x : idSPCTDaCo) {
                 if (sanPhamChiTiet1.getId().equals(x)) {
@@ -256,48 +333,37 @@ public class adminController {
             }
 
             if (check) {
-                hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
-                hoaDonChiTietRepo.save(hoaDonChiTiet1);
-            } else {
-
-                // Kiểm tra sản phẩm chi tiết đã tồn tại hay chưa
-                boolean sanPhamDaTonTai = idSPCTDaCo.contains(sanPhamChiTiet1.getId());
-                Integer idHDCT = (Integer) session.getAttribute("idHDCT");
-                Integer soLuongHDCT = hoaDonChiTietRepo.findSoLuongHDCTById(idHDCT);
-                if (sanPhamDaTonTai) {
-                    // Nếu sản phẩm đã tồn tại, cập nhật số lượng
-                    if (hoaDonChiTiet1 != null && soLuong + soLuongHDCT <= soLuongSpct) {
-                        hoaDonChiTiet1.setSoLuong(hoaDonChiTiet1.getSoLuong() + soLuong);
-                        hoaDonChiTietRepo.save(hoaDonChiTiet1);
-                        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
-                    } else {
-                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
-                    }
+                // Sản phẩm đã tồn tại -> Cập nhật số lượng
+                int soLuongTong = hoaDonChiTiet1.getSoLuong() + soLuong;
+                if (soLuongTong <= soLuongSpct) {
+                    hoaDonChiTiet1.setSoLuong(soLuongTong);
+                    hoaDonChiTietRepo.save(hoaDonChiTiet1);
+                    redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công.");
                 } else {
-                    // Nếu sản phẩm chưa tồn tại, thêm mới
-                    if (soLuong <= soLuongSpct) {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá số lượng tồn: " + soLuongSpct);
+                }
+            } else {
+                // Sản phẩm chưa tồn tại -> Thêm mới
+                if (soLuong <= soLuongSpct) {
+                    HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+                    hoaDonChiTiet.setHoaDon(hoaDon1);
+                    hoaDonChiTiet.setSoLuong(soLuong);
+                    hoaDonChiTiet.setNgaySua(new Date());
+                    hoaDonChiTiet.setNgayTao(new Date());
+                    hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
+                    hoaDonChiTietRepo.save(hoaDonChiTiet);
+                    session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
+                    session.setAttribute("idHDCT", hoaDonChiTiet.getId());
 
-
-                        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-                        hoaDonChiTiet.setHoaDon(hoaDon1);
-                        hoaDonChiTiet.setSoLuong(soLuong);
-                        hoaDonChiTiet.setNgaySua(new Date());
-                        hoaDonChiTiet.setNgayTao(new Date());
-                        hoaDonChiTiet.setSanPhamChiTiet(sanPhamChiTiet1);
-                        hoaDonChiTietRepo.save(hoaDonChiTiet);
-                        session.setAttribute("hoaDonChiTiet", hoaDonChiTiet);
-                        session.setAttribute("idHDCT", hoaDonChiTiet.getId());
-
-                        redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
-                    } else {
-                        redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá " + soLuongSpct);
-                    }
+                    redirectAttributes.addFlashAttribute("successMessage", "Thêm mới thành công.");
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Số lượng không được vượt quá số lượng tồn: " + soLuongSpct);
                 }
             }
         }
-            return "redirect:/t-shirt-luxury/admin";
-        }
 
+        return "redirect:/t-shirt-luxury/admin";
+    }
 
     @GetMapping("/t-shirt-luxury/admin/delete-hdct")
     public String deleteHoaDon(@RequestParam("id") Integer id, HttpSession session) {
@@ -315,12 +381,12 @@ public class adminController {
     }
 
     @PostMapping("/t-shirt-luxury/admin/ap-dung-voucher")
-    public String apDungVoucher(@RequestParam(value = "idVc",defaultValue = "") Integer idVc, HttpSession session, Model model) {
+    public String apDungVoucher(@RequestParam(value = "idVc", defaultValue = "") Integer idVc, HttpSession session, Model model) {
 
-        if (idVc==null){
+        if (idVc == null) {
             String notiVC = "Chưa có voucher";
             session.setAttribute("notiVC", notiVC);
-        }else {
+        } else {
             model.addAttribute("giamHoaDon", hoaDonRepo.giamHoaDon((Integer) session.getAttribute("idHoaDon")));
             HoaDon hoaDon12 = hoaDonRepo.getReferenceById((Integer) session.getAttribute("idHoaDon"));
             Voucher voucher = voucherRepo.getReferenceById(idVc);
@@ -346,8 +412,6 @@ public class adminController {
         }
         return "redirect:/t-shirt-luxury/admin";
     }
-
-
 
 
     @PostMapping("/t-shirt-luxury/admin/thanh-toan")
@@ -391,8 +455,6 @@ public class adminController {
             }
 
 
-
-
             hoaDon.setId(idHoaDon);
             hoaDon.setMaHoaDon(generateMaHoaDon());
 //            Float voucherGiam = (Float) session.getAttribute("giaTriGiamVoucher");
@@ -423,44 +485,42 @@ public class adminController {
             NguoiDung nguoiDung = new NguoiDung();
 
 
+            if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
+                // Tạo người dùng mới cho khách vãng lai
+                nguoiDung = createNguoiDungForGuest();
 
-                if (hoVaTenKhachHang == null || hoVaTenKhachHang.trim().isEmpty()) {
-                    // Tạo người dùng mới cho khách vãng lai
-                    nguoiDung = createNguoiDungForGuest();
+                nguoiDungRepo.save(nguoiDung);
 
-                    nguoiDungRepo.save(nguoiDung);
+            } else {
+                // Lấy ID người dùng dựa trên số điện thoại
+                Integer idNguoiDung = hoaDonRepo.getIdNguoiDung(soDienThoaiKhachHang);
 
-                } else {
-                    // Lấy ID người dùng dựa trên số điện thoại
-                    Integer idNguoiDung = hoaDonRepo.getIdNguoiDung(soDienThoaiKhachHang);
+                if (idNguoiDung != null) {
+                    // Kiểm tra xem người dùng có tồn tại không
+                    Optional<NguoiDung> existingNguoiDung = nguoiDungRepo.findById(idNguoiDung);
 
-                    if (idNguoiDung != null) {
-                        // Kiểm tra xem người dùng có tồn tại không
-                        Optional<NguoiDung> existingNguoiDung = nguoiDungRepo.findById(idNguoiDung);
-
-                        if (existingNguoiDung.isPresent()) {
-                            // Nếu tồn tại, cập nhật thông tin
-                            nguoiDung = existingNguoiDung.get();
-                        } else {
-                            // Nếu không tồn tại, tạo mới
-                            nguoiDung = createNguoiDung(hoVaTenKhachHang);
-                            nguoiDung.setId(idNguoiDung);
-
-                        }
+                    if (existingNguoiDung.isPresent()) {
+                        // Nếu tồn tại, cập nhật thông tin
+                        nguoiDung = existingNguoiDung.get();
                     } else {
-                        // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
+                        // Nếu không tồn tại, tạo mới
                         nguoiDung = createNguoiDung(hoVaTenKhachHang);
-                        nguoiDungRepo.save(nguoiDung);
-                    }
-                }
+                        nguoiDung.setId(idNguoiDung);
 
+                    }
+                } else {
+                    // Trường hợp không tìm thấy ID người dùng, tạo mới cả người dùng và chi tiết
+                    nguoiDung = createNguoiDung(hoVaTenKhachHang);
+                    nguoiDungRepo.save(nguoiDung);
+                }
+            }
 
 
             hoaDon.setNguoiDung(nguoiDung);
             hoaDonRepo.save(hoaDon);
             Integer idVc = hoaDon.getVoucher().getId();
             Voucher voucher = voucherRepo.getReferenceById(idVc);
-            voucher.setSoLuong(voucher.getSoLuong()-1);
+            voucher.setSoLuong(voucher.getSoLuong() - 1);
             voucherRepo.save(voucher);
             session.setAttribute("giaTriGiamVoucher", "");
         }
@@ -490,12 +550,11 @@ public class adminController {
         // In mã vạch ra console
         System.out.println("Barcode received: " + barcode);
         SanPham sanPham = sanPhamRepo.findSanPhamByBarcode(barcode);
-            List<SanPham> sanPhamList = new ArrayList<>();
-            sanPhamList.add(sanPham);
-           model.addAttribute("SP", sanPhamList);
+        List<SanPham> sanPhamList = new ArrayList<>();
+        sanPhamList.add(sanPham);
+        model.addAttribute("SP", sanPhamList);
         return "admin/barcode-result";
     }
-
 
 
 }

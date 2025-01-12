@@ -142,7 +142,7 @@
                         <th scope="col">Ngày Kết Thúc</th>
                         <th scope="col">Số Lượng</th>
                         <th scope="col">Mức Chi Tối Thiểu</th>
-                        <th scope="col">Giới Hạn Giảm</th>
+                        <th scope="col">Giới Hạn Giảm(VND)</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Hành Động</th>
                     </tr>

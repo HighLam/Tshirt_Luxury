@@ -16,7 +16,7 @@
     <script src="../js/script.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1464px">
 <div>
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -95,7 +95,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Sửa Sản Phẩm</h2>
+                <h2 class="">Sửa Sản Phẩm Chi Tiết</h2>
                 <form action="/t-shirt-luxury/admin/updateSanPhamChiTiet?id=${SPCT.id}" method="POST">
 <%--                    <div>--%>
 

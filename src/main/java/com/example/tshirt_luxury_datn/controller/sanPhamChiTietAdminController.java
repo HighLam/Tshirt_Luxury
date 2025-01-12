@@ -127,25 +127,19 @@ Integer idSanPham =(Integer) session.getAttribute("idSanPham");
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPhamChiTiet")
-    public String updateNguoiDung(@RequestParam("id") Integer id, @ModelAttribute("SPCT") SanPhamChiTiet sanPhamChiTiet) {
-        SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.getReferenceById(id);
-        if (getOne.getId() == id) {
-            Date ngaySua = new Date();
-            sanPhamChiTiet.setId(id);
-            sanPhamChiTiet.setNgaySua(ngaySua);
-            sanPhamChiTiet.setNgayTao(getOne.getNgayTao());
-            sanPhamChiTiet.setMaSanPhamChiTiet(getOne.getMaSanPhamChiTiet());
-            sanPhamChiTiet.setGia(getOne.getGia());
-            sanPhamChiTiet.setMauSac(getOne.getMauSac());
-            sanPhamChiTiet.setSize(getOne.getSize());
-            sanPhamChiTiet.setChatLieu(getOne.getChatLieu());
-            sanPhamChiTiet.setSanPham(getOne.getSanPham());
-            sanPhamChiTiet.setMoTa(getOne.getMoTa());
-            sanPhamChiTiet.setKhoiLuongSanPham(getOne.getKhoiLuongSanPham());
-            sanPhamChiTiet.setAnhSanPham(getOne.getAnhSanPham());
-            sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        }
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + getOne.getSanPham().getId();
+    public String updateChiTietSanPham(@RequestParam("id") Integer id, @ModelAttribute SanPhamChiTiet sanPhamChiTiet) {
+        // Lấy thông tin sản phẩm chi tiết từ cơ sở dữ liệu
+        SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.findById(id).orElse(null);
+        if (getOne != null) {
+            // Cập nhật thông tin
+            getOne.setSoLuong(sanPhamChiTiet.getSoLuong());
+            getOne.setTrangThai(sanPhamChiTiet.getTrangThai());
+            getOne.setNgaySua(new Date()); // Cập nhật ngày sửa
 
+            // Lưu vào cơ sở dữ liệu
+            sanPhamChiTietAdminRepo.save(getOne);
+        }
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
     }
+
 }

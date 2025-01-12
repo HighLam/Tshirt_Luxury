@@ -45,7 +45,6 @@ public class Voucher {
     @DateTimeFormat(pattern = "yyyy-MM-dd")  // Thêm pattern để Spring biết cách chuyển đổi
     private Date ngayKetThuc;
 
-
     @Column(name = "so_luong")
     private Integer soLuong;
 
