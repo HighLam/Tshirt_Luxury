@@ -78,8 +78,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
-<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
+                <%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+                <%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -98,7 +98,8 @@
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i
+                                class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
@@ -117,7 +118,8 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded">
                     <div class="container-fluid">
-                        <form action="/t-shirt-luxury/admin/timHDTQ" method="get" class="d-flex align-items-center gap-2 w-100">
+                        <form action="/t-shirt-luxury/admin/timHDTQ" method="get"
+                              class="d-flex align-items-center gap-2 w-100">
                             <!-- Ô tìm kiếm -->
                             <input
                                     name="searchName"
@@ -144,7 +146,8 @@
                             </button>
 
                             <!-- Nút reset -->
-                            <a href="/t-shirt-luxury/admin/timHDTQ" class="btn btn-secondary d-flex align-items-center px-4 mt-2">
+                            <a href="/t-shirt-luxury/admin/timHDTQ"
+                               class="btn btn-secondary d-flex align-items-center px-4 mt-2">
                                 <i class="bi bi-arrow-clockwise me-1"></i> Reset
                             </a>
                         </form>
@@ -192,9 +195,14 @@
                             <td><fmt:formatNumber value='${hd.tongTien}' pattern="#,##0"/></td>
                             <td>${hd.moTa}</td>
                             <td>
-                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet?idHoaDon=${hd.id}" class="btn btn-secondary rounded-pill"
+                                <a href="/t-shirt-luxury/admin/hoa-don-chi-tiet?idHoaDon=${hd.id}"
+                                   class="btn btn-secondary rounded-pill"
                                    data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
                                     <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="/t-shirt-luxury/admin/hoa-don/pdf?idHoaDon=${hd.id}" class="btn btn-dark rounded-pill"
+                                   data-toggle="tooltip" data-placement="top" title="In hóa đơn" onclick="return confirmPrint()">
+                                    <i class="fa-solid fa-print"></i>
                                 </a>
                             </td>
                         </tr>
@@ -208,5 +216,11 @@
     </div>
 </div>
 </body>
+<script>
+    function confirmPrint() {
+        // Hiển thị hộp thoại xác nhận
+        return confirm("Bạn có chắc muốn in hóa đơn này?");
+    }
+</script>
 
 </html>
