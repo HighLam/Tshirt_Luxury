@@ -164,7 +164,7 @@
 
 
     <!-- --Modal-- -->
-    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="post">
+    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST">
         <div class="modal fade" id="themSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -174,41 +174,42 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"
-                                   disabled readonly value="${idSanPham}">
-                            <label for="floatingInput">Tên Sản Phẩm</label>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>
-                            <select class="form-select" aria-label="Default select example"
-                                    name="id_anh_san_pham_chi_tiet">
-                                <c:forEach var="s" items="${anhSanPham}">
-                                    <option value="${s.id}">${s.tenAnhSanPham}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
+                        <input type="hidden" name="id" value="${idSanPham}">
+<%--                        <div class="form-floating mb-3">--%>
+<%--                            <input type="number" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"--%>
+<%--                                     value="${idSanPham}">--%>
+<%--                            <label for="floatingInput">Tên Sản Phẩm</label>--%>
+<%--                        </div>--%>
+<%--                        <div class="mb-3">--%>
+<%--                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>--%>
+<%--                            <select class="form-select" aria-label="Default select example"--%>
+<%--                                    name="id_anh_san_pham_chi_tiet">--%>
+<%--                                <c:forEach var="s" items="${anhSanPham}">--%>
+<%--                                    <option value="${s.id}">${s.tenAnhSanPham}</option>--%>
+<%--                                </c:forEach>--%>
+<%--                            </select>--%>
+<%--                        </div>--%>
                         <div class="mb-3">
                             <label class="form-label">Chọn Size Sản Phẩm</label>
                             <select class="form-select" aria-label="Default select example" name="id_size">
-                                <c:forEach var="s" items="${size}">
-                                    <option value="${s.id}">${s.tenSize}</option>
+                                <c:forEach var="size" items="${size}">
+                                    <option value="${size.id}">${size.tenSize}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Chọn Chất Liệu Sản Phẩm</label>
                             <select class="form-select" aria-label="Default select example" name="id_chat_lieu">
-                                <c:forEach var="s" items="${chatLieu}">
-                                    <option value="${s.id}">${s.tenChatLieu}</option>
+                                <c:forEach var="chatLieu" items="${chatLieu}">
+                                    <option value="${chatLieu.id}">${chatLieu.tenChatLieu}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Chọn Màu Sắc Sản Phẩm</label>
                             <select class="form-select" aria-label="Default select example" name="id_mau_sac">
-                                <c:forEach var="s" items="${mauSac}">
-                                    <option value="${s.id}">${s.tenMauSac}</option>
+                                <c:forEach var="mauSac" items="${mauSac}">
+                                    <option value="${mauSac.id}">${mauSac.tenMauSac}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -224,7 +225,7 @@
                             </div>
                             <div class="form-check form-check-inline mt-2">
                                 <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1"
-                                       value="1">
+                                       value="1" checked>
                                 <label class="form-check-label" for="inlineRadio1">Bán</label>
                             </div>
                             <div class="form-check form-check-inline mt-2">

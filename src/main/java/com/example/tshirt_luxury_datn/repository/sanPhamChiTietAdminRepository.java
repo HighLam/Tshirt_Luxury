@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiTiet,Integer> {
 
-    @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId")
+    @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId order by spct.ngayTao DESC ")
     List<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
 
     @Query(value = "\n" +

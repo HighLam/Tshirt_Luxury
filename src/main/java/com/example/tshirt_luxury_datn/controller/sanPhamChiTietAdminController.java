@@ -36,7 +36,7 @@ public class sanPhamChiTietAdminController {
 
 
     @ModelAttribute("sanPham")
-    public Integer getSanPham(Model model, @RequestParam(name ="id")Integer id) {
+    public Integer getSanPham(Model model, @RequestParam(name = "id") Integer id) {
         SanPham sanPham = sanPhamRepo.getReferenceById(id);
         Integer sanPhamId = sanPham.getId();
         model.addAttribute("SanPham", sanPhamId);
@@ -87,29 +87,28 @@ public class sanPhamChiTietAdminController {
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
             HttpSession session,
-//            @RequestParam("idSanPham") Integer idSanPham,
-            @RequestParam("tenAnhSanPham") String tenAnhSanPham,
-            @RequestParam("id_size") Integer idSize,
-            @RequestParam("id_chat_lieu") Integer idChatLieu,
-            @RequestParam("id_mau_sac") Integer idMauSac,
-             SanPhamChiTiet sanPhamChiTiet) {
+            @RequestParam(value = "id", required = true) Integer id, // id bắt buộc
+            @RequestParam(value = "tenAnhSanPham", required = false) String tenAnhSanPham,
+            @RequestParam(value = "id_size", required = false) Integer idSize,
+            @RequestParam(value = "id_chat_lieu", required = false) Integer idChatLieu,
+            @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac,
+            SanPhamChiTiet sanPhamChiTiet) {
 
-Integer idSanPham =(Integer) session.getAttribute("idSanPham");
-        System.out.println(idSanPham);
-        SanPham sanPhamAdd = sanPhamRepo.getReferenceById(idSanPham);
+
+
+        SanPham sanPhamAdd = sanPhamRepo.getReferenceById(id);
         sanPhamChiTiet.setSanPham(sanPhamAdd);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
-       Integer idAnh = anhSanPhamRepo.getIdAnh(tenAnhSanPham);
-        System.out.println("******************************************"+ idAnh);
-        sanPhamChiTiet.setAnhSanPham(anhSanPhamRepo.getReferenceById(idAnh));
-        sanPhamChiTiet.setSize(sizeRepo.findById(idSize).get());
-        sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).get());
-        sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).get());
-        sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + idSanPham;
-    }
 
+        Integer idAnh = anhSanPhamRepo.getIdAnh(tenAnhSanPham);
+        sanPhamChiTiet.setSize(sizeRepo.findById(idSize).orElse(null));
+        sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).orElse(null));
+        sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).orElse(null));
+
+        sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+id;
+    }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
     public String sanPhamChiTietDelete(@RequestParam("id") Integer id, HttpSession session) {
