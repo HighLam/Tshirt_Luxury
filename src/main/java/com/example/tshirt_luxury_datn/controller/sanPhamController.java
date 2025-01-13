@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -135,8 +138,29 @@ public class sanPhamController {
         try {
             // Tạo mã barcode EAN-13
             BitMatrix bitMatrix = new com.google.zxing.MultiFormatWriter().encode(
-                    data, BarcodeFormat.EAN_13, 300, 150
+                    data, BarcodeFormat.EAN_13, 300, 100 // Chiều cao nhỏ hơn để thêm số
             );
+
+            // Tạo BufferedImage từ BitMatrix
+            BufferedImage barcodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+            // Vẽ số EAN-13 bên dưới mã vạch
+            int width = barcodeImage.getWidth();
+            int height = barcodeImage.getHeight() + 30; // Thêm chiều cao cho số
+            BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = combinedImage.createGraphics();
+
+            // Vẽ mã vạch
+            g.drawImage(barcodeImage, 0, 0, null);
+
+            // Vẽ số EAN-13
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            FontMetrics fontMetrics = g.getFontMetrics();
+            int textWidth = fontMetrics.stringWidth(data);
+            int x = (width - textWidth) / 2; // Canh giữa số
+            int y = height - 10; // Vị trí hiển thị số
+            g.drawString(data, x, y);
+            g.dispose();
 
             // Tạo thư mục barcodes nếu chưa tồn tại
             Path barcodeDir = Path.of("src/main/resources/static/barcodes");
@@ -146,7 +170,7 @@ public class sanPhamController {
 
             // Lưu ảnh barcode
             Path barcodePath = barcodeDir.resolve(data + ".png");
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", barcodePath);
+            ImageIO.write(combinedImage, "PNG", barcodePath.toFile());
 
             return "/barcodes/" + data + ".png"; // Đường dẫn ảnh trong hệ thống
         } catch (WriterException | IOException e) {
@@ -154,6 +178,7 @@ public class sanPhamController {
             return null;
         }
     }
+
     @GetMapping("t-shirt-luxury/admin/san-pham/delete")
     public String sanPhamDelete(@RequestParam("id") Integer id) {
         sanPhamRepository.deleteById(id);
@@ -171,7 +196,7 @@ public class sanPhamController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPham")
-    public String up(@RequestParam("id") Integer id,
+    public String updateSanPham(@RequestParam("id") Integer id,
                                   @ModelAttribute("sanPham") SanPham sanPham,
                                   @RequestParam("tenSanPham") String tenSanPham,
                                   RedirectAttributes redirectAttributes) {

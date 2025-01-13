@@ -133,7 +133,6 @@
                         <th scope="col">STT</th>
                         <th scope="col">Mã Sản Phẩm</th>
                         <th scope="col">Tên Sản Phẩm</th>
-                        <th scope="col">Barcode</th>
                         <th scope="col">Danh Mục</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Hành Động</th>
@@ -145,7 +144,7 @@
                             <td>${i.index+1}</td>
                             <td>${sp.maSanPham}</td>
                             <td>${sp.tenSanPham}</td>
-                            <td>${sp.barcode}</td>
+
                             <td>${sp.danhMuc.tenDanhMuc}</td>
                             <td>
                                 <c:if test="${sp.trangThai == 1}">

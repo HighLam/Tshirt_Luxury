@@ -151,7 +151,8 @@
                                        title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}"
                                        class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top"
-                                       title="Xóa" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
+                                       title="Xóa" onclick="return confirmDelete()"><i
+                                            class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -161,7 +162,7 @@
             </div>
         </div>
     </div>
-
+    <p style="color: red">${error}</p>
 
     <!-- --Modal-- -->
     <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST">
@@ -175,20 +176,20 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" value="${idSanPham}">
-<%--                        <div class="form-floating mb-3">--%>
-<%--                            <input type="number" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"--%>
-<%--                                     value="${idSanPham}">--%>
-<%--                            <label for="floatingInput">Tên Sản Phẩm</label>--%>
-<%--                        </div>--%>
-<%--                        <div class="mb-3">--%>
-<%--                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>--%>
-<%--                            <select class="form-select" aria-label="Default select example"--%>
-<%--                                    name="id_anh_san_pham_chi_tiet">--%>
-<%--                                <c:forEach var="s" items="${anhSanPham}">--%>
-<%--                                    <option value="${s.id}">${s.tenAnhSanPham}</option>--%>
-<%--                                </c:forEach>--%>
-<%--                            </select>--%>
-<%--                        </div>--%>
+                        <%--                        <div class="form-floating mb-3">--%>
+                        <%--                            <input type="number" class="form-control" id="floatingInput" placeholder="Tên Sản Phẩm"--%>
+                        <%--                                     value="${idSanPham}">--%>
+                        <%--                            <label for="floatingInput">Tên Sản Phẩm</label>--%>
+                        <%--                        </div>--%>
+                        <%--                        <div class="mb-3">--%>
+                        <%--                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>--%>
+                        <%--                            <select class="form-select" aria-label="Default select example"--%>
+                        <%--                                    name="id_anh_san_pham_chi_tiet">--%>
+                        <%--                                <c:forEach var="s" items="${anhSanPham}">--%>
+                        <%--                                    <option value="${s.id}">${s.tenAnhSanPham}</option>--%>
+                        <%--                                </c:forEach>--%>
+                        <%--                            </select>--%>
+                        <%--                        </div>--%>
                         <div class="mb-3">
                             <label class="form-label">Chọn Size Sản Phẩm</label>
                             <select class="form-select" aria-label="Default select example" name="id_size">
@@ -254,88 +255,6 @@
         </div>
     </form>
 
-
-    <!-- Modal update -->
-    <div class="modal fade" id="suaNguoiDung" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Sản Phẩm</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Mã Sản Phẩm"
-                               disabled readonly>
-                        <label for="floatingInput">Tên Sản Phẩm</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Tải Ảnh Lên</label>
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Size</option>
-                        <option value="1">Size 1</option>
-                        <option value="2">Size 2</option>
-                        <option value="3">Size 3</option>
-                    </select>
-
-                    <select class="form-select mt-3" aria-label="Default select example">
-                        <option selected>Chất Liệu</option>
-                        <option value="1">Size 1</option>
-                        <option value="2">Size 2</option>
-                        <option value="3">Size 3</option>
-                    </select>
-
-                    <select class="form-select mt-3" aria-label="Default select example">
-                        <option selected>Màu Sắc</option>
-                        <option value="1">Size 1</option>
-                        <option value="2">Size 2</option>
-                        <option value="3">Size 3</option>
-                    </select>
-
-                    <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="Số Lượng">
-                        <label for="floatingInput">Số Lượng</label>
-                    </div>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Danh Mục</option>
-                        <option value="1">Danh Mục 1</option>
-                        <option value="2">Danh Mục 2</option>
-                        <option value="3">Danh Mục 3</option>
-                    </select>
-
-                    <div>
-                        <div class="text mt-2">
-                            Trạng Thái
-                        </div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                   value="option1">
-                            <label class="form-check-label" for="inlineRadio1">Bán</label>
-                        </div>
-                        <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                   value="option2">
-                            <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="Khối Lượng">
-                        <label for="floatingInput">Khối Lượng</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-success">Thêm Mới</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 <script>

@@ -651,7 +651,7 @@
                                 $.ajax({
                                     url: "/scan-barcode",
                                     method: "GET",
-                                    data: {barcode: result.text},
+                                    data: { barcode: result.text },
                                     success: function (response) {
                                         $("#tabelSanPham tbody").html(response); // Chèn dữ liệu vào bảng
                                         codeReader.reset();
@@ -666,6 +666,7 @@
                             }
                         }
                     );
+
                 })
                 .catch((err) => {
                     console.error("Error listing video devices:", err);
