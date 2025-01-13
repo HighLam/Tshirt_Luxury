@@ -24,6 +24,7 @@ public class anhSanPhamController {
     }
     @PostMapping("/t-shirt-luxury/admin/anh-san-pham/add")
     public String addAnhSP(@ModelAttribute("anhSanPham")AnhSanPham anhSanPham){
+
         anhSanPham.setNgayTao(new Date());
         anhSanPham.setNgaySua(new Date());
         anhSanPhamRepository.save(anhSanPham);

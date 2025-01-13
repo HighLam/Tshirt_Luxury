@@ -65,8 +65,8 @@ public class trangChuController {
 
         model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
-        model.addAttribute("notiOnl",session.getAttribute("notiOnl"));
-        model.addAttribute("quaSoLuong",session.getAttribute("quaSoLuong"));
+        model.addAttribute("notiOnl", session.getAttribute("notiOnl"));
+        model.addAttribute("quaSoLuong", session.getAttribute("quaSoLuong"));
 
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
@@ -80,8 +80,10 @@ public class trangChuController {
             }
 
         }
-            session.setAttribute("idSPDetail", id);
-            return "SanPhamChiTiet/san-pham-chi-tiet";
+
+        session.setAttribute("idSPDetail", id);
+        return "SanPhamChiTiet/san-pham-chi-tiet";
+
         }
 
 
@@ -91,14 +93,17 @@ public class trangChuController {
                           @RequestParam("soLuong") Integer soLuong,
                           RedirectAttributes redirectAttributes,
                           @RequestParam(value = "size",defaultValue = "") Integer idSize, HttpSession session) {
+
+
+
         Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
         if (idMauSac == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
-            return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
-        }
+           redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
+           return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+       }
 
-        // Kiểm tra kích thước
+       // Kiểm tra kích thước
         if (idSize == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn kích thước!");
             return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
@@ -128,14 +133,12 @@ public class trangChuController {
                     gioHangChiTiet.setNgayTao(new Date());
                     gioHangChiTiet.setNgaySua(new Date());
                     gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
-
                     // Lưu bản ghi mới
                     gioHangChiTietRepo.save(gioHangChiTiet);
                     String gioHangNull = "";
                     session.setAttribute("gioHangNull", gioHangNull);
                     String quaSoLuong = "";
                     session.setAttribute("quaSoLuong", quaSoLuong);
-
                 }
 
 

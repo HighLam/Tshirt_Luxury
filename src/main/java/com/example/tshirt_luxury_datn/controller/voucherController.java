@@ -27,6 +27,7 @@ import java.util.List;
 public class voucherController {
     @Autowired
     voucherRepository voucherRepo;
+
     @GetMapping("/t-shirt-luxury/admin/voucher")
     public String Voucher(Model model) {
         model.addAttribute("listVoucher", voucherRepo.findAllVoucherByNgayTaoDesc());
@@ -48,7 +49,7 @@ public class voucherController {
         return String.format("VC%03d", nextNumber);
     }
 
-    boolean validate( Voucher voucher, RedirectAttributes redirectAttributes) {
+    boolean validate(Voucher voucher, RedirectAttributes redirectAttributes) {
         if (voucher.getTenVoucher() == null || voucher.getTenVoucher().isEmpty()) {
             redirectAttributes.addFlashAttribute("errorTenVoucher", "Vui lòng nhập tên voucher !");
             redirectAttributes.addFlashAttribute("openModal", "themVoucher");
@@ -70,7 +71,7 @@ public class voucherController {
         } else {
             redirectAttributes.addFlashAttribute("soLuong", voucher.getSoLuong());
         }
-        if (voucher.getNgayKetThuc() == null ) {
+        if (voucher.getNgayKetThuc() == null) {
             redirectAttributes.addFlashAttribute("errorNgayKetThucVoucher", "Vui lòng nhập ngày kết thúc !");
             redirectAttributes.addFlashAttribute("openModal", "themVoucher");
             return false;
@@ -78,14 +79,14 @@ public class voucherController {
             redirectAttributes.addFlashAttribute("ngayKetThuc", new SimpleDateFormat("yyyy-MM-dd").format(voucher.getNgayKetThuc()));
 
         }
-        if (voucher.getMucChiToiThieu() == null ) {
+        if (voucher.getMucChiToiThieu() == null) {
             redirectAttributes.addFlashAttribute("errorMucChiToiThieuVoucher", "Vui lòng nhập mức chi tối thiểu !");
             redirectAttributes.addFlashAttribute("openModal", "themVoucher");
             return false;
         } else {
             redirectAttributes.addFlashAttribute("mucChiToiThieu", voucher.getMucChiToiThieu());
         }
-        if (voucher.getGioiHan() == null ) {
+        if (voucher.getGioiHan() == null) {
             redirectAttributes.addFlashAttribute("errorGioiHanGiamVoucher", "Vui lòng nhập giới hạn giảm !");
             redirectAttributes.addFlashAttribute("openModal", "themVoucher");
             return false;
@@ -96,8 +97,8 @@ public class voucherController {
     }
 
     @PostMapping("/t-shirt-luxury/admin/voucher/add")
-    public String voucherAdd(@ModelAttribute("listVoucher") Voucher voucher, RedirectAttributes redirectAttributes){
-        if (validate(voucher,redirectAttributes )){
+    public String voucherAdd(@ModelAttribute("listVoucher") Voucher voucher, RedirectAttributes redirectAttributes) {
+        if (validate(voucher, redirectAttributes)) {
             voucher.setMaVoucher(generateMaVoucher());
             voucher.setTrangThai(1);
             voucher.setNgayBatDau(new Date());
@@ -107,48 +108,50 @@ public class voucherController {
 
         return "redirect:/t-shirt-luxury/admin/voucher";
     }
+
     @GetMapping("/t-shirt-luxury/admin/voucher/delete")
-    public String voucherDelete(@RequestParam("id")Integer id){
+    public String voucherDelete(@RequestParam("id") Integer id) {
         voucherRepo.deleteById(id);
         return "redirect:/t-shirt-luxury/admin/voucher";
     }
+
     @GetMapping("/t-shirt-luxury/admin/voucher/getOne")
-    public String getOneVoucher(@RequestParam("id") Integer id, Model model){
-        Voucher voucher  = voucherRepo.getOne(id);
+    public String getOneVoucher(@RequestParam("id") Integer id, Model model) {
+        Voucher voucher = voucherRepo.getOne(id);
         model.addAttribute("voucher", voucher);
         return "voucher/update-voucher";
     }
+
     @PostMapping("/t-shirt-luxury/admin/voucher/update")
     public String updateVoucher(@RequestParam("id") Integer id,
                                 RedirectAttributes redirectAttributes,
                                 @ModelAttribute("voucher") Voucher voucher,
                                 @RequestParam("ngayKetThuc") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayKetThuc
-                                ){
+    ) {
         Voucher getOne = voucherRepo.getReferenceById(id);
-        if(getOne.getId() == id) {
+        if (getOne.getId() == id) {
 
             if (voucher.getTenVoucher() == null || voucher.getTenVoucher().isBlank()) {
                 redirectAttributes.addFlashAttribute("errorMessageTenVoucher", "Vui lòng nhập tên voucher !");
                 return "redirect:/t-shirt-luxury/admin/voucher/getOne?id=" + id;
             }
-            if (voucher.getGiaTriGiam() == null ) {
+            if (voucher.getGiaTriGiam() == null) {
                 redirectAttributes.addFlashAttribute("errorMessageGiaTriGiamVoucher", "Vui lòng nhập giá trị giảm !");
                 return "redirect:/t-shirt-luxury/admin/voucher/getOne?id=" + id;
             }
-            if (voucher.getSoLuong() == null ) {
+            if (voucher.getSoLuong() == null) {
                 redirectAttributes.addFlashAttribute("errorMessageSoLuongVoucher", "Vui lòng nhập số lượng !");
                 return "redirect:/t-shirt-luxury/admin/voucher/getOne?id=" + id;
             }
 
-            if (voucher.getMucChiToiThieu() == null ) {
+            if (voucher.getMucChiToiThieu() == null) {
                 redirectAttributes.addFlashAttribute("errorMessageMucChiVoucher", "Vui lòng nhập mức chi !");
                 return "redirect:/t-shirt-luxury/admin/voucher/getOne?id=" + id;
             }
-            if (voucher.getGioiHan() == null ) {
+            if (voucher.getGioiHan() == null) {
                 redirectAttributes.addFlashAttribute("errorMessageGioiHanVoucher", "Vui lòng nhập giới hạn giảm !");
                 return "redirect:/t-shirt-luxury/admin/voucher/getOne?id=" + id;
-            }
-            else {
+            } else {
                 voucher.setId(id);
                 voucher.setTrangThai(1);
                 voucher.setNgayBatDau(getOne.getNgayBatDau());
@@ -159,6 +162,7 @@ public class voucherController {
         updateVoucherStatusBasedOnDate(voucher);
         return "redirect:/t-shirt-luxury/admin/voucher";
     }
+
     @GetMapping("/t-shirt-luxury/admin/timVoucher")
     public String timVoucher(Model model,
                              @RequestParam(value = "tenVoucher", required = false) String tenVoucher,
@@ -185,6 +189,7 @@ public class voucherController {
 
         return "voucher/voucher";
     }
+
     private void updateVoucherStatusBasedOnDate(Voucher voucher) {
         // Lấy ngày kết thúc của voucher
         LocalDate today = LocalDate.now();

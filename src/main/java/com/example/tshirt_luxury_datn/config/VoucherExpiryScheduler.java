@@ -21,7 +21,7 @@ public class VoucherExpiryScheduler {
 
     //Set thành không hoạt động
 //    @Scheduled(cron = "0 0 0 * * ?") //Chạy lúc 00:00s
-    @Scheduled(fixedRate = 6000)
+    @Scheduled(fixedRate = 60000)
     public void updateVoucherStatus() {
         LocalDate now = LocalDate.now();
 
@@ -37,7 +37,7 @@ public class VoucherExpiryScheduler {
 
     //Set thành hoạt động
 //    @Scheduled(cron = "0 0 0 * * ?") //Chạy lúc 00:00s
-    @Scheduled(fixedRate = 6000)
+    @Scheduled(fixedRate = 60000)
     public void updateVoucherStatusActive() {
         LocalDate now = LocalDate.now();
 

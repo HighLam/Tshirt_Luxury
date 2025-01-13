@@ -114,6 +114,14 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("searchTerm") String searchTerm,
             @Param("trangThai") Integer trangThai);
 
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:searchTerm IS NULL OR " +
+            "       LOWER(h.thongTinNhanHang.hoVaTen) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
+            "AND h.loaiHoaDon = 1 ")
+    List<HoaDon> timHoaDonOnline1(
+            @Param("searchTerm") String searchTerm);
+
 
 
     @Query("SELECT h FROM HoaDon h " +

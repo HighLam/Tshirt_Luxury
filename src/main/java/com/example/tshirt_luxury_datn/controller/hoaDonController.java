@@ -192,7 +192,7 @@ public class hoaDonController {
 
         if (searchTerm == null && trangThai == null) {
             // Load danh sách mặc định nếu không có bộ lọc
-            hoaDonOnlineList = hoaDonRepo.findAll();
+            hoaDonOnlineList = hoaDonRepo.timHoaDonOnline1(searchTerm);
         } else {
             // Lọc danh sách hóa đơn theo bộ lọc
             hoaDonOnlineList = hoaDonRepo.timHoaDonOnline(searchTerm, trangThai);
@@ -248,7 +248,6 @@ public class hoaDonController {
         logo.scaleToFit(100, 100);
         logo.setAlignment(Element.ALIGN_LEFT);
         pdfDoc.add(logo);
-
 
 
         // Thêm tiêu đề hóa đơn

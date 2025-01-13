@@ -4,6 +4,10 @@ import com.example.tshirt_luxury_datn.entity.*;
 import com.example.tshirt_luxury_datn.repository.anhSanPhamRepository;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
@@ -91,12 +98,62 @@ public class sanPhamController {
             sanPham.setNgayTao(new Date());
             sanPham.setNgaySua(new Date());
             sanPham.setDanhMuc(danhMucRepository.findById(idDanhMuc).get());
+            // Tạo mã barcode
+            String barcodeData = generateRandomEAN13();
+
+            // Tạo ảnh barcode và lưu
+            String barcodePath = generateEAN13Barcode(barcodeData);
+            sanPham.setBarcode(barcodeData); // Lưu barcode vào sản phẩm (nếu có cột barcode)
             sanPhamRepository.save(sanPham);
         }
 
         return "redirect:/t-shirt-luxury/admin/san-pham";
     }
 
+    private String generateRandomEAN13() {
+        // Sinh 12 chữ số ngẫu nhiên
+        StringBuilder ean12 = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            ean12.append((int) (Math.random() * 10));
+        }
+        // Tính số kiểm tra (checksum)
+        String checksum = String.valueOf(calculateEAN13Checksum(ean12.toString()));
+        // Trả về chuỗi hoàn chỉnh
+        return ean12 + checksum;
+    }
+
+    private int calculateEAN13Checksum(String data) {
+        int sum = 0;
+        for (int i = 0; i < data.length(); i++) {
+            int digit = Character.getNumericValue(data.charAt(i));
+            sum += (i % 2 == 0) ? digit : digit * 3;
+        }
+        int checksum = (10 - (sum % 10)) % 10;
+        return checksum;
+    }
+    private String generateEAN13Barcode(String data) {
+        try {
+            // Tạo mã barcode EAN-13
+            BitMatrix bitMatrix = new com.google.zxing.MultiFormatWriter().encode(
+                    data, BarcodeFormat.EAN_13, 300, 150
+            );
+
+            // Tạo thư mục barcodes nếu chưa tồn tại
+            Path barcodeDir = Path.of("src/main/resources/static/barcodes");
+            if (!Files.exists(barcodeDir)) {
+                Files.createDirectories(barcodeDir);
+            }
+
+            // Lưu ảnh barcode
+            Path barcodePath = barcodeDir.resolve(data + ".png");
+            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", barcodePath);
+
+            return "/barcodes/" + data + ".png"; // Đường dẫn ảnh trong hệ thống
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @GetMapping("t-shirt-luxury/admin/san-pham/delete")
     public String sanPhamDelete(@RequestParam("id") Integer id) {
         sanPhamRepository.deleteById(id);
@@ -114,7 +171,7 @@ public class sanPhamController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPham")
-    public String updateNguoiDung(@RequestParam("id") Integer id,
+    public String up(@RequestParam("id") Integer id,
                                   @ModelAttribute("sanPham") SanPham sanPham,
                                   @RequestParam("tenSanPham") String tenSanPham,
                                   RedirectAttributes redirectAttributes) {

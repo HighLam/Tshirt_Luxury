@@ -4,6 +4,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +47,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp"
                            placeholder="Tìm kiếm">
+                    <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                 </form>
                 <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
@@ -53,6 +55,7 @@
                 <a href="#">
                     <i class="fa-regular fa-heart ps-5"></i>
                 </a>
+                <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
                 <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                     <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
                 </a>
@@ -119,6 +122,7 @@
             <a href="#">
                 <i class="fa-regular fa-heart ps-5"></i>
             </a>
+            <a href="/t-shirt-luxury/gio-hang-chi-tiet" >
             <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                 <i class="fa-solid fa-cart-shopping ps-5 pe-3"></i>
             </a>
@@ -243,6 +247,42 @@
 
 
     <div class="col-4">
+
+<%--        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">--%>
+<%--            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">--%>
+<%--            <h6>${spDetail.tenSanPham}</h6>--%>
+<%--            <p>Còn hàng</p>--%>
+<%--            <hr>--%>
+
+<%--            <div class="color">--%>
+<%--                <h6>MÀU SẮC</h6>--%>
+<%--                <div class="d-flex gap-2">--%>
+<%--                    <c:forEach var="ms" items="${mauSac}">--%>
+<%--                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">--%>
+<%--                        <span>${ms.tenMauSac}</span>--%>
+<%--                    </c:forEach>--%>
+<%--                </div>--%>
+
+
+<%--            </div>--%>
+
+<%--            <div class="size" style="margin-top: 5px;">--%>
+<%--                <div class="row">--%>
+<%--                    <div class="col-4">--%>
+<%--                        <h6>KÍCH THƯỚC</h6>--%>
+<%--                    </div>--%>
+<%--                    <div class="col-6">--%>
+<%--                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;text-decoration: none">Hướng dẫn--%>
+<%--                            chọn size</a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="d-flex gap-2">--%>
+<%--                    <c:forEach var="s" items="${size}">--%>
+<%--                        <input type="radio" class="btn" name="size" value="${s.id}">--%>
+<%--                        <span>${s.tenSize}</span>--%>
+<%--                    </c:forEach>--%>
+<%--                </div>--%>
+
 <%--        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">--%>
 <%--            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">--%>
 <%--            <h6>${spDetail.tenSanPham}</h6>--%>
@@ -297,7 +337,7 @@
 
 <%--                <p style="color: red">${notiOnl}</p>--%>
 <%--                <p style="color:red;">${quaSoLuong}</p>--%>
-<%--        --%>
+
 <%--                <div class="order" style="margin-top: 20px;">--%>
 
 <%--                    <button type="button" class="btn btn-dark" style="width:185px" onclick="showSuccessMessage()">THÊM--%>
@@ -311,6 +351,7 @@
 <%--            </div>--%>
 
 <%--        </form>--%>
+
     <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">
         <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
         <h6>${spDetail.tenSanPham}</h6>
@@ -327,8 +368,6 @@
                     <span>${ms.tenMauSac}</span>
                 </c:forEach>
             </div>
-        </div>
-
         <!-- Size Selection -->
         <div class="size" style="margin-top: 5px;">
             <div class="row">
@@ -739,5 +778,28 @@
 
 
 </script>
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("search").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        // Đảm bảo chỉ ngăn gửi form nếu cần
+        const searchInput = document.getElementById("searchPopUpsearchPopUp").value.trim();
+        if (!searchInput) {
+            event.preventDefault(); // Chỉ ngăn nếu input rỗng
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+        }
+    });
+
+
+
+</script>
+
 
 </html>

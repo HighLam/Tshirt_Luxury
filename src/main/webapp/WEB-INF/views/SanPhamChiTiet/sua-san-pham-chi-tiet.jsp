@@ -16,7 +16,7 @@
     <script src="../js/script.js"></script>
 </head>
 
-<body>
+<body style="max-width: 1464px">
 <div>
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,7 +36,8 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
                     <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
+                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..."
+                             width="40px" height="40px">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,7 +96,7 @@
         </div>
         <div class="col-9" style="">
             <div class="row">
-                <h2 class="">Sửa Sản Phẩm</h2>
+                <h2 class="">Sửa Sản Phẩm Chi Tiết</h2>
                 <form action="/t-shirt-luxury/admin/updateSanPhamChiTiet?id=${SPCT.id}" method="POST">
 <%--                    <div>--%>
 

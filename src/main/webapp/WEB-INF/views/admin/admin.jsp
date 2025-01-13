@@ -103,8 +103,8 @@
                                 class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
 
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i
-                                class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
+
 
 
                     </ul>
@@ -186,8 +186,7 @@
                                             <span class="badge bg-success">Đang Bán</span>
                                         </c:if>
                                         <c:if test="${sp.trangThai == 0}">
-
-                                            <span class="badge bg-danger">Chưa Bán</span>
+                                            <span class="badge bg-danger">Hết hàng</span>
                                         </c:if>
                                     </td>
                                     <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
