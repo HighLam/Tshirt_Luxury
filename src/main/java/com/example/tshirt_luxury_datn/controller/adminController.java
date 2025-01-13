@@ -546,15 +546,23 @@ public class adminController {
 
     // Quét Barcode
     @GetMapping("/scan-barcode")
-    public String handleBarcodeScan(@RequestParam("barcode") String barcode, Model model) {
-        // In mã vạch ra console
-        System.out.println("Barcode received: " + barcode);
+    @ResponseBody
+    public String handleBarcodeScanAjax(@RequestParam("barcode") String barcode) {
         SanPham sanPham = sanPhamRepo.findSanPhamByBarcode(barcode);
-        List<SanPham> sanPhamList = new ArrayList<>();
-        sanPhamList.add(sanPham);
-        model.addAttribute("SP", sanPhamList);
-        return "admin/barcode-result";
+
+        if (sanPham != null) {
+            return "<tr>" +
+                    "<td>1</td>" +
+                    "<td>" + sanPham.getMaSanPham() + "</td>" +
+                    "<td>" + sanPham.getTenSanPham() + "</td>" +
+                    "<td>" + sanPham.getDanhMuc().getTenDanhMuc() + "</td>" +
+                    "<td>" + (sanPham.getTrangThai() == 1 ? "<span class='badge bg-success'>Đang Bán</span>" : "<span class='badge bg-danger'>Hết hàng</span>") + "</td>" +
+                    "</tr>";
+        } else {
+            return "<tr><td colspan='5' style='color: red;'>Không tìm thấy sản phẩm với mã vạch này!</td></tr>";
+        }
     }
+
 
 
 }

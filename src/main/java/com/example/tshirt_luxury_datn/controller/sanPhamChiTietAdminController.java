@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,31 +84,41 @@ public class sanPhamChiTietAdminController {
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
-
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
-            HttpSession session,
             @RequestParam(value = "id", required = true) Integer id, // id bắt buộc
+            @RequestParam(value = "soLuong", required = true) Integer soLuong,
+            @RequestParam(value = "khoiLuongSanPham", required = true) Double khoiLuongSanPham,
             @RequestParam(value = "tenAnhSanPham", required = false) String tenAnhSanPham,
             @RequestParam(value = "id_size", required = false) Integer idSize,
             @RequestParam(value = "id_chat_lieu", required = false) Integer idChatLieu,
-            @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac,
-            SanPhamChiTiet sanPhamChiTiet) {
+            @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac
+            , RedirectAttributes redirectAttributes) {
 
+        // Kiểm tra xem sản phẩm có tồn tại không
+        SanPhamChiTiet existingSanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, id);
+        if (existingSanPhamChiTiet != null) {
+            redirectAttributes.addFlashAttribute("error", "Sản phẩm chi tiết này đã tồn tại.");
+            return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
+        }
 
-
+        // Lấy thông tin sản phẩm từ id
         SanPham sanPhamAdd = sanPhamRepo.getReferenceById(id);
+        SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet();
         sanPhamChiTiet.setSanPham(sanPhamAdd);
         sanPhamChiTiet.setNgayTao(new Date());
         sanPhamChiTiet.setNgaySua(new Date());
 
+        // Thiết lập thông tin từ các tham số
         Integer idAnh = anhSanPhamRepo.getIdAnh(tenAnhSanPham);
         sanPhamChiTiet.setSize(sizeRepo.findById(idSize).orElse(null));
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).orElse(null));
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).orElse(null));
-
+        sanPhamChiTiet.setSoLuong(soLuong);
+        sanPhamChiTiet.setKhoiLuongSanPham(khoiLuongSanPham);
+        // Lưu sản phẩm chi tiết
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id="+id;
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
     }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
