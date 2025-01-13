@@ -67,7 +67,7 @@ public class trangChuController {
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
         model.addAttribute("notiOnl",session.getAttribute("notiOnl"));
         model.addAttribute("quaSoLuong",session.getAttribute("quaSoLuong"));
-
+        model.addAttribute("giaSP",sanPhamRepo.findGiaBySanPhamId(id));
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
         }
@@ -88,10 +88,12 @@ public class trangChuController {
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
     public String addCart(@RequestParam(value = "idSPDetail")  Integer idSanPham,
                           @RequestParam(value = "mauSac",defaultValue = "") Integer idMauSac,
+                          @RequestParam(value = "size",defaultValue = "") Integer idSize,
                           @RequestParam("soLuong") Integer soLuong,
                           RedirectAttributes redirectAttributes,
-                          @RequestParam(value = "size",defaultValue = "") Integer idSize, HttpSession session) {
-        Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
+                           HttpSession session) {
+
+        Integer getSoLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
         if (idMauSac == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
@@ -104,11 +106,17 @@ public class trangChuController {
             return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
         }
         else {
-            if (soLuong <= soLuongSpct) {
+            if (soLuong <= getSoLuongSpct) {
                 SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
 
                 Integer idGioHang = (Integer) session.getAttribute("idGioHang");
                 GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
+                Integer soLuongTrongGio = gioHangChiTietRepo.findSoLuongById(idGioHang);
+                if(soLuongTrongGio == null) {
+                    soLuongTrongGio = 0;
+                }
+                System.out.println("dsfdgfhg"+soLuongTrongGio);
+                if (soLuongTrongGio + soLuong <= getSoLuongSpct) {
                 List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
                 boolean idExist = false;
                 for (Integer idSPCT : idSPCTExistList) {
@@ -138,9 +146,9 @@ public class trangChuController {
 
                 }
 
-
+            }
             } else {
-                String quaSoLuong = "Số lượng không được vượt quá " + soLuongSpct;
+                String quaSoLuong = "Số lượng không được vượt quá " + getSoLuongSpct;
                 session.setAttribute("quaSoLuong", quaSoLuong);
             }
         }

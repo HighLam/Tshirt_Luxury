@@ -1,11 +1,13 @@
 package com.example.tshirt_luxury_datn.repository;
 
 import com.example.tshirt_luxury_datn.entity.HoaDon;
+import com.example.tshirt_luxury_datn.response.hoaDonReponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -113,6 +115,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("trangThai") Integer trangThai);
 
 
+
     @Query("SELECT h FROM HoaDon h " +
             "WHERE (:searchName IS NULL OR " +
             "       LOWER(h.nguoiDung.tenNguoiDung) LIKE LOWER(CONCAT('%', :searchName, '%')) OR " +
@@ -121,5 +124,53 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     List<HoaDon> timHoaDonTaiQuay(
             @Param("searchName") String searchName,
             @Param("trangThai") Integer trangThai);
+
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE (:searchName IS NULL OR " +
+            "       LOWER(h.nguoiDung.tenNguoiDung) LIKE LOWER(CONCAT('%', :searchName, '%')) OR " +
+            "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchName, '%'))) " +
+            "AND h.loaiHoaDon = 0 ")
+    List<HoaDon> timHoaDonTaiQuay1(
+            @Param("searchName") String searchName);
+
+
+    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) order by ngay_tao DESC",nativeQuery = true)
+    List<HoaDon> getAllBill();
+
+    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    Integer getSoLuongHoaDon();
+
+    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    Double getTongDoanhThu();
+
+    @Query("SELECT new com.example.tshirt_luxury_datn.response.hoaDonReponse(COUNT(h), SUM(h.tongTien)) " +
+            "FROM HoaDon h " +
+            "WHERE h.ngayTao BETWEEN :ngayBatDau AND :ngayKetThuc "+
+            "AND (h.loaiHoaDon != 1 OR (h.loaiHoaDon = 1 AND h.trangThai = 4))")
+    hoaDonReponse locTheoNgayTao(@Param("ngayBatDau") Date ngayBatDau, @Param("ngayKetThuc") Date ngayKetThuc);
+
+
+    // Phương thức lấy danh sách hóa đơn
+    @Query("SELECT h FROM HoaDon h " +
+            "WHERE CAST(h.ngayTao AS DATE) BETWEEN :ngayBatDau AND :ngayKetThuc " +
+            "AND (h.loaiHoaDon != 1 OR (h.loaiHoaDon = 1 AND h.trangThai = 4))")
+    List<HoaDon> locHoaDonTheoNgay(@Param("ngayBatDau") Date ngayBatDau, @Param("ngayKetThuc") Date ngayKetThuc);
+
+
+    @Query("SELECT SUM(hct.soLuong) " +
+            "FROM HoaDonChiTiet hct " +
+            "JOIN HoaDon hd ON hct.hoaDon.id = hd.id " +
+            "WHERE hd.ngayTao BETWEEN :ngayBatDau AND :ngayKetThuc " +
+            "AND (hd.loaiHoaDon != 1 OR (hd.loaiHoaDon = 1 AND hd.trangThai = 4)) ")
+    Integer tinhTongSoLuong(@Param("ngayBatDau") Date ngayBatDau, @Param("ngayKetThuc") Date ngayKetThuc);
+
+
+    @Query(value = "SELECT \n" +
+            "    COUNT(*) AS soLuongHoaDon,\n" +
+            "    SUM(tong_tien) AS tongDoanhThu\n" +
+            "FROM hoa_don\n" +
+            "WHERE ngay_tao >= DATEADD(DAY, -:soNgay, GETDATE())", nativeQuery = true)
+    Integer selectTheoSoNgay(@Param("soNgay") Integer soNgay);
+
 
 }

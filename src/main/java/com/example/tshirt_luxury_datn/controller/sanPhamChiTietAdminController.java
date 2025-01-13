@@ -82,7 +82,7 @@ public class sanPhamChiTietAdminController {
         SanPham sanPham = sanPhamRepo.getReferenceById(id);
         String tenSanPham = sanPham.getTenSanPham();
         model.addAttribute("idSanPham", tenSanPham);
-
+String s = ";";List.of("f","f");
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 

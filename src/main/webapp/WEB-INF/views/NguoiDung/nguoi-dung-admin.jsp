@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <%--    <script src="../js/script.js"></script>--%>
+
 </head>
 
 <body>
@@ -63,7 +64,7 @@
                 <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action" aria-current="true">
                     <i class="fa-solid fa-house"></i> Trang Chủ
                 </a>
-                <a href="#" class="list-group-item list-group-item-action"> <i
+                <a href="/t-shirt-luxury/admin/thong-ke" class="list-group-item list-group-item-action"> <i
                         class="fa-solid fa-chart-simple"></i> Số Liệu Thống Kê</a>
                 <a href="/t-shirt-luxury/admin/nguoi-dung" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-users-gear"></i>
@@ -75,8 +76,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i
-                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>
+<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -216,7 +217,7 @@
                     </div>
                     <select class="form-select" aria-label="Default select example" name="chucVu.id">
                         <c:forEach items="${listChucVu}" var="cv">
-                            <option selected hidden="hidden">Chọn chức vụ</option>
+                            <option selected hidden="hidden" value="3">Chọn chức vụ</option>
                             <option value="${cv.id}">${cv.tenChucVu}</option>
                         </c:forEach>
 

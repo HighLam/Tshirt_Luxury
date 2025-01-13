@@ -1,17 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<jsp:include page="gio-hang.jsp" />--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Shirt Luxury | ADMIN</title>
+    <title>T-Shirt Luxury | Thống Kê</title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -71,8 +78,8 @@
                         class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
                 <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
                         class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-<%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
-<%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
+                <%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
+                <%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -87,129 +94,139 @@
                             Liệu</a></li>
                         <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i class="fa-solid fa-table-list"></i> Danh
                             Mục</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
+                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i></i> Ảnh Sản Phẩm</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-9" style="">
+
             <div class="row">
-                <h2 class="">Quản Lý Đợt Giảm Giá</h2>
 
-                <div class="p-2 bd-highlight d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                            data-bs-target="#themDotGiamGia">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Mới
-                    </button>
+                <div class="col-3" style="height: 50px; width: 330px">
+                    <div class="p-3 border bg-light"><i class="fa-solid fa-chart-line"></i> Tổng Doanh Thu:
+                        <fmt:formatNumber value="${tongDoanhThu}" type="currency" currencySymbol="₫" groupingUsed="true" /></div>
                 </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <div class="p-3 border bg-light"><i class="fa-solid fa-money-bill-trend-up"></i> Số Lượng Hóa Đơn: ${soLuongHoaDon}</div>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <div class="p-3 border bg-light"><i class="fa-brands fa-product-hunt"></i> Tổng Sản Phẩm Bán Được: ${tongSoLuong}</div>
+                </div>
+                <div class="col-1"></div>
 
-                <table class="table table-striped">
+            </div>
+
+
+
+            <div class="row g-2 mt-3 justify-content-end align-items-center ms-3">
+                <!-- Form Lọc theo số ngày -->
+                <form action="/t-shirt-luxury/admin/thong-ke/loc-theo-so-ngay" method="post" class="d-flex align-items-center col-auto gap-3" id="locForm">
+                    <select class="form-select" aria-label="Default select example" name="locTheoSoNgay" id="locTheoSoNgay" onchange="saveSelection()">
+                        <option value="10000" selected>Tất Cả</option>
+                        <option value="7">7 ngày</option>
+                        <option value="28">28 ngày</option>
+                        <option value="365">1 năm</option>
+                    </select>
+                </form>
+
+                <!-- Form Lọc theo ngày -->
+                <form action="/t-shirt-luxury/admin/thong-ke/loc" method="post" class="d-flex align-items-center col-auto gap-3">
+                    <!-- Input Ngày Bắt Đầu -->
+                    <div class="form-floating">
+                        <input id="floatingInputNgayBatDau" type="date" class="form-control" placeholder="Ngày Bắt Đầu" name="ngayBatDau">
+                        <label for="floatingInputNgayBatDau">Ngày Bắt Đầu</label>
+                    </div>
+
+                    <!-- Input Ngày Kết Thúc -->
+                    <div class="form-floating">
+                        <input id="floatingInputNgayKetThuc" type="date" class="form-control" placeholder="Ngày Kết Thúc" name="ngayKetThuc">
+                        <label for="floatingInputNgayKetThuc">Ngày Kết Thúc</label>
+                    </div>
+
+                    <!-- Button Lọc -->
+                    <button type="submit" class="btn btn-dark">Lọc</button>
+                </form>
+            </div>
+
+            <div class="row mt-2">
+
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Mã Đợt Giảm Giá</th>
-                        <th scope="col">Tên Đợt Giảm Giá</th>
-                        <th scope="col">Giá Trị Giảm (%)</th>
-                        <th scope="col">Ngày Bắt Đầu</th>
-                        <th scope="col">Ngày Kết Thúc</th>
-                        <th scope="col">Mô Tả</th>
-                        <th scope="col">Trạng Thái</th>
-                        <th scope="col">Hành Động</th>
+                        <th scope="col">Mã Hóa Đơn</th>
+                        <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Loại Hóa Đơn</th>
+                        <th scope="col">Tổng Tiền</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listGiamGia}" varStatus="i" var="gg">
+                    <c:forEach items="${hoaDonList}" var="hdtk" >
                     <tr>
-                        <th scope="row">${i.index+1}</th>
-                        <td>${gg.maDotGiamGia}</td>
-                        <td>${gg.tenDotGiamGia}</td>
-                        <td>${gg.giaTriGiam}</td>
-                        <td>${gg.ngayBatDau}</td>
-                        <td>${gg.ngayKetThuc}</td>
-                        <td>${gg.moTa}</td>
+                        <th scope="row">${hdtk.maHoaDon}</th>
+                        <td>${hdtk.ngayTao}</td>
                         <td>
-                            <c:if test="${gg.trangThai == 1}">
-                                <span class="badge bg-success">Hoạt Động</span>
+                            <c:if test="${hdtk.loaiHoaDon == 1}">
+                                <span class="badge bg-success">Hóa Đơn Online</span>
                             </c:if>
-                            <c:if test="${gg.trangThai == 0}">
+                            <c:if test="${hdtk.loaiHoaDon == 0}">
 
-                                <span class="badge bg-danger">Không Hoạt Động</span>
+                                <span class="badge bg-secondary">Hóa Đơn Tại Quầy</span>
                             </c:if>
                         </td>
-                        <td>
-                            <a class="btn btn-warning rounded-pill" data-toggle="tooltip" data-placement="top"
-                                    title="Chỉnh Sửa" href="/t-shirt-luxury/admin/giam-gia/getOne?id=${gg.id}">
-                                    <i class="fa-solid fa-pen-to-square"></i></a>
-
-                            <a class="btn btn-danger rounded-pill" data-toggle="tooltip" href="/t-shirt-luxury/admin/giam-gia/delete?id=${gg.id}"
-                                   onclick="return confirmDelete()" data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></a>
-                        </td>
+                        <td><fmt:formatNumber value='${hdtk.tongTien}' pattern="#,##0"/></td>
                     </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Modal add-->
-<div class="modal fade" id="themDotGiamGia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Đợt Giảm Giá</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/t-shirt-luxyry/admin/giam-gia/add" method="post">
-            <div class="modal-body">
-<%--                <div class="form-floating mb-3">--%>
-<%--                    <input type="text" class="form-control" id="floatingInput" placeholder="Mã Đợt Giảm Giá" name="maDotGiamGia">--%>
-<%--                    <label for="floatingInput">Mã Đợt Giảm Giá</label>--%>
-<%--                </div>--%>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Tên Đợt Giảm Giá" name="tenDotGiamGia">
-                    <label for="floatingInput">Tên Đợt Giảm Giá</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="Giá Trị Giảm" name="giaTriGiam">
-                    <label for="floatingInput">Giá Trị Giảm</label>
-                </div>
-                <div class="mt-3">
-                    <div class="text mt-2">
-                        Trạng Thái
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                               value="1">
-                        <label class="form-check-label">Hoạt Động</label>
-                    </div>
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
-                               value="0">
-                        <label class="form-check-label">Chưa Hoạt Động</label>
-                    </div>
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="moTa"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-success">Thêm Mới</button>
-                </div>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
 </body>
 <script>
-    confirmDelete = () => {
-        return confirm("Bạn có chắc chắn muốn xóa Giảm Giá này không ?");
+    // Hàm để lấy cookie theo tên
+    function getCookie(name) {
+        let value = "; " + document.cookie;
+        let parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
     }
+
+    // Đọc cookie và giữ lại giá trị select
+    window.onload = function() {
+        let locTheoSoNgay = getCookie("locTheoSoNgay");
+        if (locTheoSoNgay) {
+            document.querySelector("select[name='locTheoSoNgay']").value = locTheoSoNgay;
+        }
+    }
+    function saveSelection() {
+        var selectValue = document.getElementById("locTheoSoNgay").value;
+        // Lưu giá trị vào cookie
+        document.cookie = "locTheoSoNgay=" + selectValue + "; path=/";
+        var form = document.getElementById('locForm');
+
+        // Gửi form khi chọn một option
+        form.submit();
+    }
+
+    // Khi trang tải, kiểm tra cookie và tự động chọn giá trị tương ứng
+    document.addEventListener("DOMContentLoaded", function() {
+        var cookies = document.cookie.split(';');
+        var locTheoSoNgayValue = cookies.find(cookie => cookie.trim().startsWith('locTheoSoNgay='));
+
+        if (locTheoSoNgayValue) {
+            // Lấy giá trị cookie và tách giá trị
+            var value = locTheoSoNgayValue.split('=')[1];
+            // Đặt giá trị vào select
+            document.getElementById("locTheoSoNgay").value = value;
+        }
+    });
 </script>
+
 </html>

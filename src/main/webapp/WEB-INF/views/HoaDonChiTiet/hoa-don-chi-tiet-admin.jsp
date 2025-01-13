@@ -65,7 +65,7 @@
                 <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Mã Hóa Đơn Chi Tiết</th>
+<%--                    <th scope="col">Mã Hóa Đơn Chi Tiết</th>--%>
                     <th scope="col">Tên Sản Phẩm</th>
                     <th scope="col">Giá</th>
                     <th scope="col">Số Lượng</th>
@@ -78,7 +78,7 @@
                 <c:forEach items="${listHDCTTaiQuay}" var="hdctOff" varStatus="i">
                     <tr>
                         <td>${i.index+1}</td>
-                        <td>${hdctOff.maHoaDonChiTiet}</td>
+<%--                        <td>${hdctOff.maHoaDonChiTiet}</td>--%>
                         <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>
                         <td><fmt:formatNumber value='${hdctOff.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
                         <td>${hdctOff.soLuong}</td>
