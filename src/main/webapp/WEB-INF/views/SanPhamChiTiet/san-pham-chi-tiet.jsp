@@ -356,7 +356,7 @@
         <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
         <h6>${spDetail.tenSanPham}</h6>
 <%--        <p><fmt:formatNumber value='${spDetail.gia}' pattern="#,##0"/></p>--%>
-        <p>Còn hàng</p>
+        <p><fmt:formatNumber value='${giaSP}' pattern="#,##0" />₫</p>
         <hr>
 
         <!-- Color Selection -->

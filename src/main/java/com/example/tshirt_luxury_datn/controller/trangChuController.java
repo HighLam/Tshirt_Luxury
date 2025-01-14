@@ -68,6 +68,7 @@ public class trangChuController {
         model.addAttribute("notiOnl", session.getAttribute("notiOnl"));
         model.addAttribute("quaSoLuong", session.getAttribute("quaSoLuong"));
 
+        model.addAttribute("giaSP", sanPhamRepo.findGiaBySanPhamId(id));
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
         }
@@ -84,66 +85,73 @@ public class trangChuController {
         session.setAttribute("idSPDetail", id);
         return "SanPhamChiTiet/san-pham-chi-tiet";
 
-        }
+    }
 
 
     @PostMapping("/t-shirt-luxury/san-pham-chi-tiet/add-cart")
-    public String addCart(@RequestParam(value = "idSPDetail")  Integer idSanPham,
-                          @RequestParam(value = "mauSac",defaultValue = "") Integer idMauSac,
+    public String addCart(@RequestParam(value = "idSPDetail") Integer idSanPham,
+                          @RequestParam(value = "mauSac", defaultValue = "") Integer idMauSac,
+                          @RequestParam(value = "size", defaultValue = "") Integer idSize,
                           @RequestParam("soLuong") Integer soLuong,
                           RedirectAttributes redirectAttributes,
-                          @RequestParam(value = "size",defaultValue = "") Integer idSize, HttpSession session) {
-
+                          HttpSession session) {
 
 
         Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
-        if (idMauSac == null) {
-           redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
-           return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
-       }
+        Integer getSoLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
-       // Kiểm tra kích thước
+        if (idMauSac == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn màu sắc!");
+            return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
+        }
+
+        // Kiểm tra kích thước
         if (idSize == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn kích thước!");
             return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
-        }
-        else {
-            if (soLuong <= soLuongSpct) {
+        } else {
+            if (soLuong <= getSoLuongSpct) {
                 SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
 
                 Integer idGioHang = (Integer) session.getAttribute("idGioHang");
                 GioHang gioHang = gioHangRepo.getReferenceById(idGioHang);
-                List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
-                boolean idExist = false;
-                for (Integer idSPCT : idSPCTExistList) {
-                    if (idSPCT.equals(sanPhamChiTiet.getId())) {
-                        idExist = true;
-                        break;
+                Integer soLuongTrongGio = gioHangChiTietRepo.findSoLuongById(idGioHang);
+                if (soLuongTrongGio == null) {
+                    soLuongTrongGio = 0;
+                }
+                System.out.println("dsfdgfhg" + soLuongTrongGio);
+                if (soLuongTrongGio + soLuong <= getSoLuongSpct) {
+                    List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
+                    boolean idExist = false;
+                    for (Integer idSPCT : idSPCTExistList) {
+                        if (idSPCT.equals(sanPhamChiTiet.getId())) {
+                            idExist = true;
+                            break;
+                        }
                     }
-                }
-                if (idExist) {
-                    GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getGHCTByIdSPCT(sanPhamChiTiet.getId());
-                    gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + soLuong);
-                    gioHangChiTietRepo.save(gioHangChiTiet);
-                } else {
-                    GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
-                    gioHangChiTiet.setGioHang(gioHang);
-                    gioHangChiTiet.setSoLuong(soLuong);
-                    gioHangChiTiet.setNgayTao(new Date());
-                    gioHangChiTiet.setNgaySua(new Date());
-                    gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
-                    // Lưu bản ghi mới
-                    gioHangChiTietRepo.save(gioHangChiTiet);
-                    String gioHangNull = "";
-                    session.setAttribute("gioHangNull", gioHangNull);
-                    String quaSoLuong = "";
-                    session.setAttribute("quaSoLuong", quaSoLuong);
-                }
+                    if (idExist) {
+                        GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.getGHCTByIdSPCT(sanPhamChiTiet.getId());
+                        gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + soLuong);
+                        gioHangChiTietRepo.save(gioHangChiTiet);
+                    } else {
+                        GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+                        gioHangChiTiet.setGioHang(gioHang);
+                        gioHangChiTiet.setSoLuong(soLuong);
+                        gioHangChiTiet.setNgayTao(new Date());
+                        gioHangChiTiet.setNgaySua(new Date());
+                        gioHangChiTiet.setSanPhamChiTiet(sanPhamChiTiet);
+                        // Lưu bản ghi mới
+                        gioHangChiTietRepo.save(gioHangChiTiet);
+                        String gioHangNull = "";
+                        session.setAttribute("gioHangNull", gioHangNull);
+                        String quaSoLuong = "";
+                        session.setAttribute("quaSoLuong", quaSoLuong);
+                    }
 
-
+                }
             } else {
-                String quaSoLuong = "Số lượng không được vượt quá " + soLuongSpct;
+                String quaSoLuong = "Số lượng không được vượt quá " + getSoLuongSpct;
                 session.setAttribute("quaSoLuong", quaSoLuong);
             }
         }

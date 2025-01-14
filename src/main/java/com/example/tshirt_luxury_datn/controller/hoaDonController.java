@@ -160,22 +160,19 @@ public class hoaDonController {
         }
 
         List<SanPhamChiTiet> idSPCT = sanPhamChiTietAdminRepo.findAll();
-        List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.selectSoLuongHoaDonChiTietOnline(idHoaDon);
+        List<HoaDonChiTiet> hoaDonChiTietSL = hoaDonChiTietRepo.getSoLuongHoaDonChiTietOnline(idHoaDon);
         List<Integer> soLuongHDCT = hoaDonChiTietRepo.selectSoLuongOnline(idHoaDon);
+
         for (int i = 0; i < hoaDonChiTietSL.size(); i++) {
             HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietSL.get(i);
-            int soLuongCanTru = soLuongHDCT.get(i); // Lấy số lượng tương ứng từ soLuongHDCT
-
-            // Lọc danh sách SanPhamChiTiet phù hợp với ID từ HoaDonChiTiet
-            List<SanPhamChiTiet> sanPhamChiTietList = idSPCT.stream()
-                    .filter(sp -> sp.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId()))
-                    .collect(Collectors.toList());
-
-            // Trừ số lượng cho tất cả các SanPhamChiTiet phù hợp
-            for (SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList) {
-                sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongCanTru);
-                sanPhamChiTiet.setId(sanPhamChiTiet.getId());
-                sanPhamChiTietAdminRepo.save(sanPhamChiTiet); // Lưu lại thay đổi
+            for (SanPhamChiTiet sanPhamChiTiet : idSPCT) {
+                if (sanPhamChiTiet.getId().equals(hoaDonChiTiet.getSanPhamChiTiet().getId())) {
+                    // Trừ số lượng tương ứng theo chỉ số của hoaDonChiTietSL
+                    int soLuongCanTru = soLuongHDCT.get(i); // Lấy số lượng tương ứng từ soLuongHDCT
+                    sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - soLuongCanTru);
+                    sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+                    break; // Thoát vòng lặp nếu đã tìm thấy sản phẩm cần cập nhật
+                }
             }
         }
 
