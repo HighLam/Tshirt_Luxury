@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +123,7 @@
                         <th scope="col">Chất Liệu</th>
                         <th scope="col">Màu Sắc</th>
                         <th scope="col">Số Lượng</th>
-                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Giá Tiền</th>
                         <th scope="col">Khối Lượng (g)</th>
                         <th scope="col">Hành Động</th>
                     </tr>
@@ -138,11 +139,12 @@
                                 <td>${s.chatLieu.tenChatLieu}</td>
                                 <td>${s.mauSac.tenMauSac}</td>
                                 <td>${s.soLuong}</td>
-                                <td>
-                        <span class="badge bg-success">
-                                ${s.soLuong == 0 ? "Hết hàng" : (s.trangThai == 1 ? "Đang bán" : "Hết hàng")}
-                        </span>
-                                </td>
+<%--                                <td>--%>
+<%--                        <span class="badge bg-success">--%>
+<%--                                ${s.soLuong == 0 ? "Hết hàng" : (s.trangThai == 1 ? "Đang bán" : "Hết hàng")}--%>
+<%--                        </span>--%>
+<%--                                </td>--%>
+                                <td><fmt:formatNumber value='${s.gia}' pattern="#,##0"/></td>
                                 <td>${s.khoiLuongSanPham}</td>
                                 <td>
                                     <a href="/t-shirt-luxury/admin/sua-san-pham-chi-tiet/getOne?id=${s.id}"
@@ -220,21 +222,28 @@
                                    name="soLuong">
                             <label for="floatingInput">Số Lượng</label>
                         </div>
-                        <div>
-                            <div class="text mt-2">
-                                Trạng Thái
-                            </div>
-                            <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1"
-                                       value="1" checked>
-                                <label class="form-check-label" for="inlineRadio1">Bán</label>
-                            </div>
-                            <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2"
-                                       value="0">
-                                <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>
-                            </div>
+
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="Giá Tiền"
+                                   name="giaTien">
+                            <label for="floatingInput">Giá Tiền</label>
                         </div>
+
+<%--                        <div>--%>
+<%--                            <div class="text mt-2">--%>
+<%--                                Trạng Thái--%>
+<%--                            </div>--%>
+<%--                            <div class="form-check form-check-inline mt-2">--%>
+<%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1"--%>
+<%--                                       value="1" checked>--%>
+<%--                                <label class="form-check-label" for="inlineRadio1">Bán</label>--%>
+<%--                            </div>--%>
+<%--                            <div class="form-check form-check-inline mt-2">--%>
+<%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2"--%>
+<%--                                       value="0">--%>
+<%--                                <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                         <div class="form-floating mb-3 mt-3">
                             <input type="number" class="form-control" id="floatingInput" placeholder="Khối Lượng"
                                    name="khoiLuongSanPham">

@@ -88,6 +88,7 @@ public class sanPhamChiTietAdminController {
     public String sanPhamChiTietSave(
             @RequestParam(value = "id", required = true) Integer id, // id bắt buộc
             @RequestParam(value = "soLuong", required = true) Integer soLuong,
+            @RequestParam(value = "giaTien", required = true) Double giaTien,
             @RequestParam(value = "khoiLuongSanPham", required = true) Double khoiLuongSanPham,
             @RequestParam(value = "tenAnhSanPham", required = false) String tenAnhSanPham,
             @RequestParam(value = "id_size", required = false) Integer idSize,
@@ -115,6 +116,8 @@ public class sanPhamChiTietAdminController {
         sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).orElse(null));
         sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).orElse(null));
         sanPhamChiTiet.setSoLuong(soLuong);
+        sanPhamChiTiet.setGia(giaTien);
+        sanPhamChiTiet.setTrangThai(1);
         sanPhamChiTiet.setKhoiLuongSanPham(khoiLuongSanPham);
         // Lưu sản phẩm chi tiết
         sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
