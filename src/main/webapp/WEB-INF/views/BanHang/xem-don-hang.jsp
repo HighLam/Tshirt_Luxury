@@ -28,7 +28,7 @@
         <div class="side-bar">
             <div class="header-popup ">
                 <div class="logo-header-popup">
-                    <a href="#">
+                    <a href="/t-shirt-luxury/trang-chu">
                         <img src="../images/logo.png" alt="">
                     </a>
                 </div>
@@ -47,7 +47,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input class="input-search" type="text" name="timKiemSanPham" id="searchPopUp" placeholder="Tìm kiếm">
                     </form>
-                    <a href="/t-shirt-luxury/xem-don-hang">
+                    <a href="/t-shirt-luxury/gio-hang-chi-tiet">
                         <i class="fa-regular fa-user ps-5"></i>
                     </a>
                     <a href="#">
@@ -124,7 +124,6 @@
                         <a href="#" class="name-type hover-change-color">Áo phông Unisex</a>
                     </li>
                     <ul class="login-and-signin">
-
                         <i class="fa-regular fa-user"></i>
                         <li class="button-login"><a href="/t-shirt-luxury/login" class="ten-danh-muc hover-change-color">ĐĂNG NHẬP</a>
                         </li>
@@ -135,7 +134,7 @@
 
             </div>
             <div class="logo-header">
-                <a href="#">
+                <a href="/t-shirt-luxury/trang-chu">
                     <img src="../images/logo.png" alt="">
                 </a>
             </div>
@@ -145,7 +144,7 @@
                     <input class="input-search" type="text" name="timKiemSanPham" id="search" placeholder="Tìm kiếm">
                 </form>
 
-                <a href="/t-shirt-luxury/xem-don-hang">
+                <a href="#">
                     <i class="fa-regular fa-user ps-5"></i>
                 </a>
                 <a href="#">
@@ -164,115 +163,55 @@
 </header>
 <!-- End Header -->
 <div class="container">
-    <div class="text-center mt-5" style="padding-left:2rem">
-        <H1 class="text-center " style="font-size: 30px;">SẢN PHẨM MỚI</H1>
-    </div>
-
-    <div class="row mt-5" style="padding-left:2rem">
-        <c:forEach var="spNew" items="${sanPhamList}" >
-
-        <div class="col-3">
-            <div class="card product-card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="card-img-top" alt="...">
-                <div class="card-body product-info">
-                    <h5 class="card-title text-center" style="font-size:13px">${spNew.tenSanPham}</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">
-                        <fmt:formatNumber value='${spNew.gia}' pattern="#,##0"/>₫
-                    </p>
-
-                    <div class="text-center product-actions" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spNew.id}" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </c:forEach>
-
-    </div>
-
-    <div class="text-center mt-4" style="padding-left:2rem">
-        <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them" >Xem Thêm</a>
-    </div>
+    <form style="margin-top: 30px; max-width: 500px" class="d-flex" action="/t-shirt-luxury/search-hoa-don-by-sdt" method="post">
+        <input name="soDienThoai" class="form-control me-2" type="search" placeholder="Nhập số điện thoại" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
     <div class="text-center mt-5" style="padding-left:2rem">
-        <H1 class="text-center" style="font-size: 30px;">SẢN PHẨM DÀNH CHO BẠN</H1>
+        <H1 class="text-center" style="font-size: 30px;">ĐƠN HÀNG</H1>
     </div>
 
-    <div class="row mt-5" style="padding-left:2rem">
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_unisex/1969/black.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông 1969</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Mã hoá đơn</th>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Địa chỉ giao hàng</th>
+            <th scope="col">Trạng thái đơn hàng</th>
+            <th scope="col">Hành động</th>
+            <th scope="col">${sdtMe}</th>
 
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_unisex/BACISTEE/pink.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông Airplane</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_unisex/BACISTEE/green.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông BACISTEE</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">499,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="card" style="width: 18rem; border-style:none">
-                <img src="../images/ao_phong_unisex/SMILE/black.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size:13px">Áo Phông SMILE</h5>
-                    <p class="card-text fw-bold text-center" style="font-size: 14px;">449,000₫</p>
-                    <div class="text-center" style="font-size:5px">
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-cart-shopping"></i>Mua Nhanh</a>
-                        <a href="#" class="btn btn-outline-light">
-                            <i class="fa-solid fa-eye"></i>Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </tr>
+        </thead>
+        <tbody>
+        <c:if test="${not empty spct}">
+            <c:forEach items="${spct}" var="s" varStatus="i">
+                <tr>
+                    <td>${i.index + 1 + (currentPage * 5)}</td>
+                    <td>${s.sanPham.tenSanPham}</td>
+                    <td>${s.size.tenSize}</td>
+                    <td>${s.chatLieu.tenChatLieu}</td>
+                    <td>${s.mauSac.tenMauSac}</td>
+                    <td>${s.soLuong}</td>
+                    <td><fmt:formatNumber value="${s.gia}" pattern="#,##0"/></td>
+                    <td>${s.khoiLuongSanPham}</td>
+                    <td>
+                        <a href="/t-shirt-luxury/admin/hoa-don-online/detail?idHoaDonOnline=1002" class="btn btn-secondary rounded-pill" data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}" class="btn btn-danger rounded-pill" onclick="return confirmDelete()">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </c:if>
 
 
-    </div>
-
-    <div class="text-center mt-4" style="padding-left:2rem">
-        <a class="btn btn-outline-dark" href="/t-shirt-luxury/xem-them">Xem Thêm</a>
-    </div>
-
+        </tbody>
+    </table>
     <div class="text-center mt-5" style="padding-left:2rem">
         <H1 class="text-center" style="font-size: 30px;">LOOK BOOK</H1>
     </div>

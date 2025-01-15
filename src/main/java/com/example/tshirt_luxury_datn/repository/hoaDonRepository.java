@@ -180,5 +180,9 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "WHERE ngay_tao >= DATEADD(DAY, -:soNgay, GETDATE())", nativeQuery = true)
     Integer selectTheoSoNgay(@Param("soNgay") Integer soNgay);
 
-
+@Query(value = "select\n" +
+        "* from hoa_don \n" +
+        "join thong_tin_nhan_hang on thong_tin_nhan_hang.id = hoa_don.id_thong_tin_nhan_hang\n" +
+        "where so_dien_thoai = :sdt and loai_hoa_don = 1\n", nativeQuery = true)
+    List<HoaDon> xemHoaDonOnlKhachHang(@Param("sdt") String soDienThoai);
 }
