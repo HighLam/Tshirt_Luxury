@@ -43,4 +43,7 @@ public interface gioHangChiTietRepository extends JpaRepository<GioHangChiTiet, 
 
     @Query(value = "SELECT sum(so_luong) FROM gio_hang_chi_tiet WHERE id_gio_hang = :id", nativeQuery = true)
     Integer findSoLuongById(@Param("id") Integer id);
+
+    @Query(value = "SELECT * FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang", nativeQuery = true)
+    List<GioHangChiTiet> findByIdGioHang(@Param("idGioHang") Integer idGioHang);
 }

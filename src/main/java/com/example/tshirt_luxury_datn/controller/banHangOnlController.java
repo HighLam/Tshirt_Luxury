@@ -198,8 +198,10 @@ public class banHangOnlController {
             List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepo.gioHangChiTietByID(idGioHang);
             List<Integer> listIDSPCT = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
 
-            for (Integer idSPCT : listIDSPCT) {
-                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(idSPCT);
+
+            for (int i = 0; i < listIDSPCT.size(); i++) {
+
+                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepo.getReferenceById(listIDSPCT.get(i));
 
                 HoaDonChiTiet hoaDonChiTietOnl = new HoaDonChiTiet();
                 hoaDonChiTietOnl.setHoaDon(hoaDon);
@@ -207,10 +209,7 @@ public class banHangOnlController {
                 hoaDonChiTietOnl.setNgaySua(new Date());
                 hoaDonChiTietOnl.setTrangThai(1);
                 hoaDonChiTietOnl.setSanPhamChiTiet(sanPhamChiTiet);
-
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
-                    hoaDonChiTietOnl.setSoLuong(gioHangChiTiet.getSoLuong());
-                }
+                hoaDonChiTietOnl.setSoLuong(gioHangChiTiets.get(i).getSoLuong());
 
                 hoaDonChiTietRepo.save(hoaDonChiTietOnl);
 
