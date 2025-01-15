@@ -16,7 +16,7 @@ import java.util.List;
 public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiTiet,Integer> {
 
     @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId ORDER BY spct.ngayTao DESC")
-    Page<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId, Pageable pageable);
+    List<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
 
     @Query(value = "\n" +
             "select id_mau_sac from dbo.san_pham_chi_tiet spct\n" +

@@ -242,6 +242,14 @@ public class banHangOnlController {
 
         }
     }
-
+@GetMapping("/t-shirt-luxury/xem-don-hang")
+    public String xemDonHang(){
+        return "BanHang/xem-don-hang";
+}
+@PostMapping("/t-shirt-luxury/search-hoa-don-by-sdt")
+    public String searchHoaDonBySdt(@RequestParam("soDienThoai") String sdt, Model model) {
+        model.addAttribute("sdtMe", sdt);
+        return "redirect:/t-shirt-luxury/xem-don-hang";
+    }
 
 }

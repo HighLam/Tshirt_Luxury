@@ -105,13 +105,11 @@ public class sanPhamChiTietAdminController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             Model model,
             HttpSession session) {
-        Pageable pageable = PageRequest.of(page, 5); // Số sản phẩm mỗi trang = 5
-        Page<SanPhamChiTiet> pageResult = sanPhamChiTietAdminRepo.findBySanPhamId(id, pageable);
 
-        model.addAttribute("spct", pageResult.getContent()); // Truyền danh sách
-        model.addAttribute("totalPages", pageResult.getTotalPages());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pageResult", pageResult); // Truyền đối tượng Page nếu cần
+        List<SanPhamChiTiet> listSPCT = sanPhamChiTietAdminRepo.findBySanPhamId(id);
+
+        model.addAttribute("spct", listSPCT); // Truyền danh sách
+
         session.setAttribute("idSanPham", id);
 
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";

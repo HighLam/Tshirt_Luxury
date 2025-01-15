@@ -156,30 +156,7 @@
 
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <!-- Nút Previous -->
-                        <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
-                            <a class="page-link" href="?id=${idSanPham}&page=${currentPage - 1}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
 
-                        <!-- Các trang -->
-                        <c:forEach begin="0" end="${spct.totalPages - 1}" var="i">
-                            <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                <a class="page-link" href="?id=${idSanPham}&page=${i}">${i + 1}</a>
-                            </li>
-                        </c:forEach>
-
-                        <!-- Nút Next -->
-                        <li class="page-item ${currentPage == spct.totalPages - 1 ? 'disabled' : ''}">
-                            <a class="page-link" href="?id=${idSanPham}&page=${currentPage + 1}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
 
             </div>
         </div>
