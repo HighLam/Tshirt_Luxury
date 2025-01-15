@@ -112,6 +112,7 @@
                         <i class="fa-solid fa-circle-plus"></i> Thêm Mới
                     </button>
                 </div>
+                <p style="color: red;text-align: center;font-weight: 500;font-size: 24px">${error}</p>
                 <p>${tenSanPham}</p>
                 <table class="table table-striped">
                     <thead>
@@ -132,46 +133,64 @@
                     <c:if test="${not empty spct}">
                         <c:forEach items="${spct}" var="s" varStatus="i">
                             <tr>
-                                <td>${i.index+1}</td>
+                                <td>${i.index + 1 + (currentPage * 5)}</td>
                                 <td>${s.sanPham.tenSanPham}</td>
-                                    <%--                    <td><img style="width: 100px; height:100px"  src="${s.anhSanPham.maAnhSanPham}" alt=""></td>--%>
                                 <td>${s.size.tenSize}</td>
                                 <td>${s.chatLieu.tenChatLieu}</td>
                                 <td>${s.mauSac.tenMauSac}</td>
                                 <td>${s.soLuong}</td>
-<%--                                <td>--%>
-<%--                        <span class="badge bg-success">--%>
-<%--                                ${s.soLuong == 0 ? "Hết hàng" : (s.trangThai == 1 ? "Đang bán" : "Hết hàng")}--%>
-<%--                        </span>--%>
-<%--                                </td>--%>
-                                <td><fmt:formatNumber value='${s.gia}' pattern="#,##0"/></td>
+                                <td><fmt:formatNumber value="${s.gia}" pattern="#,##0"/></td>
                                 <td>${s.khoiLuongSanPham}</td>
                                 <td>
-                                    <a href="/t-shirt-luxury/admin/sua-san-pham-chi-tiet/getOne?id=${s.id}"
-                                       class="btn btn-warning rounded-pill"
-
-                                       title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}"
-                                       class="btn btn-danger rounded-pill" data-toggle="tooltip" data-placement="top"
-                                       title="Xóa" onclick="return confirmDelete()"><i
-                                            class="fa-solid fa-trash"></i></a>
+                                    <a href="/t-shirt-luxury/admin/sua-san-pham-chi-tiet/getOne?id=${s.id}" class="btn btn-warning rounded-pill">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}" class="btn btn-danger rounded-pill" onclick="return confirmDelete()">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </c:if>
+
+
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- Nút Previous -->
+                        <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                            <a class="page-link" href="?id=${idSanPham}&page=${currentPage - 1}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <!-- Các trang -->
+                        <c:forEach begin="0" end="${spct.totalPages - 1}" var="i">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link" href="?id=${idSanPham}&page=${i}">${i + 1}</a>
+                            </li>
+                        </c:forEach>
+
+                        <!-- Nút Next -->
+                        <li class="page-item ${currentPage == spct.totalPages - 1 ? 'disabled' : ''}">
+                            <a class="page-link" href="?id=${idSanPham}&page=${currentPage + 1}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </div>
-    <p style="color: red">${error}</p>
 
     <!-- --Modal-- -->
     <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST">
         <div class="modal fade" id="themSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog" style="max-width: 800px">
+                <div class="modal-content" style="width: 800px">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Thêm Mới Sản Phẩm Chi Tiết</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -184,14 +203,7 @@
                         <%--                            <label for="floatingInput">Tên Sản Phẩm</label>--%>
                         <%--                        </div>--%>
                         <%--                        <div class="mb-3">--%>
-                        <%--                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>--%>
-                        <%--                            <select class="form-select" aria-label="Default select example"--%>
-                        <%--                                    name="id_anh_san_pham_chi_tiet">--%>
-                        <%--                                <c:forEach var="s" items="${anhSanPham}">--%>
-                        <%--                                    <option value="${s.id}">${s.tenAnhSanPham}</option>--%>
-                        <%--                                </c:forEach>--%>
-                        <%--                            </select>--%>
-                        <%--                        </div>--%>
+
                         <div class="mb-3">
                             <label class="form-label">Chọn Size Sản Phẩm</label>
                             <select class="form-select" aria-label="Default select example" name="id_size">
@@ -229,26 +241,34 @@
                             <label for="floatingInput">Giá Tiền</label>
                         </div>
 
-<%--                        <div>--%>
-<%--                            <div class="text mt-2">--%>
-<%--                                Trạng Thái--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-inline mt-2">--%>
-<%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1"--%>
-<%--                                       value="1" checked>--%>
-<%--                                <label class="form-check-label" for="inlineRadio1">Bán</label>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-inline mt-2">--%>
-<%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2"--%>
-<%--                                       value="0">--%>
-<%--                                <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
+                        <%--                        <div>--%>
+                        <%--                            <div class="text mt-2">--%>
+                        <%--                                Trạng Thái--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="form-check form-check-inline mt-2">--%>
+                        <%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio1"--%>
+                        <%--                                       value="1" checked>--%>
+                        <%--                                <label class="form-check-label" for="inlineRadio1">Bán</label>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="form-check form-check-inline mt-2">--%>
+                        <%--                                <input class="form-check-input" type="radio" name="trangThai" id="inlineRadio2"--%>
+                        <%--                                       value="0">--%>
+                        <%--                                <label class="form-check-label" for="inlineRadio2">Chưa Bán</label>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
                         <div class="form-floating mb-3 mt-3">
                             <input type="number" class="form-control" id="floatingInput" placeholder="Khối Lượng"
                                    name="khoiLuongSanPham">
-                            <label for="floatingInput">Khối Lượng</label>
+                            <label for="floatingInput">Khối Lượng(gam)</label>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Chọn Ảnh Sản Phẩm</label>
+                            <input type="file" class="form-control" name="anhSanPham" accept="image/*">
+                        </div>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                data-bs-target="#themAnhSanPhamChiTiet">
+                            <i class="fa-solid fa-circle-plus"></i> Chọn Ảnh Sản Phẩm
+                        </button>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa"
@@ -262,9 +282,81 @@
                 </div>
             </div>
         </div>
+    
     </form>
 
 
+    <div class="modal fade" id="themAnhSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 800px">
+            <div class="modal-content" style="width: 800px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chọn Ảnh Sản Phẩm Chi Tiết</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <c:forEach items="${listAnh}" var="anhSP" varStatus="status">
+                            <div class="col-6 mb-3">
+                                <div class="card">
+                                    <img src="${pageContext.request.contextPath}/images/${anhSP.tenAnhSanPham}"
+                                         class="card-img-top img-fluid" style="max-height: 200px;" alt="Ảnh sản phẩm">
+                                    <div class="card-body text-center">
+                                        <button type="button" class="btn btn-outline-primary btn-sm">Chọn</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Xuống hàng mới sau mỗi 2 ảnh -->
+                            <c:if test="${status.index % 2 == 1}">
+                        </div><div class="row">
+                        </c:if>
+                        </c:forEach>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Điều hướng phân trang -->
+                    <c:if test="${totalPages > 0}">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <!-- Nút Previous -->
+                                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?id=${idSanPham}&page=${currentPage - 1}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+
+                                <!-- Các trang -->
+                                <c:forEach begin="0" end="${totalPages - 1}" var="i">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="?id=${idSanPham}&page=${i}">${i + 1}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <!-- Nút Next -->
+                                <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?id=${idSanPham}&page=${currentPage + 1}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </c:if>
+
+
+
+                    <c:if test="${empty spct}">
+                        <p class="text-center">Không có sản phẩm chi tiết nào để hiển thị.</p>
+                    </c:if>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 </body>
 <script>
     confirmDelete = () => {

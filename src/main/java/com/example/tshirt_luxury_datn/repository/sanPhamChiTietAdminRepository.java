@@ -3,6 +3,8 @@ package com.example.tshirt_luxury_datn.repository;
 import com.example.tshirt_luxury_datn.entity.MauSac;
 import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,8 +15,8 @@ import java.util.List;
 @Repository
 public interface sanPhamChiTietAdminRepository extends JpaRepository<SanPhamChiTiet,Integer> {
 
-    @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId order by spct.ngayTao DESC ")
-    List<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
+    @Query("SELECT spct FROM SanPhamChiTiet spct WHERE spct.sanPham.id = :sanPhamId ORDER BY spct.ngayTao DESC")
+    Page<SanPhamChiTiet> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId, Pageable pageable);
 
     @Query(value = "\n" +
             "select id_mau_sac from dbo.san_pham_chi_tiet spct\n" +

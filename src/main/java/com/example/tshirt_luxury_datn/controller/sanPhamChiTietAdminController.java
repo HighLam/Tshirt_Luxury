@@ -8,14 +8,23 @@ import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.sanPhamChiTietAdminRespone;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +44,20 @@ public class sanPhamChiTietAdminController {
     @Autowired
     sanPhamRepository sanPhamRepo;
 
+    @ModelAttribute("anhSanPham")
+    public String getAllAnhSanPham(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "8") int size,
+            Model model) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AnhSanPham> pageAnhSanPham = anhSanPhamRepo.findAllWithPagination(pageable);
+
+        model.addAttribute("listAnh", pageAnhSanPham.getContent());
+        model.addAttribute("currentPage", pageAnhSanPham.getNumber());
+        model.addAttribute("totalPages", pageAnhSanPham.getTotalPages());
+
+        return "SanPhamChiTiet/san-pham-chi-tiet-admin";
+    }
 
     @ModelAttribute("sanPham")
     public Integer getSanPham(Model model, @RequestParam(name = "id") Integer id) {
@@ -77,52 +100,90 @@ public class sanPhamChiTietAdminController {
     }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet")
-    public String sanPhamChiTietAdmin(@RequestParam("id") Integer id, Model model, HttpSession session) {
-        model.addAttribute("spct", sanPhamChiTietAdminRepo.findBySanPhamId(id));
+    public String sanPhamChiTietAdmin(
+            @RequestParam("id") Integer id,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Model model,
+            HttpSession session) {
+        Pageable pageable = PageRequest.of(page, 5); // Số sản phẩm mỗi trang = 5
+        Page<SanPhamChiTiet> pageResult = sanPhamChiTietAdminRepo.findBySanPhamId(id, pageable);
+
+        model.addAttribute("spct", pageResult.getContent()); // Truyền danh sách
+        model.addAttribute("totalPages", pageResult.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageResult", pageResult); // Truyền đối tượng Page nếu cần
         session.setAttribute("idSanPham", id);
-        model.addAttribute("idSanPham", id);
+
         return "SanPhamChiTiet/san-pham-chi-tiet-admin";
     }
 
+
+
+
     @PostMapping("t-shirt-luxury/admin/san-pham-chi-tiet/add")
     public String sanPhamChiTietSave(
-            @RequestParam(value = "id", required = true) Integer id, // id bắt buộc
+            @RequestParam(value = "id", required = true) Integer id,
             @RequestParam(value = "soLuong", required = true) Integer soLuong,
             @RequestParam(value = "giaTien", required = true) Double giaTien,
             @RequestParam(value = "khoiLuongSanPham", required = true) Double khoiLuongSanPham,
-            @RequestParam(value = "tenAnhSanPham", required = false) String tenAnhSanPham,
             @RequestParam(value = "id_size", required = false) Integer idSize,
             @RequestParam(value = "id_chat_lieu", required = false) Integer idChatLieu,
-            @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac
-            , RedirectAttributes redirectAttributes) {
+            @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac,
+            @RequestParam(value = "anhSanPham", required = false) MultipartFile anhSanPham,
+            RedirectAttributes redirectAttributes) {
 
-        // Kiểm tra xem sản phẩm có tồn tại không
-        SanPhamChiTiet existingSanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, id);
-        if (existingSanPhamChiTiet != null) {
-            redirectAttributes.addFlashAttribute("error", "Sản phẩm chi tiết này đã tồn tại.");
-            return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
+        try {
+            // Kiểm tra sản phẩm chi tiết đã tồn tại
+            SanPhamChiTiet existingSanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, id);
+            if (existingSanPhamChiTiet != null) {
+                redirectAttributes.addFlashAttribute("error", "Sản phẩm chi tiết này đã tồn tại.");
+                return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
+            }
+
+            // Lấy thông tin sản phẩm
+            SanPham sanPhamAdd = sanPhamRepo.getReferenceById(id);
+            SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet();
+            sanPhamChiTiet.setSanPham(sanPhamAdd);
+            sanPhamChiTiet.setNgayTao(new Date());
+            sanPhamChiTiet.setNgaySua(new Date());
+
+            // Thiết lập các thông tin cơ bản
+            sanPhamChiTiet.setSize(sizeRepo.findById(idSize).orElse(null));
+            sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).orElse(null));
+            sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).orElse(null));
+            sanPhamChiTiet.setSoLuong(soLuong);
+            sanPhamChiTiet.setGia(giaTien);
+            sanPhamChiTiet.setKhoiLuongSanPham(khoiLuongSanPham);
+            sanPhamChiTiet.setTrangThai(1);
+
+            // Xử lý ảnh sản phẩm
+            if (anhSanPham != null && !anhSanPham.isEmpty()) {
+                String uploadDir = "uploads/";
+                String fileName = anhSanPham.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir + fileName);
+
+                Files.createDirectories(filePath.getParent());
+                Files.copy(anhSanPham.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                // Tạo hoặc tìm đối tượng AnhSanPham
+                AnhSanPham anh = new AnhSanPham();
+                anh.setTenAnhSanPham(fileName);
+                anh = anhSanPhamRepo.save(anh); // Lưu đối tượng vào database
+
+                sanPhamChiTiet.setAnhSanPham(anh); // Gắn đối tượng AnhSanPham
+            }
+
+            // Lưu sản phẩm chi tiết
+            sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+            redirectAttributes.addFlashAttribute("success", "Thêm sản phẩm chi tiết thành công.");
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xử lý ảnh.");
+            e.printStackTrace();
         }
 
-        // Lấy thông tin sản phẩm từ id
-        SanPham sanPhamAdd = sanPhamRepo.getReferenceById(id);
-        SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet();
-        sanPhamChiTiet.setSanPham(sanPhamAdd);
-        sanPhamChiTiet.setNgayTao(new Date());
-        sanPhamChiTiet.setNgaySua(new Date());
-
-        // Thiết lập thông tin từ các tham số
-        Integer idAnh = anhSanPhamRepo.getIdAnh(tenAnhSanPham);
-        sanPhamChiTiet.setSize(sizeRepo.findById(idSize).orElse(null));
-        sanPhamChiTiet.setChatLieu(chatLieuRepo.findById(idChatLieu).orElse(null));
-        sanPhamChiTiet.setMauSac(mauSacRepo.findById(idMauSac).orElse(null));
-        sanPhamChiTiet.setSoLuong(soLuong);
-        sanPhamChiTiet.setGia(giaTien);
-        sanPhamChiTiet.setTrangThai(1);
-        sanPhamChiTiet.setKhoiLuongSanPham(khoiLuongSanPham);
-        // Lưu sản phẩm chi tiết
-        sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
         return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
     }
+
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
     public String sanPhamChiTietDelete(@RequestParam("id") Integer id, HttpSession session) {
