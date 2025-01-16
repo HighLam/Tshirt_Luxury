@@ -72,7 +72,8 @@ public class trangChuController {
         model.addAttribute("notiOnl", session.getAttribute("notiOnl"));
         model.addAttribute("quaSoLuong", session.getAttribute("quaSoLuong"));
 
-        model.addAttribute("giaSP", sanPhamRepo.findGiaBySanPhamId(id));
+        model.addAttribute("giaMax", sanPhamRepo.findMaxGiaBySanPhamId(id));
+        model.addAttribute("giaMin", sanPhamRepo.findMinGiaBySanPhamId(id));
         List<String> relativePaths = sanPhamChiTietRepo.findAnhSanPhamByIdSanPham(id);
 
         // Chuyển đổi các đường dẫn sang URL hợp lệ

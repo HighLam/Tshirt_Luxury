@@ -249,11 +249,15 @@
 
     <div class="col-4">
 
-    <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">
+    <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" >
         <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
         <h6>${spDetail.tenSanPham}</h6>
 <%--        <p><fmt:formatNumber value='${spDetail.gia}' pattern="#,##0"/></p>--%>
-        <p><fmt:formatNumber value='${giaSP}' pattern="#,##0" />₫</p>
+        <div class="d-flex align-items-center gap-2">
+        <p> <fmt:formatNumber value='${giaMin}' pattern="#,##0" />₫</p>
+        <p>-</p>
+        <p> <fmt:formatNumber value='${giaMax}' pattern="#,##0" />₫</p>
+        </div>
         <hr>
 
         <!-- Color Selection -->
@@ -299,8 +303,9 @@
         <div class="order" style="margin-top: 20px;">
             <p style="color: red">${notiOnl}</p>
             <p style="color:red;">${quaSoLuong}</p>
-            <button type="button" class="btn btn-dark" style="width:185px" onclick="handleAddToCart()">THÊM VÀO GIỎ HÀNG</button>
+            <button type="submit" class="btn btn-dark" style="width:185px" >THÊM VÀO GIỎ HÀNG</button>
             <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>
+        </div>
         </div>
     </form>
         <!-- Thuộc Tính Sản Phẩm  -->
@@ -599,28 +604,28 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("form").submit(function (e) {
-            let isValid = true;
-            let errorMessage = "";
-
-            // Kiểm tra màu sắc
-            if ($('input[name="mauSac"]:checked').length === 0) {
-                isValid = false;
-                errorMessage += "Vui lòng chọn màu sắc!\n";
-            }
-
-            // Kiểm tra kích thước
-            if ($('input[name="size"]:checked').length === 0) {
-                isValid = false;
-                errorMessage += "Vui lòng chọn kích thước!\n";
-            }
-
-            // Hiển thị lỗi nếu không hợp lệ
-            if (!isValid) {
-                alert(errorMessage);
-                e.preventDefault(); // Ngăn form submit
-            }
-        });
+        // $("form").submit(function (e) {
+        //     let isValid = true;
+        //     let errorMessage = "";
+        //
+        //     // Kiểm tra màu sắc
+        //     if ($('input[name="mauSac"]:checked').length === 0) {
+        //         isValid = false;
+        //         errorMessage += "Vui lòng chọn màu sắc!\n";
+        //     }
+        //
+        //     // Kiểm tra kích thước
+        //     if ($('input[name="size"]:checked').length === 0) {
+        //         isValid = false;
+        //         errorMessage += "Vui lòng chọn kích thước!\n";
+        //     }
+        //
+        //     // Hiển thị lỗi nếu không hợp lệ
+        //     if (!isValid) {
+        //         alert(errorMessage);
+        //         e.preventDefault(); // Ngăn form submit
+        //     }
+        // });
     });
 
     document.getElementById("searchForm").addEventListener("submit", function (event) {
@@ -642,7 +647,36 @@
     });
 
 
-
+    // function handleAddToCart() {
+    //     // Lấy giá trị từ các trường form
+    //     var mauSac = document.querySelector('input[name="mauSac"]:checked');
+    //     var size = document.querySelector('input[name="size"]:checked');
+    //     var soLuong = document.getElementById('number').value;
+    //
+    //     // Kiểm tra tính hợp lệ của form
+    //     if (!mauSac || !size || !soLuong || soLuong <= 0) {
+    //         // Nếu không hợp lệ, hiển thị thông báo lỗi
+    //         Swal.fire({
+    //             title: 'Lỗi!',
+    //             text: 'Vui lòng chọn màu sắc, kích thước và số lượng hợp lệ.',
+    //             icon: 'error',
+    //             confirmButtonText: 'OK'
+    //         });
+    //     } else {
+    //         // Nếu form hợp lệ, hiển thị thông báo thành công
+    //         Swal.fire({
+    //             title: 'Thành công!',
+    //             text: 'Sản phẩm đã được thêm vào giỏ hàng!',
+    //             icon: 'success',
+    //             confirmButtonText: 'OK',
+    //             timer: 5000, // Hiển thị trong 5 giây
+    //             willClose: () => {
+    //                 // Gửi form sau khi thông báo đóng
+    //                 document.getElementById('addToCartForm').submit();
+    //             }
+    //         });
+    //     }
+    // }
 
 
 </script>

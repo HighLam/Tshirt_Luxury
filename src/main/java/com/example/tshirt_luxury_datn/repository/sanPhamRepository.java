@@ -63,12 +63,13 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
     @Query(value = "SELECT TOP 1 ma_san_pham FROM san_pham ORDER BY ma_san_pham DESC", nativeQuery = true)
     String findLastSanPham();
 
-    @Query(value = "SELECT TOP 1 spct.gia " +
-            "FROM san_pham sp " +
-            "JOIN san_pham_chi_tiet spct ON spct.id_san_pham = sp.id " +
-            "WHERE sp.id = :sanPhamId",
-            nativeQuery = true)
-    Double findGiaBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
+    @Query(value = "SELECT TOP 1 gia FROM san_pham_chi_tiet WHERE id_san_pham = :idSanPham ORDER BY gia DESC", nativeQuery = true)
+    Double findMaxGiaBySanPhamId(@Param("idSanPham") Integer idSanPham);
+
+
+    @Query(value = "SELECT TOP 1 gia FROM san_pham_chi_tiet WHERE id_san_pham = :idSanPham ORDER BY gia ", nativeQuery = true)
+    Double findMinGiaBySanPhamId(@Param("idSanPham") Integer idSanPham);
+
 
     @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamResponse(s.id, s.maSanPham, s.tenSanPham, s.ngayTao, " +
             " (SELECT spc.gia ,  spc.anhSanPham FROM SanPhamChiTiet spc WHERE spc.sanPham.id = s.id ORDER BY spc.ngayTao DESC LIMIT 1)) " +
