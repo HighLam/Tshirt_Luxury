@@ -227,7 +227,7 @@
                         <c:forEach var="imageData" items="${imageDataList}">
                             <div class="image-item">
                                 <!-- Hiển thị ảnh từ byte[] dưới dạng base64 -->
-                                <img src="data:image/jpeg;base64,${fn:escapeXml(imageData)}" alt="San Pham Image" style="width: 200px; height: 200px; margin: 5px;" />
+                                <img src='${imageData}' alt="San Pham Image" style="width: 800px; height: 900px; margin: 5px;" />
                             </div>
                         </c:forEach>
                     </div>
