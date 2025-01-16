@@ -338,4 +338,5 @@
     }
 
 </script>
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
 </html>

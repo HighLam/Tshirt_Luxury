@@ -10,13 +10,16 @@ import com.example.tshirt_luxury_datn.repository.sanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,24 +68,22 @@ public class trangChuController {
 
     @GetMapping("/t-shirt-luxury/san-pham-chi-tiet-detail")
     public String sanPhamChiTietDetail(@RequestParam("idSPDetail") Integer id, Model model, HttpSession session) {
+        session.setAttribute("idSPDetail", id);
         model.addAttribute("spDetail", sanPhamRepo.getReferenceById(id));
 
         model.addAttribute("mauSac", sanPhamChiTietRepo.findMauSacBySanPhamId(id));
         model.addAttribute("size", sanPhamChiTietRepo.findSizesBySanPhamId(id));
         model.addAttribute("notiOnl", session.getAttribute("notiOnl"));
         model.addAttribute("quaSoLuong", session.getAttribute("quaSoLuong"));
+        if(sanPhamRepo.findMaxGiaBySanPhamId(id).equals(sanPhamRepo.findMinGiaBySanPhamId(id))){
+            model.addAttribute("giaMax", sanPhamRepo.findMaxGiaBySanPhamId(id));
+        }else {
+            model.addAttribute("giaMax", sanPhamRepo.findMaxGiaBySanPhamId(id));
+            model.addAttribute("giaMin", sanPhamRepo.findMinGiaBySanPhamId(id) );
+            model.addAttribute("ok", "₫" + "-" );
+        }
 
-        model.addAttribute("giaMax", sanPhamRepo.findMaxGiaBySanPhamId(id));
-        model.addAttribute("giaMin", sanPhamRepo.findMinGiaBySanPhamId(id));
-        List<String> relativePaths = sanPhamChiTietRepo.findAnhSanPhamByIdSanPham(id);
 
-        // Chuyển đổi các đường dẫn sang URL hợp lệ
-        List<String> imageUrls = relativePaths.stream()
-                .map(path -> path.replace(".\\", "/")) // Thay đổi dấu `\` thành `/`
-                .collect(Collectors.toList());
-
-        // Thêm danh sách URL vào model
-        model.addAttribute("imageUrls", imageUrls);
 
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
@@ -100,6 +101,27 @@ public class trangChuController {
         session.setAttribute("idSPDetail", id);
         return "SanPhamChiTiet/san-pham-chi-tiet";
 
+    }
+
+
+
+
+
+    @GetMapping("/san-pham/anh")
+    public ModelAndView showSanPhamImages(HttpSession session) {
+        Integer idSP = (Integer) session.getAttribute("idSPDetail");
+
+        // Lấy danh sách ảnh dưới dạng byte[] từ DB
+        List<byte[]> imageDataList = sanPhamChiTietRepo.findAnhSanPhamByIdSanPham(idSP);
+
+        // Kiểm tra nếu không có ảnh
+        if (imageDataList == null || imageDataList.isEmpty()) {
+            return new ModelAndView("error");  // Trả về trang lỗi nếu không có ảnh
+        }
+
+        ModelAndView modelAndView = new ModelAndView("SanPhamChiTiet/san-pham-chi-tiet");
+        modelAndView.addObject("imageDataList", imageDataList);  // Thêm danh sách byte[] vào model
+        return modelAndView;
     }
 
 

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 
@@ -222,11 +222,20 @@
     <div class="col-7">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <c:forEach var="imageUrl" items="${imageUrls}" varStatus="status">
-                    <div class="carousel-item ${status.first ? 'active' : ''}">
-                        <img src="..${imageUrl}" class="d-block w-100" alt="San Pham Image">
+                <c:if test="${not empty imageDataList}">
+                    <div class="image-gallery">
+                        <c:forEach var="imageData" items="${imageDataList}">
+                            <div class="image-item">
+                                <!-- Hiển thị ảnh từ byte[] dưới dạng base64 -->
+                                <img src="data:image/jpeg;base64,${fn:escapeXml(imageData)}" alt="San Pham Image" style="width: 200px; height: 200px; margin: 5px;" />
+                            </div>
+                        </c:forEach>
                     </div>
-                </c:forEach>
+                </c:if>
+
+                <c:if test="${empty imageDataList}">
+                    <p>Không có ảnh để hiển thị.</p>
+                </c:if>
 
 <%--                <div class="carousel-item active">--%>
 <%--                    <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="d-block w-100" alt="...">--%>
@@ -254,9 +263,9 @@
         <h6>${spDetail.tenSanPham}</h6>
 <%--        <p><fmt:formatNumber value='${spDetail.gia}' pattern="#,##0"/></p>--%>
         <div class="d-flex align-items-center gap-2">
-        <p> <fmt:formatNumber value='${giaMin}' pattern="#,##0" />₫</p>
-        <p>-</p>
-        <p> <fmt:formatNumber value='${giaMax}' pattern="#,##0" />₫</p>
+        <p> <fmt:formatNumber value='${giaMin}' pattern="#,##0" /></p>
+        <p>${ok}</p>
+        <p> <fmt:formatNumber value='${giaMax}' pattern="#,##0"/>₫</p>
         </div>
         <hr>
 
@@ -628,6 +637,8 @@
         // });
     });
 
+
+
     document.getElementById("searchForm").addEventListener("submit", function (event) {
         // Đảm bảo chỉ ngăn gửi form nếu cần
         const searchInput = document.getElementById("search").value.trim();
@@ -702,6 +713,7 @@
 
 
 </script>
+
 
 
 </html>

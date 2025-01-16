@@ -33,5 +33,5 @@ public interface sanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     List<SanPhamChiTiet> findByMauSacAndSize(@Param("idMauSac") Integer idMauSac, @Param("idSize") Integer idSize);
 
     @Query(value = "SELECT anh_san_pham FROM san_pham_chi_tiet WHERE id_san_pham = :idSanPham", nativeQuery = true)
-    List<String> findAnhSanPhamByIdSanPham(@Param("idSanPham") Integer idSanPham);
+    List<byte[]> findAnhSanPhamByIdSanPham(@Param("idSanPham") Integer idSanPham);
 }

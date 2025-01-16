@@ -158,7 +158,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
+                        <c:forEach items="${listHoaDonOnline}" var="hd" varStatus="i">
                         <tr>
                             <td>${i.index +1}</td>
                             <td>${hd.maHoaDon}</td>
