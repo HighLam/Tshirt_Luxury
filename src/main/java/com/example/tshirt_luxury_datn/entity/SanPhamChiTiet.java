@@ -43,9 +43,9 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "id_san_pham")
     private SanPham sanPham;
 
-    @OneToOne
-    @JoinColumn(name = "id_anh_san_pham_chi_tiet")
-    private AnhSanPham anhSanPham;
+
+    @JoinColumn(name = "anh_san_pham")
+    private String anhSanPham;
 
     @Column(name = "trang_thai")
     private Integer trangThai;

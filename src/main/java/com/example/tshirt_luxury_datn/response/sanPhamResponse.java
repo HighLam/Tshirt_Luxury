@@ -16,6 +16,7 @@ public class sanPhamResponse {
     private Date ngayTao;
     private Double gia;
 
+
     public sanPhamResponse(Integer id, String maSanPham, String tenSanPham, Date ngayTao, Double gia) {
         this.id = id;
         this.maSanPham = maSanPham;

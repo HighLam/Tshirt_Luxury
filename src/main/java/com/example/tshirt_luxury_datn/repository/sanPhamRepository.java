@@ -69,4 +69,11 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
             "WHERE sp.id = :sanPhamId",
             nativeQuery = true)
     Double findGiaBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
+
+    @Query("SELECT new com.example.tshirt_luxury_datn.response.sanPhamResponse(s.id, s.maSanPham, s.tenSanPham, s.ngayTao, " +
+            " (SELECT spc.gia ,  spc.anhSanPham FROM SanPhamChiTiet spc WHERE spc.sanPham.id = s.id ORDER BY spc.ngayTao DESC LIMIT 1)) " +
+            "FROM SanPham s " +
+            "ORDER BY s.ngayTao DESC")
+    List<sanPhamResponse> findTop4NewestSanPham(Pageable pageable);
+
 }
