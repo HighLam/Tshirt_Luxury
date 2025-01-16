@@ -222,15 +222,16 @@
     <div class="col-7">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/wash.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="../images/ao_phong_boxy/DEVOTUS/white.webp" class="d-block w-100" alt="...">
-                </div>
+                <c:forEach var="imageUrl" items="${imageUrls}" varStatus="status">
+                    <div class="carousel-item ${status.first ? 'active' : ''}">
+                        <img src="..${imageUrl}" class="d-block w-100" alt="San Pham Image">
+                    </div>
+                </c:forEach>
+
+<%--                <div class="carousel-item active">--%>
+<%--                    <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="d-block w-100" alt="...">--%>
+<%--                </div>--%>
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
                     data-bs-slide="prev" style="margin-top: 350px; ">
@@ -247,110 +248,6 @@
 
 
     <div class="col-4">
-
-<%--        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post">--%>
-<%--            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">--%>
-<%--            <h6>${spDetail.tenSanPham}</h6>--%>
-<%--            <p>Còn hàng</p>--%>
-<%--            <hr>--%>
-
-<%--            <div class="color">--%>
-<%--                <h6>MÀU SẮC</h6>--%>
-<%--                <div class="d-flex gap-2">--%>
-<%--                    <c:forEach var="ms" items="${mauSac}">--%>
-<%--                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">--%>
-<%--                        <span>${ms.tenMauSac}</span>--%>
-<%--                    </c:forEach>--%>
-<%--                </div>--%>
-
-
-<%--            </div>--%>
-
-<%--            <div class="size" style="margin-top: 5px;">--%>
-<%--                <div class="row">--%>
-<%--                    <div class="col-4">--%>
-<%--                        <h6>KÍCH THƯỚC</h6>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-6">--%>
-<%--                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize" style="color: black;text-decoration: none">Hướng dẫn--%>
-<%--                            chọn size</a>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="d-flex gap-2">--%>
-<%--                    <c:forEach var="s" items="${size}">--%>
-<%--                        <input type="radio" class="btn" name="size" value="${s.id}">--%>
-<%--                        <span>${s.tenSize}</span>--%>
-<%--                    </c:forEach>--%>
-<%--                </div>--%>
-
-<%--        <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">--%>
-<%--            <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">--%>
-<%--            <h6>${spDetail.tenSanPham}</h6>--%>
-<%--            <p>Còn hàng</p>--%>
-<%--            <hr>--%>
-
-<%--            <div class="color">--%>
-<%--                <h6>MÀU SẮC</h6>--%>
-<%--                <div class="d-flex gap-2">--%>
-<%--                    <c:forEach var="ms" items="${mauSac}">--%>
-<%--                        <input type="radio" class="btn" name="mauSac" value="${ms.id}">--%>
-<%--                        <span>${ms.tenMauSac}</span>--%>
-<%--                    </c:forEach>--%>
-<%--                </div>--%>
-
-
-<%--            </div>--%>
-
-<%--            <div class="size" style="margin-top: 5px;">--%>
-<%--                <div class="row">--%>
-<%--                    <div class="col-4">--%>
-<%--                        <h6>KÍCH THƯỚC</h6>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-6">--%>
-<%--                        <a href="" data-bs-toggle="modal" data-bs-target="#bangsize"--%>
-<%--                           style="color: black;text-decoration: none">Hướng dẫn--%>
-<%--                            chọn size</a>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="d-flex gap-2">--%>
-<%--                    <c:forEach var="s" items="${size}">--%>
-<%--                        <input type="radio" class="btn" name="size" value="${s.id}">--%>
-<%--                        <span>${s.tenSize}</span>--%>
-<%--                    </c:forEach>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="soLuong" style="margin-top: 10px;">--%>
-<%--                <div class="counter">--%>
-<%--                    <button type="button" class="btn" id="decrease"><b>-</b></button>--%>
-<%--                    <input type="number" id="number" value="1" min="1" style="width: 50px; text-align: center;"--%>
-<%--                           name="soLuong">--%>
-<%--                    <button type="button" class="btn" id="increase"><b>+</b></button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <span style="color:red">--%>
-<%--                ${errorMessage}--%>
-<%--            </span>--%>
-
-
-<%--            <div class="order" style="margin-top: 20px;">--%>
-
-
-<%--                <p style="color: red">${notiOnl}</p>--%>
-<%--                <p style="color:red;">${quaSoLuong}</p>--%>
-
-<%--                <div class="order" style="margin-top: 20px;">--%>
-
-<%--                    <button type="button" class="btn btn-dark" style="width:185px" onclick="showSuccessMessage()">THÊM--%>
-<%--                        VÀO GIỎ HÀNG--%>
-<%--                    </button>--%>
-
-
-<%--                    <a href="#" class="btn btn-dark" style="margin-left: 5px;">MUA NGAY</a>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-
-<%--        </form>--%>
 
     <form action="/t-shirt-luxury/san-pham-chi-tiet/add-cart" method="post" id="addToCartForm">
         <input type="text" value="${spDetail.id}" hidden="hidden" name="idSPDetail">
@@ -745,36 +642,7 @@
     });
 
 
-    function handleAddToCart() {
-        // Lấy giá trị từ các trường form
-        var mauSac = document.querySelector('input[name="mauSac"]:checked');
-        var size = document.querySelector('input[name="size"]:checked');
-        var soLuong = document.getElementById('number').value;
 
-        // Kiểm tra tính hợp lệ của form
-        if (!mauSac || !size || !soLuong || soLuong <= 0) {
-            // Nếu không hợp lệ, hiển thị thông báo lỗi
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Vui lòng chọn màu sắc, kích thước và số lượng hợp lệ.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        } else {
-            // Nếu form hợp lệ, hiển thị thông báo thành công
-            Swal.fire({
-                title: 'Thành công!',
-                text: 'Sản phẩm đã được thêm vào giỏ hàng!',
-                icon: 'success',
-                confirmButtonText: 'OK',
-                timer: 5000, // Hiển thị trong 5 giây
-                willClose: () => {
-                    // Gửi form sau khi thông báo đóng
-                    document.getElementById('addToCartForm').submit();
-                }
-            });
-        }
-    }
 
 
 </script>
