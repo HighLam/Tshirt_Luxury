@@ -163,12 +163,12 @@
 </header>
 <!-- End Header -->
 <div class="container">
-    <div style="display: flex; justify-content: center">
-        <form style="margin-top: 30px; max-width: 500px" class="d-flex" action="/t-shirt-luxury/search-hoa-don-by-sdt" method="post">
-            <input name="soDienThoai" class="form-control me-2" type="search" placeholder="Nhập số điện thoại" aria-label="Search">
-            <button  style="width: 100px" class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
+<%--    <div style="display: flex; justify-content: center">--%>
+<%--        <form style="margin-top: 30px; max-width: 500px" class="d-flex" action="/t-shirt-luxury/search-hoa-don-by-sdt" method="post">--%>
+<%--            <input name="soDienThoai" class="form-control me-2" type="search" placeholder="Nhập số điện thoại" aria-label="Search">--%>
+<%--            <button  style="width: 100px" class="btn btn-outline-success" type="submit">Search</button>--%>
+<%--        </form>--%>
+<%--    </div>--%>
 
     <div class="text-center mt-5" style="padding-left:2rem">
         <H1 class="text-center" style="font-size: 30px;">ĐƠN HÀNG</H1>
@@ -195,7 +195,6 @@
                     <td>${hdct.sanPhamChiTiet.size.tenSize}</td>
                     <td>${hdct.sanPhamChiTiet.mauSac.tenMauSac}</td>
                     <td>${hdct.soLuong}</td>
-                    <td>${hdct.sanPhamChiTiet.gia}</td>
                     <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
                     <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia * hdct.soLuong}' pattern="#,##0"/></td>
 

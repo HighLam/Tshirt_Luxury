@@ -61,32 +61,73 @@
         </div>
         <div class="row mt-2">
             <h2 class="">Hóa Đơn Chi Tiết</h2>
-            <table class="table table-striped" style="margin-left: 13px; max-width: 1476px">
+<%--            <table class="table table-striped" style="margin-left: 13px; max-width: 1476px">--%>
+<%--                <thead>--%>
+<%--                <tr>--%>
+<%--                    <th scope="col">STT</th>--%>
+<%--&lt;%&ndash;                    <th scope="col">Mã Hóa Đơn Chi Tiết</th>&ndash;%&gt;--%>
+<%--                    <th scope="col">Tên Sản Phẩm</th>--%>
+<%--                    <th scope="col">Giá</th>--%>
+<%--                    <th scope="col">Số Lượng</th>--%>
+<%--                    <th scope="col">Ngày Tạo</th>--%>
+<%--&lt;%&ndash;                    <th scope="col">Trạng Thái</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <th scope="col">Mô tả</th>&ndash;%&gt;--%>
+<%--                </tr>--%>
+<%--                </thead>--%>
+<%--                <tbody>--%>
+<%--                <c:forEach items="${listHDCTTaiQuay}" var="hdctOff" varStatus="i">--%>
+<%--                    <tr>--%>
+<%--                        <td>${i.index+1}</td>--%>
+<%--&lt;%&ndash;                        <td>${hdctOff.maHoaDonChiTiet}</td>&ndash;%&gt;--%>
+<%--                        <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>--%>
+<%--                        <td><fmt:formatNumber value='${hdctOff.sanPhamChiTiet.gia}' pattern="#,##0"/></td>--%>
+<%--                        <td>${hdctOff.soLuong}</td>--%>
+<%--                        <td>${hdctOff.ngayTao}</td>--%>
+<%--&lt;%&ndash;                        <td>Active</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${hdctOff.ngayTao}</td>&ndash;%&gt;--%>
+<%--                    </tr>--%>
+<%--                </c:forEach>--%>
+
+
+<%--                </tbody>--%>
+<%--            </table>--%>
+
+
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">STT</th>
-<%--                    <th scope="col">Mã Hóa Đơn Chi Tiết</th>--%>
-                    <th scope="col">Tên Sản Phẩm</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Số Lượng</th>
-                    <th scope="col">Ngày Tạo</th>
-<%--                    <th scope="col">Trạng Thái</th>--%>
-<%--                    <th scope="col">Mô tả</th>--%>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Màu sắc</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Thành tiền</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listHDCTTaiQuay}" var="hdctOff" varStatus="i">
-                    <tr>
-                        <td>${i.index+1}</td>
-<%--                        <td>${hdctOff.maHoaDonChiTiet}</td>--%>
-                        <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>
-                        <td><fmt:formatNumber value='${hdctOff.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
-                        <td>${hdctOff.soLuong}</td>
-                        <td>${hdctOff.ngayTao}</td>
-<%--                        <td>Active</td>--%>
-<%--                        <td>${hdctOff.ngayTao}</td>--%>
-                    </tr>
-                </c:forEach>
+                <c:if test="${not empty listHDCTTaiQuay}">
+                    <c:forEach items="${listHDCTTaiQuay}" var="hdct" varStatus="i">
+                        <tr>
+                            <td>${i.index + 1 + (currentPage * 5)}</td>
+                            <td>${hdct.sanPhamChiTiet.sanPham.tenSanPham}</td>
+                            <td>${hdct.sanPhamChiTiet.size.tenSize}</td>
+                            <td>${hdct.sanPhamChiTiet.mauSac.tenMauSac}</td>
+                            <td>${hdct.soLuong}</td>
+                            <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
+                            <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia * hdct.soLuong}' pattern="#,##0"/></td>
+
+                                <%--                    <td>--%>
+                                <%--                        <a href="/t-shirt-luxury/" class="btn btn-secondary rounded-pill" data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">--%>
+                                <%--                            <i class="fa-solid fa-eye"></i>--%>
+                                <%--                        </a>--%>
+                                <%--                        <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}" class="btn btn-danger rounded-pill" onclick="return confirmDelete()" title="Xem Chi Tiết">--%>
+                                <%--                            <i class="fa-solid fa-trash"></i>--%>
+                                <%--                        </a>--%>
+                                <%--                    </td>--%>
+                        </tr>
+                    </c:forEach>
+                </c:if>
 
 
                 </tbody>

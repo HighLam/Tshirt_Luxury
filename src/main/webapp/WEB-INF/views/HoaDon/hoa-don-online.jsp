@@ -119,6 +119,7 @@
                                 <option value="2" ${trangThai == 2 ? 'selected' : ''}>Chờ xác nhận</option>
                                 <option value="3" ${trangThai == 3 ? 'selected' : ''}>Đang giao hàng</option>
                                 <option value="4" ${trangThai == 4 ? 'selected' : ''}>Giao hàng thành công</option>
+                                <option value="5" ${trangThai == 5 ? 'selected' : ''}>Khách Đã Hủy Đơn</option>
                             </select>
 
                             <!-- Nút tìm kiếm -->
@@ -179,6 +180,9 @@
                                 </c:if>
                                 <c:if test="${hd.trangThai == 4}">
                                     <span class="badge bg-info text-dark">Giao hàng thành công</span>
+                                </c:if>
+                                <c:if test="${hd.trangThai == 5}">
+                                    <span class="badge bg-danger text-dark">Khách Đã Hủy Đơn</span>
                                 </c:if>
 
                             </td>

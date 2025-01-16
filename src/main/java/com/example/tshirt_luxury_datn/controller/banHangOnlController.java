@@ -270,7 +270,7 @@ public class banHangOnlController {
 
     @GetMapping("/t-shirt-luxury/huy-don-hang")
     public String huyHoaDon(@RequestParam("id") Integer id, HttpSession session) {
-        hoaDonRepo.deleteById(id);
+        hoaDonRepo.huyHoaDonOnl(id);
         String sdt = (String) session.getAttribute("sdt");
         return  "redirect:/t-shirt-luxury/search-hoa-don-by-sdt?soDienThoai=" + sdt;
     }

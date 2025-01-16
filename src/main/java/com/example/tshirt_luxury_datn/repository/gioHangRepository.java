@@ -22,5 +22,7 @@ public interface gioHangRepository extends JpaRepository<GioHang, Integer> {
             "            FROM gio_hang_chi_tiet WHERE id_gio_hang = :idGioHang",nativeQuery = true)
     Integer getSoLuongMuaOnline (@Param("idGioHang") Integer idGioHang);
 
+    @Query(value = "DELETE FROM gio_hang WHERE trang_thai = 0", nativeQuery = true)
+    GioHang xoaGioHangLoi();
 
 }

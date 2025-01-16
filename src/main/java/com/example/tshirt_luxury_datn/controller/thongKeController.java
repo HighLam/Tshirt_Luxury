@@ -79,6 +79,40 @@ public class thongKeController {
         return "Other/thong-ke";
     }
 
+    @PostMapping("t-shirt-luxury/admin/thong-ke/loc-theo-loai")
+    public String locThongKeTheoLoaiHoaDon(
+            @RequestParam(value = "locTheoLoai", required = false) Integer loaiHoaDon,
+            Model model) {
+
+        List<HoaDon> hoaDonList;
+        Integer soLuongHoaDon;
+        Double tongDoanhThu;
+        Integer tongSoLuong;
+
+        if (loaiHoaDon == null) {
+            // Nếu locTheoLoai là null, lấy tất cả hóa đơn
+            hoaDonList = hoaDonRepo.getAllBill();
+            soLuongHoaDon = hoaDonRepo.getSoLuongHoaDon(); // Tổng số hóa đơn
+            tongDoanhThu = hoaDonRepo.getTongDoanhThu(); // Tổng doanh thu
+            tongSoLuong = hoaDonRepo.getTongSoLuong();  // Tổng số lượng (từ các chi tiết hóa đơn)
+        } else {
+            // Nếu locTheoLoai có giá trị, lọc theo loại hóa đơn
+            hoaDonList = hoaDonRepo.listHoaDonByLoaiHoaDon(loaiHoaDon);
+            soLuongHoaDon = hoaDonRepo.tinhSoLuongTheoLoai(loaiHoaDon);
+            tongDoanhThu = hoaDonRepo.tinhTongDoanhThuTheoLoai(loaiHoaDon);
+            tongSoLuong = hoaDonRepo.tinhTongSoLuongTheoLoai(loaiHoaDon);
+        }
+
+        model.addAttribute("hoaDonList", hoaDonList);
+        model.addAttribute("soLuongHoaDon", soLuongHoaDon != null ? soLuongHoaDon : 0);
+        model.addAttribute("tongDoanhThu", tongDoanhThu != null ? tongDoanhThu : 0);
+        model.addAttribute("tongSoLuong", tongSoLuong != null ? tongSoLuong : 0);
+        model.addAttribute("selectedLoaiHoaDon", loaiHoaDon); // Để giữ trạng thái trong dropdown
+
+        return "Other/thong-ke";
+    }
+
+
 
 
     @PostMapping("t-shirt-luxury/admin/thong-ke/loc-theo-so-ngay")
