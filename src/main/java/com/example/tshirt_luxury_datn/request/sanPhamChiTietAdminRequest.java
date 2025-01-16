@@ -31,7 +31,7 @@ public class sanPhamChiTietAdminRequest {
 
     private SanPham sanPham;
 
-    private AnhSanPham anhSanPham;
+    private String anhSanPham;
 
     private Integer trangThai;
 

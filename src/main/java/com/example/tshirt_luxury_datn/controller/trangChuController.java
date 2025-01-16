@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class trangChuController {
@@ -59,6 +60,9 @@ public class trangChuController {
     }
 
 
+
+
+
     @GetMapping("/t-shirt-luxury/san-pham-chi-tiet-detail")
     public String sanPhamChiTietDetail(@RequestParam("idSPDetail") Integer id, Model model, HttpSession session) {
         model.addAttribute("spDetail", sanPhamRepo.getReferenceById(id));
@@ -68,11 +72,22 @@ public class trangChuController {
         model.addAttribute("notiOnl", session.getAttribute("notiOnl"));
         model.addAttribute("quaSoLuong", session.getAttribute("quaSoLuong"));
 
-        model.addAttribute("giaSP", sanPhamRepo.findGiaBySanPhamId(id));
+        model.addAttribute("giaMax", sanPhamRepo.findMaxGiaBySanPhamId(id));
+        model.addAttribute("giaMin", sanPhamRepo.findMinGiaBySanPhamId(id));
+        List<String> relativePaths = sanPhamChiTietRepo.findAnhSanPhamByIdSanPham(id);
+
+        // Chuyển đổi các đường dẫn sang URL hợp lệ
+        List<String> imageUrls = relativePaths.stream()
+                .map(path -> path.replace(".\\", "/")) // Thay đổi dấu `\` thành `/`
+                .collect(Collectors.toList());
+
+        // Thêm danh sách URL vào model
+        model.addAttribute("imageUrls", imageUrls);
+
         if (gioHangRepo.trangThaiGioHang() == 1) {
             createGioHang(session);
         }
-        System.out.println("oqwuegrhjejrhdsjaklsdfj" + sanPhamChiTietRepo.findMauSacBySanPhamId(id));
+
 
 
         if (gioHangRepo.trangThaiGioHang() == 1) {
@@ -97,7 +112,7 @@ public class trangChuController {
                           HttpSession session) {
 
 
-        Integer soLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
+
 
         Integer getSoLuongSpct = sanPhamChiTietAdminRepo.getSoLuong(idMauSac, idSize, idSanPham);
 
@@ -111,6 +126,7 @@ public class trangChuController {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn kích thước!");
             return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
         } else {
+
             if (soLuong <= getSoLuongSpct) {
                 SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietAdminRepo.getSanPhamChiTiet(idMauSac, idSize, idSanPham);
 
@@ -120,7 +136,7 @@ public class trangChuController {
                 if (soLuongTrongGio == null) {
                     soLuongTrongGio = 0;
                 }
-                System.out.println("dsfdgfhg" + soLuongTrongGio);
+
                 if (soLuongTrongGio + soLuong <= getSoLuongSpct) {
                     List<Integer> idSPCTExistList = gioHangChiTietRepo.findIdSanPhamChiTietByIdGioHang(idGioHang);
                     boolean idExist = false;
@@ -149,7 +165,12 @@ public class trangChuController {
                         session.setAttribute("quaSoLuong", quaSoLuong);
                     }
 
+                }else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Quá số lượng");
+                    return "redirect:/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=" + idSanPham;
                 }
+                String quaSoLuong = "";
+                session.setAttribute("quaSoLuong", quaSoLuong);
             } else {
                 String quaSoLuong = "Số lượng không được vượt quá " + getSoLuongSpct;
                 session.setAttribute("quaSoLuong", quaSoLuong);
@@ -164,7 +185,7 @@ public class trangChuController {
 
         List<sanPhamSearchResponse> results = sanPhamRepo.sanPhamSearch(timKiemSanPham);
         model.addAttribute("sanPhamSearch", results);
-        System.out.println("fhsjdkshfkshkdfjfhskjkdsjhfkshdkjhjk" + results);
+
         return "Other/tim-kiem-san-pham";
     }
 

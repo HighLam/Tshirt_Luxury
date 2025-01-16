@@ -163,7 +163,7 @@
     </div>
 
     <!-- --Modal-- -->
-    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST">
+    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST"  enctype="multipart/form-data"x`>
         <div class="modal fade" id="themSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" style="max-width: 800px">
@@ -242,10 +242,7 @@
                             <label class="form-label">Chọn Ảnh Sản Phẩm</label>
                             <input type="file" class="form-control" name="anhSanPham" accept="image/*">
                         </div>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#themAnhSanPhamChiTiet">
-                            <i class="fa-solid fa-circle-plus"></i> Chọn Ảnh Sản Phẩm
-                        </button>
+
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa"

@@ -158,6 +158,8 @@ public class banHangOnlController {
             hoaDon.setVoucher(voucher);
             hoaDon.setThongTinNhanHang(thongTinNhanHang);
             hoaDonRepo.save(hoaDon);
+            String TTGHNull = "";
+            session.setAttribute("TTGHNull", TTGHNull);
 
             session.setAttribute("hoaDonOnl", hoaDon);
             session.setAttribute("idHoaDonOnline", hoaDon.getId());

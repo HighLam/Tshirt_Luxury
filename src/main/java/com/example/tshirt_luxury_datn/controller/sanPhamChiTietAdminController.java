@@ -20,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import java.io.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -156,32 +160,49 @@ public class sanPhamChiTietAdminController {
 
             // Xử lý ảnh sản phẩm
             if (anhSanPham != null && !anhSanPham.isEmpty()) {
-                String uploadDir = "uploads/";
-                String fileName = anhSanPham.getOriginalFilename();
-                Path filePath = Paths.get(uploadDir + fileName);
-
-                Files.createDirectories(filePath.getParent());
-                Files.copy(anhSanPham.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                // Tạo hoặc tìm đối tượng AnhSanPham
-                AnhSanPham anh = new AnhSanPham();
-                anh.setTenAnhSanPham(fileName);
-                anh = anhSanPhamRepo.save(anh); // Lưu đối tượng vào database
-
-                sanPhamChiTiet.setAnhSanPham(anh); // Gắn đối tượng AnhSanPham
+                sanPhamChiTiet.setAnhSanPham(saveMultipartFile(anhSanPham));
             }
 
-            // Lưu sản phẩm chi tiết
+            // Lưu sản phẩm chi tiết vào cơ sở dữ liệu
             sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
+
+            // Thông báo thành công
             redirectAttributes.addFlashAttribute("success", "Thêm sản phẩm chi tiết thành công.");
         } catch (IOException e) {
+            // Nếu có lỗi khi xử lý ảnh
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xử lý ảnh.");
             e.printStackTrace();
         }
 
+        // Chuyển hướng lại trang danh sách sản phẩm chi tiết
         return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
     }
 
+    public static String saveMultipartFile(MultipartFile file ) throws IOException {
+        // Lấy tên file gốc
+        String fileName = file.getOriginalFilename();
+
+        // Tạo đối tượng Path cho file lưu trữ
+        Path uploadPath = Path.of(".\\images", fileName);
+
+        // Tạo thư mục nếu chưa tồn tại
+        Files.createDirectories(uploadPath.getParent());
+
+        // Lưu file vào thư mục
+        Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
+
+        // Trả về đường dẫn lưu file
+        System.out.println(uploadPath.toString());
+        return uploadPath.toString();
+    }
+
+    public static File getFileFromPath(String filePath) {
+        File file = new File(filePath);
+        if (file.exists() && file.isFile()) {
+            return file;  // Trả về file nếu tồn tại
+        }
+        return null;  // Trả về null nếu file không tồn tại
+    }
 
     @GetMapping("t-shirt-luxury/admin/san-pham-chi-tiet/delete")
     public String sanPhamChiTietDelete(@RequestParam("id") Integer id, HttpSession session) {
