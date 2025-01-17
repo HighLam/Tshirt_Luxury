@@ -9,7 +9,7 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
-public class sanPhamResponse {
+public class SanPhamResponse {
     private Integer id;
     private String maSanPham;
     private String tenSanPham;
@@ -17,7 +17,7 @@ public class sanPhamResponse {
     private Double gia;
 
 
-    public sanPhamResponse(Integer id, String maSanPham, String tenSanPham, Date ngayTao, Double gia) {
+    public SanPhamResponse(Integer id, String maSanPham, String tenSanPham, Date ngayTao, Double gia) {
         this.id = id;
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;

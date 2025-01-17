@@ -67,7 +67,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     @Query(value = "select * from hoa_don where loai_hoa_don = 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonTaiQuay();
 
-    @Query(value = "select * from hoa_don where loai_hoa_don = 1 order by ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don where loai_hoa_don = 1 AND tong_tien > 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getHoaDonOnline();
 
     @Query(value = "select id_thong_tin_nhan_hang from hoa_don where id = :idHoaDon",nativeQuery = true)
@@ -111,16 +111,18 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             "WHERE (:searchTerm IS NULL OR " +
             "       LOWER(h.thongTinNhanHang.hoVaTen) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
-            "AND (:trangThai IS NULL OR h.trangThai = :trangThai)")
+            "AND (:trangThai IS NULL OR h.trangThai = :trangThai) " +
+            "AND h.tongTien > 0")
     List<HoaDon> timHoaDonOnline(
             @Param("searchTerm") String searchTerm,
             @Param("trangThai") Integer trangThai);
+
 
     @Query("SELECT h FROM HoaDon h " +
             "WHERE (:searchTerm IS NULL OR " +
             "       LOWER(h.thongTinNhanHang.hoVaTen) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "       LOWER(h.maHoaDon) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
-            "AND h.loaiHoaDon = 1 ")
+            "AND h.loaiHoaDon = 1 AND h.tongTien > 0  ")
     List<HoaDon> timHoaDonOnline1(
             @Param("searchTerm") String searchTerm);
 
@@ -144,10 +146,10 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("searchName") String searchName);
 
 
-    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) order by ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) AND tong_tien > 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getAllBill();
 
-    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3) AND tong_tien > 0", nativeQuery = true)
     Integer getSoLuongHoaDon();
 
     @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)

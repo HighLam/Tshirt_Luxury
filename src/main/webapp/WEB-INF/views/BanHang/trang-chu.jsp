@@ -173,7 +173,7 @@
 
         <div class="col-3">
             <div class="card product-card" style="width: 18rem; border-style:none">
-                <img src="" class="card-img-top" alt="...">
+                <img src='${spNew.anhSanPham}' class="card-img-top" alt="...">
                 <div class="card-body product-info">
                     <h5 class="card-title text-center" style="font-size:13px">${spNew.tenSanPham}</h5>
                     <p class="card-text fw-bold text-center" style="font-size: 14px;">

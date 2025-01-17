@@ -131,7 +131,7 @@ public class sanPhamChiTietAdminController {
             @RequestParam(value = "id_size", required = false) Integer idSize,
             @RequestParam(value = "id_chat_lieu", required = false) Integer idChatLieu,
             @RequestParam(value = "id_mau_sac", required = false) Integer idMauSac,
-            @RequestParam(value = "anhSanPham", required = false) MultipartFile anhSanPham,
+            @RequestParam(value = "anhSanPham", required = false) String anhSanPham,
             RedirectAttributes redirectAttributes) {
 
         try {
@@ -157,21 +157,21 @@ public class sanPhamChiTietAdminController {
             sanPhamChiTiet.setGia(giaTien);
             sanPhamChiTiet.setKhoiLuongSanPham(khoiLuongSanPham);
             sanPhamChiTiet.setTrangThai(1);
-
+            sanPhamChiTiet.setAnhSanPham(anhSanPham);
             // Xử lý ảnh sản phẩm
-            if (anhSanPham != null && !anhSanPham.isEmpty()) {
-                sanPhamChiTiet.setAnhSanPham(saveMultipartFile(anhSanPham));
-            }
+//            if (anhSanPham != null && !anhSanPham.isEmpty()) {
+//                sanPhamChiTiet.setAnhSanPham(saveMultipartFile(anhSanPham));
+//            }
 
             // Lưu sản phẩm chi tiết vào cơ sở dữ liệu
             sanPhamChiTietAdminRepo.save(sanPhamChiTiet);
 
             // Thông báo thành công
             redirectAttributes.addFlashAttribute("success", "Thêm sản phẩm chi tiết thành công.");
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Nếu có lỗi khi xử lý ảnh
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xử lý ảnh.");
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
 
         // Chuyển hướng lại trang danh sách sản phẩm chi tiết
@@ -220,7 +220,7 @@ public class sanPhamChiTietAdminController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPhamChiTiet")
-    public String updateChiTietSanPham(@RequestParam("id") Integer id, @ModelAttribute SanPhamChiTiet sanPhamChiTiet) {
+    public String updateChiTietSanPham(@RequestParam("id") Integer id, @ModelAttribute SanPhamChiTiet sanPhamChiTiet, HttpSession session) {
         // Lấy thông tin sản phẩm chi tiết từ cơ sở dữ liệu
         SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.findById(id).orElse(null);
         if (getOne != null) {
@@ -232,7 +232,7 @@ public class sanPhamChiTietAdminController {
             // Lưu vào cơ sở dữ liệu
             sanPhamChiTietAdminRepo.save(getOne);
         }
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
     }
 
 }

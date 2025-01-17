@@ -163,7 +163,7 @@
     </div>
 
     <!-- --Modal-- -->
-    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST"  enctype="multipart/form-data"x`>
+    <form action="/t-shirt-luxury/admin/san-pham-chi-tiet/add" method="POST"  enctype="multipart/form-data">
         <div class="modal fade" id="themSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" style="max-width: 800px">
@@ -240,9 +240,14 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Chọn Ảnh Sản Phẩm</label>
-                            <input type="file" class="form-control" name="anhSanPham" accept="image/*">
+                            <div class="d-flex justify-content-center align-items-center border" style="height: 200px;">
+                                <img id="previewImage" src="https://via.placeholder.com/150" alt="Ảnh sản phẩm"
+                                     class="img-thumbnail d-none" style="max-height: 100%; max-width: 100%;">
+                                <span id="noImageText" class="text-muted">Chưa có ảnh được chọn</span>
+                            </div>
+                            <input type="hidden" id="anhSanPham" name="anhSanPham">
+                            <button class="btn btn-outline-primary mt-2" type="button" onclick="openWidget()">Tải ảnh lên</button>
                         </div>
-
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="moTa"
@@ -332,10 +337,37 @@
     </div>
 </div>
 </body>
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+
 <script>
     confirmDelete = () => {
         return confirm("Bạn có chắc chắn muốn xóa sản phẩm chi tiết này không ?");
     }
 
+    const image = "";
+
+    const myWidget = cloudinary.createUploadWidget(
+        {
+            cloudName: 'highlam',
+            uploadPreset: 'TShirtLuxury',
+        },
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result.info);
+                const previewImage = document.getElementById('previewImage');
+                const noImageText = document.getElementById('noImageText');
+                const dataAdd = document.getElementById('anhSanPham');
+
+                previewImage.src = result.info.url;
+                previewImage.classList.remove('d-none');
+                noImageText.classList.add('d-none');
+                dataAdd.value = result.info.url;
+            }
+        }
+    );
+
+    const openWidget = () => {
+        myWidget.open();
+    }
 </script>
 </html>
