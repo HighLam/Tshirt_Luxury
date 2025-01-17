@@ -144,13 +144,13 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("searchName") String searchName);
 
 
-    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) order by ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3, 5) order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getAllBill();
 
-    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3, 5)", nativeQuery = true)
     Integer getSoLuongHoaDon();
 
-    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3, 5)", nativeQuery = true)
     Double getTongDoanhThu();
 
     @Query("SELECT SUM(hct.soLuong) " +
@@ -169,7 +169,7 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
     // Phương thức lấy danh sách hóa đơn
     @Query("SELECT h FROM HoaDon h " +
             "WHERE CAST(h.ngayTao AS DATE) BETWEEN :ngayBatDau AND :ngayKetThuc " +
-            "AND (h.loaiHoaDon != 1 OR (h.loaiHoaDon = 1 AND h.trangThai = 4))")
+            "AND (h.loaiHoaDon != 1 OR (h.loaiHoaDon = 1 AND h.trangThai = 4)) ")
     List<HoaDon> locHoaDonTheoNgay(@Param("ngayBatDau") Date ngayBatDau, @Param("ngayKetThuc") Date ngayKetThuc);
 
 
@@ -203,26 +203,6 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
 
 
 
-    @Query(value = "SELECT * FROM hoa_don WHERE loai_hoa_don = :loaiHoaDon ", nativeQuery = true)
-    List<HoaDon> listHoaDonByLoaiHoaDon(@Param("loaiHoaDon") Integer loaiHoaDon);
-
-    @Query("SELECT h FROM HoaDon h WHERE h.loaiHoaDon = :loaiHoaDon")
-    List<HoaDon> locHoaDonTheoLoai(@Param("loaiHoaDon") Integer loaiHoaDon);
-
-    @Query("SELECT COUNT(h) FROM HoaDon h WHERE h.loaiHoaDon = :loaiHoaDon")
-    Integer tinhSoLuongTheoLoai(@Param("loaiHoaDon") Integer loaiHoaDon);
-
-    @Query("SELECT SUM(h.tongTien) FROM HoaDon h WHERE h.loaiHoaDon = :loaiHoaDon")
-    Double tinhTongDoanhThuTheoLoai(@Param("loaiHoaDon") Integer loaiHoaDon);
-
-    @Query("SELECT SUM(hct.soLuong) " +
-            "FROM HoaDonChiTiet hct " +
-            "JOIN HoaDon hd ON hct.hoaDon.id = hd.id " +
-            "WHERE hd.loaiHoaDon = :loaiHoaDon ")
-    Integer tinhTongSoLuongTheoLoai(@Param("loaiHoaDon") Integer loaiHoaDon);
-
-    @Query(value = "DELETE FROM hoa_don WHERE trang_thai = 0", nativeQuery = true)
-    HoaDon xoaHoaDonLoi();
 
     @Modifying
     @Transactional
