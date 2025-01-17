@@ -3,13 +3,11 @@ package com.example.tshirt_luxury_datn.repository;
 import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.response.MauSacReponse;
 import com.example.tshirt_luxury_datn.response.SizeReponse;
-import com.example.tshirt_luxury_datn.response.sanPhamResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
@@ -33,5 +31,5 @@ public interface sanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     List<SanPhamChiTiet> findByMauSacAndSize(@Param("idMauSac") Integer idMauSac, @Param("idSize") Integer idSize);
 
     @Query(value = "SELECT anh_san_pham FROM san_pham_chi_tiet WHERE id_san_pham = :idSanPham", nativeQuery = true)
-    List<String> findAnhSanPhamByIdSanPham(@Param("idSanPham") Integer idSanPham);
+    List<byte[]> findAnhSanPhamByIdSanPham(@Param("idSanPham") Integer idSanPham);
 }

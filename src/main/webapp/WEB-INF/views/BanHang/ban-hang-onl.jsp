@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiến Hành Đặt Hàng</title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-6 mt-5" >
-        <a href="/t-shirt-luxury/gio-hang-chi-tiet" style="text-decoration: none;">Giỏ hàng > </a>  Thanh toán
+    <div class="col-6 mt-5">
+        <a href="/t-shirt-luxury/gio-hang-chi-tiet" style="text-decoration: none;">Giỏ hàng > </a> Thanh toán
 
         <div class="TTGH" style="margin-top: 60px;">
             <h5>Thông tin giao hàng</h5>
@@ -35,10 +36,13 @@
                 <p class="mb-3" style="color:red">${errorAddess}</p>
                 <div class="mb-3 ">
                         <textarea style="width: 600px; height: 100px;" class="form-control me-2"
-                                  placeholder="Ghi chú"  name="ghiChu"></textarea>
+                                  placeholder="Ghi chú" name="ghiChu"></textarea>
                 </div>
                 <div class="d-flex flex-row-reverse bd-highlight">
-                <button style="margin-left: 400px; height: 45px; font-size: large;width: 250px;" id="completeInfoButton" class="btn btn-secondary p-2 bd-highlight ms-5">Hoàn tất thông tin giao hàng</button>
+                    <button style="margin-left: 400px; height: 45px; font-size: large;width: 250px;"
+                            id="completeInfoButton" class="btn btn-secondary p-2 bd-highlight ms-5">Hoàn tất thông tin
+                        giao hàng
+                    </button>
                 </div>
             </form>
         </div>
@@ -52,48 +56,70 @@
             </div>
         </div>
     </div>
-    <div class="col-6 mt-3" style="background-color: rgb(247, 247, 247);" >
+    <div class="col-6 mt-3" style="background-color: rgb(247, 247, 247);">
         <form action="/t-shirt-luxury/ban-hang-onl/getVoucher" method="get">
             <div class="voucher d-flex">
                 <select style="width: 300px;" class="form-select" aria-label="Default select example" name="idVoucher">
                     <c:forEach var="vc" items="${voucher}">
-                        <option value="${vc.id}" >${vc.tenVoucher}</option>
+                        <option value="${vc.id}">${vc.tenVoucher}</option>
                     </c:forEach>
                 </select>
                 <button type="submit" style="margin-left: 20px;" class="btn btn-secondary">Áp dụng</button>
             </div>
         </form>
         <form class="mt-3" action="/t-shirt-luxury/ban-hang-onl/doneHD" method="post">
-        <table class="table">
+            <table class="table">
 
-            <tbody>
-            <c:forEach var="bh" items="${banHang}">
-            <tr>
-                <td><img style="width: 80px; height: 100px; border-radius: 10%;" src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
-                <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac} - ${bh.sanPhamChiTiet.size.tenSize} </td>
-                <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0" />₫ </td>
-                <td>x${bh.soLuong}
-                </td>
-            </tr>
-            </c:forEach>
-            </tbody>
+                <tbody>
+                <c:forEach var="bh" items="${banHang}">
+                    <tr>
+                        <td><img style="width: 80px; height: 100px; border-radius: 10%;"
+                                 src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
+                        <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac}
+                            - ${bh.sanPhamChiTiet.size.tenSize} </td>
+                        <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0"/>₫</td>
+                        <td>x${bh.soLuong}
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
 
-        </table>
+            </table>
 
-        <hr>
-        <h6 class="fw-normal" >Phí vận chuyển: 35000₫</h6>
-        <hr>
-        <div class="d-flex">
-        <h5 class="fw-normal" >Tổng cộng: </h5>
-        <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"
-               value="<fmt:formatNumber value='${tongTienGioHang -  giaTriGiam  + 35000}' pattern="#,##0"/>"
-               readonly/>
-        </div>
+            <hr>
+            <h6 class="fw-normal">Phí vận chuyển: 35.000₫</h6>
+            <div class="d-flex">
+
+                <h6 class="fw-normal" style="margin-right: 5px">Tổng tiền hàng:</h6>
+                <fmt:formatNumber value='${tongTienGioHang}' pattern="#,##0"/>₫
+            </div>
+
+            <div class="d-flex">
+                <h6 class="fw-normal" style="margin-right: 5px">Giảm giá: </h6>
+
+                <c:choose>
+                    <c:when test="${not empty giaTriGiam}">
+                        <fmt:formatNumber value="${giaTriGiam}" pattern="#,##0"/>₫
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber value="0" pattern="#,##0"/>₫
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+            <hr>
+            <div class="d-flex">
+                <h5 class="fw-normal">Tổng cộng: </h5>
+                <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text" id="tongTienHoaDonOnl"
+                       name="tongTienHoaDonOnl"
+                       value="<fmt:formatNumber value='${tongTienGioHang -  giaTriGiam  + 35000}' pattern="#,##0"/>"
+                       readonly/>
+            </div>
             <p style="color: red">${TTGHNull}</p>
-        <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">Hoàn tất đơn hàng</button>
+            <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-secondary">
+                Hoàn tất đơn hàng
+            </button>
         </form>
-
-
 
 
     </div>
@@ -101,9 +127,9 @@
 </div>
 
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         function updateQuantity(id, quantity) {
@@ -124,8 +150,9 @@
                 }
             });
         }
-        $(".quantity-input").on("keyup",function (e){
-            if (e.key==="Enter"){
+
+        $(".quantity-input").on("keyup", function (e) {
+            if (e.key === "Enter") {
                 console.log("ADADAADAD");
                 let id = parseInt($(this).data("id"));
                 let newQuantity = parseInt($(this).val());
@@ -137,9 +164,6 @@
                 }
             }
         })
-
-
-
 
 
 </script>
