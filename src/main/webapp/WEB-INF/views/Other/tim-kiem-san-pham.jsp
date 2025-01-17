@@ -16,6 +16,7 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
 
     <script src="../js/script.js"></script>
+
     <link href="../css/danhMucAoNam.css" rel="stylesheet">
 </head>
 <body >
