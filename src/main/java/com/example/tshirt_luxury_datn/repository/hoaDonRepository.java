@@ -146,13 +146,13 @@ public interface hoaDonRepository extends JpaRepository<HoaDon, Integer> {
             @Param("searchName") String searchName);
 
 
-    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3) AND tong_tien > 0 order by ngay_tao DESC",nativeQuery = true)
+    @Query(value = "select * from hoa_don WHERE trang_thai NOT IN (2, 3, 5) AND tong_tien > 0 order by ngay_tao DESC",nativeQuery = true)
     List<HoaDon> getAllBill();
 
-    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3) AND tong_tien > 0", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM hoa_don WHERE trang_thai NOT IN (2, 3, 5) AND tong_tien > 0", nativeQuery = true)
     Integer getSoLuongHoaDon();
 
-    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3)", nativeQuery = true)
+    @Query(value = "SELECT SUM(tong_tien) FROM hoa_don WHERE trang_thai NOT IN (2, 3, 5)", nativeQuery = true)
     Double getTongDoanhThu();
 
     @Query("SELECT SUM(hct.soLuong) " +
