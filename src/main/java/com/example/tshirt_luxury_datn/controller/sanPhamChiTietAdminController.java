@@ -220,7 +220,7 @@ public class sanPhamChiTietAdminController {
     }
 
     @PostMapping("t-shirt-luxury/admin/updateSanPhamChiTiet")
-    public String updateChiTietSanPham(@RequestParam("id") Integer id, @ModelAttribute SanPhamChiTiet sanPhamChiTiet) {
+    public String updateChiTietSanPham(@RequestParam("id") Integer id, @ModelAttribute SanPhamChiTiet sanPhamChiTiet, HttpSession session) {
         // Lấy thông tin sản phẩm chi tiết từ cơ sở dữ liệu
         SanPhamChiTiet getOne = sanPhamChiTietAdminRepo.findById(id).orElse(null);
         if (getOne != null) {
@@ -232,7 +232,7 @@ public class sanPhamChiTietAdminController {
             // Lưu vào cơ sở dữ liệu
             sanPhamChiTietAdminRepo.save(getOne);
         }
-        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + id;
+        return "redirect:/t-shirt-luxury/admin/san-pham-chi-tiet?id=" + (Integer) session.getAttribute("idSanPham");
     }
 
 }

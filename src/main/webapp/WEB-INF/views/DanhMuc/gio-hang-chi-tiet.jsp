@@ -221,7 +221,7 @@
                     <img
                             alt="Image "
                             height="150"
-                            src="../images/ao_phong_oversize/BUNNY/gray.webp"
+                            src="${ghct.sanPhamChiTiet.anhSanPham}"
                             width="100"
                     />
                     <div class="ms-3">

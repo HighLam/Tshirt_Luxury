@@ -74,7 +74,7 @@
                 <c:forEach var="bh" items="${banHang}">
                     <tr>
                         <td><img style="width: 80px; height: 100px; border-radius: 10%;"
-                                 src="https://pos.nvncdn.com/be3159-662/ps/20241011_HyHQUS9NwA.jpeg" alt=""></td>
+                                 src="${bh.sanPhamChiTiet.anhSanPham}" alt=""></td>
                         <td>${bh.sanPhamChiTiet.sanPham.tenSanPham} - ${bh.sanPhamChiTiet.mauSac.tenMauSac}
                             - ${bh.sanPhamChiTiet.size.tenSize} </td>
                         <td><fmt:formatNumber value='${bh.sanPhamChiTiet.gia * bh.soLuong}' pattern="#,##0"/>₫</td>
