@@ -65,6 +65,9 @@ public interface sanPhamRepository extends JpaRepository<SanPham, Integer> {
             """, nativeQuery = true)
     List<String> getImageDataListFromIdSanPham(Integer id);
 
+
+
+
     @Query(value = "SELECT * FROM san_pham WHERE barcode = :barCode", nativeQuery = true)
     SanPham findSanPhamByBarcode(@Param("barCode") String barCode);
 

@@ -225,9 +225,12 @@
                 <c:if test="${not empty imageDataList}">
                     <div class="image-gallery">
                         <c:forEach var="imageData" items="${imageDataList}">
-                            <div class="image-item">
+                            <div class="carousel-item active">
+
+                            <div class="image-item" >
                                 <!-- Hiển thị ảnh từ byte[] dưới dạng base64 -->
                                 <img src='${imageData}' alt="San Pham Image" style="width: 800px; height: 900px; margin: 5px;" />
+                            </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -236,11 +239,6 @@
                 <c:if test="${empty imageDataList}">
                     <p>Không có ảnh để hiển thị.</p>
                 </c:if>
-
-<%--                <div class="carousel-item active">--%>
-<%--                    <img src="../images/ao_phong_boxy/DEVOTUS/black.webp" class="d-block w-100" alt="...">--%>
-<%--                </div>--%>
-
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
                     data-bs-slide="prev" style="margin-top: 350px; ">
