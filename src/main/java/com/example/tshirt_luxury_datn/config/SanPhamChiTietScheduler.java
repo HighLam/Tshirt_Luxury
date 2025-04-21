@@ -14,7 +14,7 @@ public class SanPhamChiTietScheduler {
     private sanPhamChiTietAdminRepository sanPhamChiTietAdminRepo;
 
     // Chạy mỗi 6s
-    @Scheduled(fixedRate = 6000)
+    @Scheduled(fixedRate = 5000)
     public void updateSanPhamChiTietStatus() {
         // Lấy danh sách tất cả sản phẩm chi tiết
         List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietAdminRepo.findAll();
