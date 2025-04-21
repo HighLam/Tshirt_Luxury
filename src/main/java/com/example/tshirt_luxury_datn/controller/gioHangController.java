@@ -114,6 +114,32 @@ public class gioHangController {
             }
 
     }
+    @PostMapping("/t-shirt-luxury/gio-hang-chi-tiet/update-quantity")
+    @ResponseBody // Trả về JSON khi được gọi bằng AJAX
+    public ResponseEntity<String> ok(@RequestParam("idGioHangChiTiet") Integer idGioHangChiTiet,
+                                                 @RequestParam("soLuong") Integer soLuong,
+                                                 HttpSession session) {
+
+
+
+        GioHangChiTiet gioHangChiTiet = gioHangChiTietRepo.findById(idGioHangChiTiet)
+                .orElseThrow(() -> new IllegalArgumentException("Chi tiết giỏ hàng không tồn tại"));
+        Integer soLuongSP = gioHangChiTiet.getSanPhamChiTiet().getSoLuong();
+        if(soLuong<=soLuongSP){
+            gioHangChiTiet.setSoLuong(soLuong);
+            gioHangChiTietRepo.save(gioHangChiTiet);
+
+            return ResponseEntity.ok("Cập nhật thành công!");
+
+        }else {
+
+            gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
+            gioHangChiTietRepo.save(gioHangChiTiet);
+            return ResponseEntity.badRequest().body("Số lượng không  được  quá "+soLuongSP);
+
+        }
+
+    }
 
 
 
