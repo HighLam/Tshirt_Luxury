@@ -26,6 +26,9 @@ public class thongKeController {
     @Autowired
     hoaDonRepository hoaDonRepo;
 
+    @Autowired
+    hoaDonRepository hoaDonRepo2;
+
     @GetMapping("t-shirt-luxury/admin/thong-ke")
     public String thongKe(Model model) throws ParseException {
         model.addAttribute("hoaDonList", hoaDonRepo.getAllBill());
