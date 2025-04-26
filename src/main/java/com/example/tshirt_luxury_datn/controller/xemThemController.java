@@ -10,3 +10,11 @@ public class xemThemController {
         return "Other/xem-them";
     }
 }
+
+public class xemThemController {
+    @GetMapping("t-shirt-luxury/xem-them")
+    public String xemThem2() {
+        return "Other/xem-them";
+    }
+}
+
