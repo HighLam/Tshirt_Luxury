@@ -21,4 +21,24 @@ public class DiscountController {
         model.addAttribute("discounts", discountService.getAllDiscounts());
         return "admin/Discounts/discount";
     }
+    @PostMapping("/admin/discount/save")
+    public String createDiscount(DiscountDTO discountDTO) {
+        try {
+            discountService.createDiscount(discountDTO);
+        } catch (Exception e) {
+            throw new RuntimeException("Error controller creating discount: " + e.getMessage());
+        }
+
+        return "redirect:/admin/discount";
+    }
+    @GetMapping("/admin/discount/delete/{id}")
+    public String deleteDiscount(@PathVariable Long id, Model model) {
+        try {
+            discountService.deleteDiscount(id);
+            model.addAttribute("success", "Xóa discount thành công!");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/discount";
+    }
 }
