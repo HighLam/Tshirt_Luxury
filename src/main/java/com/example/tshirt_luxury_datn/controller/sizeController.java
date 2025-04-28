@@ -20,6 +20,9 @@ public class sizeController {
     @Autowired
     sizeRepository sizeRepository;
 
+    @Autowired
+    sizeRepository sizeRepository2;
+
     public String generateMaSize() {
         // Lấy mã hóa đơn lớn nhất từ cơ sở dữ liệu
         String lastMaSize = sizeRepository.findLastMaSize(); // Giả sử phương thức này trả về "HD005"
