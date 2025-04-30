@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.repository;
 
-import com.example.tshirt_luxury_datn.entity.Order;
 import com.example.tshirt_luxury_datn.enums.OrderStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

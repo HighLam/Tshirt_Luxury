@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.DotGiamGia;
 import com.example.tshirt_luxury_datn.repository.dotGiamGiaRepository;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,37 +1,36 @@
 package com.example.tshirt_luxury_datn.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Table(name = "order_items")
-public class OrderItem {
+@Table(name = "discounts")
+public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "product_detail_id")
-    private ProductDetail productDetail;
+    @Column(nullable = false, unique = true)
+    private String code;
 
     @Column(nullable = false)
-    private Integer quantity;
+    private Double percentage;
 
     @Column(nullable = false)
-    private Double price;
+    private Timestamp startDate;
+
+    @Column(nullable = false)
+    private Timestamp endDate;
 
     @Column(nullable = false)
     private Boolean status;
@@ -44,4 +43,6 @@ public class OrderItem {
     @Column(nullable = false)
     private Timestamp updatedAt;
 
+    @OneToMany(mappedBy = "discount")
+    private List<Order> orders;
 }

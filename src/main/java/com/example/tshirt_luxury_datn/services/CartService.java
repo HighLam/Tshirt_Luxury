@@ -2,7 +2,6 @@ package com.example.tshirt_luxury_datn.services;
 
 import com.example.tshirt_luxury_datn.dto.CartItemDTO;
 import com.example.tshirt_luxury_datn.dto.CartItemResponse;
-import com.example.tshirt_luxury_datn.entity.Cart;
 import com.example.tshirt_luxury_datn.repository.CartItemsRepository;
 import com.example.tshirt_luxury_datn.repository.CartRepository;
 import jakarta.servlet.http.HttpSession;

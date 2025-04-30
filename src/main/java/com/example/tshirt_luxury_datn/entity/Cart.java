@@ -16,16 +16,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "carts")
-@ToString(exclude = "cartItems")
+@ToString(exclude = "cartItems") 
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+    
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
 

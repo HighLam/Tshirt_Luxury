@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.dto;
 
-import com.example.tshirt_luxury_datn.entity.CartItem;
 import com.example.tshirt_luxury_datn.entity.ProductDetail;
 import lombok.Getter;
 import lombok.Setter;

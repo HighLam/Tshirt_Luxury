@@ -1,9 +1,6 @@
 package com.example.tshirt_luxury_datn.services;
 
 import com.example.tshirt_luxury_datn.dto.OrderDTO;
-import com.example.tshirt_luxury_datn.entity.CartItem;
-import com.example.tshirt_luxury_datn.entity.Order;
-import com.example.tshirt_luxury_datn.entity.OrderItem;
 import com.example.tshirt_luxury_datn.enums.OrderStatus;
 import com.example.tshirt_luxury_datn.repository.OrderItemRepository;
 import com.example.tshirt_luxury_datn.repository.OrderRepository;

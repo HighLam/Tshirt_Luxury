@@ -1,10 +1,6 @@
 package com.example.tshirt_luxury_datn.controller;
 
 
-import com.example.tshirt_luxury_datn.entity.GioHang;
-import com.example.tshirt_luxury_datn.entity.GioHangChiTiet;
-import com.example.tshirt_luxury_datn.entity.SanPham;
-import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.repository.*;
 import com.example.tshirt_luxury_datn.response.SanPhamHomeResponse;
 import com.example.tshirt_luxury_datn.response.sanPhamSearchResponse;

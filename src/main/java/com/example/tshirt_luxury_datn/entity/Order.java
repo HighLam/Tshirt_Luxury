@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.entity;
 
+import com.example.tshirt_luxury_datn.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

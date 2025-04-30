@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.repository;
 
-import com.example.tshirt_luxury_datn.entity.SanPham;
 import com.example.tshirt_luxury_datn.response.SanPhamHomeResponse;
 import com.example.tshirt_luxury_datn.response.SanPhamResponse;
 import com.example.tshirt_luxury_datn.response.sanPhamSearchResponse;

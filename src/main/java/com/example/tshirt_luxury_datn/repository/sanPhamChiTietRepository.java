@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.repository;
 
-import com.example.tshirt_luxury_datn.entity.SanPhamChiTiet;
 import com.example.tshirt_luxury_datn.response.MauSacReponse;
 import com.example.tshirt_luxury_datn.response.SizeReponse;
 import org.springframework.data.jpa.repository.JpaRepository;

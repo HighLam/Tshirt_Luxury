@@ -6,32 +6,22 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "order_items")
-public class OrderItem {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "product_detail_id")
-    private ProductDetail productDetail;
-
-    @Column(nullable = false)
-    private Integer quantity;
-
-    @Column(nullable = false)
-    private Double price;
+    @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(50)")
+    private String name;
 
     @Column(nullable = false)
     private Boolean status;
@@ -44,4 +34,6 @@ public class OrderItem {
     @Column(nullable = false)
     private Timestamp updatedAt;
 
+    @OneToMany(mappedBy = "category")
+    private List<CategoryDetail> categoryDetails;
 }

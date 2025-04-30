@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.dto;
 
-import com.example.tshirt_luxury_datn.entity.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

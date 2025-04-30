@@ -1,7 +1,5 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.ChucVu;
-import com.example.tshirt_luxury_datn.entity.NguoiDung;
 import com.example.tshirt_luxury_datn.repository.chucVuRepository;
 import com.example.tshirt_luxury_datn.repository.nguoiDungRepository;
 import jakarta.servlet.http.HttpSession;

@@ -2,5 +2,5 @@ package com.example.tshirt_luxury_datn.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface thongTinDonHangRepository extends JpaRepository<ThongTinNhanHang, Integer> {
+public  interface ProductDetailRepository extends JpaRepository<ProductDetail, Long>y {
 }

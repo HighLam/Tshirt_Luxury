@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.repository;
 
-import com.example.tshirt_luxury_datn.entity.AnhSanPham;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

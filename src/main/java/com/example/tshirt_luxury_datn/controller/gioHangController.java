@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.GioHangChiTiet;
 import com.example.tshirt_luxury_datn.repository.gioHangChiTietRepository;
 import com.example.tshirt_luxury_datn.repository.gioHangRepository;
 import com.example.tshirt_luxury_datn.repository.sanPhamChiTietAdminRepository;

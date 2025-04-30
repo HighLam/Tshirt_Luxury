@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -13,28 +14,19 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "order_items")
-public class OrderItem {
+@Table(name = "payments")
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String paymentMethod;
+    private String transactionId;
+    private LocalDateTime paymentDate;
+    private Boolean status;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "product_detail_id")
-    private ProductDetail productDetail;
-
-    @Column(nullable = false)
-    private Integer quantity;
-
-    @Column(nullable = false)
-    private Double price;
-
-    @Column(nullable = false)
-    private Boolean status;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -43,5 +35,4 @@ public class OrderItem {
     @UpdateTimestamp
     @Column(nullable = false)
     private Timestamp updatedAt;
-
 }

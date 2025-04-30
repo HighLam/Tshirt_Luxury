@@ -1,19 +1,15 @@
 package com.example.tshirt_luxury_datn.controller;
 
 
-import com.example.tshirt_luxury_datn.entity.ChatLieu;
-import com.example.tshirt_luxury_datn.entity.DanhMuc;
-import com.example.tshirt_luxury_datn.entity.NguoiDung;
 import com.example.tshirt_luxury_datn.repository.danhMucRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
-import java.util.Optional;
+
 @RequestMapping("/t-shirt-luxury/admin")
 @Controller
 public class danhMucController {
