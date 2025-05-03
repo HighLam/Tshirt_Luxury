@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.entity;
 
+<<<<<<< HEAD
 import com.example.tshirt_luxury_datn.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -81,4 +82,7 @@ public class Order {
     public String getVietnameseStatus() {
         return status != null ? status.getDisplayName() : "";
     }
+=======
+public class Order {
+>>>>>>> 73bd821021711de7ab3940a2fbe9fc20455ff7fb
 }

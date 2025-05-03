@@ -1,5 +1,6 @@
 package com.example.tshirt_luxury_datn.entity;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,6 +9,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+=======
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+>>>>>>> 73bd821021711de7ab3940a2fbe9fc20455ff7fb
 @Entity
 @Data
 @NoArgsConstructor
