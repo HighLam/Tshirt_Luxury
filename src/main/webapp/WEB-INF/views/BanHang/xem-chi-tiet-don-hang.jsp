@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem đơn hàng</title>
+    <title>Xem chi tiết đơn hàng</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           inegrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -163,12 +163,12 @@
 </header>
 <!-- End Header -->
 <div class="container">
-    <div style="display: flex; justify-content: center">
-        <form style="margin-top: 30px; max-width: 500px" class="d-flex" action="/t-shirt-luxury/search-hoa-don-by-sdt" method="GET">
-            <input name="soDienThoai" class="form-control me-2" type="search" placeholder="Nhập số điện thoại" aria-label="Search">
-            <button  style="width: 100px" class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
+<%--    <div style="display: flex; justify-content: center">--%>
+<%--        <form style="margin-top: 30px; max-width: 500px" class="d-flex" action="/t-shirt-luxury/search-hoa-don-by-sdt" method="post">--%>
+<%--            <input name="soDienThoai" class="form-control me-2" type="search" placeholder="Nhập số điện thoại" aria-label="Search">--%>
+<%--            <button  style="width: 100px" class="btn btn-outline-success" type="submit">Search</button>--%>
+<%--        </form>--%>
+<%--    </div>--%>
 
     <div class="text-center mt-5" style="padding-left:2rem">
         <H1 class="text-center" style="font-size: 30px;">ĐƠN HÀNG</H1>
@@ -178,48 +178,34 @@
         <thead>
         <tr>
             <th scope="col">STT</th>
-            <th scope="col">Mã hoá đơn</th>
-            <th scope="col">Tên khách hàng</th>
-            <th scope="col">Địa chỉ giao hàng</th>
-            <th scope="col">Trạng thái đơn hàng</th>
-            <th scope="col">Hành động</th>
-
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Size</th>
+            <th scope="col">Màu sắc</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Thành tiền</th>
         </tr>
         </thead>
         <tbody>
-        <c:if test="${not empty listDonHang}">
-            <c:forEach items="${listDonHang}" var="dh" varStatus="i">
+        <c:if test="${not empty listHDCT}">
+            <c:forEach items="${listHDCT}" var="hdct" varStatus="i">
                 <tr>
                     <td>${i.index + 1 + (currentPage * 5)}</td>
-                    <td>${dh.maHoaDon}</td>
-                    <td>${dh.hoVaTen}</td>
-                    <td>${dh.diaChiNhanHang}</td>
-                    <td>
-                        <c:if test="${dh.trangThai == 0}">
-                            <span class="badge bg-primary">Chờ thanh toán</span>
-                        </c:if>
-                        <c:if test="${dh.trangThai == 1}">
-                            <span class="badge bg-success">Đã thanh toán</span>
-                        </c:if>
-                        <c:if test="${dh.trangThai == 2}">
-                            <span class="badge bg-secondary">Chờ xác nhận</span>
-                        </c:if>
-                        <c:if test="${dh.trangThai == 3}">
-                            <span class="badge bg-warning text-dark">Đang giao hàng</span>
-                        </c:if>
-                        <c:if test="${dh.trangThai == 4}">
-                            <span class="badge bg-info text-dark">Giao hàng thành công</span>
-                        </c:if>
+                    <td>${hdct.sanPhamChiTiet.sanPham.tenSanPham}</td>
+                    <td>${hdct.sanPhamChiTiet.size.tenSize}</td>
+                    <td>${hdct.sanPhamChiTiet.mauSac.tenMauSac}</td>
+                    <td>${hdct.soLuong}</td>
+                    <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
+                    <td><fmt:formatNumber value='${hdct.sanPhamChiTiet.gia * hdct.soLuong}' pattern="#,##0"/></td>
 
-                    </td>
-                    <td>
-                        <a href="/t-shirt-luxury/xem-chi-tiet-don-hang?id=${dh.id}" class="btn btn-secondary rounded-pill" data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
-                        <a href="/t-shirt-luxury/huy-don-hang?id=${dh.id}" class="btn btn-danger rounded-pill" onclick="return confirmDelete()" title="Huỷ đơn hàng">
-                            <i class="fa-solid fa-xmark"></i></i>
-                        </a>
-                    </td>
+<%--                    <td>--%>
+<%--                        <a href="/t-shirt-luxury/" class="btn btn-secondary rounded-pill" data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết">--%>
+<%--                            <i class="fa-solid fa-eye"></i>--%>
+<%--                        </a>--%>
+<%--                        <a href="/t-shirt-luxury/admin/san-pham-chi-tiet/delete?id=${s.id}" class="btn btn-danger rounded-pill" onclick="return confirmDelete()" title="Xem Chi Tiết">--%>
+<%--                            <i class="fa-solid fa-trash"></i>--%>
+<%--                        </a>--%>
+<%--                    </td>--%>
                 </tr>
             </c:forEach>
         </c:if>
@@ -514,23 +500,11 @@
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $(".btn-danger").on("click", function (event) {
-            const trangThai = $(this).closest("tr").find(".badge").text().trim();
 
-            // Kiểm tra trạng thái
-            if (trangThai === "Đang giao hàng" || trangThai === "Giao hàng thành công") {
-                event.preventDefault(); // Ngăn chặn hành động mặc định
-                alert("Chỉ được phép hủy đơn hàng đang chờ xác nhận!");
-            } else if (trangThai === "Chờ xác nhận") {
-                const confirmResult = confirm("Bạn có chắc chắn muốn huỷ đơn hàng này không?");
-                if (!confirmResult) {
-                    event.preventDefault(); // Ngăn chặn nếu người dùng chọn 'Hủy'
-                }
-            }
-        });
-    });
+</body>
+
+<script>
+
     document.getElementById("searchForm").addEventListener("submit", function(event) {
         // Đảm bảo chỉ ngăn gửi form nếu cần
         const searchInput = document.getElementById("search").value.trim();
@@ -552,9 +526,5 @@
 
 
 </script>
-
-</body>
-
-
 
 </html>

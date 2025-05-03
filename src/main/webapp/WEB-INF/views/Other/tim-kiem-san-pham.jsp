@@ -16,6 +16,7 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
 
     <script src="../js/script.js"></script>
+    <link href="../css/style.css" rel="stylesheet">
     <link href="../css/danhMucAoNam.css" rel="stylesheet">
 </head>
 <body >
@@ -318,7 +319,7 @@
         <div class="col-md-3">
             <div class="card product-card">
                 <img alt="Anh1"
-                     src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="600"/>
+                     src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="500"/>
                 <div class="product-info">
                     <div class="colors"><img alt="option 1" height="20"
                                              src="../images/ao_phong_boxy/DEVOTUS/black.webp"
@@ -328,7 +329,7 @@
                         <fmt:formatNumber value='${spsearch.gia}' pattern="#,##0"/>₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
                     <a href="/t-shirt-luxury/san-pham-chi-tiet-detail?idSPDetail=${spsearch.id}" class="btn btn-outline-dark"><i class="fas fa-eye"></i>
                         Xem chi tiết</a>
                 </div>

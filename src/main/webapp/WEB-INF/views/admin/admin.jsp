@@ -15,111 +15,29 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@zxing/library@latest/umd/index.min.js"></script>
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png"
+          type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
-<body style="max-width: 1460px;">
-
+<body class="container">
 <div>
-    <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <nav class="navbar navbar-light bg-light">
-                    <div class="container">
-                        <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
-                            <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
-                               style="text-decoration: none; color:black; font-size:23px">T-SHIRT
-                                LUXURY </a>
-                        </a>
-                    </div>
-                </nav>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    </ul>
-                    <form class="d-flex">
-                        <img src="${pageContext.request.contextPath}/images/user.jpg" class="rounded-circle" alt="..."
-                             width="40px" height="40px">
-                        <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Cài đặt</a>
-                                </li>
-                                <li><a class="dropdown-item" href="/t-shirt-luxury/login" style="color: red;"><i
-                                        class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-
+    <jsp:include page="/WEB-INF/views/fragments/headerAdmin.jsp" />
     <div class="row mt-3 ">
-        <div class="col-3 " style="">
-            <div class="list-group ">
-                <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action"
-                   aria-current="true">
-                    <i class="fa-solid fa-house"></i> Trang Chủ
-                </a>
-                <a href="/t-shirt-luxury/admin/thong-ke" class="list-group-item list-group-item-action"> <i
-                        class="fa-solid fa-chart-simple"></i> Số Liệu Thống Kê</a>
-                <a href="/t-shirt-luxury/admin/nguoi-dung" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-users-gear"></i>
-                    Quản Lý Người Dùng</a>
-                <a href="/t-shirt-luxury/admin/hoa-don" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-money-bill-transfer"></i> Quản Lý Hóa Đơn</a>
-
-                <a href="/t-shirt-luxury/admin/san-pham" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-shirt"></i> Quản Lý Sản Phẩm</a>
-                <a href="/t-shirt-luxury/admin/voucher" class="list-group-item list-group-item-action"><i
-                        class="fa-solid fa-ticket"></i> Quản Lý Voucher</a>
-                <%--                <a href="/t-shirt-luxury/admin/giam-gia" class="list-group-item list-group-item-action"><i--%>
-                <%--                        class="fa-brands fa-salesforce"></i> Quản Lý Giảm Giá</a>--%>
-
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Quản Lý Thuộc Tính
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/mau-sac"><i
-                                class="fa-solid fa-palette"></i> Màu
-                            Sắc</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/size"><i class="fa-solid fa-s"></i>
-                            Size</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/chat-lieu"><i
-                                class="fa-solid fa-star"></i> Chất
-                            Liệu</a></li>
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/danh-muc"><i
-                                class="fa-solid fa-table-list"></i> Danh
-                            Mục</a></li>
-
-                        <li><a class="dropdown-item" href="/t-shirt-luxury/admin/anh-san-pham"><i class="fa fa-image"></i> Ảnh Sản Phẩm</a></li>
-
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-9" style="">
+        <jsp:include page="/WEB-INF/views/fragments/menuAdmin.jsp" />
+        <div class="col-9" >
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <form action="/t-shirt-luxury/admin/timSanPham" method="get" class="d-flex">
-                        <input style="width: 600px;" class="form-control me-2" type="search" name="timKiemSanPham"
-                               placeholder="Tìm sản phẩm"
-                               aria-label="Search">
+                        <input style="width: 600px;" class="form-control me-2" type="search"
+                               name="timKiemSanPham" placeholder="Tìm sản phẩm" aria-label="Search">
                         <button class="btn btn-success" type="submit">Tìm Kiếm</button>
 
                     </form>
@@ -127,7 +45,8 @@
                         <li class="nav-item mt-3">
                             <!-- Nút kích hoạt quét barcode -->
                             <a href="#" id="scanBarcode" title="Quét mã vạch">
-                                <i class="fa-solid fa-barcode" style="font-size: 30px; cursor: pointer;"></i>
+                                <i class="fa-solid fa-barcode"
+                                   style="font-size: 30px; cursor: pointer;"></i>
                             </a>
                         </li>
                     </ul>
@@ -149,27 +68,34 @@
             <div class="row">
                 <div class="col-8">
                     <div class="SPCT" style="height: 250px; width: 730px; overflow-y: auto;">
-                        <table id="tabelSanPham" class="table" style="width: 100%; table-layout: fixed;">
+                        <table id="tabelSanPham" class="table"
+                               style="width: 100%; table-layout: fixed;">
                             <thead>
                             <tr>
                                 <th scope="col"
-                                    style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">STT
+                                    style="width: 5%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    STT
                                 </th>
                                 <th scope="col"
-                                    style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">Mã
+                                    style="width: 10%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    Mã
                                 </th>
                                 <th scope="col"
-                                    style="width: 35%; position: sticky; top: 0; background: #fff; z-index: 1;">Tên
+                                    style="width: 35%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    Tên
                                 </th>
                                 <th scope="col"
-                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Danh Mục
+                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    Danh Mục
                                 </th>
                                 <th scope="col"
-                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">Trạng
+                                    style="width: 20%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    Trạng
                                     Thái
                                 </th>
                                 <th scope="col"
-                                    style="width: 8%; position: sticky; top: 0; background: #fff; z-index: 1;">Thêm
+                                    style="width: 8%; position: sticky; top: 0; background: #fff; z-index: 1;">
+                                    Thêm
                                 </th>
 
                             </tr>
@@ -181,17 +107,10 @@
                                     <td>${sp.maSanPham}</td>
                                     <td>${sp.tenSanPham}</td>
                                     <td>${sp.danhMuc.tenDanhMuc}</td>
-                                        <%--                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>--%>
-                                    <td>
-                                        <c:if test="${sp.trangThai == 1}">
-                                            <span class="badge bg-success">Đang Bán</span>
-                                        </c:if>
-                                        <c:if test="${sp.trangThai == 0}">
-                                            <span class="badge bg-danger">Hết hàng</span>
-                                        </c:if>
-                                    </td>
-                                    <td><a class="btn btn-themCTSP" data-bs-toggle="modal" data-bs-target="#themSanPham"
-                                           data-id="${sp.id}" href="#"><i class="fa-solid fa-check"></i></a></td>
+                                    <td>${sp.trangThai==1 ? "Dang Ban" : "Chua Ban"}</td>
+                                    <td><a class="btn btn-themCTSP" data-bs-toggle="modal"
+                                           data-bs-target="#themSanPham" data-id="${sp.id}"
+                                           href="#"><i class="fa-solid fa-check"></i></a></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -201,9 +120,7 @@
                     <span style="color:red">
                         ${errorMessage}
                     </span>
-                    <p style="color:red;">${errorSL}</p>
                     <hr>
-
                     <div class="HDCT" style="overflow-y: auto;">
 
                         <table class="table">
@@ -227,14 +144,20 @@
                                     <td>${s.sanPhamChiTiet.size.tenSize}</td>
                                     <td>${s.sanPhamChiTiet.mauSac.tenMauSac}</td>
                                     <td>${s.soLuong}</td>
-                                    <td><fmt:formatNumber value='${s.sanPhamChiTiet.gia}' pattern="#,##0"/>₫
+                                    <td>
+                                        <fmt:formatNumber value='${s.sanPhamChiTiet.gia}'
+                                                          pattern="#,##0" />₫
                                     </td>
                                     <td>
-                                        <fmt:formatNumber value='${s.soLuong * s.sanPhamChiTiet.gia}' pattern="#,##0"/>₫
+                                        <fmt:formatNumber
+                                                value='${s.soLuong * s.sanPhamChiTiet.gia}'
+                                                pattern="#,##0" />₫
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn" href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
-                                           onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
+                                        <a class="btn"
+                                           href="/t-shirt-luxury/admin/delete-hdct?id=${s.id}"
+                                           onclick="return confirmDelete()"><i
+                                                class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -254,9 +177,9 @@
                         <div class="mt-2 ms-2">
                             <form action="/t-shirt-luxury/admin/timKhachHang">
                                 <p>
-                                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseExample" aria-expanded="false"
-                                            aria-controls="collapseExample">
+                                    <button class="btn btn-secondary" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                            aria-expanded="false" aria-controls="collapseExample">
                                         Thông tin khách hàng
                                     </button>
                                 </p>
@@ -266,22 +189,32 @@
 
                                             <form class="d-flex">
                                                 <div class="col-8">
-                                                    <input class="form-control me-2" name="searchSoDienThoai"
-                                                           type="search" placeholder="Search" aria-label="Search">
+                                                    <input class="form-control me-2"
+                                                           name="searchSoDienThoai" type="search"
+                                                           placeholder="Search" aria-label="Search">
                                                 </div>
                                                 <div class="col-3 ">
-                                                    <button class="btn btn-outline-success" type="submit">Search
+                                                    <button class="btn btn-outline-success"
+                                                            type="submit">Search
                                                     </button>
                                                 </div>
                                                 <div class="col-1"></div>
-                                                <%--                                                    <div class="col-12 mt-4">--%>
-                                                <%--                                                        <div class="form-floating mb-3">--%>
-                                                <%--&lt;%&ndash;                                                            <input type="text" class="form-control" id="floatingInput" aria-label="Tên khách hàng" placeholder="Tên khách hàng" value="${timKiemKhachHang.ho +timKiemKhachHang.tenDem + timKiemKhachHang.ten}">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;                                                            <label for="floatingInput">Tên Khách Hàng</label>&ndash;%&gt;--%>
-                                                <%--                                                        </div>--%>
-                                                <%--                                                    </div>--%>
+                                                <%-- <div class="col-12 mt-4">--%>
+                                                <%-- <div class="form-floating mb-3">--%>
+                                                <%--&lt;%&ndash; <input type="text"
+                                                    class="form-control" id="floatingInput"
+                                                    aria-label="Tên khách hàng"
+                                                    placeholder="Tên khách hàng"
+                                                    value="${timKiemKhachHang.ho +timKiemKhachHang.tenDem + timKiemKhachHang.ten}">&ndash;%&gt;--%>
+                                                <%--&lt;%&ndash; <label
+                                                    for="floatingInput">Tên Khách
+                                                    Hàng</label>&ndash;%&gt;--%>
+                                                <%-- </div>--%>
+                                                <%-- </div>--%>
 
-                                                <%--                                                    <button type="submit" class="btn btn-success">Thêm khách hàng</button>--%>
+                                                <%-- <button type="submit"
+                                                    class="btn btn-success">Thêm
+                                                    khách hàng</button>--%>
 
                                             </form>
 
@@ -294,57 +227,38 @@
 
                         </div>
                         <div class="voucher ">
-
+                            <label>Voucher</label>
                             <div class=" mt-2">
-
-                                <%--                                <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">--%>
-                                <%--                                    <div class="row">--%>
-                                <%--                                        <div class="col-6">--%>
-                                <%--                                            <select style="width: 250px" class="form-select"--%>
-                                <%--                                                    aria-label="Default select example" name="idVc">--%>
-                                <%--                                                <c:forEach var="vc" items="${voucher}">--%>
-                                <%--                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id)?'selected':''}>${vc.tenVoucher}</option>--%>
-                                <%--                                                </c:forEach>--%>
-                                <%--                                            </select>--%>
-                                <%--                                        </div>--%>
-                                <%--                                        <div class="col-2"></div>--%>
-                                <%--                                        <div class="col-4">--%>
-                                <%--                                            <button class="btn btn-secondary" type="submit" style="margin-left: 10px;">--%>
-                                <%--                                                Áp Dụng--%>
-                                <%--                                            </button>--%>
-                                <%--                                        </div>--%>
-                                <%--                                    </div>--%>
-                                <%--                                </form>--%>
                                 <form action="/t-shirt-luxury/admin/ap-dung-voucher" method="post">
                                     <div class="row">
-                                        <div class="col-3">
-                                            <label>Voucher</label>
-                                        </div>
                                         <div class="col-6">
-
-                                            <select
-                                                    style="width: 250px"
-                                                    class="form-select"
-                                                    aria-label="Default select example"
-                                                    name="idVc"
-                                                    onchange="this.form.submit()">
+                                            <select style="width: 250px" class="form-select"
+                                                    aria-label="Default select example" name="idVc">
                                                 <c:forEach var="vc" items="${voucher}">
-                                                    <option value="${vc.id}" ${idVoucher.equals(vc.id) ? 'selected' : ''}>
-                                                            ${vc.tenVoucher}
-                                                    </option>
+                                                    <option value="${vc.id}"
+                                                        ${idVoucher.equals(vc.id)?'selected':''}>
+                                                            ${vc.tenVoucher}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
+                                        <div class="col-2"></div>
+                                        <div class="col-4">
+                                            <button class="btn btn-secondary" type="submit"
+                                                    style="margin-left: 10px;">
+                                                Áp Dụng
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
-
                             </div>
-                            <p style="color: red">${notiVC}</p>
+
                         </div>
                         <form action="/t-shirt-luxury/admin/thanh-toan" method="post">
 
 
-                            <%--                            <button class="btn btn-success" type="submit">Thêm khách hàng</button>--%>
+
+                            <%-- <button class="btn btn-success" type="submit">Thêm khách
+                                hàng</button>--%>
 
                             <div class="row g-3 align-items-center">
                                 <div class="col-5">
@@ -352,19 +266,19 @@
                                 </div>
 
                                 <div class="col-7">
-                                    <input type="text" class="form-control mt-3" id="" aria-label="Số điện thoại"
-                                           name="soDienThoai" placeholder="Số Điện Thoại"
-                                           value="${soDienThoaiKhachHang}">
+                                    <input type="text" class="form-control mt-3" id=""
+                                           aria-label="Số điện thoại" name="soDienThoai"
+                                           placeholder="Số Điện Thoại" value="${soDienThoaiKhachHang}">
                                 </div>
+
                                 <div class="col-5">
                                     <label class="col-form-label">Tên khách hàng</label>
                                 </div>
 
                                 <div class="col-7">
                                     <input type="text" class="form-control mt-3" id="floatingInput"
-                                           aria-label="Tên khách hàng"
-                                           name="hoVaTenKhachHang" placeholder="Tên khách hàng"
-                                           value="${timKiemKhachHang}">
+                                           aria-label="Tên khách hàng" name="hoVaTenKhachHang"
+                                           placeholder="Tên khách hàng" value="${timKiemKhachHang}">
                                 </div>
                                 <div class="col-auto">
                                     <p class="mt-3" style="color: red">${khongTimThay}</p>
@@ -377,34 +291,40 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Tổng tiền</p>
-                                    <p><fmt:formatNumber value='${tongTien == null ? 0 : tongTien}'
-                                                         pattern="#,##0"/>₫</p>
+                                    <p>
+                                        <fmt:formatNumber value='${tongTien == null ? 0 : tongTien}'
+                                                          pattern="#,##0" />₫
+                                    </p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p>Chiết khấu</p>
-                                    <p><fmt:formatNumber value='${chietKhau}' pattern="#,##0"/>₫
-                                        <%--                                    <p><fmt:formatNumber value='${tongTien * chietKhau/100}' pattern="#,##0"/>₫--%>
+                                    <p>
+                                        <fmt:formatNumber value='${tongTien * chietKhau/100}'
+                                                          pattern="#,##0" />₫
                                     </p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Khách phải trả</p>
-                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="text"
-                                           id="tongTienHoaDon" name="tongTienHoaDon"
-                                           value="<fmt:formatNumber value='${tongTien - chietKhau}' pattern="#,##0" />"
+                                    <input style="max-height: 30px;border: #f8f8f8" class="text-end"
+                                           type="text" id="tongTienHoaDon" name="tongTienHoaDon"
+                                           value="<fmt:formatNumber value='${tongTien - (tongTien * chietKhau / 100)}' pattern="
+                                                            #,##0" />"
                                            readonly/>
                                     <spacer>₫</spacer>
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p>Tiền khách đưa</p>
-                                    <input style="max-height: 30px" type="number" id="tienKhachDua" min="0"
-                                           value="<fmt:formatNumber value='${tienKhachDua}' pattern="#,##0"/>"/>
+                                    <input style="max-height: 30px" type="number" id="tienKhachDua"
+                                           min="0"
+                                           value="<fmt:formatNumber value='${tienKhachDua}' pattern="
+                                                            #,##0" />"/>
                                     <spacer>₫</spacer>
                                 </div>
                                 <div class="d-flex justify-content-between mb-3">
                                     <p style="width: 107px">Tiền thừa</p>
-                                    <input class="text-end" style="max-height: 30px;border: #f8f8f8" id="tienThua"
-                                           readonly/>
+                                    <input class="text-end" style="max-height: 30px;border: #f8f8f8"
+                                           id="tienThua" readonly />
                                     <spacer>₫</spacer>
                                 </div>
                             </div>
@@ -415,9 +335,8 @@
                                 <a onclick="confirmHuyHoaDon()"
                                    href="/t-shirt-luxury/admin/huy-hoa-don?idHoaDon=${idHoaDon}"
                                    class="btn btn-secondary">Hủy</a>
-                                <button type="submit" class="btn btn-dark ms-3" onclick="confirmDoneHoaDon()">Thanh
-                                    toán
-                                </button>
+                                <button type="submit" class="btn btn-dark ms-3">Thanh toán</button>
+
                             </div>
                             <p style="color: red">${noti}</p>
                         </form>
@@ -432,7 +351,8 @@
 
 </body>
 
-<div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="themSanPham" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -452,8 +372,8 @@
 
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="Số Lượng" min="1" name="soLuong"
-                               value="1">
+                        <input type="number" class="form-control" placeholder="Số Lượng" min="1"
+                               name="soLuong" value="1">
                         <label>Số Lượng</label>
                     </div>
 
@@ -478,7 +398,7 @@
         $.ajax({
             url: "/t-shirt-luxury/admin/getMauAndSize",
             type: "GET",
-            data: {idRequest: idReponse},
+            data: { idRequest: idReponse },
             success: function (response) {
                 // Hiển thị ID sản phẩm trong modal với dữ liệu nhận được từ server
                 $("#exampleModalLabel").text(response.tenSanPham);
@@ -493,7 +413,7 @@
                     const colorLabel = $("<label></label>")
                         .text(mauSac.tenMauSac)
                         .attr("class", "btn btn-outline-secondary")
-                        .css({"margin": "5px", "display": "block", "width": "auto"})
+                        .css({ "margin": "5px", "display": "block", "width": "auto" })
                         .attr("for", "option" + mauSac.id)
                         .attr("id", "label-" + mauSac.id)
 
@@ -549,7 +469,7 @@
                     const sizeLabel = $("<label></label>")
                         .text(Size.tenSize)
                         .addClass("btn btn-outline-secondary ")
-                        .css({"margin": "5px", "display": "block", "width": "auto"})
+                        .css({ "margin": "5px", "display": "block", "width": "auto" })
                         .attr("id", "size-" + Size.id);
                     // Tạo checkbox nếu cần thiết
                     const sizeCheckbox = $("<input>")
@@ -610,7 +530,7 @@
         // Định dạng tiền thừa với dấu chấm phân cách hàng nghìn
         let formattedTienThua = tienThua > 0 ? tienThua.toLocaleString('en-GB').replace(/,/g, '.') : "0";
 
-// Gán giá trị đã được định dạng vào ô input
+        // Gán giá trị đã được định dạng vào ô input
         $("#tienThua").val(formattedTienThua);
     });
 
@@ -667,7 +587,6 @@
                             }
                         }
                     );
-
                 })
                 .catch((err) => {
                     console.error("Error listing video devices:", err);
@@ -682,12 +601,6 @@
             console.log("Scanning stopped.");
         });
     });
-
-
-    function submitFormOnChange(selectElement) {
-        selectElement.form.submit();
-    }
-
 
 
 </script>

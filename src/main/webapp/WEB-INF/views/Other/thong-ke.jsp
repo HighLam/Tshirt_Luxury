@@ -227,6 +227,27 @@
             document.getElementById("locTheoSoNgay").value = value;
         }
     });
+
+    // Hàm xử lý khi giá trị select thay đổi
+    function handleSelectionChange() {
+        const selectElement = document.getElementById('locTheoLoai');
+        const selectedValue = selectElement.value;
+
+        // Lưu giá trị vào localStorage
+        localStorage.setItem('selectedLoaiHoaDon', selectedValue);
+
+        // Gửi form
+        selectElement.form.submit();
+    }
+
+    // Khi tải lại trang, đặt giá trị đã chọn
+    window.onload = function() {
+        const savedValue = localStorage.getItem('selectedLoaiHoaDon');
+        if (savedValue !== null) {
+            const selectElement = document.getElementById('locTheoLoai');
+            selectElement.value = savedValue;
+        }
+    };
 </script>
 
 </html>

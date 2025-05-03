@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/script.js"></script>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
 
-    <link href="../css/danhMucAoNam.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <link href="../css/style.css" rel="stylesheet">
+<%--    <link href="../css/danhMucAoNam.css" rel="stylesheet">--%>
 </head>
 <body >
 <header>
@@ -316,7 +317,7 @@
         <div class="col-md-3">
             <div class="card product-card">
                 <img alt="Anh1"
-                     src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="600"/>
+                     src="../images/ao_phong_boxy/DEVOTUS/black.webp" width="400"/>
                 <div class="product-info">
                     <div class="colors"><img alt="option 1" height="20"
                                              src="../images/ao_phong_boxy/DEVOTUS/black.webp"
@@ -325,8 +326,8 @@
                     <p class="price">249,000₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <a href="/t-shirt-luxury/san-pham-chi-tiet" class="btn btn-outline-dark"><i class="fas fa-eye"></i>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
+                    <a  class="btn btn-outline-dark"><i class="fas fa-eye"></i>
                         Xem chi tiết</a>
                 </div>
             </div>
@@ -335,7 +336,7 @@
             <div class="card product-card">
                 <img alt="Anh2"
                      src="../images/ao_phong_unisex/1969/black.webp"
-                     width="600"/>
+                     width="400"/>
                 <div class="product-info">
                     <div class="colors">
                         <img alt="option 2" height="20"
@@ -346,26 +347,26 @@
                     <p class="price">419,000₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
-                </div>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
+                    <a  class="btn btn-outline-dark"><i class="fas fa-eye"></i>
+                        Xem chi tiết</a> </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card product-card">
                 <img alt="Anh3"
-                     src="../images/ao_phong_unisex/1969/white.webp"
-                     width="600"/>
+                     src="../images/ao_phong_unisex/SMILE/black.webp"
+                     width="400"/>
                 <div class="product-info">
                     <div class="colors"><img alt=" option 3" height="20"
-                                             src="../images/ao_phong_unisex/Airplane/white.webp"
+                                             src="../images/ao_phong_unisex/SMILE/black.webp"
                                              width="20"/></div>
                     <p>Áo Phông Fitted 1298</p>
                     <p class="price">249,000₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
+                    <a class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</a>
                 </div>
             </div>
         </div>
@@ -373,7 +374,7 @@
             <div class="card product-card">
                 <img alt="Anh4"
                      src="../images/ao_phong_unisex/BACISTEE/green.webp"
-                     width="600"/>
+                     width="400"/>
                 <div class="product-info">
                     <div class="colors"><img alt=" option 4" height="20"
                                              src="../images/ao_phong_unisex/BACISTEE/green.webp"
@@ -382,8 +383,8 @@
                     <p class="price">639,000₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
+                    <a class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</a>
                 </div>
             </div>
         </div>
@@ -391,7 +392,7 @@
             <div class="card product-card">
                 <img alt="Anh5"
                      src="../images/ao_phong_unisex/SMILE/black.webp"
-                     width="600"/>
+                     width="400"/>
                 <div class="product-info">
                     <div class="colors"><img alt=" option 5" height="20"
                                              src="../images/ao_phong_unisex/SMILE/black.webp"
@@ -400,82 +401,82 @@
                     <p class="price">639,000₫</p>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
+                    <a class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</a>
+                    <a class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card product-card">
-                <img alt="Anh6"
-                     src="../images/ao_phong_unisex/LABUBU/black.webp"
-                     width="600"/>
-                <div class="product-info">
-                    <div class="colors"><img alt="option 6" height="20"
-                                             src="../images/ao_phong_unisex/LABUBU/black.webp"
-                                             width="20"/></div>
-                    <p>Áo Khoác Kaki Regular 5106</p>
-                    <p class="price">639,000₫</p>
-                </div>
-                <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card">
-                <img alt="Anh7"
-                     src="../images/ao_phong_co_tron/LADOS/blueMin.webp" width="600"/>
-                <div class="product-info">
-                    <div class="colors"><img alt="option 7" height="20"
-                                             src="../images/ao_phong_co_tron/LADOS/blueMin.webp"
-                                             width="20"/></div>
-                    <p>Áo Khoác Kaki Regular 5106</p>
-                    <p class="price">639,000₫</p>
-                </div>
-                <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card">
-                <img alt="Anh8"
-                     src="../images/ao_phong_co_tron/S2SPORT/crem.webp"
-                     width="600"/>
-                <div class="product-info">
-                    <div class="colors"><img alt="option 8" height="20"
-                                             src="../images/ao_phong_co_tron/S2SPORT/crem.webp"
-                                             width="20"/></div>
-                    <p>Áo Khoác Kaki Regular 5106</p>
-                    <p class="price"> 639,000₫</p>
-                </div>
-                <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card product-card">
-                <img alt="Anh9"
-                     src="../images/ao_phong_unisex/Airplane/black.webp"
-                     width="600"/>
-                <div class="product-info">
-                    <div class="colors"><img alt="option 9" height="20"
-                                             src="../images/ao_phong_unisex/Airplane/black.webp"
-                                             width="20"/></div>
-                    <p>Áo Khoác Kaki Regular 5106</p>
-                    <p class="price"> 639,000₫</p>
-                </div>
-                <div class="product-actions">
-                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>
-                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>
-                </div>
-            </div>
-        </div>
+<%--        <div class="col-md-3">--%>
+<%--            <div class="card product-card">--%>
+<%--                <img alt="Anh6"--%>
+<%--                     src="../images/ao_phong_unisex/LABUBU/black.webp"--%>
+<%--                     width="400"/>--%>
+<%--                <div class="product-info">--%>
+<%--                    <div class="colors"><img alt="option 6" height="20"--%>
+<%--                                             src="../images/ao_phong_unisex/LABUBU/black.webp"--%>
+<%--                                             width="20"/></div>--%>
+<%--                    <p>Áo Khoác Kaki Regular 5106</p>--%>
+<%--                    <p class="price">639,000₫</p>--%>
+<%--                </div>--%>
+<%--                <div class="product-actions">--%>
+<%--                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>--%>
+<%--                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-md-3">--%>
+<%--            <div class="card product-card">--%>
+<%--                <img alt="Anh7"--%>
+<%--                     src="../images/ao_phong_co_tron/LADOS/blueMin.webp" width="400"/>--%>
+<%--                <div class="product-info">--%>
+<%--                    <div class="colors"><img alt="option 7" height="20"--%>
+<%--                                             src="../images/ao_phong_co_tron/LADOS/blueMin.webp"--%>
+<%--                                             width="20"/></div>--%>
+<%--                    <p>Áo Khoác Kaki Regular 5106</p>--%>
+<%--                    <p class="price">639,000₫</p>--%>
+<%--                </div>--%>
+<%--                <div class="product-actions">--%>
+<%--                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>--%>
+<%--                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-md-3">--%>
+<%--            <div class="card product-card">--%>
+<%--                <img alt="Anh8"--%>
+<%--                     src="../images/ao_phong_co_tron/S2SPORT/crem.webp"--%>
+<%--                     width="400"/>--%>
+<%--                <div class="product-info">--%>
+<%--                    <div class="colors"><img alt="option 8" height="20"--%>
+<%--                                             src="../images/ao_phong_co_tron/S2SPORT/crem.webp"--%>
+<%--                                             width="20"/></div>--%>
+<%--                    <p>Áo Khoác Kaki Regular 5106</p>--%>
+<%--                    <p class="price"> 639,000₫</p>--%>
+<%--                </div>--%>
+<%--                <div class="product-actions">--%>
+<%--                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>--%>
+<%--                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-md-3">--%>
+<%--            <div class="card product-card">--%>
+<%--                <img alt="Anh9"--%>
+<%--                     src="../images/ao_phong_unisex/Airplane/black.webp"--%>
+<%--                     width="400"/>--%>
+<%--                <div class="product-info">--%>
+<%--                    <div class="colors"><img alt="option 9" height="20"--%>
+<%--                                             src="../images/ao_phong_unisex/Airplane/black.webp"--%>
+<%--                                             width="20"/></div>--%>
+<%--                    <p>Áo Khoác Kaki Regular 5106</p>--%>
+<%--                    <p class="price"> 639,000₫</p>--%>
+<%--                </div>--%>
+<%--                <div class="product-actions">--%>
+<%--                    <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i> Mua nhanh</button>--%>
+<%--                    <button class="btn btn-outline-dark"><i class="fas fa-eye"></i> Xem chi tiết</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 
     <nav aria-label="Page navigation example">
