@@ -1,14 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Shirt Luxury | ADMIN | Chi tiết hoá đơn</title>
+    <title>T-Shirt Luxury | ADMIN</title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -20,41 +18,49 @@
 <body class="container">
 <div>
     <jsp:include page="/WEB-INF/views/fragments/headerAdmin.jsp" />
-    <div class="row" style="margin: 0px">
+
+    <div class="row">
         <div class="p-2 bd-highlight d-flex justify-content-start mt-3">
-            <a type="button" href="/t-shirt-luxury/admin/hoa-don" class="btn btn-outline-secondary">
+            <a type="button" href="/admin/user" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-backward"></i> Trở lại
             </a>
         </div>
         <div class="row mt-2">
-            <h2 class="">Hóa Đơn Chi Tiết</h2>
-            <table class="table table-striped border rounded" style="margin-left: 13px; max-width: 1476px">
+            <h2 class="">Người Dùng Chi Tiết</h2>
+            <table class="table table-striped border rounded">
                 <thead>
                 <tr>
-                    <th scope="col">STT</th>
-<%--                    <th scope="col">Mã Hóa Đơn Chi Tiết</th>--%>
-                    <th scope="col">Tên Sản Phẩm</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Số Lượng</th>
-                    <th scope="col">Ngày Tạo</th>
-                    <%-- <th scope="col">Trạng Thái</th>--%>
-                    <%-- <th scope="col">Mô tả</th>--%>
+                    <th scope="col">#</th>
+                    <th scope="col">Họ và Tên</th>
+                    <th scope="col">Giới Tính</th>
+                    <th scope="col">Ngày Sinh</th>
+                    <th scope="col">Địa Chỉ</th>
+                    <th scope="col">Số Điện Thoại</th>
+                    <th scope="col">Mật Khẩu</th>
+                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Hành Động</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listHDCTTaiQuay}" var="hdctOff" varStatus="i">
-                    <tr>
-                        <td>${i.index+1}</td>
-<%--                        <td>${hdctOff.maHoaDonChiTiet}</td>--%>
-                        <td>${hdctOff.sanPhamChiTiet.sanPham.tenSanPham}</td>
-                        <td><fmt:formatNumber value='${hdctOff.sanPhamChiTiet.gia}' pattern="#,##0"/></td>
-                        <td>${hdctOff.soLuong}</td>
-                        <td>${hdctOff.ngayTao}</td>
-                            <%-- <td>Active</td>--%>
-                            <%-- <td>${hdctOff.ngayTao}</td>--%>
-                    </tr>
-                </c:forEach>
-
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>Active</td>
+                    <td>Active</td>
+                    <td>********</td>
+                    <td>Active</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="btn btn-warning rounded-pill" data-toggle="tooltip"
+                                data-placement="top" data-bs-toggle="modal" data-bs-target="#suaNguoiDung"
+                                title="Chỉnh Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="btn btn-danger rounded-pill" data-toggle="tooltip"
+                                data-placement="top" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
@@ -74,7 +80,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Mã Sản Phẩm"
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Họ và Tên"
                                disabled readonly>
                         <label for="floatingInput">Họ và Tên</label>
                     </div>

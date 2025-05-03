@@ -11,6 +11,10 @@ import lombok.*;
 @Setter
 @Table(name = "user_profiles")
 public class UserProfile {
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab554ba1bd4150e4eedff920d98c81474fcf9d0a
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,4 +51,12 @@ public class UserProfile {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+<<<<<<< HEAD
 }
+=======
+
+
+
+
+}
+>>>>>>> ab554ba1bd4150e4eedff920d98c81474fcf9d0a

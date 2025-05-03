@@ -10,53 +10,21 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="../js/script.js"></script>
 </head>
 
-<body>
-<div >
-    <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <nav class="navbar navbar-light bg-light">
-                    <div class="container">
-                        <a class="navbar-brand" href="/t-shirt-luxury/admin">
-                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="" width="55" height="55"
-                                 class="d-inline-block rounded-circle align-text-top" style="filter: brightness(0);">
-                            <a class="fw-bold font-monospace" href="/t-shirt-luxury/admin"
-                               style="text-decoration: none; color:black; font-size:23px">T-SHIRT
-                                LUXURY </a>
-                        </a>
-                    </div>
-                </nav>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    </ul>
-                    <form class="d-flex">
-                        <img src="images.jpg" class="rounded-circle" alt="..." width="40px" height="40px">
-                        <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle ms-2" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Cài đặt</a>
-                                </li>
-                                <li><a class="dropdown-item" href="/t-shirt-luxury/login" style="color: red;"><i
-                                        class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </div>
+<body class="container">
+<div>
+    <jsp:include page="/WEB-INF/views/fragments/headerAdmin.jsp" />
 
 
     <div class="row mt-3 ">
+<<<<<<< HEAD
         <div class="col-3 " style="">
             <div class="list-group ">
                 <a href="/t-shirt-luxury/admin" class="list-group-item list-group-item-action action" aria-current="true">
@@ -94,6 +62,9 @@
                 </div>
             </div>
         </div>
+=======
+        <jsp:include page="/WEB-INF/views/fragments/menuAdmin.jsp" />
+>>>>>>> ab554ba1bd4150e4eedff920d98c81474fcf9d0a
         <div class="col-9" style="">
             <div class="row">
                 <h2 class="">Cập Nhật Người Dùng</h2>
@@ -101,21 +72,25 @@
 
                 <form action="/t-shirt-luxury/admin/updateNguoiDung?id=${nguoiDung.id}" method="POST">
                     <div class="form-floating mb-3">
-                        <input readonly name="maNguoiDung" type="text" class="form-control" id="floatingInput"  value="${nguoiDung.maNguoiDung}">
+                        <input readonly name="maNguoiDung" type="text" class="form-control"
+                               id="floatingInput" value="${nguoiDung.maNguoiDung}">
                         <label for="floatingInput">Mã Người Dùng</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput" placeholder="Tên Người Dùng" value="${nguoiDung.tenNguoiDung}">
+                        <input name="tenNguoiDung" type="text" class="form-control" id="floatingInput"
+                               placeholder="Tên Người Dùng" value="${nguoiDung.tenNguoiDung}">
                         <label for="floatingInput">Tên Người Dùng</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="email" type="text" class="form-control" id="floatingInput" placeholder="Email" value="${nguoiDung.email}">
+                        <input name="email" type="text" class="form-control" id="floatingInput"
+                               placeholder="Email" value="${nguoiDung.email}">
                         <label for="floatingInput">Email</label>
                     </div>
                     <select class="form-select" aria-label="Default select example" name="chucVu.id">
                         <c:forEach items="${listChucVu}" var="cv">
-                            <option  hidden="hidden">Chọn chức vụ</option>
-                            <option value="${cv.id}" ${nguoiDung.chucVu.tenChucVu.equals(cv.tenChucVu) ? 'selected' : ''}>${cv.tenChucVu}</option>
+                            <option hidden="hidden">Chọn chức vụ</option>
+                            <option value="${cv.id}" ${nguoiDung.chucVu.tenChucVu.equals(cv.tenChucVu)
+                                    ? 'selected' : '' }>${cv.tenChucVu}</option>
                         </c:forEach>
 
                     </select>
@@ -125,17 +100,18 @@
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="hoatDong"
-                                   value="1" ${nguoiDung.trangThai == 1 ? 'checked' :''}>
+                                   value="1" ${nguoiDung.trangThai==1 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio1">Hoạt Động</label>
                         </div>
                         <div class="form-check form-check-inline mt-2">
                             <input class="form-check-input" type="radio" name="trangThai" id="khongHoatDong"
-                                   value="0" ${nguoiDung.trangThai == 0 ? 'checked' :''}>
+                                   value="0" ${nguoiDung.trangThai==0 ? 'checked' :''}>
                             <label class="form-check-label" for="inlineRadio2">Không Hoạt Động</label>
                         </div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input name="moTa" type="text" class="form-control" id="floatingInput" placeholder="Mô tả" value="${nguoiDung.moTa}">
+                        <input name="moTa" type="text" class="form-control" id="floatingInput"
+                               placeholder="Mô tả" value="${nguoiDung.moTa}">
                         <label for="floatingInput">Mô tả</label>
                     </div>
                     <div class="p-2 bd-highlight d-flex justify-content-end">
