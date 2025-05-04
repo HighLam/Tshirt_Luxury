@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 @RequestMapping("/t-shirt-luxury/admin")
 @Controller
@@ -35,6 +36,21 @@ public class danhMucController {
 
         // Format mã hóa đơn mới với 3 chữ số (HD001, HD002, ...)
         return String.format("DM%03d", nextNumber);
+    }
+
+    @PostMapping("/saveDetail")
+    @ResponseBody
+    public ResponseEntity<?> saveCategoryDetail(@RequestBody CategoryDetailDTO request) {
+        try {
+            CategoryDetail detail = categoryDetailService.createCategoryDetail(request);
+            return ResponseEntity.ok().body(Map.of(
+                    "success", true,
+                    "detail", detail));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", e.getMessage()));
+        }
     }
 
     boolean validateAdd(DanhMuc danhMuc, RedirectAttributes redirectAttributes) {
