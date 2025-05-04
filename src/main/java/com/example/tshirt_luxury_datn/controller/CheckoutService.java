@@ -13,6 +13,12 @@ import java.util.Map;
 
 @Controller
 public class CheckoutService {
+    private final com.example.tshirt_luxury_datn.services.CheckoutService checkoutService;
+
+    public CheckoutService(com.example.tshirt_luxury_datn.services.CheckoutService checkoutService) {
+        this.checkoutService = checkoutService;
+    }
+
     @PostMapping("/cart/checkout")
     public String processCheckout(OrderDTO request, Model model, HttpSession session) {
 
