@@ -58,7 +58,7 @@
                 <p style="margin-left: 10px; margin-top: 13px;">Thanh toán trực tuyến</p>
             </div>
         </div>
-
+        
     </div>
     <div class="col-1"></div>
     <div class="col-7 mt-3" style="background-color: rgb(247, 247, 247);" >
@@ -67,13 +67,13 @@
             <table class="table">
 
                 <thead>
-                <tr>
-                    <th>Ảnh</th>
-                    <th>Thông tin sản phẩm</th>
-                    <th>Giá tiền</th>
-                    <th class="text-center">Số Lượng</th>
-                    <th>Thành tiền</th>
-                </tr>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Thông tin sản phẩm</th>
+                        <th>Giá tiền</th>
+                        <th class="text-center">Số Lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="hd" items="${hoaDonChiTietOnline}">
@@ -94,7 +94,7 @@
 
             <hr>
             <h5>Tóm tắt yêu cầu</h5>
-            <%--            <h6 class="fw-normal" >Áp dụng Voucher: ${voucherTrongHoaDon.voucher.tenVoucher}</h6>--%>
+<%--            <h6 class="fw-normal" >Áp dụng Voucher: ${voucherTrongHoaDon.voucher.tenVoucher}</h6>--%>
             <c:choose>
                 <c:when test="${voucherTrongHoaDon.voucher != null && voucherTrongHoaDon.voucher.tenVoucher != null}">
                     <h6 class="fw-normal ms-3">Áp dụng Voucher: ${voucherTrongHoaDon.voucher.tenVoucher} (giảm ${voucherTrongHoaDon.voucher.giaTriGiam}%)</h6>
@@ -103,7 +103,7 @@
                     </p>
 
                     <p class="ms-3" style="color:red;">
-                        Chiết khấu <fmt:formatNumber value="${giaTienBanDau * (voucherTrongHoaDon.voucher.giaTriGiam / 100)}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                    Chiết khấu <fmt:formatNumber value="${giaTienBanDau * (voucherTrongHoaDon.voucher.giaTriGiam / 100)}" type="currency" currencySymbol="₫" groupingUsed="true" />
                     </p>
                 </c:when>
                 <c:otherwise>
@@ -119,9 +119,9 @@
             <hr>
             <div class="d-flex">
                 <h5 class="fw-normal" >Tổng (${soSanPhamMua} mặt hàng) : </h5>
-                <%--                <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="number" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"--%>
-                <%--                       value="<fmt:formatNumber value='${tongTien}' pattern="#,##0"/>"--%>
-                <%--                       readonly >--%>
+<%--                <input style="max-height: 30px;border: #f8f8f8" class="text-end" type="number" id="tongTienHoaDonOnl" name="tongTienHoaDonOnl"--%>
+<%--                       value="<fmt:formatNumber value='${tongTien}' pattern="#,##0"/>"--%>
+<%--                       readonly >--%>
 
                 <p class="ms-3">
                     <fmt:formatNumber value="${tongTien}" type="currency" currencySymbol="₫" groupingUsed="true" /> (Đã bao gồm phí vận chuyển)
@@ -134,7 +134,7 @@
             <c:if test="${xacNhanHoaDonOnline == 3}">
                 <button type="submit" style="margin-left: 400px; height: 45px; font-size: large;" class="btn btn-success"  onclick="return confirmOrder()">Giao hàng thành công</button>
             </c:if>
-        </form>
+    </form>
     </div>
 
 </div>

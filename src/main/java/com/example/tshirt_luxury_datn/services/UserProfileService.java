@@ -109,7 +109,7 @@ public class UserProfileService {
         profile.setIsDefault(true);
         userProfileRepository.save(profile);
     }
-
+    
     @Transactional
     public void deleteProfile(Long userId, Long profileId) {
         UserProfile profile = userProfileRepository.findByIdAndUserId(profileId, userId)

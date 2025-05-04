@@ -1,39 +1,41 @@
 package com.example.tshirt_luxury_datn.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
-@Table(name = "size")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "sizes")
 public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "ma_size")
-    private String maSize;
+    @Column(nullable = false, unique = true, length = 50)
+    private String name;
 
-    @Column(name = "ten_size")
-    private String tenSize;
+    @Column(nullable = false)
+    private Boolean status;
 
-    @Column(name = "trang_thai")
-    private Integer trangThai;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description = "";
 
-    @Column(name = "ngay_tao")
-    private Date ngayTao;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "ngay_sua")
-    private Date ngaySua;
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private Timestamp updatedAt;
 
-    @Column(name = "mo_ta")
-    private String moTa;
+    @OneToMany(mappedBy = "size")
+    private List<ProductDetail> productDetails;
 }

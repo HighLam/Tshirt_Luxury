@@ -20,16 +20,16 @@
             margin-top: 20px;
             font-size: 14px;
         }
-
+        
         .breadcrumb a {
             color: #333;
             text-decoration: none;
         }
-
+        
         .breadcrumb a:hover {
             color: #2ecc71;
         }
-
+        
         /* Page Title */
         h1 {
             font-size: 28px;
@@ -38,7 +38,7 @@
             margin-bottom: 30px;
             padding-bottom: 15px;
         }
-
+        
         h1:after {
             content: '';
             position: absolute;
@@ -49,36 +49,36 @@
             bottom: 0;
             left: 0;
         }
-
+        
         /* Filter Section */
         .nav-item .btn {
             margin-right: 10px;
             font-size: 14px;
             border: 1px solid #dee2e6;
         }
-
+        
         .mt-text {
             font-size: 18px;
             margin-right: 15px;
             font-weight: 600;
         }
-
+        
         .sort-container {
             margin-left: auto;
             display: flex;
             align-items: center;
         }
-
+        
         .sort-label {
             margin-right: 10px;
             font-size: 14px;
         }
-
+        
         .form-select {
             width: auto;
             font-size: 14px;
         }
-
+        
         /* Product Card Styling */
         .product-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -88,24 +88,24 @@
             border: none;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
-
+        
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-
+        
         .image-product {
             min-height: 288px;
             height: 288px;
             object-fit: cover;
             object-position: center;
         }
-
+        
         .product-info {
             padding: 15px;
             text-align: center;
         }
-
+        
         .product-info p:first-child {
             font-size: 14px;
             font-weight: 500;
@@ -116,21 +116,21 @@
             -webkit-box-orient: vertical;
             margin-bottom: 10px;
         }
-
+        
         .price {
             font-size: 16px;
             font-weight: 700;
             color: black;
             margin-bottom: 15px;
         }
-
+        
         .product-actions {
             display: flex;
             flex-direction: row;
             gap: 8px;
             padding: 0 15px 15px;
         }
-
+        
         .product-actions .btn {
             font-size: 14px;
             padding: 8px 0;
@@ -138,60 +138,60 @@
             transition: all 0.3s ease;
             border-radius: 4px;
         }
-
+        
         .product-actions .btn-dark {
             background-color: black;
             border-color: black;
         }
-
+        
         .product-actions .btn-dark:hover {
             background-color: #c0392b;
             border-color: #c0392b;
             transform: scale(1.02);
         }
-
+        
         .product-actions .btn-outline-dark {
             color: #343a40;
             border-color: #dee2e6;
         }
-
+        
         .product-actions .btn-outline-dark:hover {
             background-color: #f8f9fa;
             color: #343a40;
             transform: scale(1.02);
         }
-
+        
         .product-actions i {
             margin-right: 5px;
         }
-
+        
         /* Pagination Styling */
         .pagination {
             justify-content: center;
             margin: 30px 0;
         }
-
+        
         .pagination .page-link {
             color: #333;
             border-color: #dee2e6;
             margin: 0 3px;
             border-radius: 4px;
         }
-
+        
         .pagination .page-item.active .page-link {
             background-color: #2ecc71;
             border-color: #2ecc71;
         }
-
+        
         .pagination .page-link:hover {
             background-color: #f8f9fa;
             color: #333;
         }
-
+        
         .pagination .page-item.disabled .page-link {
             color: #6c757d;
         }
-
+        
         /* Color Filters */
         .color-box {
             width: 30px;
@@ -202,16 +202,16 @@
             border: 2px solid transparent;
             transition: all 0.2s ease;
         }
-
+        
         .color-checkbox {
             display: none;
         }
-
+        
         .color-checkbox:checked + .color-box {
             border-color: #333;
             transform: scale(1.1);
         }
-
+        
         /* Banner */
         .banner-container {
             margin-top: 30px;
@@ -219,17 +219,17 @@
             overflow: hidden;
             border-radius: 8px;
         }
-
+        
         .banner-container img {
             width: 100%;
             border-radius: 8px;
             transition: transform 0.3s ease;
         }
-
+        
         .banner-container img:hover {
             transform: scale(1.01);
         }
-
+        
         /* Responsive Adjustments */
         @media (max-width: 992px) {
             .sort-container {
@@ -237,12 +237,12 @@
                 margin-left: 0;
             }
         }
-
+        
         @media (max-width: 768px) {
             .product-actions {
                 flex-direction: column;
             }
-
+            
             .product-actions .btn {
                 width: 100%;
                 margin-bottom: 8px;
@@ -278,8 +278,8 @@
                         <div class="d-flex flex-wrap">
                             <c:forEach var="color" items="${listColor}">
                                 <label>
-                                    <input type="checkbox" class="color-checkbox" id="color${color.id}" value="${color.id}"
-                                        ${param.colors != null && param.colors.contains(color.id.toString()) ? 'checked' : ''}/>
+                                    <input type="checkbox" class="color-checkbox" id="color${color.id}" value="${color.id}" 
+                                           ${param.colors != null && param.colors.contains(color.id.toString()) ? 'checked' : ''}/>
                                     <c:choose>
                                         <c:when test="${color.hexColor == 'white'}">
                                             <div class="color-box" style="background-color: ${color.hexColor}; border: 1px solid #ddd"></div>
@@ -300,14 +300,14 @@
                     <ul class="dropdown-menu p-3">
                         <c:forEach var="size" items="${listSize}">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="size${size.id}" value="${size.id}"
+                                <input class="form-check-input" type="checkbox" id="size${size.id}" value="${size.id}" 
                                     ${param.sizes != null && param.sizes.contains(size.id.toString()) ? 'checked' : ''}/>
                                 <label class="form-check-label" for="size${size.id}">${size.name}</label>
                             </div>
                         </c:forEach>
                     </ul>
                 </li>
-
+                
                 <li class="nav-item dropdown mb-2">
                     <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -409,64 +409,64 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-<script>
-    $(document).ready(function () {
-        // Hàm gửi request khi thay đổi bộ lọc
-        function applyFilters() {
-            let colors = [];
-            let sizes = [];
-            let minPrice = null;
-            let maxPrice = null;
-
-            // Lấy ID màu được chọn
-            $('.color-checkbox:checked').each(function () {
-                colors.push($(this).val()); // Lấy value (ID màu)
-            });
-
-            // Lấy ID kích cỡ được chọn
-            $('.form-check-input:checked').each(function () {
-                if ($(this).attr('id').startsWith('size')) {
-                    sizes.push($(this).val()); // Lấy value (ID kích cỡ)
+        <script>
+            $(document).ready(function () {
+                // Hàm gửi request khi thay đổi bộ lọc
+                function applyFilters() {
+                    let colors = [];
+                    let sizes = [];
+                    let minPrice = null;
+                    let maxPrice = null;
+            
+                    // Lấy ID màu được chọn
+                    $('.color-checkbox:checked').each(function () {
+                        colors.push($(this).val()); // Lấy value (ID màu)
+                    });
+            
+                    // Lấy ID kích cỡ được chọn
+                    $('.form-check-input:checked').each(function () {
+                        if ($(this).attr('id').startsWith('size')) {
+                            sizes.push($(this).val()); // Lấy value (ID kích cỡ)
+                        }
+                    });
+            
+                    // Lấy khoảng giá
+                    $('.price-filter:checked').each(function () {
+                        let min = parseFloat($(this).data('min'));
+                        let max = parseFloat($(this).data('max'));
+                        if (minPrice == null || min < minPrice) minPrice = min;
+                        if (maxPrice == null || max > maxPrice) maxPrice = max;
+                    });
+            
+                    // Tạo URL với các tham số lọc
+                    let url = '/all-products?page=0&size=${pageSize}&sort=${sort}';
+                    if (colors.length > 0) {
+                        url += '&colors=' + colors.join(',');
+                    }
+                    if (sizes.length > 0) {
+                        url += '&sizes=' + sizes.join(',');
+                    }
+                    if (minPrice != null && maxPrice != null) {
+                        url += '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
+                    }
+            
+                    // Chuyển hướng đến URL mới
+                    window.location.href = url;
                 }
+            
+                // Gắn sự kiện thay đổi cho các bộ lọc
+                $('.color-checkbox, .form-check-input, .price-filter').change(function () {
+                    applyFilters();
+                });
+            
+                // Animation cho phần sản phẩm
+                $('.product-card').each(function(i) {
+                    $(this).css('animation-delay', (i * 0.1) + 's');
+                });
+            
+                // Xử lý navbar collapse
+                $('#navbarNavDarkDropdown').addClass('show');
             });
-
-            // Lấy khoảng giá
-            $('.price-filter:checked').each(function () {
-                let min = parseFloat($(this).data('min'));
-                let max = parseFloat($(this).data('max'));
-                if (minPrice == null || min < minPrice) minPrice = min;
-                if (maxPrice == null || max > maxPrice) maxPrice = max;
-            });
-
-            // Tạo URL với các tham số lọc
-            let url = '/all-products?page=0&size=${pageSize}&sort=${sort}';
-            if (colors.length > 0) {
-                url += '&colors=' + colors.join(',');
-            }
-            if (sizes.length > 0) {
-                url += '&sizes=' + sizes.join(',');
-            }
-            if (minPrice != null && maxPrice != null) {
-                url += '&minPrice=' + minPrice + '&maxPrice=' + maxPrice;
-            }
-
-            // Chuyển hướng đến URL mới
-            window.location.href = url;
-        }
-
-        // Gắn sự kiện thay đổi cho các bộ lọc
-        $('.color-checkbox, .form-check-input, .price-filter').change(function () {
-            applyFilters();
-        });
-
-        // Animation cho phần sản phẩm
-        $('.product-card').each(function(i) {
-            $(this).css('animation-delay', (i * 0.1) + 's');
-        });
-
-        // Xử lý navbar collapse
-        $('#navbarNavDarkDropdown').addClass('show');
-    });
-</script>
+            </script>
 </body>
 </html>

@@ -1,5 +1,19 @@
 
 $(document).ready(function () {
+    $(".wrapper-register").animate(
+        {
+            left: "0", // Di chuyển về vị trí ban đầu
+            opacity: 1, // Hiển thị dần
+        },
+        1000
+    );
+    $(".wrapper-login").animate(
+        {
+            left: "0", // Di chuyển về vị trí ban đầu
+            opacity: 1, // Hiển thị dần
+        },
+        1000
+    );
     // Event Onload Window
     $(window).on("load", function () {
         $(".wrapper-login").animate(

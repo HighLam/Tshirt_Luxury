@@ -15,8 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/profiles")
 public class UserProfileController {
-
-
     @Autowired
     private UserProfileService userProfileService;
 
@@ -58,5 +56,4 @@ public class UserProfileController {
         userProfileService.setDefaultProfile(loggedInUser.getId(), profileId);
         return ResponseEntity.ok().build();
     }
-
 }

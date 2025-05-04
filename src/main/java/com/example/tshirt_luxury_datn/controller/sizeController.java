@@ -1,63 +1,61 @@
 package com.example.tshirt_luxury_datn.controller;
 
-import com.example.tshirt_luxury_datn.entity.DanhMuc;
-import com.example.tshirt_luxury_datn.entity.Size;
-import com.example.tshirt_luxury_datn.repository.sizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import com.example.tshirt_luxury_datn.dto.SizeDTO;
+import com.example.tshirt_luxury_datn.entity.User;
+import com.example.tshirt_luxury_datn.services.SizeService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class sizeController {
-
+@RequestMapping("/admin/sizes")
+public class SizeController {
     @Autowired
-    sizeRepository sizeRepository;
+    private SizeService sizeService;
 
-    @GetMapping("t-shirt-luxury/admin/size")
-    public String sizeHienThi(Model model) {
-        model.addAttribute("size", sizeRepository.findAll());
-        return "size/size";
-    }
-
-    @GetMapping("t-shirt-luxury/admin/size/delete")
-    public String sizeDelete(@RequestParam("id") Integer id) {
-        sizeRepository.deleteById(id);
-        return "redirect:/t-shirt-luxury/admin/size";
-    }
-
-    @PostMapping("t-shirt-luxury/admin/size/add")
-    public String sizeAdd(@ModelAttribute("size") Size size) {
-        size.setNgayTao(new Date());
-        size.setNgaySua(new Date());
-        sizeRepository.save(size);
-        return "redirect:/t-shirt-luxury/admin/size";
-    }
-
-    @GetMapping("t-shirt-luxury/admin/size/getOne")
-    public String getOneSize(@RequestParam(name = "id") Integer id, Model model) {
-
-        Size size = sizeRepository.getOne(id);
-        model.addAttribute("size", size);
-        return "size/sua-size";
-    }
-
-
-    @PostMapping("t-shirt-luxury/admin/size/update")
-    public String updateSize(@RequestParam("id") Integer id, @ModelAttribute("size") Size size) {
-        Size getOne = sizeRepository.getReferenceById(id);
-        if (getOne.getId() == id) {
-            Date ngaySua = new Date();
-            size.setId(id);
-            size.setNgaySua(ngaySua);
-            size.setNgayTao(getOne.getNgayTao());
-            sizeRepository.save(size);
+    @GetMapping("")
+    public String listSizes(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
         }
-        return "redirect:/t-shirt-luxury/admin/size";
+        model.addAttribute("sizes", sizeService.getAllSize());
+        return "admin/Size/size";
+    }
+
+    @PostMapping("/save")
+    public String createSize(@ModelAttribute("size") SizeDTO sizeDTO, Model model) {
+        try {
+            sizeService.createSize(sizeDTO);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/sizes";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateSize(@PathVariable Long id, @ModelAttribute("size") SizeDTO sizeDTO, Model model) {
+        try {
+            sizeService.updateSize(id, sizeDTO);
+            model.addAttribute("success", "Cập nhật size thành công!");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/sizes";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteSize(@PathVariable Long id, Model model) {
+        try {
+            sizeService.deleteSize(id);
+            model.addAttribute("success", "Xóa size thành công!");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/sizes";
     }
 }

@@ -1,6 +1,5 @@
 package com.example.tshirt_luxury_datn.repository;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -12,14 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.tshirt_luxury_datn.entity.UserProfile;
 
-import org.springframework.stereotype.Repository;
-
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
-
     List<UserProfile> findByUserId(Long userId);
-
-
+  
     Optional<UserProfile> findByIdAndUserId(Long id, Long userId);
 
     @Modifying

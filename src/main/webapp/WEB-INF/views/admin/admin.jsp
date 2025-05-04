@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -607,4 +605,3 @@
             </script>
 
             </html>
->>>>>>> 317928b45b9880784d9230d8d547650b8d5adb9d

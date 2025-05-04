@@ -1,10 +1,10 @@
 package com.example.tshirt_luxury_datn.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +35,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserProfile> profiles = new ArrayList<>();
-
-
 }
