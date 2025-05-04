@@ -93,4 +93,79 @@ public class PosController {
 
         return "admin/Pos/pos";
     }
+    @GetMapping("/product-details")
+    @ResponseBody
+    public List<ProductDetailDTO> getProductDetails(@RequestParam Long productId) {
+        List<ProductDetail> details = productDetailService.getProductDetailByProductId(productId);
+        return details.stream()
+                .map(ProductDetailDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public String handlePOSAction(@RequestParam String action, @RequestParam(required = false) String productCode,
+                                  @RequestParam(required = false) Integer quantity, @RequestParam(required = false) String code,
+                                  OrderDTO orderDTO,
+                                  HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+
+        switch (action) {
+            case "add":
+                ProductDetail p = productDetailService.getProductDetailByCode(code);
+                if (p != null) {
+                    cartService.pos_addToCart(cart, p);
+                }
+                break;
+            case "update":
+                try {
+                    cartService.pos_updateQuantity(cart, code, quantity);
+                } catch (IllegalArgumentException e) {
+                    redirectAttributes.addFlashAttribute("error", e.getMessage());
+                }
+                break;
+            case "remove":
+                cartService.pos_removeFromCart(cart, code);
+                break;
+            case "clear":
+                cart.clear();
+                break;
+            case "checkout":
+                if (cart != null && !cart.isEmpty()) {
+                    Order order = orderService.orderInStore(cart, orderDTO);
+                    cart.clear();
+                    model.addAttribute("message", order.getCode());
+                }
+                break;
+            default:
+                break;
+        }
+        session.setAttribute("cart", cart);
+        return "redirect:/admin/pos";
+    }
+
+    @PostMapping("/update-quantity")
+    @ResponseBody
+    public ResponseEntity<?> updateQuantity(@RequestParam String code,
+                                            @RequestParam Integer quantity,
+                                            HttpSession session) {
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // Cập nhật số lượng trong giỏ hàng
+            cartService.pos_updateQuantity(cart, code, quantity);
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            // Trả về lỗi nếu số lượng không hợp lệ
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }
